@@ -22,6 +22,7 @@ import DevList from "../page/apply/avaiableDev/devList.vue"
 import ChangeReq from "../page/apply/avaiableDev/changeReq/changeReq.vue"
 import AppDetail from "../page/apply/avaiableDev/appDetail.vue"
 import WaitAccept from "../page/accept/waitAccept.vue"
+import Regist_One from "../page/print/regist_one.vue"
 
 
 //const login = r => require.ensure([], () => r(require('../page/login/login')), 'Login');
@@ -34,6 +35,7 @@ const router = new VueRouter({
     {path: "/header", component: Header},
     {path: "/footer", component: Footer},
     {path: "/manage", component: Manage},
+    {path: "/regist_One", component: Regist_One},
     {
       path: '/home', component: Home,
       children: [
@@ -54,6 +56,7 @@ const router = new VueRouter({
         {path: "/changeReq", component: ChangeReq},
         {path: "/appDetail", component: AppDetail},
         {path: "/waitAccept", component: WaitAccept},
+
 
       ]
     }
