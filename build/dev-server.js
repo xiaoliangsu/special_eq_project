@@ -26,6 +26,7 @@ var seller=appData.seller;  //获取数据
 var goods=appData.goods;
 var userInfo=appData.userInfo;
 var orderInfo=appData.orderInfo;
+var RegistOne=appData.RegistOne;
 var apiRoutes=express.Router();
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -78,6 +79,14 @@ apiRoutes.post("/submitSetInfo",function(req,res){
   }
 });
 
+apiRoutes.get("/getRegistOne",function(req,res){
+  res.json({
+    success:RegistOne
+
+  });
+  console.log(RegistOne);
+});
+
 apiRoutes.get("/userInfo",function(req,res){
   res.json({
     errno:0,
@@ -85,6 +94,7 @@ apiRoutes.get("/userInfo",function(req,res){
 
   });
 });
+
 
 apiRoutes.get("/goods",function(req,res){
   res.json({

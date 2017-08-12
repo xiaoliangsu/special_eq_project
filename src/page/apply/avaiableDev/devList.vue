@@ -288,7 +288,7 @@
             },
             appDetail(value){
                // console.log(value);
-                this.$router.push({path:'appDetail',query: {dev_id: value.id,dev_name:value.device}});
+                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
             }
 
 

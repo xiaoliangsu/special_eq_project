@@ -16,45 +16,33 @@
   import regist_one from '../../../components/register/registerOne.vue'
 
   import * as avaiableService from '../../../services/avaiableDev.js'
+  import * as registService from '../../../services/registService'
   export default {
     data() {
       return {
-        ruleForm: {
-          kind1: '',
-          kind2: '',
-          kind3: '',
-          device_name: '',
-          device_code: '',
-          device_type: '',
-          design_year: '',
-          design_com_name: '',
-          make_com_name: '',
-          const_com_name: '',
-          inspect_com_name: '',
-          test_com_name: '',
-          use_com_name: '',
-          check_com_name: '',
-        },
+        ruleForm:'',
         dev_id: '',
         dev_name: '',
 
 
       }
     },
+    mounted(){
+      this.ruleForm = this.getRegistOne;
+        this.getRegistOneForm(this.dev_id);
+      this.ruleForm = this.getRegistOne;
+        console.log( this.ruleForm)
+    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route': 'initData'
+    },
     methods: {
-      //...mapActions({ selectedDeviceOption: 'selectedDeviceOption' }),
+      ...mapActions({ getRegistOneForm: 'getRegistOneForm' }),
       initData(){
-        avaiableService.InitData(dev_id).then(res => {
-          //console.log(res);
-          if (res) {
-            console.log(res.success);
-            this.ruleForm = res.success;
-
-          }
-        })
-          .catch(error => {
-            console.log(error)
-          })
+        console.log(2);
+        this.getRegistOneForm(this.dev_id);
+        this.ruleForm = this.getRegistOne;
       },
       transparam(){
         if (this.$route.query.dev_id) {
@@ -70,26 +58,12 @@
 
 
       },
-      createPdf() {
-
-//                let newWindow = window.open("_blank");   //打开新窗口
-              let codestr = document.getElementById("pdf-wrap").innerHTML;   //获取需要生成pdf页面的div代码
-//                newWindow.document.write(codestr);   //向文档写入HTML表达式或者JavaScript代码
-//                newWindow.document.close();     //关闭document的输出流, 显示选定的数据
-//                newWindow.print();   //打印当前窗口
-//                return true;
-        window.localStorage.setItem('ty_finance', codestr);
-        window.location.href= './res/finance.html';
-        window.print();
-      },
-
-
     },
 
     computed: {
-      ...mapState(['selectedOption']),
+      ...mapState(['registOne']),
       ...mapGetters([
-        "getSelectedOption",
+        "getRegistOne",
       ]),
     },
     components: {
