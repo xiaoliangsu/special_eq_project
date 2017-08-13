@@ -290,8 +290,10 @@
         border-top-right-radius: 0;
         border-bottom-right-radius: 3px;
         border-bottom-left-radius: 3px;
+      border-color:#dddee1;
         margin-top: 10px;
         box-sizing: border-box;
+
         .page{
             float:right;
             margin:10px;

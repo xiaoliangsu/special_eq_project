@@ -2,6 +2,7 @@ import * as registService from '../../services/registService'
 import {
   GET_REGISTONE_FORM,
   SET_REGISTONE_FORM,
+  CLEAR_REGISTONE_FORM,
 } from '../../constants/regist.js'
 
 const state = {
@@ -43,6 +44,9 @@ const actions = {
     }).catch(error => {
       console.log(error)
     })
+  },
+  clearRegistOneForm({commit}){
+    commit(CLEAR_REGISTONE_FORM)
   }
 }
 const getters = {
@@ -62,6 +66,25 @@ const mutations = {
     state.registOne = res.success
     console.log(state.registOne)
 
+  },
+  [CLEAR_REGISTONE_FORM](state){
+    state.registOne =  {
+      kind1: '',
+      kind2: '',
+      kind3: '',
+      device_name: '',
+      device_code: '',
+      device_type: '',
+      design_year: '',
+      design_com_name: '',
+      make_com_name: '',
+      const_com_name: '',
+      inspect_com_name: '',
+      test_com_name: '',
+      use_com_name: '',
+      check_com_name: '',
+    }
+    console.log('CLEAR_REGISTONE_FORM');
   }
 
 }

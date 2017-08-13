@@ -5,7 +5,7 @@
     <transition name="form-fade" mode="in-out">
       <section class="form_contianer" v-show="showLogin">
         <div class="manage_tip">
-          <!--<p>特种设备管理系统</p>-->
+          <p>特种设备管理系统</p>
         </div>
         <!--手机号验证码登陆  还没写好  之后重改-->
         <!--<el-form :model="loginForm" :rules="rules" ref="loginForm" v-if="loginway">-->
@@ -33,6 +33,17 @@
                   <Icon type="ios-locked-outline" slot="prepend"></Icon>
                   </Input>
               </Form-item>
+            <Form-item prop="author_key">
+              <Select v-model="loginForm.author_key" placeholder="请选择角色" @on-change="selectAuthorKey">
+                <Option value="1">申请单位</Option>
+                <Option value="2">受理机关</Option>
+                <Option value="3">审批机关</Option>
+                <Option value="4">监管机关</Option>
+                <Option value="5">超级管理员</Option>
+                <Option value="6">all</Option>
+              </Select>
+              </Input>
+            </Form-item>
               <Form-item>
                   <Button type="primary" @click="_login()">登录</Button>
               </Form-item>
@@ -60,6 +71,7 @@
         loginForm: {
           username: '',
           password: '',
+          author_key:'',
 
         },
         // loginway: true,
@@ -108,7 +120,8 @@
         }
         let data = {
           username: this.loginForm.username,
-          password: this.loginForm.password
+          password: this.loginForm.password,
+          author_key:this.loginForm.author_key,
         }
         this.$store.dispatch('setLoadingState', true)
         loginService.Login(data).then(res => {
@@ -125,6 +138,10 @@
           .catch(error => {
             console.log(error)
           })
+      },
+      selectAuthorKey(value){
+          this.author_key=value;
+         // alert(this.author_key);
       },
       submitForm(){
         var username1 = this.loginForm.username;
@@ -171,6 +188,7 @@
   @import '../../style/mixin';
 
 
+
   .login_page {
     background-color: #324057;
     //background-color:black;
@@ -188,14 +206,14 @@
     left: 0;
     p {
       font-size: 30px;
-      color: #fff;
+      color: #324057;
     }
   }
 
   .form_contianer {
 
-    @include wh(320px, 210px);
-    @include ctp(320px, 210px);
+    @include wh(350px, 240px);
+    @include ctp(350px, 240px);
     padding: 25px;
     border-radius: 5px;
     text-align: center;

@@ -1,10 +1,11 @@
 <template>
   <div class="detailPdf">
     <ul class="detail_ul">
-      <li v-for="(item,index) in pdfUrl" class="detail_li">
+      <li v-for="(item,index) in pdfUrl" class="detail_li" >
         <a v-bind:href='item' download="1.txt" class="detail_a">{{index}}.pdf</a>
       </li>
     </ul>
+
   </div>
 </template>
 <script>
@@ -22,9 +23,12 @@
 
 </script>
 <style lang="scss" scoped>
-  .detail_a{
-    font:black;
+  .detail_li{
+    margin:10px;
+    font-size:small;
   }
+
+
 
 
 </style>

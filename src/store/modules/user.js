@@ -11,7 +11,8 @@ const state = {
   // 用户登录信息
   userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
   // 用户数据信息
-  userData: []
+  userData: [],
+  //author_key: localStorage.getItem('author_key') || '',
 }
 
 const actions = {
@@ -23,6 +24,9 @@ const actions = {
     // console.log("sdsd");
     // console.log(JSON.parse(localStorage.getItem('userInfo')).success);
     localStorage.setItem('loginStatus', true)
+    localStorage.setItem('author_key',res.author_key)
+    console.log(localStorage.getItem('author_key'))
+    //console.log(localStorage.getItem('author_key')
     commit(SET_USER_INFO, res)
     commit(SET_LOGIN_STATUS, true)
   },
@@ -53,7 +57,8 @@ const actions = {
 const getters = {
   getUserData: state => state.userData,
   loginStatus: state => state.loginStatus,
-  userInfo: state => state.userInfo
+  userInfo: state => state.userInfo,
+ // getAuthorkey:state => state.author_key,
 }
 
 const mutations = {

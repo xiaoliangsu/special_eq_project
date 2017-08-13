@@ -13,7 +13,7 @@ import store from './store/'
 //Vue.use(ElementUI);
 Vue.use(iView);
 
-require('./static/css/reset.css');
+//require('./static/css/reset.css');
 // const router = new VueRouter({
 //     routes
 // });

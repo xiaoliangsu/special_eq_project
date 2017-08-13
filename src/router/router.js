@@ -23,12 +23,14 @@ import ChangeReq from "../page/apply/avaiableDev/changeReq/changeReq.vue"
 import AppDetail from "../page/apply/avaiableDev/appDetail.vue"
 import WaitAccept from "../page/accept/waitAccept.vue"
 import Regist_One from "../page/print/regist_one.vue"
+import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 
 
 //const login = r => require.ensure([], () => r(require('../page/login/login')), 'Login');
 const router = new VueRouter({
   routes: [
     {path: "/", component: Login},
+    {path: "/login", component: Login},
     //{path: "/home", component: Home},
 
     {path: '/sidebar', component: Sidebar},
@@ -45,7 +47,7 @@ const router = new VueRouter({
             requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
           },
         },
-        {path: "/login", component: Login},
+
         {path: "/user", component: User},
         {path: "/firstApp", component: FirstApp,
           // 添加该字段，表示进入这个路由是需要登录的
@@ -56,6 +58,7 @@ const router = new VueRouter({
         {path: "/changeReq", component: ChangeReq},
         {path: "/appDetail", component: AppDetail},
         {path: "/waitAccept", component: WaitAccept},
+        {path: "/transformChange", component: TransformChange},
 
 
       ]

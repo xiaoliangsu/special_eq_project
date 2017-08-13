@@ -6,10 +6,12 @@
         </div>
 
         <div class="header-right">
-            <router-link :to=" userInfo? '/user' :'/login' " class="head_login">
-              <span v-if="loginStatus" class="user_name">{{userInfo.success}}</span>
-              <span v-else>登陆｜注册</span>
-            </router-link>
+          <router-link :to="loginStatus? '/user' :'/' " class="head_login">
+            <div v-if="loginStatus" class="user_name">
+              <span>{{userInfo.username}}</span>
+            </div>
+            <span v-else>登陆｜注册</span>
+          </router-link>
 
           <!--<div>-->
             <!--<button @click="showInfo">快出来</button>-->

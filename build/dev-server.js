@@ -48,7 +48,8 @@ apiRoutes.post("/login",function(req,res){
     console.log(req.body.username);
     res.json({
       success:true,
-      username:req.body.username
+      username:req.body.username,
+      author_key:req.body.author_key,
     });
   }else{
     res.json({

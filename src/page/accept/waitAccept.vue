@@ -9,6 +9,12 @@
         </Col>
 
         <Col span="8">
+        <label>设备类别</label>
+        <Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">
+          <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
+        </Select>
+        </Col>
+        <Col span="8">
         <label>设备状态</label>
         <Select v-model="model2" style="width:200px" @on-change="changeSort">
           <Option v-for="item in sort" :value="item.value" :key="item.value"> {{ item.label }}</Option>
@@ -18,7 +24,7 @@
       </Row>
     </div>
     <div class="list-box">
-      <Table border :columns="columns5" :data="data5" @on-row-click="appDetail"></Table>
+      <Table border :columns="columns5" :data="data5" ></Table>
       <Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize" ></Page>
 
     </div>
@@ -85,7 +91,8 @@
         columns5: [
           {
             title: '设备名称',
-            key: 'device'
+            key: 'device',
+
           },
           {
             title: '日期',
@@ -105,6 +112,7 @@
             title: '监管机关',
             key: 'watcher'
           },
+
           {
             title: '操作',
             key: 'state',
@@ -120,35 +128,12 @@
                   },
                   on: {
                     click: () => {
-                      this.changeReq(params.index)
+                      this.appDetail(params.index)
                     }
                   }
-                }, '变更申请'),
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  on: {
-                    click: () => {
-                      this.remove(params.index)
-                    }
-                  }
-                }, '停用申请'),
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params.index)
-                    }
-                  }
-                }, '报废申请'),
+                }, '受理'),
+
+
               ]);
             }
 
@@ -192,7 +177,7 @@
       },
       changeTime(value){
         console.log(value);
-        orderStatusService.ChangeTime(value).then(res => {
+        orderStatusService.ChangeTime().then(res => {
           if (res.success) {
             this.data5 = res.success;
 
@@ -264,7 +249,7 @@
       },
       appDetail(value){
         // console.log(value);
-        this.$router.push({path:'appDetail',query: {dev_id: value.id,dev_name:value.device}});
+        this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
       }
 
 

@@ -42,7 +42,8 @@
     }
 
   .content{
-    background: none repeat scroll 0 0 rgb(251,251,251);
+    background: none repeat scroll 0 0 #f8f8f9;
+    border-color: #80848f;
     position: absolute;
     left: 180px;
     right: 0;

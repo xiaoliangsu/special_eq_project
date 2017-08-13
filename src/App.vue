@@ -47,10 +47,11 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   body {
-    ／／font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
-    background-color: #F2F2F2;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    background-color: #f8f8f9;
+
   }
 
 
