@@ -50,7 +50,7 @@
 
         <Menu-group title="受理机关" v-if="this.author_key==2">
           <Menu-item name="waitAccept">未受理订单</Menu-item>
-          <Menu-item name="orderList">已受理订单</Menu-item>
+          <Menu-item name="accepted">已受理订单</Menu-item>
         </Menu-group>
 
         <Menu-group title="审批机关" v-if="this.author_key==3">

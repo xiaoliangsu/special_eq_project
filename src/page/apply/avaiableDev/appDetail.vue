@@ -27,11 +27,14 @@
         </div>
         <div class="accpeterControl">
 
-            <Button type="success" @click="accPass" v-if="!rejvalue">通过</Button>
-            <Button @click="accRej" v-if="!rejvalue">驳回</Button>
-            <p class="reject_content" v-if="rejvalue">
-                驳回理由：{{ rejvalue }}
-            </p>
+
+            <div class="reject_content" v-if="orderState=='accepted'">
+                <h2 class="detailHead">驳回理由：</h2>
+                <span class="panel_content"> {{ rejvalue }}</span>
+                <span class="panel_content"> 后端传来的驳回理由 </span>
+            </div>
+            <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">通过</Button>
+            <Button @click="accRej"  v-if="orderState=='waitAccept'">驳回</Button>
 
         </div>
 
@@ -60,7 +63,8 @@
                     水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
                 },
                 accStatus: '',
-                rejvalue: ''
+                rejvalue: '',
+                orderState:'',
 
 
             }
@@ -82,10 +86,10 @@
         methods: {
             ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
             initData(){
-                console.log(2);
                 this.getRegistOneForm(this.dev_id);
                 this.ruleForm = this.getRegistOne;
                 this.rejvalue='';
+                this.transparam();
             },
             transparam(){
                 if (this.$route.query.dev_id) {
@@ -95,18 +99,33 @@
                     this.dev_name = this.$route.query.dev_name;
                     console.log(this.dev_name);
                 }
+                if(this.$route.query.orderState){
+                    this.orderState = this.$route.query.orderState;
+                     console.log(this.orderState);
+                }
             },
             toblanck(){
                 this.$router.push('regist_one');
             },
             accPass(){
                 this.accStatus = true;
-                acceptService.AccPass(this.accStatus).then(res => {
-                    this.$router.push('home');
+                this.$Modal.confirm({
+                    title: '确认信息',
+                    content: '<p>确认通过该申请订单？</p>',
+                    onOk: () => {
+                        this.$Message.info('点击了确定');
+                        acceptService.AccPass(this.accStatus).then(res => {
+                            this.$router.push('waitAccept');
 
-                }).catch(error => {
-                    console.log(error);
-                })
+                        }).catch(error => {
+                            console.log(error);
+                        })
+                    },
+                    onCancel: () => {
+                        this.$Message.info('点击了取消');
+                    }
+                });
+
             },
             accRej () {
                 this.$Modal.confirm({
@@ -124,13 +143,11 @@
                                     this.rejvalue = val;
                                 }
                             },
-
-
                         })
                     },
                     onOk: () => {
                         this.$Message.info('点击了确定');
-                        console.log(1);
+                        this.$router.push('waitAccept');
                     },
                     onCancel: () => {
                         this.$Message.info('点击了取消');

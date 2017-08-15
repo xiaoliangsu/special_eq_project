@@ -65,6 +65,22 @@ apiRoutes.get("/getorders",function(req,res){
   });
 });
 
+apiRoutes.get("/getWaitAcccpetOrders",function(req,res){
+    res.json({
+        success:orderInfo.orders,
+        state:"waitAccept"
+
+    });
+});
+
+apiRoutes.get("/getAcceptedOrders",function(req,res){
+    res.json({
+        success:orderInfo.orders,
+        state:"accepted"
+
+    });
+});
+
 
 apiRoutes.post("/submitSetInfo",function(req,res){
   if(req.body){
