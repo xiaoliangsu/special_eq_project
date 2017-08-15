@@ -50,7 +50,16 @@
 <style lang="scss">
   body {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
-    background-color: #f8f8f9;
+    //background-color: #f8f8f9;
+      width: 100%;
+      background: #333;
+      overflow: hidden;
+      background-size: cover;
+      background-attachment:fixed;
+      background-position:center;
+      z-index: 1;
+      background-repeat: no-repeat;
+      background-image:url('assets/demo-1-bg.jpg');
 
   }
 
