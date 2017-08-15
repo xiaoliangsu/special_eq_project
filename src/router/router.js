@@ -54,6 +54,9 @@ const  TransformChange= r => require.ensure([], () => r(require('../page/apply/a
 //import Accepted from "../page/accept/accepted.vue"
 const  Accepted= r => require.ensure([], () => r(require('../page/accept/accepted.vue')),'Accepted');
 
+const  CompanyApp= r => require.ensure([], () => r(require('../page/apply/companyApp.vue')),'CompanyApp');
+const  CarboxApp= r => require.ensure([], () => r(require('../page/apply/carboxApp.vue')),'CarboxApp');
+
 
 
 
@@ -86,6 +89,8 @@ const router = new VueRouter({
                     meta: {requireAuth: true}
                 },
                 {path: "/setApp", component: SetApp},
+                {path: "/companyApp", component: CompanyApp},
+                {path: "/carboxApp", component: CarboxApp},
                 {path: "/orderList", component: OrderList},
                 {path: "/devList", component: DevList},
                 {path: "/changeReq", component: ChangeReq},

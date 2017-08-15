@@ -12,22 +12,6 @@
                 </Form-item>
                 <Button type="primary" @click="next" :disabled="ifNext">下一步</Button>
             </Form>
-            <!--<el-form ref="form" :model="form" class="demo-form-inline" label-width="100px">-->
-            <!--<el-form-item label="申请设备种类">-->
-            <!--<el-cascader-->
-            <!--expand-trigger="hover"-->
-            <!--:options="form.options"-->
-            <!--@change="handleChange">-->
-            <!--</el-cascader>-->
-            <!--</el-form-item>-->
-
-            <!--<el-form-item label="申请数量">-->
-            <!--<el-input-number v-model="form.num1" :min="1" :max="10"></el-input-number>-->
-
-            <!--</el-form-item>-->
-
-            <!--</el-form>-->
-            <!--<el-button style="margin-top: 12px;" @click="next" :disabled="ifNext">下一步</el-button>-->
         </div>
     </div>
 </template>
@@ -96,14 +80,24 @@
             handleChange(value) {
                 console.log(value);
                 this.selectedDeviceOption(value);
-                console.log(this.getSelectedOption);
+                console.log(this.getSelectedOption[0]);
                 if (value) {
                     this.ifNext = false;
                 }
             },
             next() {
-                if (this.active++ > 2) this.active = 0;
-                this.$router.push('setApp');
+                if (this.active++ > 2) {this.active = 0;}
+                if(this.getSelectedOption[0]=='one' && this.getSelectedOption[1]!=='carbox'){
+                    this.$router.push('setApp');
+                }else if(this.getSelectedOption[0]=='two' ){
+                    this.$router.push('companyApp');
+                }else if(this.getSelectedOption[1]=='carbox'){
+                    this.$router.push('carboxApp');
+                }
+
+
+
+
 
             },
 

@@ -2,6 +2,7 @@
   <!--按套申请的使用登记表-->
   <div class="setApp">
     <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
+        <h2>按台/套申请(除车用气瓶)</h2>
       <div class="statusInfo" v-if="this.active==1">
         <h2>设备基本情况</h2>
         <Form-item label="设备种类" prop="kind1">
