@@ -44,7 +44,8 @@
         <!--</template>-->
         <Menu-group title="申请单位" v-if="this.author_key==1">
         <Menu-item name="firstApp">首次申请</Menu-item>
-        <Menu-item name="orderList">全部订单</Menu-item>
+          <Menu-item name="unSubmitOrder">未提交订单</Menu-item>
+        <Menu-item name="orderList">全部已提交订单</Menu-item>
         <Menu-item name="devList">已有设备列表</Menu-item>
         </Menu-group>
 

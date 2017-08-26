@@ -27,6 +27,10 @@ var goods=appData.goods;
 var userInfo=appData.userInfo;
 var orderInfo=appData.orderInfo;
 var RegistOne=appData.RegistOne;
+var RegistTwo=appData.RegistTwo;
+var RegistThree=appData.RegistThree;
+
+
 var apiRoutes=express.Router();
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -122,7 +126,43 @@ apiRoutes.post("/submitSetInfo",function(req,res){
 
 apiRoutes.get("/getRegistOne",function(req,res){
   res.json({
-    success:RegistOne
+    success:RegistOne,
+    pdfUrl:[
+      {
+        'name': 'pdf1',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      },
+      {
+        'name': 'pdf2',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      }
+    ],
+
+  });
+  console.log(RegistOne);
+});
+apiRoutes.get("/getRegistTwo",function(req,res){
+  res.json({
+    success:RegistTwo,
+    pdfUrl:[
+      {
+        'name': 'pdf1',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      },
+    ],
+
+  });
+  console.log(RegistOne);
+});
+apiRoutes.get("/getRegistThree",function(req,res){
+  res.json({
+    success:RegistThree,
+    pdfUrl:[
+      {
+        'name': 'pdf33',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      },
+    ],
 
   });
   console.log(RegistOne);

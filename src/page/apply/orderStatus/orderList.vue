@@ -98,6 +98,16 @@
                         key: 'time',
                         sortable: true
                     },
+                  {
+                    title: '设备类别',
+                    key: 'changeDevice',
+
+                  },
+                  {
+                    title: '申请类别',
+                    key: 'changeApply',
+
+                  },
 
                     {
                         title: '受理机关',
@@ -270,10 +280,63 @@
                     })
 
             },
-            appDetail(value){
-                // console.log(value);
-                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
+//            appDetail(value){
+//                // console.log(value);
+//                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
+//            }
+          appDetail(value){
+            switch (this.data5[value].changeApplyNum) {
+              case 1:
+                //首次申请
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              case 2:
+                //改造变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              case 3:
+                //移装变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              case 4:
+                //单位变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              ////等等
+
+
             }
+
+
+          }
 
 
         },

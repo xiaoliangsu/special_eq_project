@@ -32,6 +32,8 @@ const SetApp= r => require.ensure([], () => r(require('../page/apply/setApp.vue'
 
 //import OrderList from "../page/apply/orderStatus/orderList.vue"
 const  OrderList = r => require.ensure([], () => r(require('../page/apply/orderStatus/orderList.vue')),'OrderList');
+const  UnSubmitOrder = r => require.ensure([], () => r(require('../page/apply/orderStatus/unSubmitOrder.vue')),'UnSubmitOrder');
+
 
 //import DevList from "../page/apply/avaiableDev/devList.vue"
 const  DevList = r => require.ensure([], () => r(require('../page/apply/avaiableDev/devList.vue')),'DevList');
@@ -99,7 +101,8 @@ const router = new VueRouter({
                 {path: "/companyApp", component: CompanyApp},
                 {path: "/carboxApp", component: CarboxApp},
                 {path: "/orderList", component: OrderList},
-                {path: "/devList", component: DevList},
+              {path: "/unSubmitOrder", component: UnSubmitOrder},
+              {path: "/devList", component: DevList},
                 {path: "/changeReq", component: ChangeReq},
                 {path: "/appDetail", component: AppDetail},
                 {path: "/waitAccept", component: WaitAccept},

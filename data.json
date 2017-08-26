@@ -12,7 +12,15 @@
     ]
   },
   "RegistOne": {
-    "kind1":"xiaoliangsu"
+    "eq_species":"xiaoliangsu"
+
+  },
+  "RegistTwo": {
+    "equipment_category":"设备类别"
+
+  },
+  "RegistThree": {
+    "eq_kind":"设备种类"
 
   },
    "orderInfo": {
@@ -25,7 +33,7 @@
             "checker":"审查机关1",
             "watcher":"监管机关1",
           "changeDevice":"锅炉",
-          "changeDeviceNum":[1,1],
+          "changeDeviceNum":["one","boiler"],
           "changeApply":"首次申请",
           "changeApplyNum":1,
             "state":1
@@ -37,6 +45,10 @@
             "accepter":"受理机关1",
             "checker": "审查机关2",
             "watcher":"监管机关2",
+          "changeDevice":"单位",
+          "changeDeviceNum":["two","cylinders"],
+          "changeApply":"首次申请",
+          "changeApplyNum":1,
             "state":0
         },
         {
@@ -46,7 +58,11 @@
             "accepter":"受理机关1",
             "checker": "审查机关2",
             "watcher":"监管机关2",
-            "state":0
+          "changeDevice":"车瓶",
+          "changeDeviceNum":["one","carbox"],
+          "changeApply":"首次申请",
+          "changeApplyNum":1,
+          "state":0
         },
         {
             "device": "车瓶",

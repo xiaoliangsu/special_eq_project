@@ -81,7 +81,7 @@
       <div class="setTable" v-if="this.active==2">
         <Alert closable>请确认表格信息是否全部正确</Alert>
 
-        <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+        <v-regist_three :ruleForm="ruleForm"></v-regist_three>
 
 
       </div>
@@ -94,6 +94,8 @@
             ref="upload"
             :before-upload="handleBeforeUpload"
             :on-success="handleSuccess"
+            :on-remove="handleRemove"
+            :default-file-list="defaultPdfList1"
             action="//jsonplaceholder.typicode.com/posts/"
             with-credentials>
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -131,16 +133,19 @@
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
       <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
+      <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
     </Form>
 
   </div>
 </template>
 <script>
-  import regist_one from '../../components/register/registerOne.vue'
+  import regist_three from '../../components/register/registerThree.vue'
   import detailPdf from '../../components/detailpdf/detailPdf.vue'
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
+  import * as registService from '../../services/registService'
+
   export default {
     data() {
       return {
@@ -172,14 +177,15 @@
           水壶2: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-        }
+        },
+        defaultPdfList1:[],
 
 
       };
     },
     components: {
-      'v-regist_one': regist_one,
-      'v-detailPdf': detailPdf,
+      'v-regist_three': regist_three,
+      //'v-detailPdf': detailPdf,
 
     },
     watch: {
@@ -190,23 +196,34 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistOne",
+        "getRegistThree",
       ]),
     },
     mounted(){
-      this.selected = this.getSelectedOption;
-      this.clearRegistOneForm();
-      this.ruleForm = this.getRegistOne;
-      this.active = 1;
+      this.initData();
       this.author_key=localStorage.getItem('author_key');
-
     },
     methods: {
       ...mapActions({clearRegistOneForm: 'clearRegistOneForm'}),
       initData(){
-        this.active = 1;
-        this.selected = this.getSelectedOption;
-        this.active = 1;
+        if(!this.$route.query.changeDeviceNum){
+          this.active = 1;
+          this.selected = this.getSelectedOption;
+          this.clearRegistOneForm();
+          this.ruleForm = this.getRegistThree;
+          this.defaultPdfList1 = [];
+        }else{
+          this.active = 1;
+          this.selected = this.getSelectedOption;
+          // 获取已经保存的信息
+          registService.getRegistThree(this.$route.query.dev_id).then(res => {
+            this.ruleForm=res.success;
+            this.defaultPdfList1=res.pdfUrl;
+            console.log(res);
+          }).catch(error => {
+            console.log(error)
+          })
+        }
       },
 
       submitForm(formName) {
@@ -215,7 +232,7 @@
             let param = Object.assign({}, this.ruleForm);
             // console.log(param);
             this.ifNext = false;
-            setAppService.submitSetInfo(param).then(res => {
+            setAppService.submitCarboxInfo(param).then(res => {
               //console.log(res);
               if (res) {
                 console.log(res.success);
@@ -230,6 +247,30 @@
           }
         });
       },
+      saveForm(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let param = Object.assign({}, this.ruleForm);
+            //把选择的哪一项带进去
+            param.selected=this.selected;
+            console.log(param);
+            this.ifNext = false;
+            setAppService.saveCarboxInfo(param).then(res => {
+              if (res) {
+                console.log(res.success);
+              }
+            })
+              .catch(error => {
+                console.log(error)
+              })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
+      },
+
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
@@ -247,7 +288,23 @@
       },
       before() {
         if (this.active == 1) {
-          this.$router.push('firstApp');
+          if(!this.$route.query.changeDeviceNum){
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                changeDeviceNum: this.getSelectedOption,
+              }
+            });
+          }else{
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                dev_id: this.$route.query.dev_id,
+                dev_name: this.$route.query.dev_name,
+                changeDeviceNum: this.$route.query.changeDeviceNum,
+              }
+            });
+          }
         } else {
           this.active--;
         }
@@ -279,6 +336,12 @@
       },
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
+        console.log(res);
+        console.log(file);
+
+      },
+      handleRemove(res, file) {
+        //res是移除的 file剩下的
         console.log(res);
         console.log(file);
 

@@ -52,7 +52,7 @@
       <div class="setTable" v-if="this.active==2">
         <Alert closable>请确认表格信息是否全部正确</Alert>
 
-        <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+        <v-regist_two :ruleForm="ruleForm"></v-regist_two>
 
 
       </div>
@@ -65,6 +65,8 @@
             ref="upload"
             :before-upload="handleBeforeUpload"
             :on-success="handleSuccess"
+            :on-remove="handleRemove"
+            :default-file-list="defaultPdfList1"
             action="//jsonplaceholder.typicode.com/posts/"
             with-credentials>
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -102,16 +104,19 @@
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
       <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
+      <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
     </Form>
 
   </div>
 </template>
 <script>
-  import regist_one from '../../components/register/registerOne.vue'
+  import regist_two from '../../components/register/registerTwo.vue'
   import detailPdf from '../../components/detailpdf/detailPdf.vue'
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
+  import * as registService from '../../services/registService'
+
   export default {
     data() {
       return {
@@ -143,14 +148,15 @@
           水壶2: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-        }
+        },
+        defaultPdfList1:[],
 
 
       };
     },
     components: {
-      'v-regist_one': regist_one,
-      'v-detailPdf': detailPdf,
+      'v-regist_two': regist_two,
+      //'v-detailPdf': detailPdf,
 
     },
     watch: {
@@ -161,32 +167,45 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistOne",
+        "getRegistTwo",
       ]),
     },
     mounted(){
-      this.selected = this.getSelectedOption;
-      this.clearRegistOneForm();
-      this.ruleForm = this.getRegistOne;
-      this.active = 1;
+      this.initData();
       this.author_key=localStorage.getItem('author_key');
-
     },
     methods: {
-      ...mapActions({clearRegistOneForm: 'clearRegistOneForm'}),
+      ...mapActions({clearRegistTwoForm: 'clearRegistTwoForm'}),
+      //初始化数据
       initData(){
-        this.active = 1;
-        this.selected = this.getSelectedOption;
-        this.active = 1;
+        if(!this.$route.query.changeDeviceNum){
+          this.active = 1;
+          this.selected = this.getSelectedOption;
+          this.clearRegistTwoForm();
+          this.ruleForm = this.getRegistTwo;
+          this.defaultPdfList1 = [];
+        }else{
+          this.active = 1;
+          this.selected = this.getSelectedOption;
+          // 获取已经保存的信息
+          registService.getRegistTwo(this.$route.query.dev_id).then(res => {
+            this.ruleForm=res.success;
+            this.defaultPdfList1=res.pdfUrl;
+            console.log(res);
+          }).catch(error => {
+            console.log(error)
+          })
+        }
       },
 
+      //提交表格信息
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let param = Object.assign({}, this.ruleForm);
             // console.log(param);
             this.ifNext = false;
-            setAppService.submitSetInfo(param).then(res => {
+            setAppService.submitCompanyInfo(param).then(res => {
               //console.log(res);
               if (res) {
                 console.log(res.success);
@@ -201,9 +220,35 @@
           }
         });
       },
+      //保存
+      saveForm(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let param = Object.assign({}, this.ruleForm);
+            //把选择的哪一项带进去
+            param.selected=this.selected;
+            console.log(param);
+            this.ifNext = false;
+            setAppService.saveCompanyInfo(param).then(res => {
+              if (res) {
+                console.log(res.success);
+              }
+            })
+              .catch(error => {
+                console.log(error)
+              })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
+      },
+      //重置
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
+      //下一步
       next(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
@@ -216,26 +261,41 @@
         }
 
       },
+      //上一步
+//      before() {
+//        if (this.active == 1) {
+//          this.$router.push('firstApp');
+//        } else {
+//          this.active--;
+//        }
+//      },
       before() {
         if (this.active == 1) {
-          this.$router.push('firstApp');
+          if(!this.$route.query.changeDeviceNum){
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                changeDeviceNum: this.getSelectedOption,
+              }
+            });
+          }else{
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                dev_id: this.$route.query.dev_id,
+                dev_name: this.$route.query.dev_name,
+                changeDeviceNum: this.$route.query.changeDeviceNum,
+              }
+            });
+          }
         } else {
           this.active--;
         }
       },
+      //确定
       beSure() {
         this.active++;
       },
-//      createPdf() {
-////                let newWindow = window.open("_blank");   //打开新窗口
-////                let codestr = document.getElementById("pdf-wrap").innerHTML;   //获取需要生成pdf页面的div代码
-////                newWindow.document.write(codestr);   //向文档写入HTML表达式或者JavaScript代码
-////                newWindow.document.close();     //关闭document的输出流, 显示选定的数据
-////                newWindow.print();   //打印当前窗口
-////                return true;
-//
-//        window.print();
-//      },
 
       handleBeforeUpload () {
         this.uploadList = this.$refs.upload.fileList;
@@ -254,7 +314,14 @@
         console.log(file);
 
       },
+      handleRemove(res, file) {
+        //res是移除的 file剩下的
+        console.log(res);
+        console.log(file);
 
+      },
+
+       //确认全部
       instance (type) {
         const title = '通知';
         const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
