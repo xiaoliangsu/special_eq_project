@@ -11,3 +11,7 @@ export function GetWaitAccpetOrders(param) {
 export function GetAcceptedOrders(param) {
     return fetch('/api/getAcceptedOrders',param,'get')
 }
+//获取订单的受理结果
+export function getAccReason(param) {
+  return fetch('/api/getAccReason',param,'get')
+}

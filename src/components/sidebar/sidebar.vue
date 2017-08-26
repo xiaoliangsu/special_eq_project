@@ -54,13 +54,12 @@
         </Menu-group>
 
         <Menu-group title="审批机关" v-if="this.author_key==3">
-          <Menu-item name="firstApp">未审批订单</Menu-item>
-          <Menu-item name="orderList">已审批订单</Menu-item>
+          <Menu-item name="waitApproval">未审批订单</Menu-item>
+          <Menu-item name="approvaled">已审批订单</Menu-item>
         </Menu-group>
 
         <Menu-group title="监管机关" v-if="this.author_key==4">
-          <Menu-item name="firstApp">已完成订单</Menu-item>
-          <Menu-item name="orderList">未完成订单</Menu-item>
+          <Menu-item name="supervision">已完成订单</Menu-item>
         </Menu-group>
         <!--<Submenu name="2">-->
           <!--<template slot="title">-->

@@ -1,7 +1,7 @@
 <template>
 
   <div class="login_page" id="login_page">
-    <v-toast v-show="showToast"></v-toast>
+    <!--<v-toast v-show="showToast"></v-toast>-->
     <transition name="form-fade" mode="in-out">
       <section class="form_contianer" v-show="showLogin">
           <canvas id="canvas" class="canvas"></canvas>
@@ -336,6 +336,21 @@
 </script>
 <style lang="scss" scoped>
   @import '../../style/mixin';
+  .login_page {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    //background-color: #f8f8f9;
+    width: 100%;
+    height:1000px;
+    background: #333;
+    overflow: hidden;
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-image:url('../../assets/demo-1-bg.jpg');
+
+  }
   .canvas {
       position: fixed;
       //z-index: 1;

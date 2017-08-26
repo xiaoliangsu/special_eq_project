@@ -20,34 +20,51 @@
             </Collapse>
 
 
+          <!--<Button type="primary" @click="test">受理通过</Button>-->
+          <!--<pdf src="https://cdn.mozilla.net/pdfjs/tracemonkey.pdf"></pdf>-->
+          <!--<embed v-if="this.testTrue==true" src="https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/freeculture.pdf"width="100%"   height="1000px" />-->
+          <!--<iframe name="resource" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" width="100%"   height="100%" scrolling="yes" frameborder="0"></iframe>-->
+
+
         </div>
         <div class="pdfdownload">
             <h2 class="detailHead">三、提交的资料：</h2>
-            <v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>
+            <v-detailPdf :pdfUrl="pdfUrl" ></v-detailPdf>
         </div>
         <div class="accpeterControl">
-
-
-            <div class="reject_content" v-if="orderState=='accepted'">
-                <h2 class="detailHead">驳回理由：</h2>
-                <span class="panel_content"> {{ rejvalue }}</span>
-                <span class="panel_content"> 后端传来的驳回理由 </span>
-            </div>
-            <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">通过</Button>
-            <Button @click="accRej"  v-if="orderState=='waitAccept'">驳回</Button>
-
+            <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">受理通过</Button>
+            <Button @click="accRej"  v-if="orderState=='waitAccept'">受理驳回</Button>
         </div>
+
+      <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'">
+        <h2 class="detailHead">四、受理结果：</h2>
+        <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
+        <span class="content" v-if="this.accStatus==false">{{this.accReason}}</span>
+      </div>
+
+      <div class="approvalControl">
+        <Button type="primary" @click="approvalPass" v-if="orderState=='waitApproval'">审批通过</Button>
+        <Button @click="approvalRej"  v-if="orderState=='waitApproval'">审批驳回</Button>
+      </div>
+      <div class="acceptReason" v-if="orderState=='approvaled'">
+        <h2 class="detailHead">四、审批结果：</h2>
+        <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
+        <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
+      </div>
 
     </div>
 </template>
 <script>
+
     import {mapActions, mapState, mapGetters} from 'vuex'
     import regist_one from '../../../components/register/registerOne.vue'
     import detailPdf from '../../../components/detailpdf/detailPdf.vue'
 
-    import * as avaiableService from '../../../services/avaiableDev.js'
-    import * as registService from '../../../services/registService'
+    //import * as avaiableService from '../../../services/avaiableDev.js'
+    //import * as registService from '../../../services/registService'
     import * as acceptService from '../../../services/accept.js'
+    import * as approvalService from '../../../services/approval.js'
+
     export default {
         data() {
             return {
@@ -56,15 +73,22 @@
                 dev_name: '',
                 value1: '',
                 pdfUrl: {
-                    锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-                    水壶: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-                    水壶2: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-                    水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-                    水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
                 },
                 accStatus: '',
-                rejvalue: '',
+                accRejValue: '',
+                accReason:'',
+
+                approvalStatus:'',
+                approvalRejValue:'',
+                approvalReason:'',
                 orderState:'',
+//                testTrue:[],
+
 
 
             }
@@ -76,8 +100,12 @@
             this.ruleForm = this.getRegistOne;
             //获取路由上的信息
             this.transparam();
+            this.getAccReason(this.dev_id);
+            this.getApprovalReason(this.dev_id);
             //获取状态  还需要改
-            this.rejvalue='';
+            this.accRejValue='';
+            this.approvalRejValue='';
+
         },
         watch: {
             // 如果路由有变化，会再次执行该方法
@@ -85,11 +113,18 @@
         },
         methods: {
             ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
+//          test(){
+//                this.testTrue=!this.testTrue;
+//          },
             initData(){
                 this.getRegistOneForm(this.dev_id);
                 this.ruleForm = this.getRegistOne;
-                this.rejvalue='';
+                this.accRejValue='';
+                this.approvalRejValue='';
                 this.transparam();
+                this.getAccReason(this.dev_id);
+                this.getApprovalReason(this.dev_id);
+
             },
             transparam(){
                 if (this.$route.query.dev_id) {
@@ -107,6 +142,7 @@
             toblanck(){
                 this.$router.push('regist_one');
             },
+          //受理通过
             accPass(){
                 this.accStatus = true;
                 this.$Modal.confirm({
@@ -127,6 +163,7 @@
                 });
 
             },
+          //受理驳回
             accRej () {
                 this.$Modal.confirm({
                     render: (h) => {
@@ -140,7 +177,7 @@
                             },
                             on: {
                                 input: (val) => {
-                                    this.rejvalue = val;
+                                    this.accRejValue = val;
                                 }
                             },
                         })
@@ -150,10 +187,80 @@
                         this.$router.push('waitAccept');
                     },
                     onCancel: () => {
+                      this.accRejValue = '';
                         this.$Message.info('点击了取消');
                     }
                 })
-            }
+            },
+          //获取受理结果
+          getAccReason(){
+            acceptService.getAccReason(this.dev_id ).then(res =>{
+              this.accStatus=res.state;
+              this.accReason=res.reason;
+            }).catch(error =>{
+              console.log(error);
+            })
+          },
+          //审批通过
+          approvalPass(){
+            this.approvalStatus = true;
+            this.$Modal.confirm({
+              title: '确认信息',
+              content: '<p>确认审批通过该申请订单？</p>',
+              onOk: () => {
+                this.$Message.info('点击了确定');
+                approvalService.ApprovalPass(this.approvalStatus).then(res => {
+                  this.$router.push('waitApproval');
+
+                }).catch(error => {
+                  console.log(error);
+                })
+              },
+              onCancel: () => {
+
+                this.$Message.info('点击了取消');
+              }
+            });
+
+          },
+          //审批驳回
+          approvalRej () {
+            this.$Modal.confirm({
+              render: (h) => {
+                return h('Input', {
+                  props: {
+                    value: this.value,
+                    autofocus: true,
+                    placeholder: '请输入审批驳回理由',
+                    type: 'textarea',
+                    rows: 5,
+                  },
+                  on: {
+                    input: (val) => {
+                      this.approvalRejValue = val;
+                    }
+                  },
+                })
+              },
+              onOk: () => {
+                this.$Message.info('点击了确定');
+                this.$router.push('waitApproval');
+              },
+              onCancel: () => {
+                this.approvalRejValue = '';
+                this.$Message.info('点击了取消');
+              }
+            })
+          },
+          //获取审批结果
+          getApprovalReason(){
+            approvalService.getApprovalReason(this.dev_id ).then(res =>{
+              this.approvalStatus=res.state;
+              this.approvalReason=res.reason;
+            }).catch(error =>{
+              console.log(error);
+            })
+          }
         },
 
         computed: {
@@ -161,6 +268,15 @@
             ...mapGetters([
                 "getRegistOne",
             ]),
+//          TestTrue:function(){
+//            for(let i=0; i<Object.keys(this.pdfUrl).length;i++){
+//              console.log(Object.keys(this.pdfUrl).length)
+//              this.testTrue[i]=false;
+//              console.log(this.testTrue);
+//
+//            }
+//            return this.testTrue;
+//          }
         },
         components: {
             'v_regist_one': regist_one,
@@ -214,6 +330,10 @@
         font-size: small;
         color: #495060;
     }
+  .acceptReason{
+    margin-bottom: 20px;
+  }
+
 
 
 </style>

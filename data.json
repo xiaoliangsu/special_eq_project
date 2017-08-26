@@ -24,6 +24,10 @@
             "accepter":"受理机关1",
             "checker":"审查机关1",
             "watcher":"监管机关1",
+          "changeDevice":"锅炉",
+          "changeDeviceNum":[1,1],
+          "changeApply":"首次申请",
+          "changeApplyNum":1,
             "state":1
         },
         {
@@ -60,6 +64,7 @@
             "accepter":"受理机关1",
             "checker": "审查机关2",
             "watcher":"监管机关2",
+
             "state":0
         },
         {

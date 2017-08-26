@@ -4,6 +4,7 @@
         <v-header v-show="headShow" signinUp="true"></v-header>
         <v-sidebar></v-sidebar>
 
+
         <div class="content">
             <transition name="move" mode="out-in">
                 <keep-alive>
@@ -19,8 +20,10 @@
     import header from '../header/header.vue'
     import footer from "../footer/footer.vue"
     import sidebar from '../sidebar/sidebar.vue'
+    //import login from '../../page/login/login.vue'
 
     import {mapGetters, mapState, mapActions} from 'vuex'
+    import VLogin from "../../page/login/login";
     export default {
         name: 'home',
         computed: mapGetters([
@@ -28,9 +31,11 @@
 
         ]),
         components: {
-            'v-header': header,
+          VLogin,
+          'v-header': header,
             'v-sidebar': sidebar,
             'v-footer': footer,
+
 
         },
 

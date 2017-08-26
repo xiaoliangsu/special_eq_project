@@ -1,5 +1,5 @@
 <template>
-  <div class="waitAccept">
+  <div class="waitApproval">
     <div class="filter-box">
       <Row>
         <Col :xs="8" :sm="8" :md="8" :lg="8">
@@ -8,17 +8,16 @@
                      style="width: 200px" v-model="time"></Date-picker>
         </Col>
 
-        <Col :xs="8" :sm="8" :md="8" :lg="8">
+        <Col  :xs="8" :sm="8" :md="8" :lg="8">
         <label>设备类别</label>
         <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
         <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
         <!--</Select>-->
-        <Cascader :data="options" trigger="hover" style="width:200px;display:inline-block;"
-                  @on-change="changeDevice"></Cascader>
+        <Cascader :data="options" trigger="hover" style="width:200px;display:inline-block;" @on-change="changeState"></Cascader>
         </Col>
-        <Col :xs="8" :sm="8" :md="8" :lg="8">
+        <Col  :xs="8" :sm="8" :md="8" :lg="8">
         <label>申请类别</label>
-        <Select v-model="model2" style="width:200px" @on-change="changeApply">
+        <Select v-model="model2" style="width:200px" @on-change="changeSort">
           <Option v-for="item in sort" :value="item.value" :key="item.value"> {{ item.label }}</Option>
         </Select>
         </Col>
@@ -36,7 +35,7 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as orderStatusService from '../../services/orderStatus'
-  import * as acceptService from '../../services/accept'
+  import * as approvalService from '../../services/approval'
   export default {
     data() {
       return {
@@ -190,7 +189,7 @@
                       // this.$router.push('appDetail');
                     }
                   }
-                }, '受理'),
+                }, '审批'),
 
 
               ]);
@@ -214,7 +213,7 @@
         //订单总数
         num: 200,
         //订单状态
-        orderState: '',
+        orderState:'',
 
 
       }
@@ -223,10 +222,10 @@
       ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
       //获取申请列表信息
       getOrders(page){
-        acceptService.GetWaitAccpetOrders(page).then(res => {
+        approvalService.GetWaitApprovalOrders(page).then(res => {
           if (res.success) {
             this.data5 = res.success;
-            this.orderState = res.state;
+            this.orderState=res.state;
             console.log(this.orderState);
 //                        for (var i = 0; i < this.data5.length; i++) {
 //                            this.data5[i].state = this.state[this.data5[i].state];
@@ -255,7 +254,7 @@
           console.log(error);
         })
       },
-      changeDevice(value){
+      changeState(value){
         //console.log(value)
         orderStatusService.ChangeState(value).then(res => {
           if (res.success) {
@@ -267,7 +266,7 @@
         })
 
       },
-      changeApply(value){
+      changeSort(value){
         orderStatusService.ChangeSort(value).then(res => {
           if (res.success) {
             this.data5 = res.success;
@@ -332,7 +331,7 @@
             });
             break;
           case 2:
-              //改造变更
+            //改造变更
             this.$router.push({
               path: 'appDetail',
               query: {
@@ -343,7 +342,7 @@
             });
             break;
           case 3:
-              //移装变更
+            //移装变更
             this.$router.push({
               path: 'appDetail',
               query: {
@@ -364,7 +363,7 @@
               }
             });
             break;
-            ////等等
+          ////等等
 
 
         }
@@ -380,14 +379,17 @@
         "getSelectedOption",
       ]),
     },
+
     mounted(){
       this.getOrders(this.params.page);
+
     },
 //每次刷新页面时候，更新列表信息
     watch: {
       '$route' (to, from) {
         this.getOrders(this.params.page)
       }
+
     }
 
   }

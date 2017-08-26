@@ -57,6 +57,13 @@ const  Accepted= r => require.ensure([], () => r(require('../page/accept/accepte
 const  CompanyApp= r => require.ensure([], () => r(require('../page/apply/companyApp.vue')),'CompanyApp');
 const  CarboxApp= r => require.ensure([], () => r(require('../page/apply/carboxApp.vue')),'CarboxApp');
 
+const  Approvaled= r => require.ensure([], () => r(require('../page/approval/approvaled.vue')),'Approvaled');
+const  WaitApproval= r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')),'WaitApproval');
+
+const  Supervision= r => require.ensure([], () => r(require('../page/supervision/supervision.vue')),'Supervision');
+
+
+
 
 
 
@@ -98,6 +105,12 @@ const router = new VueRouter({
                 {path: "/waitAccept", component: WaitAccept},
                 {path: "/accepted", component: Accepted},
                 {path: "/transformChange", component: TransformChange},
+              {path: "/approvaled", component: Approvaled},
+              {path: "/waitApproval", component: WaitApproval},
+              {path: "/supervision", component: Supervision},
+
+
+
 
 
             ]

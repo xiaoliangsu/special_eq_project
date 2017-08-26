@@ -47,7 +47,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   body {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
     //background-color: #f8f8f9;

@@ -2,44 +2,44 @@
   <!--按套申请的使用登记表-->
   <div class="setApp">
     <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
-        <h2>按台/套申请(除车用气瓶)</h2>
+      <h2>按台/套申请(除车用气瓶)</h2>
       <div class="statusInfo" v-if="this.active==1">
         <h2>设备基本情况</h2>
-        <Form-item label="设备种类" prop="kind1">
-          <Input v-model="ruleForm.kind1" placeholder="请输入设备种类"></Input>
+        <Form-item label="设备种类" prop="eq_species">
+          <Input v-model="ruleForm.eq_species" placeholder="请输入设备种类"></Input>
         </Form-item>
-        <Form-item label="设备类别" prop="kind2">
-          <Input v-model="ruleForm.kind2" placeholder="请输入设备类别"></Input>
+        <Form-item label="设备类别" prop="eq_category">
+          <Input v-model="ruleForm.eq_category" placeholder="请输入设备类别"></Input>
         </Form-item>
-        <Form-item label="设备品种" prop="kind3">
-          <Input v-model="ruleForm.kind3" placeholder="请输入设备品种"></Input>
+        <Form-item label="设备品种" prop="eq_variety">
+          <Input v-model="ruleForm.eq_variety" placeholder="请输入设备品种"></Input>
         </Form-item>
-        <Form-item label="设备种类" prop="kind1">
-          <Input v-model="ruleForm.kind1" placeholder="请输入设备种类"></Input>
+        <Form-item label="产品名称" prop="eq_name">
+          <Input v-model="ruleForm.eq_name" placeholder="请输入产品名称"></Input>
         </Form-item>
-        <Form-item label="设备类别" prop="kind2">
-          <Input v-model="ruleForm.kind2" placeholder="请输入设备类别"></Input>
+        <Form-item label="设备代码" prop="eq_code">
+          <Input v-model="ruleForm.eq_code" placeholder="请输入设备代码"></Input>
         </Form-item>
-        <Form-item label="设备品种" prop="kind3">
-          <Input v-model="ruleForm.kind3" placeholder="请输入设备品种"></Input>
+        <Form-item label="型号（规格）" prop="model">
+          <Input v-model="ruleForm.model" placeholder="请输入型号（规格）"></Input>
         </Form-item>
-        <Form-item label="设备种类" prop="kind1">
-          <Input v-model="ruleForm.kind1" placeholder="请输入设备种类"></Input>
+        <Form-item label="设计使用年限" prop="design_use_limit">
+          <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
         </Form-item>
-        <Form-item label="设备类别" prop="kind2">
-          <Input v-model="ruleForm.kind2" placeholder="请输入设备类别"></Input>
+        <Form-item label="设计单位名称" prop="design_com_name">
+          <Input v-model="ruleForm.design_com_name" placeholder="请输入设计单位名称"></Input>
         </Form-item>
-        <Form-item label="设备品种" prop="kind3">
-          <Input v-model="ruleForm.kind3" placeholder="请输入设备品种"></Input>
+        <Form-item label="制造单位名称" prop="manufacture_com_name">
+          <Input v-model="ruleForm.manufacture_com_name" placeholder="请输入制造单位名称"></Input>
         </Form-item>
-        <Form-item label="设备种类" prop="kind1">
-          <Input v-model="ruleForm.kind1" placeholder="请输入设备种类"></Input>
+        <Form-item label="施工单位名称" prop="construct_com_name">
+          <Input v-model="ruleForm.construct_com_name" placeholder="请输入施工单位名称"></Input>
         </Form-item>
-        <Form-item label="设备类别" prop="kind2">
-          <Input v-model="ruleForm.kind2" placeholder="请输入设备类别"></Input>
+        <Form-item label="监督检验机构名称" prop="supervise_com_name">
+          <Input v-model="ruleForm.supervise_com_name" placeholder="请输入监督检验机构名称"></Input>
         </Form-item>
-        <Form-item label="设备品种" prop="kind3">
-          <Input v-model="ruleForm.kind3" placeholder="请输入设备品种"></Input>
+        <Form-item label="型式试验机构名称" prop="test_com_name">
+          <Input v-model="ruleForm.test_com_name" placeholder="请输入型式试验机构名称"></Input>
         </Form-item>
         <!--</div>-->
         <!--<div class="useInfo" v-if="this.active==2">-->
@@ -47,41 +47,41 @@
         <Form-item label="使用单位名称" prop="use_com_name">
           <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="使用单位地址" prop="use_com_addr">
+          <Input v-model="ruleForm.use_com_addr" placeholder="请输入使用单位地址"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="使用单位统一社会信用代码" prop="use_com_code">
+          <Input v-model="ruleForm.use_com_code" placeholder="请输入使用单位统一社会信用代码"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="邮政编码" prop="zip_code">
+          <Input v-model="ruleForm.zip_code" placeholder="请输入邮政编码"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="单位内编号" prop="com_code">
+          <Input v-model="ruleForm.com_code" placeholder="请输入单位内编号"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="设备使用地点" prop="eq_use_location">
+          <Input v-model="ruleForm.eq_use_location" placeholder="请输入设备使用地点"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="投入使用日期" prop="begin_use_date">
+          <Input v-model="ruleForm.begin_use_date" placeholder="请输入投入使用日期"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="单位固定电话" prop="com_phone">
+          <Input v-model="ruleForm.com_phone" placeholder="请输入单位固定电话"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="安全管理员" prop="safe_admin">
+          <Input v-model="ruleForm.safe_admin" placeholder="请输入安全管理员"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="移动电话" prop="mobile_phone">
+          <Input v-model="ruleForm.mobile_phone" placeholder="请输入移动电话"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="产权单位名称" prop="property_com_name">
+          <Input v-model="ruleForm.property_com_name" placeholder="请输入产权单位名称"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="产权单位统一社会信用代码" prop="property_com_code">
+          <Input v-model="ruleForm.property_com_code" placeholder="请输入产权单位统一社会信用代码"></Input>
         </Form-item>
-        <Form-item label="使用单位名称" prop="use_com_name">
-          <Input v-model="ruleForm.use_com_name" placeholder="请输入使用单位名称"></Input>
+        <Form-item label="联系电话" prop="telephone">
+          <Input v-model="ruleForm.telephone" placeholder="请输入联系电话"></Input>
         </Form-item>
         <!--</div>-->
         <!--<div class="checkInfo" v-if="this.active==3">-->
@@ -89,20 +89,20 @@
         <Form-item label="检验机构名称" prop="check_com_name">
           <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
         </Form-item>
-        <Form-item label="检验机构名称" prop="check_com_name">
-          <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+        <Form-item label="检验类别" prop="check_category">
+          <Input v-model="ruleForm.check_category" placeholder="请输入检验类别"></Input>
         </Form-item>
-        <Form-item label="检验机构名称" prop="check_com_name">
-          <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+        <Form-item label="检验报告编号" prop="check_report_num">
+          <Input v-model="ruleForm.check_report_num" placeholder="请输入检验报告编号"></Input>
         </Form-item>
-        <Form-item label="检验机构名称" prop="check_com_name">
-          <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+        <Form-item label="检验日期" prop="check_date">
+          <Input v-model="ruleForm.check_date" placeholder="请输入检验日期"></Input>
         </Form-item>
-        <Form-item label="检验机构名称" prop="check_com_name">
-          <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+        <Form-item label="检验结论" prop="check_conclusion">
+          <Input v-model="ruleForm.check_conclusion" placeholder="请输入检验结论"></Input>
         </Form-item>
-        <Form-item label="检验机构名称" prop="check_com_name">
-          <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+        <Form-item label="下次检验日期" prop="next_check_date">
+          <Input v-model="ruleForm.next_check_date" placeholder="请输入下次检验日期"></Input>
         </Form-item>
       </div>
 
@@ -110,7 +110,7 @@
       <div class="setTable" v-if="this.active==2">
         <Alert closable>请确认表格信息是否全部正确</Alert>
 
-              <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+        <v-regist_one :ruleForm="ruleForm"></v-regist_one>
 
 
       </div>
@@ -307,9 +307,9 @@
         return check;
       },
       handleSuccess (res, file) {
-          //需要沟通一下，成功给我返回什么然后判断
-          console.log(res);
-          console.log(file);
+        //需要沟通一下，成功给我返回什么然后判断
+        console.log(res);
+        console.log(file);
 
       },
 

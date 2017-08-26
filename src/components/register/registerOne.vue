@@ -196,18 +196,36 @@
     .nprint {
       display: none;
     }
+    /*@page {*/
+      /*size: 210mm 297mm;  !* or size: 794px 1123px;   *!*/
+    /*}*/
+    @page { size: A4; margin: 20mm 2mm 2mm 2mm; }
+
+
   }
-  .regist_one{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom:0;
+  .regist_one_com{
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*bottom:0;*/
+
     overflow-y: scroll;
-      background-color: white;
+    border:1px solid black;
+    background-color: white;
+
+
+
+
   }
-  .regist_one{
-      background-color: white;
+  .setTable{
+    width:210mm;
+    height:297mm;
+    margin:25mm 2mm 2mm 2mm;
+    border: 1px solid red;
+    margin:0 auto;
+    text-align: center;
+
   }
 
   .regist_one_header{
@@ -237,7 +255,6 @@
     margin: auto;
     border: 1px solid #000;
     border-collapse: collapse;
-
   }
 
   .setTable table span {
@@ -250,8 +267,8 @@
 
   .setTable table td {
     border: 1px solid #000;
-    width: 120px;
-    height: 22px;
+    width: 635px;
+    height: 24px;
     color: #000;
     text-align: center;
     vertical-align: middle;

@@ -1,11 +1,14 @@
 <template>
   <div class="detailPdf">
     <ul class="detail_ul">
-      <li v-for="(item,index) in pdfUrl" class="detail_li" >
-        <a v-bind:href='item' download="1.txt" class="detail_a">{{index}}.pdf</a>
+      <li v-for="(item,key,index) in pdfUrl" class="detail_li" >
+        <a v-bind:href='item' download="1.txt" class="detail_a">{{key}}.pdf</a>
+        <Button type="ghost" size="small" @click="test(index)" v-if="pdfToggle[index]==1"><Icon type="eye"></Icon>预览</Button>
+        <Button type="ghost" size="small" @click="test(index)" v-else="pdfToggle[index]==0"><Icon type="chevron-down"></Icon>收起</Button>
+
+        <embed v-if="pdfToggle[index]==0" v-bind:src="item" width="100%"  height="1000px" />
       </li>
     </ul>
-
   </div>
 </template>
 <script>
@@ -15,7 +18,21 @@
 
     data(){
       return {
-
+          pdfToggle:[],
+      }
+    },
+    methods:{
+      test(index){
+          if(this.pdfToggle[index]==1){
+            this.pdfToggle.splice(index, 1, 0);
+          }else if(this.pdfToggle[index]==0){
+            this.pdfToggle.splice(index, 1, 1);
+          }
+      },
+    },
+    created(){
+      for(let i=0; i<Object.keys(this.pdfUrl).length;i++){
+        this.pdfToggle[i]=1;
       }
     }
 

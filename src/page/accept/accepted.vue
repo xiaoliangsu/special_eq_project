@@ -1,21 +1,22 @@
 <template>
-    <div class="waitAccept">
+    <div class="accepted">
         <div class="filter-box">
             <Row>
-                <Col span="8">
+                <Col :xs="8" :sm="8" :md="8" :lg="8">
                 <label>设备申请时间</label>
                 <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
                              style="width: 200px" v-model="time"></Date-picker>
                 </Col>
 
-                <Col span="8">
+                <Col  :xs="8" :sm="8" :md="8" :lg="8">
                 <label>设备类别</label>
-                <Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">
-                    <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
-                </Select>
+                <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
+                    <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+                <!--</Select>-->
+                <Cascader :data="options" trigger="hover" style="width:200px;display:inline-block;" @on-change="changeState"></Cascader>
                 </Col>
-                <Col span="8">
-                <label>设备状态</label>
+                <Col  :xs="8" :sm="8" :md="8" :lg="8">
+                <label>申请类别</label>
                 <Select v-model="model2" style="width:200px" @on-change="changeSort">
                     <Option v-for="item in sort" :value="item.value" :key="item.value"> {{ item.label }}</Option>
                 </Select>
@@ -53,6 +54,48 @@
                     },
 
                 ],
+              options: [{
+                value: 'one',
+                label: '按台（套）申请',
+                children: [{
+                  value: 'boiler',
+                  label: '锅炉',
+                }, {
+                  value: 'pressure',
+                  label: '压力容器（气瓶除外）'
+                }, {
+                  value: 'elevator',
+                  label: '电梯'
+                }, {
+                  value: 'hoisting',
+                  label: '起重机械'
+                }, {
+                  value: 'cableway',
+                  label: '客运索道'
+                }, {
+                  value: 'play',
+                  label: '大型游乐设施'
+                }, {
+                  value: 'factorycar',
+                  label: '场 (厂)内专用机动车辆'
+                }, {
+                  value: 'carbox',
+                  label: '车用气瓶'
+                },]
+
+              }, {
+                value: 'two',
+                label: '按单位申请',
+                children: [{
+                  value: 'cylinders',
+                  label: '气瓶(车用气瓶除外)',
+                }, {
+                  value: 'pipeline',
+                  label: '工业管道'
+                },]
+              }
+              ],
+
                 sort: [
                     {
                         value: '1',
@@ -100,6 +143,16 @@
                         key: 'time',
                         sortable: true
                     },
+                  {
+                    title: '设备类别',
+                    key: 'changeDevice',
+
+                  },
+                  {
+                    title: '申请类别',
+                    key: 'changeApply',
+
+                  },
 
                     {
                         title: '受理机关',
@@ -263,15 +316,59 @@
                 });
 
             },
-            appDetail(value){
-                // console.log(value);
+          appDetail(value){
+            switch (this.data5[value].changeApplyNum) {
+              case 1:
+                //首次申请
                 this.$router.push({
-                    path: 'appDetail',
-                    query: {dev_id: this.data5[value].id,
-                        dev_name: this.data5[value].device,
-                        orderState:this.orderState}
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
                 });
+                break;
+              case 2:
+                //改造变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              case 3:
+                //移装变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              case 4:
+                //单位变更
+                this.$router.push({
+                  path: 'appDetail',
+                  query: {
+                    dev_id: this.data5[value].id,
+                    dev_name: this.data5[value].device,
+                    orderState: this.orderState
+                  }
+                });
+                break;
+              ////等等
+
+
             }
+
+
+          }
 
 
         },

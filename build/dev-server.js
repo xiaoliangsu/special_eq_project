@@ -72,13 +72,37 @@ apiRoutes.get("/getWaitAcccpetOrders",function(req,res){
 
     });
 });
-
 apiRoutes.get("/getAcceptedOrders",function(req,res){
+  res.json({
+    success:orderInfo.orders,
+    state:"accepted"
+
+  });
+});
+
+apiRoutes.get("/getAccReason",function(req,res){
+  res.json({
+    success:orderInfo.orders,
+    state:false,
+    reason:"不通过"
+
+  });
+});
+
+apiRoutes.get("/getApprovaledOrders",function(req,res){
     res.json({
         success:orderInfo.orders,
-        state:"accepted"
+        state:"approvaled"
 
     });
+});
+
+apiRoutes.get("/getWaitApprovalOrders",function(req,res){
+  res.json({
+    success:orderInfo.orders,
+    state:"waitApproval"
+
+  });
 });
 
 
