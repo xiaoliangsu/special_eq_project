@@ -115,6 +115,8 @@
 
       </div>
 
+
+
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
       <div class="pdfInfo" v-if="this.active==3">
         <h2>相关证明</h2>
@@ -156,9 +158,10 @@
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
 
-      <Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>
+      <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
       <Button type="primary" @click="next('ruleForm')" v-if="this.active<2">下一步</Button>
       <Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>
+
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
       <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
@@ -199,7 +202,7 @@
         visible: false,
         uploadList: [],
         modal1: false,
-        author_key:'',
+        author_key: '',
         pdfUrl: {
           锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
@@ -207,14 +210,18 @@
           水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
           水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
         },
-        defaultPdfList1:[],
+        defaultPdfList1: [],
+        selectedNum: '',
+        deviceNum:1,
+        ruleForms:'',
+        previousNum:0,
 
 
       };
     },
     components: {
       'v-regist_one': regist_one,
-     // 'v-detailPdf': detailPdf,
+      // 'v-detailPdf': detailPdf,
 
     },
     watch: {
@@ -226,28 +233,33 @@
       ...mapGetters([
         "getSelectedOption",
         "getRegistOne",
+        "getSelectedNum",
       ]),
     },
     mounted(){
       this.initData();
-      this.author_key=localStorage.getItem('author_key');
+      this.author_key = localStorage.getItem('author_key');
     },
     methods: {
       ...mapActions({clearRegistOneForm: 'clearRegistOneForm'}),
       initData(){
-        if(!this.$route.query.changeDeviceNum){
+        if (!this.$route.query.changeDeviceNum) {
           this.active = 1;
           this.selected = this.getSelectedOption;
+          this.selectedNum = this.getSelectedNum;
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
-        }else{
+        } else {
           this.active = 1;
           this.selected = this.getSelectedOption;
-         // 获取已经保存的信息
+          this.selectedNum = this.getSelectedNum;
+
+          // 获取已经保存的信息
           registService.getRegistOne(this.$route.query.dev_id).then(res => {
-            this.ruleForm=res.success;
-            this.defaultPdfList1=res.pdfUrl;
+              this.ruleForms=res.success;
+            this.ruleForm = this.ruleForms.ruleForm[0];
+            this.defaultPdfList1 = res.pdfUrl;
             console.log(res);
           }).catch(error => {
             console.log(error)
@@ -260,7 +272,7 @@
           if (valid) {
             let param = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            param.selected=this.selected;
+            param.selected = this.selected;
             this.ifNext = false;
             setAppService.submitSetInfo(param).then(res => {
               if (res) {
@@ -281,7 +293,7 @@
           if (valid) {
             let param = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            param.selected=this.selected;
+            param.selected = this.selected;
             console.log(param);
             this.ifNext = false;
             setAppService.saveSetInfo(param).then(res => {
@@ -316,29 +328,61 @@
       },
       before() {
         if (this.active == 1) {
-            if(!this.$route.query.changeDeviceNum){
-              this.$router.push({
-                path: 'firstApp',
-                query: {
-                  changeDeviceNum: this.getSelectedOption,
-                }
-              });
-            }else{
-              this.$router.push({
-                path: 'firstApp',
-                query: {
-                  dev_id: this.$route.query.dev_id,
-                  dev_name: this.$route.query.dev_name,
-                  changeDeviceNum: this.$route.query.changeDeviceNum,
-                }
-              });
-            }
+          if (!this.$route.query.changeDeviceNum) {
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                changeDeviceNum: this.getSelectedOption,
+                selectedNum:this.getSelectedNum,
+              }
+            });
+          } else {
+            this.$router.push({
+              path: 'firstApp',
+              query: {
+                dev_id: this.$route.query.dev_id,
+                dev_name: this.$route.query.dev_name,
+                changeDeviceNum: this.$route.query.changeDeviceNum,
+                selectedNum:this.getSelectedNum,
+
+              }
+            });
+          }
         } else {
-          this.active--;
+
+            this.active--;
+
         }
       },
       beSure() {
-        this.active++;
+
+          if(this.deviceNum<this.selectedNum){
+
+                if(this.ruleForms && this.selectedNum>this.ruleForms.ruleForm.length)
+                {
+                    let len=this.ruleForms.ruleForm.length;
+
+                  for(let i=0;i<this.selectedNum-len;i++){
+                    this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
+                  }
+
+                }
+
+            this.deviceNum++;
+            this.active=1;
+              if(!this.ruleForms){
+                this.clearRegistOneForm();
+                this.ruleForm = this.getRegistOne;
+              }else{
+                  this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
+
+              }
+
+
+          }else{
+            this.active++;
+          }
+
       },
 //      createPdf() {
 ////                let newWindow = window.open("_blank");   //打开新窗口
@@ -404,10 +448,10 @@
       display: none;
     }
   }
-  .setApp{
-    color:#495060;
-  }
 
+  .setApp {
+    color: #495060;
+  }
 
 
 </style>

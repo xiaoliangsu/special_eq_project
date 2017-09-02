@@ -7,7 +7,7 @@
           <Cascader :data="form.options" trigger="hover" style="width:250px" v-model="defaultOption"
                     @on-change="handleChange"></Cascader>
         </Form-item>
-        <Form-item label="申请数量">
+        <Form-item label="申请数量" v-if="this.getSelectedOption[0]=='one'||this.form.selectedOptions[0]=='one'||this.getSelectedOption[1]=='carbox'">
           <Input-number :max="10" :min="1" v-model="form.num1"></Input-number>
         </Form-item>
         <Button type="primary" @click="next" :disabled="ifNext">下一步</Button>
@@ -72,6 +72,14 @@
         dev_name: '',
         changeDeviceNum: '',
         defaultOption:[],
+        params:{
+            selectedDevice:'',
+            num:'',
+        },
+        defaultselected:{
+          selectedDevice:'',
+          num:'',
+        },
 
 
       }
@@ -110,16 +118,20 @@
           this.defaultOption=[];
         } else {
           this.transparam();
-          this.selectedDeviceOption(this.changeDeviceNum);
+          this.defaultselected.selectedDevice=this.changeDeviceNum;
+          this.defaultselected.num=this.$route.query.selectedNum;
+          this.selectedDeviceOption(this.defaultselected);
           this.defaultOption = this.getSelectedOption;
+          this.form.num1=this.getSelectedNum;
           this.ifNext = false;
         }
       },
       //当改变时触发
       handleChange(value) {
-        console.log(value);
-        this.selectedDeviceOption(value);
-        console.log(this.getSelectedOption[0]);
+        this.form.selectedOptions=value;
+
+//        this.selectedDeviceOption(value);
+//        console.log(this.getSelectedOption[0]);
         if (value) {
           this.ifNext = false;
         }
@@ -129,8 +141,21 @@
         if (this.active++ > 2) {
           this.active = 0;
         }
+        if(this.defaultselected.selectedDevice ==''){
+          this.params.selectedDevice=this.form.selectedOptions;
+          this.params.num=this.form.num1;
+          this.selectedDeviceOption(this.params);
+          //console.log(this.getSelectedNum);
+        }else{
+            console.log(this.getSelectedNum);
+          console.log(this.getSelectedOption);
+
+        }
+
+
         if (this.getSelectedOption[0] == 'one' && this.getSelectedOption[1] !== 'carbox') {
             if(!this.$route.query.changeDeviceNum){
+
               this.$router.push('setApp');
             }else{
               this.$router.push({
@@ -139,6 +164,7 @@
                   dev_id: this.dev_id,
                   dev_name: this.dev_name,
                   changeDeviceNum: this.changeDeviceNum,
+                  selectedNum:this.form.num1,
                 }
               });
             }
@@ -168,6 +194,7 @@
                 dev_id: this.dev_id,
                 dev_name: this.dev_name,
                 changeDeviceNum: this.changeDeviceNum,
+                selectedNum:this.form.num1,
               }
             });
           }
@@ -182,6 +209,7 @@
       ...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
+        "getSelectedNum",
       ]),
     },
 

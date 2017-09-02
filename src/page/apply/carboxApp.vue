@@ -127,7 +127,7 @@
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
 
-      <Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>
+      <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
       <Button type="primary" @click="next('ruleForm')" v-if="this.active<2">下一步</Button>
       <Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
@@ -179,6 +179,9 @@
           水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
         },
         defaultPdfList1:[],
+        selectedNum: '',
+        deviceNum:1,
+        ruleForms:'',
 
 
       };
@@ -197,6 +200,7 @@
       ...mapGetters([
         "getSelectedOption",
         "getRegistThree",
+        "getSelectedNum",
       ]),
     },
     mounted(){
@@ -204,21 +208,26 @@
       this.author_key=localStorage.getItem('author_key');
     },
     methods: {
-      ...mapActions({clearRegistOneForm: 'clearRegistOneForm'}),
+      ...mapActions({clearRegistThreeForm: 'clearRegistThreeForm'}),
       initData(){
         if(!this.$route.query.changeDeviceNum){
           this.active = 1;
           this.selected = this.getSelectedOption;
-          this.clearRegistOneForm();
+          this.selectedNum = this.getSelectedNum;
+         // console.log(this.selectedNum);
+          this.clearRegistThreeForm();
           this.ruleForm = this.getRegistThree;
           this.defaultPdfList1 = [];
         }else{
           this.active = 1;
           this.selected = this.getSelectedOption;
+          this.selectedNum = this.getSelectedNum;
+
           // 获取已经保存的信息
           registService.getRegistThree(this.$route.query.dev_id).then(res => {
-            this.ruleForm=res.success;
-            this.defaultPdfList1=res.pdfUrl;
+            this.ruleForms=res.success;
+            this.ruleForm = this.ruleForms.ruleForm[0];
+            this.defaultPdfList1 = res.pdfUrl;
             console.log(res);
           }).catch(error => {
             console.log(error)
@@ -293,6 +302,7 @@
               path: 'firstApp',
               query: {
                 changeDeviceNum: this.getSelectedOption,
+                selectedNum:this.getSelectedNum,
               }
             });
           }else{
@@ -302,6 +312,8 @@
                 dev_id: this.$route.query.dev_id,
                 dev_name: this.$route.query.dev_name,
                 changeDeviceNum: this.$route.query.changeDeviceNum,
+                selectedNum:this.getSelectedNum,
+
               }
             });
           }
@@ -310,7 +322,34 @@
         }
       },
       beSure() {
-        this.active++;
+
+        if(this.deviceNum<this.selectedNum){
+          if(this.selectedNum>this.ruleForms.ruleForm.length)
+          {
+            let len=this.ruleForms.ruleForm.length;
+
+            for(let i=0;i<this.selectedNum-len;i++){
+              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
+            }
+
+          }
+
+
+          this.deviceNum++;
+          this.active=1;
+          if(!this.ruleForms){
+            this.clearRegistThreeForm();
+            this.ruleForm = this.getRegistThree;
+          }else{
+            this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
+
+          }
+
+
+        }else{
+          this.active++;
+        }
+
       },
 //      createPdf() {
 ////                let newWindow = window.open("_blank");   //打开新窗口

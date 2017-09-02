@@ -265,10 +265,11 @@
                 dev_id: this.data5[value].id,
                 dev_name: this.data5[value].device,
                 changeDeviceNum: this.data5[value].changeDeviceNum,
+                selectedNum:2
               }
             });
             break;
-            //需要改
+            /////需要改
           case 2:
             //改造变更
             this.$router.push({

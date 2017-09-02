@@ -5,7 +5,9 @@ import {
 
 const state = {
     // 选择的仪器
-    selectedOption: []
+    selectedOption: [],
+    selectedNum:''
+
 }
 
 const actions = {
@@ -21,11 +23,14 @@ const actions = {
 
 const getters = {
     getSelectedOption: state => state.selectedOption,
+    getSelectedNum: state => state.selectedNum,
 }
 
 const mutations = {
     [SELECTED_DEVICE_OPTION](state, res) {
-        state.selectedOption = res
+        state.selectedOption = res.selectedDevice;
+        state.selectedNum=res.num;
+
     },
 
 

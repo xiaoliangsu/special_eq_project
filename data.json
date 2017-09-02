@@ -11,17 +11,31 @@
       }
     ]
   },
-  "RegistOne": {
-    "eq_species":"xiaoliangsu"
 
+  "RegistOne": {
+    "ruleForm": [
+      {
+        "eq_species": "xiaoliangsu"
+      },
+      {
+        "eq_species": "1111"
+      }
+    ]
   },
   "RegistTwo": {
     "equipment_category":"设备类别"
 
   },
-  "RegistThree": {
-    "eq_kind":"设备种类"
 
+  "RegistThree": {
+    "ruleForm": [
+      {
+        "eq_kind": "设备种类"
+      },
+      {
+        "eq_kind": "wwdwd"
+      }
+    ]
   },
    "orderInfo": {
     "orders": [
