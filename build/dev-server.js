@@ -21,143 +21,150 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-var appData=require("../data.json");
-var seller=appData.seller;  //获取数据
-var goods=appData.goods;
-var userInfo=appData.userInfo;
-var orderInfo=appData.orderInfo;
-var RegistOne=appData.RegistOne;
-var RegistTwo=appData.RegistTwo;
-var RegistThree=appData.RegistThree;
+var appData = require("../data.json");
+var seller = appData.seller;  //获取数据
+var goods = appData.goods;
+var userInfo = appData.userInfo;
+var orderInfo = appData.orderInfo;
+var RegistOne = appData.RegistOne;
+var RegistTwo = appData.RegistTwo;
+var RegistThree = appData.RegistThree;
 
 
-var apiRoutes=express.Router();
+var apiRoutes = express.Router();
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json
 app.use(bodyParser.json());
 
 
-apiRoutes.get("/seller",function(req,res){
+apiRoutes.get("/seller", function (req, res) {
   res.json({
-    errno:0,
-    data:seller
+    errno: 0,
+    data: seller
 
   });
 });
 
-apiRoutes.post("/login",function(req,res){
-  if(req.body.username && req.body.password){
+apiRoutes.post("/login", function (req, res) {
+  if (req.body.username && req.body.password) {
     console.log(req.body.username);
     res.json({
-      success:true,
-      username:req.body.username,
-      author_key:req.body.author_key,
+      success: true,
+      username: req.body.username,
+      author_key: req.body.author_key,
     });
-  }else{
+  } else {
     res.json({
-      state:0
+      state: 0
     });
   }
 });
 
-apiRoutes.get("/getorders",function(req,res){
+apiRoutes.get("/getorders", function (req, res) {
   res.json({
-    success:orderInfo.orders
+    success: orderInfo.orders
 
   });
 });
 
-apiRoutes.get("/getWaitAcccpetOrders",function(req,res){
-    res.json({
-        success:orderInfo.orders,
-        state:"waitAccept"
-
-    });
-});
-apiRoutes.get("/getAcceptedOrders",function(req,res){
+apiRoutes.get("/getWaitAcccpetOrders", function (req, res) {
   res.json({
-    success:orderInfo.orders,
-    state:"accepted"
+    success: orderInfo.orders,
+    state: "waitAccept"
+
+  });
+});
+apiRoutes.get("/getAcceptedOrders", function (req, res) {
+  res.json({
+    success: orderInfo.orders,
+    state: "accepted"
 
   });
 });
 
-apiRoutes.get("/getAccReason",function(req,res){
+apiRoutes.get("/getAccReason", function (req, res) {
   res.json({
-    success:orderInfo.orders,
-    state:false,
-    reason:"不通过"
+    success: orderInfo.orders,
+    state: false,
+    reason: "不通过"
 
   });
 });
 
-apiRoutes.get("/getApprovaledOrders",function(req,res){
-    res.json({
-        success:orderInfo.orders,
-        state:"approvaled"
+apiRoutes.get("/getApprovaledOrders", function (req, res) {
+  res.json({
+    success: orderInfo.orders,
+    state: "approvaled"
 
-    });
+  });
 });
 
-apiRoutes.get("/getWaitApprovalOrders",function(req,res){
+apiRoutes.get("/getWaitApprovalOrders", function (req, res) {
   res.json({
-    success:orderInfo.orders,
-    state:"waitApproval"
+    success: orderInfo.orders,
+    state: "waitApproval"
 
   });
 });
 
 
-apiRoutes.post("/submitSetInfo",function(req,res){
-  if(req.body){
+apiRoutes.post("/submitSetInfo", function (req, res) {
+  if (req.body) {
     console.log(req.body);
     res.json({
-      success:req.body,
+      success: req.body,
       //username:req.body.username
     });
-  }else{
+  } else {
     res.json({
-      state:0
+      state: 0
     });
   }
 });
 
-apiRoutes.get("/getRegistOne",function(req,res){
+apiRoutes.get("/getRegistOne", function (req, res) {
   res.json({
-    success:RegistOne,
-    pdfUrl:[
+    success: RegistOne,
+    // pdfUrl:[
+    //   {
+    //     'name': 'pdf1',
+    //     'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+    //   },
+    //   {
+    //     'name': 'pdf2',
+    //     'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+    //   }
+    // ],
+    pdfUrl: {
+      锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+      水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+      水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+    }
+
+  });
+  console.log(RegistOne);
+});
+apiRoutes.get("/getRegistTwo", function (req, res) {
+  res.json({
+    success: RegistTwo,
+    pdfUrl: [
       {
         'name': 'pdf1',
         'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
       },
-      {
-        'name': 'pdf2',
-        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
-      }
     ],
 
   });
   console.log(RegistOne);
 });
-apiRoutes.get("/getRegistTwo",function(req,res){
+apiRoutes.get("/getRegistThree", function (req, res) {
   res.json({
-    success:RegistTwo,
-    pdfUrl:[
-      {
-        'name': 'pdf1',
-        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
-      },
-    ],
-
-  });
-  console.log(RegistOne);
-});
-apiRoutes.get("/getRegistThree",function(req,res){
-  res.json({
-    success:RegistThree,
-    pdfUrl:[
+    success: RegistThree,
+    pdfUrl: [
       {
         'name': 'pdf33',
         'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
@@ -168,26 +175,26 @@ apiRoutes.get("/getRegistThree",function(req,res){
   console.log(RegistOne);
 });
 
-apiRoutes.get("/userInfo",function(req,res){
+apiRoutes.get("/userInfo", function (req, res) {
   res.json({
-    errno:0,
-    data:userInfo
+    errno: 0,
+    data: userInfo
 
   });
 });
 
 
-apiRoutes.get("/goods",function(req,res){
+apiRoutes.get("/goods", function (req, res) {
   res.json({
-    errno:0,
-    data:goods
+    errno: 0,
+    data: goods
   });
 });
 
-apiRoutes.get("/ratings",function(req,res){
+apiRoutes.get("/ratings", function (req, res) {
   res.json({
-    errno:0,
-    data:ratings
+    errno: 0,
+    data: ratings
 
   });
 });
@@ -202,12 +209,13 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {}
+  log: () => {
+  }
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
@@ -216,7 +224,7 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })

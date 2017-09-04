@@ -107,18 +107,25 @@
       </div>
 
       <!--让用户确认信息的表格-->
-      <div class="setTable" v-if="this.active==2">
+      <div class="setTable" v-if="this.active==1">
         <Alert closable>请确认表格信息是否全部正确</Alert>
+        <Collapse v-model="value1">
+          <Panel name="1">
+            <span class="panel_content">特种设备使用登记表</span>
+            <div slot="content">
+              <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+            </div>
+          </Panel>
+        </Collapse>
 
-        <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+        <!--<v-regist_one :ruleForm="ruleForm"></v-regist_one>-->
 
 
       </div>
 
 
-
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
-      <div class="pdfInfo" v-if="this.active==3">
+      <div class="pdfInfo" v-if="this.active==2">
         <h2>相关证明</h2>
         <Form-item label="社会信用代码证明" :label-width="300">
           <Upload
@@ -158,12 +165,12 @@
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
 
-      <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+      <!--<Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>-->
       <Button type="primary" @click="next('ruleForm')" v-if="this.active<2">下一步</Button>
-      <Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>
+      <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-      <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+      <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
       <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
@@ -212,9 +219,10 @@
         },
         defaultPdfList1: [],
         selectedNum: '',
-        deviceNum:1,
-        ruleForms:'',
-        previousNum:0,
+        deviceNum: 1,
+        ruleForms: '',
+        previousNum: 0,
+        value1:'',
 
 
       };
@@ -257,7 +265,7 @@
 
           // 获取已经保存的信息
           registService.getRegistOne(this.$route.query.dev_id).then(res => {
-              this.ruleForms=res.success;
+            this.ruleForms = res.success;
             this.ruleForm = this.ruleForms.ruleForm[0];
             this.defaultPdfList1 = res.pdfUrl;
             console.log(res);
@@ -275,6 +283,7 @@
             param.selected = this.selected;
             this.ifNext = false;
             setAppService.submitSetInfo(param).then(res => {
+
               if (res) {
                 console.log(res.success);
               }
@@ -317,13 +326,14 @@
       next(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.active++;
-            console.log(this.active);
+//            this.active++;
+//            console.log(this.active);
           }
         })
-        if (this.active == 2) {
+        if (this.active == 1) {
           this.submitForm('ruleForm');
         }
+        this.beSure();
 
       },
       before() {
@@ -333,7 +343,7 @@
               path: 'firstApp',
               query: {
                 changeDeviceNum: this.getSelectedOption,
-                selectedNum:this.getSelectedNum,
+                selectedNum: this.getSelectedNum,
               }
             });
           } else {
@@ -343,45 +353,48 @@
                 dev_id: this.$route.query.dev_id,
                 dev_name: this.$route.query.dev_name,
                 changeDeviceNum: this.$route.query.changeDeviceNum,
-                selectedNum:this.getSelectedNum,
+                selectedNum: this.getSelectedNum,
 
               }
             });
           }
         } else {
 
-            this.active--;
+          this.active--;
 
         }
       },
       beSure() {
 
-          if(this.deviceNum<this.selectedNum){
+        if (this.deviceNum < this.selectedNum) {
 
-                if(this.ruleForms && this.selectedNum>this.ruleForms.ruleForm.length)
-                {
-                    let len=this.ruleForms.ruleForm.length;
+          if (this.ruleForms && this.selectedNum > this.ruleForms.ruleForm.length) {
+            let len = this.ruleForms.ruleForm.length;
 
-                  for(let i=0;i<this.selectedNum-len;i++){
-                    this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
-                  }
+            for (let i = 0; i < this.selectedNum - len; i++) {
+              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length] = {};
+            }
 
-                }
-
-            this.deviceNum++;
-            this.active=1;
-              if(!this.ruleForms){
-                this.clearRegistOneForm();
-                this.ruleForm = this.getRegistOne;
-              }else{
-                  this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
-
-              }
-
-
-          }else{
-            this.active++;
           }
+
+          this.deviceNum++;
+          this.active = 1;
+          if (!this.ruleForms) {
+            this.clearRegistOneForm();
+            this.ruleForm = this.getRegistOne;
+          } else {
+            this.$Modal.success({
+
+              content: "请继续填写下一台(套)的登记表"
+            });
+            this.ruleForm = this.ruleForms.ruleForm[(this.deviceNum - 1)];
+
+          }
+
+
+        } else {
+          this.active=2;
+        }
 
       },
 //      createPdf() {

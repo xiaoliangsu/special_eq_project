@@ -9,15 +9,24 @@
 
         <div class="setTable">
             <h2 class="detailHead">二、特种设备使用登记表：</h2>
-            <Collapse v-model="value1">
-                <Panel name="1">
+            <Collapse v-model="value1" v-for="(item,index) in ruleForms" :key="item.id">
+                <Panel :name="''+index">
                     <span class="panel_content">特种设备使用登记表</span>
                     <div slot="content">
-                        <v_regist_one :ruleForm="ruleForm"></v_regist_one>
+                        <v_regist_one :ruleForm="item"></v_regist_one>
                         <Button type="primary" @click="toblanck">打印预览</Button>
                     </div>
                 </Panel>
             </Collapse>
+          <!--<Collapse v-model="value2">-->
+            <!--<Panel name="1">-->
+              <!--<span class="panel_content">特种设备使用登记表</span>-->
+              <!--<div slot="content">-->
+                <!--<v_regist_one :ruleForm="ruleForm2"></v_regist_one>-->
+                <!--<Button type="primary" @click="toblanck">打印预览</Button>-->
+              <!--</div>-->
+            <!--</Panel>-->
+          <!--</Collapse>-->
 
 
           <!--<Button type="primary" @click="test">受理通过</Button>-->
@@ -29,7 +38,7 @@
         </div>
         <div class="pdfdownload">
             <h2 class="detailHead">三、提交的资料：</h2>
-            <v-detailPdf :pdfUrl="pdfUrl" ></v-detailPdf>
+            <v-detailPdf :pdfUrl="pdfUrl" :pdfNum="pdfNum"></v-detailPdf>
         </div>
         <div class="accpeterControl">
             <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">受理通过</Button>
@@ -59,6 +68,7 @@
     import {mapActions, mapState, mapGetters} from 'vuex'
     import regist_one from '../../../components/register/registerOne.vue'
     import detailPdf from '../../../components/detailpdf/detailPdf.vue'
+    import * as addDetailService from '../../../services/appDetailService'
 
     //import * as avaiableService from '../../../services/avaiableDev.js'
     //import * as registService from '../../../services/registService'
@@ -68,17 +78,20 @@
     export default {
         data() {
             return {
-                ruleForm: '',
+                ruleForm: [],
                 dev_id: '',
                 dev_name: '',
                 value1: '',
+//              value2:'',
+//              ruleForm2: '',
                 pdfUrl: {
-                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
-                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
-                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+//                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+//                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+//                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+//                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+//                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
                 },
+              pdfNum:0,
                 accStatus: '',
                 accRejValue: '',
                 accReason:'',
@@ -87,6 +100,7 @@
                 approvalRejValue:'',
                 approvalReason:'',
                 orderState:'',
+              ruleForms:[],
 //                testTrue:[],
 
 
@@ -95,9 +109,19 @@
         },
         mounted(){
             //获取表格信息
-            this.ruleForm = this.getRegistOne;
-            this.getRegistOneForm(this.dev_id);
-            this.ruleForm = this.getRegistOne;
+           // this.ruleForm = this.getRegistOne;
+            //this.getRegistOneForm(this.dev_id);
+            //this.ruleForm = this.getRegistOne;
+          addDetailService.getRegistOne(1).then(res => {
+              //获取所有表格信息
+            this.ruleForms=res.success.ruleForm;
+            this.pdfUrl=res.pdfUrl;
+            //获取对象长度
+            this.pdfNum=Object.keys(this.pdfUrl).length;
+
+          }).catch(error => {
+            console.log(error)
+          })
             //获取路由上的信息
             this.transparam();
             this.getAccReason(this.dev_id);
@@ -117,8 +141,15 @@
 //                this.testTrue=!this.testTrue;
 //          },
             initData(){
-                this.getRegistOneForm(this.dev_id);
-                this.ruleForm = this.getRegistOne;
+               // this.getRegistOneForm(this.dev_id);
+               // this.ruleForm =
+              registService.getRegistOne(1).then(res => {
+                this.ruleForms=res.success.ruleForm;
+                console.log(this.ruleForm[0]);
+
+              }).catch(error => {
+                console.log(error)
+              })
                 this.accRejValue='';
                 this.approvalRejValue='';
                 this.transparam();
