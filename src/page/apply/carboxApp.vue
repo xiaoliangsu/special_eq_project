@@ -78,16 +78,22 @@
       </div>
 
       <!--让用户确认信息的表格-->
-      <div class="setTable" v-if="this.active==2">
+      <div class="setTable" v-if="this.active==1">
         <Alert closable>请确认表格信息是否全部正确</Alert>
-
-        <v-regist_three :ruleForm="ruleForm"></v-regist_three>
+        <Collapse v-model="value1">
+          <Panel name="1">
+            <span class="panel_content">特种设备使用登记表</span>
+            <div slot="content">
+              <v-regist_three :ruleForm="ruleForm"></v-regist_three>
+            </div>
+          </Panel>
+        </Collapse>
 
 
       </div>
 
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
-      <div class="pdfInfo" v-if="this.active==3">
+      <div class="pdfInfo" v-if="this.active==2">
         <h2>相关证明</h2>
         <Form-item label="社会信用代码证明" :label-width="300">
           <Upload
@@ -127,11 +133,11 @@
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
 
-      <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+      <!--<Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>-->
       <Button type="primary" @click="next('ruleForm')" v-if="this.active<2">下一步</Button>
-      <Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>
+      <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-      <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+      <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
       <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
@@ -182,6 +188,7 @@
         selectedNum: '',
         deviceNum:1,
         ruleForms:'',
+        value1:'',
 
 
       };
@@ -210,6 +217,7 @@
     methods: {
       ...mapActions({clearRegistThreeForm: 'clearRegistThreeForm'}),
       initData(){
+        this.deviceNum=1;
         if(!this.$route.query.changeDeviceNum){
           this.active = 1;
           this.selected = this.getSelectedOption;
@@ -286,13 +294,14 @@
       next(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.active++;
-            console.log(this.active);
+//            this.active++;
+//            console.log(this.active);
           }
         })
-        if (this.active == 2) {
+        if (this.active == 1) {
           this.submitForm('ruleForm');
         }
+        this.beSure();
 
       },
       before() {
@@ -321,33 +330,66 @@
           this.active--;
         }
       },
+//      beSure() {
+//
+//        if(this.deviceNum<this.selectedNum){
+//          if(this.selectedNum>this.ruleForms.ruleForm.length)
+//          {
+//            let len=this.ruleForms.ruleForm.length;
+//
+//            for(let i=0;i<this.selectedNum-len;i++){
+//              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
+//            }
+//
+//          }
+//
+//
+//          this.deviceNum++;
+//          this.active=1;
+//          if(!this.ruleForms){
+//            this.clearRegistThreeForm();
+//            this.ruleForm = this.getRegistThree;
+//          }else{
+//            this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
+//
+//          }
+//
+//
+//        }else{
+//          this.active=2;
+//        }
+//
+//      },
       beSure() {
 
-        if(this.deviceNum<this.selectedNum){
-          if(this.selectedNum>this.ruleForms.ruleForm.length)
-          {
-            let len=this.ruleForms.ruleForm.length;
+        if (this.deviceNum < this.selectedNum) {
 
-            for(let i=0;i<this.selectedNum-len;i++){
-              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
+          if (this.ruleForms && this.selectedNum > this.ruleForms.ruleForm.length) {
+            let len = this.ruleForms.ruleForm.length;
+
+            for (let i = 0; i < this.selectedNum - len; i++) {
+              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length] = {};
             }
 
           }
 
-
           this.deviceNum++;
-          this.active=1;
-          if(!this.ruleForms){
+          this.active = 1;
+          if (!this.ruleForms) {
             this.clearRegistThreeForm();
             this.ruleForm = this.getRegistThree;
-          }else{
-            this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
+          } else {
+            this.$Modal.success({
+
+              content: "请继续填写下一台(套)的登记表"
+            });
+            this.ruleForm = this.ruleForms.ruleForm[(this.deviceNum - 1)];
 
           }
 
 
-        }else{
-          this.active++;
+        } else {
+          this.active=2;
         }
 
       },

@@ -25,7 +25,9 @@
             </Row>
         </div>
         <div class="list-box">
-            <Table border :columns="columns5" :data="data5"></Table>
+            <Table border :columns="columns5" :data="data5" ref="table"></Table>
+            <br>
+          <Button type="primary" size="large" @click="exportData(1)"><Icon type="ios-download-outline"></Icon> 导出原始数据</Button>
             <Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize"></Page>
 
         </div>
@@ -226,6 +228,7 @@
                         this.data5 = res.success;
                         this.orderState=res.state;
                         console.log(this.orderState);
+                        console.log(this.data5);
 //                        for (var i = 0; i < this.data5.length; i++) {
 //                            this.data5[i].state = this.state[this.data5[i].state];
 //                        }
@@ -305,7 +308,16 @@
                     })
 
             },
-            changeReq(index){
+
+          exportData (type) {
+            if (type === 1) {
+              this.$refs.table.exportCsv({
+                filename: '原始数据',
+                columns: this.columns5.filter((col, index) => index < 4),
+              });
+            }
+          },
+          changeReq(index){
 //                this.$Modal.info({
 //                    title: '用户信息',
 //                    content: `姓名：${this.data5[index].device}<br>年龄：${this.data5[index].age}<br>地址：${this.data5[index].address}`

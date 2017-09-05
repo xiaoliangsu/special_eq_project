@@ -7,7 +7,9 @@
           <Cascader :data="form.options" trigger="hover" style="width:250px" v-model="defaultOption"
                     @on-change="handleChange"></Cascader>
         </Form-item>
-        <Form-item label="申请数量" v-if="this.getSelectedOption[0]=='one'||this.form.selectedOptions[0]=='one'||this.getSelectedOption[1]=='carbox'">
+        <!--<Form-item label="申请数量" v-if="this.getSelectedOption[0]=='one'||this.form.selectedOptions[0]=='one'||this.getSelectedOption[1]=='carbox'">-->
+        <Form-item label="申请数量" v-if="this.defaultOption[0]=='one'||this.defaultOption[1]=='carbox'">
+
           <Input-number :max="10" :min="1" v-model="form.num1"></Input-number>
         </Form-item>
         <Button type="primary" @click="next" :disabled="ifNext">下一步</Button>
@@ -71,14 +73,14 @@
         dev_id: '',
         dev_name: '',
         changeDeviceNum: '',
-        defaultOption:[],
-        params:{
-            selectedDevice:'',
-            num:'',
+        defaultOption: [],
+        params: {
+          selectedDevice: '',
+          num: '',
         },
-        defaultselected:{
-          selectedDevice:'',
-          num:'',
+        defaultselected: {
+          selectedDevice: '',
+          num: '',
         },
 
 
@@ -104,34 +106,44 @@
         }
         if (this.$route.query.dev_name) {
           this.dev_name = this.$route.query.dev_name;
-          console.log(this.dev_name);
+          //console.log(this.dev_name);
         }
         if (this.$route.query.changeDeviceNum) {
           this.changeDeviceNum = this.$route.query.changeDeviceNum;
-          console.log(this.changeDeviceNum);
+          // console.log(this.changeDeviceNum);
         }
       },
       //初始化
       initData(){
+        //如果是第一次申请
         if (!this.$route.query.changeDeviceNum) {
-         // console.log(this.defaultOption);
-          this.defaultOption=[];
+          //console.log(this.defaultOption);
+          this.defaultOption = [];
+          this.form.num1 = 1;
+//          this.params.selectedDevice='';
+//          this.params.num='';
+//          this.selectedDeviceOption(this.params);
+//          this.form.selectedOptions='';
+
+
         } else {
+          //如果是保存后的订单
           this.transparam();
-          this.defaultselected.selectedDevice=this.changeDeviceNum;
-          this.defaultselected.num=this.$route.query.selectedNum;
+          this.form.selectedOptions=''
+          this.defaultselected.selectedDevice = this.changeDeviceNum;
+          this.defaultselected.num = this.$route.query.selectedNum;
           this.selectedDeviceOption(this.defaultselected);
           this.defaultOption = this.getSelectedOption;
-          this.form.num1=this.getSelectedNum;
+          this.form.num1 = this.getSelectedNum;
           this.ifNext = false;
+
+
         }
       },
       //当改变时触发
       handleChange(value) {
-        this.form.selectedOptions=value;
-
-//        this.selectedDeviceOption(value);
-//        console.log(this.getSelectedOption[0]);
+        //获取到选择的哪项
+        this.form.selectedOptions = value;
         if (value) {
           this.ifNext = false;
         }
@@ -141,39 +153,39 @@
         if (this.active++ > 2) {
           this.active = 0;
         }
-        if(this.defaultselected.selectedDevice ==''){
-          this.params.selectedDevice=this.form.selectedOptions;
-          this.params.num=this.form.num1;
-          this.selectedDeviceOption(this.params);
-          //console.log(this.getSelectedNum);
-        }else{
-            console.log(this.getSelectedNum);
-          console.log(this.getSelectedOption);
 
+        if (this.form.selectedOptions == '') {
+          this.params.selectedDevice = this.defaultselected.selectedDevice;
+        } else {
+          this.params.selectedDevice = this.form.selectedOptions;
         }
+        this.params.num = this.form.num1;
+        this.selectedDeviceOption(this.params);
+//        console.log(this.getSelectedNum);
+//         console.log(this.getSelectedOption);
 
 
         if (this.getSelectedOption[0] == 'one' && this.getSelectedOption[1] !== 'carbox') {
-            if(!this.$route.query.changeDeviceNum){
+          if (!this.$route.query.changeDeviceNum) {
 
-              this.$router.push('setApp');
-            }else{
-              this.$router.push({
-                path: 'setApp',
-                query: {
-                  dev_id: this.dev_id,
-                  dev_name: this.dev_name,
-                  changeDeviceNum: this.changeDeviceNum,
-                  selectedNum:this.form.num1,
-                }
-              });
-            }
+            this.$router.push('setApp');
+          } else {
+            this.$router.push({
+              path: 'setApp',
+              query: {
+                dev_id: this.dev_id,
+                dev_name: this.dev_name,
+                changeDeviceNum: this.changeDeviceNum,
+                selectedNum: this.form.num1,
+              }
+            });
+          }
 
         } else if (this.getSelectedOption[0] == 'two') {
 
-          if(!this.$route.query.changeDeviceNum){
+          if (!this.$route.query.changeDeviceNum) {
             this.$router.push('companyApp');
-          }else{
+          } else {
             this.$router.push({
               path: 'companyApp',
               query: {
@@ -185,16 +197,16 @@
           }
         } else if (this.getSelectedOption[1] == 'carbox') {
 
-          if(!this.$route.query.changeDeviceNum){
+          if (!this.$route.query.changeDeviceNum) {
             this.$router.push('carboxApp');
-          }else{
+          } else {
             this.$router.push({
               path: 'carboxApp',
               query: {
                 dev_id: this.dev_id,
                 dev_name: this.dev_name,
                 changeDeviceNum: this.changeDeviceNum,
-                selectedNum:this.form.num1,
+                selectedNum: this.form.num1,
               }
             });
           }

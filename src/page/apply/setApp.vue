@@ -114,6 +114,8 @@
             <span class="panel_content">特种设备使用登记表</span>
             <div slot="content">
               <v-regist_one :ruleForm="ruleForm"></v-regist_one>
+              <Button @click="addElecSeal()" v-if="this.active==1">添加</Button>
+
             </div>
           </Panel>
         </Collapse>
@@ -175,6 +177,7 @@
       <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
 
+
     </Form>
 
   </div>
@@ -210,13 +213,13 @@
         uploadList: [],
         modal1: false,
         author_key: '',
-        pdfUrl: {
-          锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-          水壶: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-          水壶2: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-          水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
-        },
+//        pdfUrl: {
+//          锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+//          水壶: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+//          水壶2: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+//          水壶3: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+//          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
+//        },
         defaultPdfList1: [],
         selectedNum: '',
         deviceNum: 1,
@@ -251,23 +254,22 @@
     methods: {
       ...mapActions({clearRegistOneForm: 'clearRegistOneForm'}),
       initData(){
+        this.deviceNum=1;
+        this.active = 1;
+        this.selected = this.getSelectedOption;
+        this.selectedNum = this.getSelectedNum;
+        //如果是第一次填写
         if (!this.$route.query.changeDeviceNum) {
-          this.active = 1;
-          this.selected = this.getSelectedOption;
-          this.selectedNum = this.getSelectedNum;
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
-        } else {
-          this.active = 1;
-          this.selected = this.getSelectedOption;
-          this.selectedNum = this.getSelectedNum;
 
+        } else {
           // 获取已经保存的信息
           registService.getRegistOne(this.$route.query.dev_id).then(res => {
             this.ruleForms = res.success;
             this.ruleForm = this.ruleForms.ruleForm[0];
-            this.defaultPdfList1 = res.pdfUrl;
+            this.defaultPdfList1 = res.pdfUrlDefault;
             console.log(res);
           }).catch(error => {
             console.log(error)
@@ -365,33 +367,29 @@
         }
       },
       beSure() {
-
+          //deviceNum用来计数
         if (this.deviceNum < this.selectedNum) {
-
+          //如果未提交订单更改了套数
           if (this.ruleForms && this.selectedNum > this.ruleForms.ruleForm.length) {
             let len = this.ruleForms.ruleForm.length;
 
             for (let i = 0; i < this.selectedNum - len; i++) {
               this.ruleForms.ruleForm[this.ruleForms.ruleForm.length] = {};
             }
-
           }
-
           this.deviceNum++;
           this.active = 1;
+          this.$Modal.success({
+            content: "请继续填写下一台(套)的登记表"
+          });
           if (!this.ruleForms) {
             this.clearRegistOneForm();
+
             this.ruleForm = this.getRegistOne;
           } else {
-            this.$Modal.success({
-
-              content: "请继续填写下一台(套)的登记表"
-            });
             this.ruleForm = this.ruleForms.ruleForm[(this.deviceNum - 1)];
 
           }
-
-
         } else {
           this.active=2;
         }

@@ -8,7 +8,9 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import regist_one from '../../components/register/registerOne.vue'
-  import * as avaiableService from '../../services/avaiableDev.js'
+  //import * as avaiableService from '../../services/avaiableDev.js'
+  import * as appDetailService from '../../services/appDetailService'
+
   export default {
     data() {
       return {
@@ -30,24 +32,30 @@
       },
         dev_id: '',
         dev_name: '',
+        index:0,
 
 
       }
     },
+    mounted(){
+        this.initData();
+    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route': 'initData'
+    },
     methods: {
       //...mapActions({ selectedDeviceOption: 'selectedDeviceOption' }),
       initData(){
-        avaiableService.InitData(dev_id).then(res => {
-          //console.log(res);
-          if (res) {
-            console.log(res.success);
-            this.ruleForm = res.success;
+          this.transparam();
+          console.log(this.index);
+        appDetailService.getRegistOne(1).then(res => {
+          //表格信息
+          this.ruleForm = res.success.ruleForm[this.index];
 
-          }
+        }).catch(error => {
+          console.log(error)
         })
-          .catch(error => {
-            console.log(error)
-          })
       },
       transparam(){
         if (this.$route.query.dev_id) {
@@ -57,6 +65,10 @@
           this.dev_name = this.$route.query.dev_name;
           console.log(this.dev_name);
         }
+        if (this.$route.query.index) {
+          this.index = this.$route.query.index;
+        }
+
       },
 
       createPdf() {

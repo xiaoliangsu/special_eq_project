@@ -1,7 +1,7 @@
 <template>
   <div class="detailPdf">
     <ul class="detail_ul">
-      <li v-for="(item,key,index) in pdfUrl" class="detail_li">{{pdfNum}}
+      <li v-for="(item,key,index) in pdfUrl" class="detail_li">
         <a v-bind:href='item' download="1.txt" class="detail_a">{{key}}.pdf</a>
         <Button type="ghost" size="small" @click="test(index)" v-if="pdfToggle[index]==1">
           <Icon type="eye"></Icon>
@@ -24,7 +24,8 @@
 
     data(){
       return {
-        pdfToggle: [],
+          //我也很绝望呀
+        pdfToggle: [1,1,1,1,1,1,1,1,1,1,1,1,1],
       }
     },
     methods: {
@@ -47,13 +48,7 @@
         }
       },
     },
-    mounted(){
-//        console.log(this.pdfNum);
-//
-//      for(let i=0; i<this.pdfNum;i++){
-//        this.pdfToggle[i]=1;
-//      }
-    }
+
 
   }
 

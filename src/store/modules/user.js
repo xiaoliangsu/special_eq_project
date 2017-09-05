@@ -9,7 +9,9 @@ const state = {
   // 用户登录状态
   loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
   // 用户登录信息
-  userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
+  //userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
+  userInfo: localStorage.getItem('userInfo') || {},
+
   // 用户数据信息
   userData: [],
   //author_key: localStorage.getItem('author_key') || '',
@@ -20,7 +22,7 @@ const actions = {
    * 用户登录
    */
   setUserInfo({ commit }, res) {
-    localStorage.setItem('userInfo', JSON.stringify(res))
+    localStorage.setItem('userInfo', res.username)
     // console.log("sdsd");
     // console.log(JSON.parse(localStorage.getItem('userInfo')).success);
     localStorage.setItem('loginStatus', true)

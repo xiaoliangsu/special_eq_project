@@ -49,16 +49,25 @@
       </div>
 
       <!--让用户确认信息的表格-->
-      <div class="setTable" v-if="this.active==2">
-        <Alert closable>请确认表格信息是否全部正确</Alert>
+      <div class="setTable" v-if="this.active==1">
+        <!--<Alert closable>请确认表格信息是否全部正确</Alert>-->
 
-        <v-regist_two :ruleForm="ruleForm"></v-regist_two>
+        <!--<v-regist_two :ruleForm="ruleForm"></v-regist_two>-->
+        <Alert closable>请确认表格信息是否全部正确</Alert>
+        <Collapse v-model="value1">
+          <Panel name="1">
+            <span class="panel_content">特种设备使用登记表</span>
+            <div slot="content">
+              <v-regist-two :ruleForm="ruleForm"></v-regist-two>
+            </div>
+          </Panel>
+        </Collapse>
 
 
       </div>
 
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
-      <div class="pdfInfo" v-if="this.active==3">
+      <div class="pdfInfo" v-if="this.active==2">
         <h2>相关证明</h2>
         <Form-item label="社会信用代码证明" :label-width="300">
           <Upload
@@ -98,11 +107,11 @@
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
 
-      <Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>
+      <!--<Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>-->
       <Button type="primary" @click="next('ruleForm')" v-if="this.active<2">下一步</Button>
-      <Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>
+      <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
       <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-      <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+      <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
       <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
 
@@ -150,12 +159,14 @@
           水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
         },
         defaultPdfList1:[],
+        value1:'',
+        ruleForms: '',
 
 
       };
     },
     components: {
-      'v-regist_two': regist_two,
+      'v-regist-two': regist_two,
       //'v-detailPdf': detailPdf,
 
     },
@@ -188,9 +199,11 @@
           this.active = 1;
           this.selected = this.getSelectedOption;
           // 获取已经保存的信息
-          registService.getRegistTwo(this.$route.query.dev_id).then(res => {
-            this.ruleForm=res.success;
-            this.defaultPdfList1=res.pdfUrl;
+          // 获取已经保存的信息
+          registService.getRegistOne(this.$route.query.dev_id).then(res => {
+            this.ruleForms = res.success;
+            this.ruleForm = this.ruleForms.ruleForm[0];
+            this.defaultPdfList1 = res.pdfUrlDefault;
             console.log(res);
           }).catch(error => {
             console.log(error)

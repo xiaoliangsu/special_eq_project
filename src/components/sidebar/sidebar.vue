@@ -60,7 +60,7 @@
         </Menu-group>
 
         <Menu-group title="监管机关" v-if="this.author_key==4">
-          <Menu-item name="supervision">已完成订单</Menu-item>
+          <Menu-item name="supervision">已审批订单</Menu-item>
         </Menu-group>
         <!--<Submenu name="2">-->
           <!--<template slot="title">-->
