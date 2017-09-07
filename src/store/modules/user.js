@@ -7,7 +7,9 @@ import {
 
 const state = {
   // 用户登录状态
-  loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
+  // loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
+  loginStatus: localStorage.getItem('loginStatus')|| false,
+
   // 用户登录信息
   //userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
   userInfo: localStorage.getItem('userInfo') || {},
@@ -25,7 +27,7 @@ const actions = {
     localStorage.setItem('userInfo', res.username)
     // console.log("sdsd");
     // console.log(JSON.parse(localStorage.getItem('userInfo')).success);
-    localStorage.setItem('loginStatus', true)
+    localStorage.setItem('loginStatus', res.state)
     localStorage.setItem('author_key',res.author_key)
     console.log(localStorage.getItem('author_key'))
     //console.log(localStorage.getItem('author_key')
@@ -60,7 +62,7 @@ const getters = {
   getUserData: state => state.userData,
   loginStatus: state => state.loginStatus,
   userInfo: state => state.userInfo,
- // getAuthorkey:state => state.author_key,
+  // getAuthorkey:state => state.author_key,
 }
 
 const mutations = {
