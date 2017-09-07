@@ -44,11 +44,20 @@ const  ChangeReq = r => require.ensure([], () => r(require('../page/apply/avaiab
 //import AppDetail from "../page/apply/avaiableDev/appDetail.vue"
 const  AppDetail= r => require.ensure([], () => r(require('../page/apply/avaiableDev/appDetail.vue')),'AppDetail');
 
+const  ComAppDetail= r => require.ensure([], () => r(require('../page/apply/avaiableDev/comAppDetail.vue')),'ComAppDetail');
+const  CarboxAppDetail= r => require.ensure([], () => r(require('../page/apply/avaiableDev/carboxAppDetail.vue')),'CarboxAppDetail');
+
+
+
 //import WaitAccept from "../page/accept/waitAccept.vue"
 const  WaitAccept= r => require.ensure([], () => r(require('../page/accept/waitAccept.vue')),'WaitAccept');
 
 //import Regist_One from "../page/print/regist_one.vue"
 const  Regist_One= r => require.ensure([], () => r(require('../page/print/regist_one.vue')),'Regist_One');
+const  Regist_Two= r => require.ensure([], () => r(require('../page/print/regist_two.vue')),'Regist_Two');
+const  Regist_Three= r => require.ensure([], () => r(require('../page/print/regist_three.vue')),'Regist_Three');
+
+
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 const  TransformChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')),'TransformChange');
@@ -81,7 +90,11 @@ const router = new VueRouter({
         {path: "/footer", component: Footer},
         {path: "/manage", component: Manage},
         {path: "/regist_One", component: Regist_One},
-        {
+      {path: "/regist_Two", component: Regist_Two},
+      {path: "/regist_Three", component: Regist_Three},
+
+
+      {
             path: '/home', component: Home,
             children: [
                 {
@@ -105,7 +118,11 @@ const router = new VueRouter({
               {path: "/devList", component: DevList},
                 {path: "/changeReq", component: ChangeReq},
                 {path: "/appDetail", component: AppDetail},
-                {path: "/waitAccept", component: WaitAccept},
+              {path: "/comAppDetail", component: ComAppDetail},
+              {path: "/carboxAppDetail", component: CarboxAppDetail},
+
+
+              {path: "/waitAccept", component: WaitAccept},
                 {path: "/accepted", component: Accepted},
                 {path: "/transformChange", component: TransformChange},
               {path: "/approvaled", component: Approvaled},

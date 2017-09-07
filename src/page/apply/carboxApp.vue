@@ -218,19 +218,15 @@
       ...mapActions({clearRegistThreeForm: 'clearRegistThreeForm'}),
       initData(){
         this.deviceNum=1;
+        this.active = 1;
+        this.selected = this.getSelectedOption;
+        this.selectedNum = this.getSelectedNum;
         if(!this.$route.query.changeDeviceNum){
-          this.active = 1;
-          this.selected = this.getSelectedOption;
-          this.selectedNum = this.getSelectedNum;
          // console.log(this.selectedNum);
           this.clearRegistThreeForm();
           this.ruleForm = this.getRegistThree;
           this.defaultPdfList1 = [];
         }else{
-          this.active = 1;
-          this.selected = this.getSelectedOption;
-          this.selectedNum = this.getSelectedNum;
-
           // 获取已经保存的信息
           registService.getRegistThree(this.$route.query.dev_id).then(res => {
             this.ruleForms=res.success;

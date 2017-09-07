@@ -3,6 +3,12 @@
     <h2>选择设备</h2>
     <div class="content-box">
       <Form :model="form" :label-width="100">
+        <!--<Form-item label="受理机关" prop="accepter">-->
+          <!--<Input v-model="form.accepter" placeholder="请输入受理机关"></Input>-->
+        <!--</Form-item>-->
+        <!--<Form-item label="审批机关" prop="approvaler">-->
+          <!--<Input v-model="form.approvaler" placeholder="请输入审批机关"></Input>-->
+        <!--</Form-item>-->
         <Form-item label="申请设备种类">
           <Cascader :data="form.options" trigger="hover" style="width:250px" v-model="defaultOption"
                     @on-change="handleChange"></Cascader>

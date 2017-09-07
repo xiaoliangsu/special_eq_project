@@ -23,7 +23,15 @@
     ]
   },
   "RegistTwo": {
-    "equipment_category":"设备类别"
+
+    "ruleForm": [
+      {
+        "equipment_category":"设备类别"
+      },
+      {
+        "equipment_category":"设备类别2"
+      }
+    ]
 
   },
 

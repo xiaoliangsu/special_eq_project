@@ -1,6 +1,6 @@
 <template>
   <!--从后端去数据，然后填到相应的位置，还需要改一下页面的格式-->
-  <div class="appDetail">
+  <div class="comAppDetail">
     <div class="comp_name">
       <h2 class="detailHeadTop">一、单位名称：</h2>
       <!--<span class="content"> {{this.dev_id}}</span>-->
@@ -8,13 +8,13 @@
     </div>
 
     <div class="setTable">
-      <h2 class="detailHead">二、特种设备使用登记表(按套申请)：</h2>
+      <h2 class="detailHead">二、特种设备使用登记表(按单位申请)：</h2>
       <Collapse v-model="value1" v-for="(item,index) in ruleForms" :key="item.id">
         <Panel :name="''+index">
           <span class="panel_content">特种设备使用登记表</span>
           <div slot="content">
-              <v_regist_one :ruleForm="item"></v_regist_one>
-              <Button type="primary" @click="toblanck(index)">打印预览</Button>
+            <v_regist_two :ruleForm="item"></v_regist_two>
+            <Button type="primary" @click="toblanck(index)">打印预览</Button>
 
           </div>
         </Panel>
@@ -52,7 +52,7 @@
 <script>
 
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import regist_one from '../../../components/register/registerOne.vue'
+  import regist_two from '../../../components/register/registerTwo.vue'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as appDetailService from '../../../services/appDetailService'
 
@@ -105,15 +105,16 @@
       '$route': 'initData'
     },
     methods: {
-      ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
+      ...mapActions({getRegistTwoForm: 'getRegistTwoForm'}),
 //          test(){
 //                this.testTrue=!this.testTrue;
 //          },
       initData(){
         this.transparam();
-        appDetailService.getRegistOne(1).then(res => {
+        appDetailService.getRegistTwo(1).then(res => {
           //表格信息
           this.ruleForms = res.success.ruleForm;
+
           //pdf信息
           this.pdfUrl = res.pdfUrl;
           //获取对象长度
@@ -146,16 +147,16 @@
         }
         if (this.$route.query.orderState) {
           this.orderState = this.$route.query.orderState;
-        //console.log(this.orderState);
+          //console.log(this.orderState);
         }
 
       },
       toblanck(index){
         //this.$router.push('regist_one');
         this.$router.push({
-          path: 'regist_one',
+          path: 'regist_two',
           query: {
-              index: index,
+            index: index,
 //            selectedNum: this.getSelectedNum,
           }
         });
@@ -294,13 +295,13 @@
     },
 
     computed: {
-      ...mapState(['registOne']),
+      ...mapState(['registTwo']),
       ...mapGetters([
-        "getRegistOne",
+        "getRegistTwo",
       ]),
     },
     components: {
-      'v_regist_one': regist_one,
+      'v_regist_two': regist_two,
       'v-detailPdf': detailPdf,
 
     },

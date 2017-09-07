@@ -157,28 +157,63 @@ apiRoutes.get("/getRegistOne", function (req, res) {
 apiRoutes.get("/getRegistTwo", function (req, res) {
   res.json({
     success: RegistTwo,
-    pdfUrl: [
+    pdfUrlDefault:[
       {
         'name': 'pdf1',
         'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
       },
+      {
+        'name': 'pdf2',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      }
     ],
+    pdfUrl: {
+      锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+      水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+      水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+    },
+    accReason: "不通过，因为缺少材料",
+    accState: false,
+    approvalReason: "审批不通过，因为不合格",
+    approvalState: false,
+    appComName:"申请单位－名字"
+
 
   });
-  console.log(RegistOne);
+  console.log(RegistTwo);
+
 });
 apiRoutes.get("/getRegistThree", function (req, res) {
   res.json({
     success: RegistThree,
-    pdfUrl: [
+    pdfUrlDefault:[
       {
-        'name': 'pdf33',
+        'name': 'pdf1',
         'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
       },
+      {
+        'name': 'pdf2',
+        'url': 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf'
+      }
     ],
+    pdfUrl: {
+      锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+      水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+      水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+      水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+    },
+    accReason: "不通过，因为缺少材料",
+    accState: false,
+    approvalReason: "审批不通过，因为不合格",
+    approvalState: false,
+    appComName:"申请单位－名字"
+
 
   });
-  console.log(RegistOne);
+  console.log(RegistThree);
 });
 
 apiRoutes.get("/userInfo", function (req, res) {

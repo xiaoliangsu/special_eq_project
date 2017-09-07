@@ -125,7 +125,7 @@ const actions = {
 
   getRegistThreeForm({commit}, param) {
     registService.getRegistThree(param).then(res => {
-      commit(GET_REGISTTWO_FORM, res)
+      commit(GET_REGISTTHREE_FORM, res)
     }).catch(error => {
       console.log(error)
     })
@@ -141,7 +141,7 @@ const actions = {
     commit(CLEAR_REGISTTWO_FORM)
   },
   clearRegistThreeForm({commit}){
-    commit(CLEAR_REGISTTWO_FORM)
+    commit(CLEAR_REGISTTHREE_FORM)
   }
 }
 const getters = {
@@ -234,7 +234,7 @@ const mutations = {
     console.log('CLEAR_REGISTTWO_FORM');
   },
   [CLEAR_REGISTTHREE_FORM](state){
-    state.registOne =  {
+    state.registThree =  {
       eq_kind: '',
       product_name:'',
       cylinder_num: '',
