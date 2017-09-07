@@ -1,12 +1,13 @@
 <template>
-  <div class="disabled_form print">
+  <div class="pressure_form print">
     <Button type="primary" @click="createPdf" class="nprint">打印</Button>
-
-    <disabled_form :ruleForm="ruleForm"></disabled_form>
+    <v-pressure-form :formDynamicPres="formDynamicPres"></v-pressure-form>
   </div>
 </template>
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
+  import pressure_form from '../../components/register/pressureForm.vue'
+
   //import regist_one from '../../components/register/registerOne.vue'
   //import * as avaiableService from '../../services/avaiableDev.js'
   import * as appDetailService from '../../services/appDetailService'
@@ -15,7 +16,17 @@
   export default {
     data() {
       return {
-        ruleForm: {
+        formDynamicPres: {
+          items: [
+            {
+              value0: '',
+              value1: '',
+              value2: '',
+              value3: '',
+              value4: '',
+              value5: '',
+            }
+          ]
         },
         dev_id: '',
         dev_name: '',
@@ -72,7 +83,8 @@
       ]),
     },
     components: {
-      'disabled_form': disabled_form,
+      'v-pressure-form': pressure_form,
+
 
     },
 

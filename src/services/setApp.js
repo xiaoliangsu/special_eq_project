@@ -9,6 +9,15 @@ export function submitSetInfo(params) {
 export function submitCompanyInfo(params) {
   return fetch('/api/submitSetInfo', params,'post')
 }
+//提交气瓶
+export function submitCompanyGasInfo(params) {
+  return fetch('/api/submitSetInfo', params,'post')
+}
+
+//提交压力容器
+export function submitCompanyPresInfo(params) {
+  return fetch('/api/submitSetInfo', params,'post')
+}
 export function submitCarboxInfo(params) {
   return fetch('/api/submitSetInfo', params,'post')
 }
@@ -18,6 +27,8 @@ export function submitCarboxInfo(params) {
 export function saveCompanyInfo(params) {
   return fetch('/api/submitSetInfo', params,'post')
 }
+
+
 
 /**
  * 保存车瓶的申请表信息

@@ -56,8 +56,12 @@ const  WaitAccept= r => require.ensure([], () => r(require('../page/accept/waitA
 const  Regist_One= r => require.ensure([], () => r(require('../page/print/regist_one.vue')),'Regist_One');
 const  Regist_Two= r => require.ensure([], () => r(require('../page/print/regist_two.vue')),'Regist_Two');
 const  Regist_Three= r => require.ensure([], () => r(require('../page/print/regist_three.vue')),'Regist_Three');
-const  Disabled_Form= r => require.ensure([], () => r(require('../page/print/disabled_Form.vue')),'Disabled_Form');
-const  Disabled_Form2= r => require.ensure([], () => r(require('../page/print/disabled_Form2.vue')),'Disabled_Form2');
+const  Disabled_Form= r => require.ensure([], () => r(require('../page/print/disabled_form.vue')),'Disabled_Form');
+const  Disabled_Form2= r => require.ensure([], () => r(require('../page/print/disabled_form2.vue')),'Disabled_Form2');
+const  Cylinders_Form= r => require.ensure([], () => r(require('../page/print/cylinders_form.vue')),'Cylinders_Form');
+const  Pressure_Form= r => require.ensure([], () => r(require('../page/print/pressure_form.vue')),'Pressure_Form');
+const  ChangeReq_Form= r => require.ensure([], () => r(require('../page/print/changeReq_form.vue')),'ChangeReq_Form');
+
 
 
 
@@ -97,7 +101,9 @@ const router = new VueRouter({
       {path: "/regist_Three", component: Regist_Three},
       {path: "/disabled_form", component: Disabled_Form},
       {path: "/disabled_form2", component: Disabled_Form2},
-
+      {path: "/cylinders_Form", component: Cylinders_Form},
+      {path: "/pressure_Form", component: Pressure_Form},
+      {path: "/changeReq_Form", component: ChangeReq_Form},
 
 
 

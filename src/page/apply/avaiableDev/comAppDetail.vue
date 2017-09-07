@@ -14,7 +14,27 @@
           <span class="panel_content">特种设备使用登记表</span>
           <div slot="content">
             <v_regist_two :ruleForm="item"></v_regist_two>
-            <Button type="primary" @click="toblanck(index)">打印预览</Button>
+            <Button type="primary" @click="toPrintRegist(index)">打印预览</Button>
+
+          </div>
+        </Panel>
+      </Collapse>
+      <Collapse v-model="value2">
+        <Panel name="10">
+          <span class="panel_content">气瓶表</span>
+          <div slot="content">
+            <v-cylinders-form :formDynamicGas="formDynamicGas"></v-cylinders-form>
+            <Button type="primary" @click="toPrintGas()">打印预览</Button>
+
+          </div>
+        </Panel>
+      </Collapse>
+      <Collapse v-model="value3">
+        <Panel name="11">
+          <span class="panel_content">压力表</span>
+          <div slot="content">
+            <v-pressure-form :formDynamicPres="formDynamicPres"></v-pressure-form>
+            <Button type="primary" @click="toPrintPressure()">打印预览</Button>
 
           </div>
         </Panel>
@@ -53,6 +73,8 @@
 
   import {mapActions, mapState, mapGetters} from 'vuex'
   import regist_two from '../../../components/register/registerTwo.vue'
+  import cylinders_form from '../../../components/register/cylindersForm.vue'
+  import pressure_form from '../../../components/register/pressureForm.vue'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as appDetailService from '../../../services/appDetailService'
 
@@ -65,10 +87,37 @@
     data() {
       return {
         ruleForm: [],
+        formDynamicGas: {
+          items: [
+            {
+              value0: '',
+              value1: '',
+              value2: '',
+              value3: '',
+              value4: '',
+              value5: '',
+            }
+          ]
+        },
+        formDynamicPres: {
+          items: [
+            {
+              value0: '',
+              value1: '',
+              value2: '',
+              value3: '',
+              value4: '',
+              value5: '',
+            }
+          ]
+        },
+
         dev_id: '',
         dev_name: '',
         deviceSortNum:'',
         value1: '',
+        value2:'',
+        value3:'',
 //              value2:'',
 //              ruleForm2: '',
         pdfUrl: {
@@ -151,7 +200,7 @@
         }
 
       },
-      toblanck(index){
+      toPrintRegist(index){
         //this.$router.push('regist_one');
         this.$router.push({
           path: 'regist_two',
@@ -159,6 +208,20 @@
             index: index,
 //            selectedNum: this.getSelectedNum,
           }
+        });
+      },
+      toPrintGas(){
+        //this.$router.push('regist_one');
+        this.$router.push({
+          path: 'cylinders_Form',
+
+        });
+      },
+      toPrintPressure(){
+        //this.$router.push('regist_one');
+        this.$router.push({
+          path: 'pressure_Form',
+
         });
       },
       //受理通过
@@ -303,6 +366,8 @@
     components: {
       'v_regist_two': regist_two,
       'v-detailPdf': detailPdf,
+      'v-cylinders-form': cylinders_form,
+      'v-pressure-form': pressure_form,
 
     },
 

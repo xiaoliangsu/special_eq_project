@@ -1,8 +1,8 @@
 <template>
-  <div class="disabled_form print">
+  <div class="changeReq_form print">
     <Button type="primary" @click="createPdf" class="nprint">打印</Button>
 
-    <disabled_form :ruleForm="ruleForm"></disabled_form>
+    <changeReq_form :ruleForm="ruleForm"></changeReq_form>
   </div>
 </template>
 <script>
@@ -10,7 +10,7 @@
   //import regist_one from '../../components/register/registerOne.vue'
   //import * as avaiableService from '../../services/avaiableDev.js'
   import * as appDetailService from '../../services/appDetailService'
-  import disabled_form from "../../components/register/disabledForm";
+  import changeReq_form from "../../components/register/changeReq.vue";
 
   export default {
     data() {
@@ -72,8 +72,7 @@
       ]),
     },
     components: {
-      'disabled_form': disabled_form,
-
+      'changeReq_form': changeReq_form,
     },
 
   }

@@ -49,6 +49,8 @@
         <Menu-item name="devList">已有设备列表</Menu-item>
           <Menu-item name="disabled_form">停用报废表</Menu-item>
           <Menu-item name="disabled_form2">停用报废表2</Menu-item>
+          <Menu-item name="changeReq_form">变更申请</Menu-item>
+
 
 
         </Menu-group>
