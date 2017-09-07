@@ -56,6 +56,9 @@ const  WaitAccept= r => require.ensure([], () => r(require('../page/accept/waitA
 const  Regist_One= r => require.ensure([], () => r(require('../page/print/regist_one.vue')),'Regist_One');
 const  Regist_Two= r => require.ensure([], () => r(require('../page/print/regist_two.vue')),'Regist_Two');
 const  Regist_Three= r => require.ensure([], () => r(require('../page/print/regist_three.vue')),'Regist_Three');
+const  Disabled_Form= r => require.ensure([], () => r(require('../page/print/disabled_Form.vue')),'Disabled_Form');
+const  Disabled_Form2= r => require.ensure([], () => r(require('../page/print/disabled_Form2.vue')),'Disabled_Form2');
+
 
 
 
@@ -92,6 +95,10 @@ const router = new VueRouter({
         {path: "/regist_One", component: Regist_One},
       {path: "/regist_Two", component: Regist_Two},
       {path: "/regist_Three", component: Regist_Three},
+      {path: "/disabled_form", component: Disabled_Form},
+      {path: "/disabled_form2", component: Disabled_Form2},
+
+
 
 
       {

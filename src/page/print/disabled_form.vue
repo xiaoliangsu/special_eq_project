@@ -1,21 +1,21 @@
 <template>
-  <div class="regist_three print">
+  <div class="regist_one print">
     <Button type="primary" @click="createPdf" class="nprint">打印</Button>
 
-    <v_regist_three :ruleForm="ruleForm"></v_regist_three>
+    <disabled_form :ruleForm="ruleForm"></disabled_form>
   </div>
 </template>
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import regist_three from '../../components/register/registerThree.vue'
+  //import regist_one from '../../components/register/registerOne.vue'
   //import * as avaiableService from '../../services/avaiableDev.js'
   import * as appDetailService from '../../services/appDetailService'
+  import disabled_form from "../../components/register/disabledForm";
 
   export default {
     data() {
       return {
         ruleForm: {
-
         },
         dev_id: '',
         dev_name: '',
@@ -36,7 +36,7 @@
       initData(){
         this.transparam();
         console.log(this.index);
-        appDetailService.getRegistThree(1).then(res => {
+        appDetailService.getRegistOne(1).then(res => {
           //表格信息
           this.ruleForm = res.success.ruleForm[this.index];
 
@@ -72,7 +72,7 @@
       ]),
     },
     components: {
-      'v_regist_three': regist_three,
+      'disabled_form': disabled_form,
 
     },
 

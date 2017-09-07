@@ -47,6 +47,10 @@
           <Menu-item name="unSubmitOrder">未提交订单</Menu-item>
         <Menu-item name="orderList">全部已提交订单</Menu-item>
         <Menu-item name="devList">已有设备列表</Menu-item>
+          <Menu-item name="disabled_form">停用报废表</Menu-item>
+          <Menu-item name="disabled_form2">停用报废表2</Menu-item>
+
+
         </Menu-group>
 
         <Menu-group title="受理机关" v-if="this.author_key==2">

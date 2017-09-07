@@ -322,14 +322,34 @@
         switch (this.data5[value].changeApplyNum) {
           case 1:
             //首次申请
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
+            if(this.data5[value].changeDeviceNum[0]=='one' && this.data5[value].changeDeviceNum[1]!=='carbox'){
+              this.$router.push({
+                path: 'appDetail',
+                query: {
+                  dev_id: this.data5[value].id,
+                  dev_name: this.data5[value].device,
+                  orderState: this.orderState,
+                }
+              });
+            }else if(this.data5[value].changeDeviceNum[0]=='two'){
+              this.$router.push({
+                path: 'comAppDetail',
+                query: {
+                  dev_id: this.data5[value].id,
+                  dev_name: this.data5[value].device,
+                  orderState: this.orderState,
+                }
+              });
+            }else if(this.data5[value].changeDeviceNum[1]=='carbox'){
+              this.$router.push({
+                path: 'carboxAppDetail',
+                query: {
+                  dev_id: this.data5[value].id,
+                  dev_name: this.data5[value].device,
+                  orderState: this.orderState,
+                }
+              });
+            }
             break;
           case 2:
               //改造变更

@@ -15,20 +15,7 @@
     data() {
       return {
         ruleForm: {
-          kind1: '',
-          kind2: '',
-          kind3: '',
-          device_name: '',
-          device_code: '',
-          device_type: '',
-          design_year: '',
-          design_com_name: '',
-          make_com_name: '',
-          const_com_name: '',
-          inspect_com_name: '',
-          test_com_name: '',
-          use_com_name: '',
-          check_com_name: '',
+
       },
         dev_id: '',
         dev_name: '',
