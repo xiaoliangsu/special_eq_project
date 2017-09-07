@@ -119,8 +119,8 @@
     <div v-if="this.active==2">
       <h2>气瓶基本信息汇总</h2>
 
-      <Form ref="formDynamicGas" :model="formDynamicGas" :label-width="80" v-for="(item, index) in formDynamicGas.items"
-            inline>
+      <Form ref="formDynamicGas" :model="formDynamicGas" :label-width="80" v-for="(item, index,key) in formDynamicGas.items"
+            :key="item.id"    inline>
         <FormItem
           :key="index"
           :label="'设备品种'"
@@ -201,7 +201,7 @@
       <h2>压力管道基本信息汇总</h2>
 
       <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="80" v-for="(item, index) in formDynamicPres.items"
-            inline>
+            :key="item.id" inline>
         <FormItem
           :key="index"
           :label="'设备品种'"
