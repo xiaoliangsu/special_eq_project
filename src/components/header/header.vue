@@ -31,7 +31,7 @@
     </header>
 </template>
 <script>
-    import axios from "axios"
+  //  import axios from "axios"
     import {mapState, mapActions,mapGetters} from 'vuex'
     export default {
         data() {

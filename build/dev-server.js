@@ -61,6 +61,12 @@ apiRoutes.post("/login", function (req, res) {
     });
   }
 });
+apiRoutes.get("/logout", function (req, res) {
+  res.json({
+    success: orderInfo.orders
+  });
+});
+
 
 apiRoutes.get("/getorders", function (req, res) {
   res.json({

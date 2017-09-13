@@ -1,4 +1,6 @@
 import * as userService from '../../services/user'
+import * as loginService from '../../services/login'
+
 import {
   SET_USER_INFO,
   SET_LOGIN_STATUS,
@@ -8,7 +10,7 @@ import {
 const state = {
   // 用户登录状态
   // loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
-  loginStatus: localStorage.getItem('loginStatus')|| false,
+  loginStatus: localStorage.getItem('loginStatus') || false,
 
   // 用户登录信息
   //userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
@@ -23,13 +25,12 @@ const actions = {
   /**
    * 用户登录
    */
-  setUserInfo({ commit }, res) {
+  setUserInfo({commit}, res) {
     localStorage.setItem('userInfo', res.username)
-    // console.log("sdsd");
     // console.log(JSON.parse(localStorage.getItem('userInfo')).success);
     localStorage.setItem('loginStatus', res.state)
-    localStorage.setItem('author_key',res.author_key)
-    console.log(localStorage.getItem('author_key'))
+    localStorage.setItem('author_key', res.author_key)
+    //console.log(localStorage.getItem('author_key'))
     //console.log(localStorage.getItem('author_key')
     commit(SET_USER_INFO, res)
     commit(SET_LOGIN_STATUS, true)
@@ -38,17 +39,23 @@ const actions = {
   /**
    * 退出登录
    */
-  setSignOut({ commit }) {
-    localStorage.removeItem('loginStatus')
-    localStorage.removeItem('userInfo')
-    commit(SET_LOGIN_STATUS, false)
-    commit(SET_USER_INFO, {})
+  setSignOut({commit}) {
+    loginService.Logout().then(res => {
+      console.log(res);
+      localStorage.removeItem('loginStatus')
+      localStorage.removeItem('userInfo')
+      commit(SET_LOGIN_STATUS, false)
+      commit(SET_USER_INFO, {})
+    }).catch(error => {
+      console.log(2);
+      console.log(error)
+    })
   },
 
   /**
    * 请求用户信息
    */
-  getUserData({ commit }, id) {
+  getUserData({commit}, id) {
     //commit(COM_LOADING_STATUS, true)
     userService.UserInfo(id)
       .then(res => {
