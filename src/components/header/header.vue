@@ -1,9 +1,11 @@
 <template>
     <header class="header" >
-        <div class="header-left">
-            <!--<img  class="header-logo" src="../../static/images/logo.png">-->
-          <span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>
-        </div>
+        <!--<div class="header-left">-->
+            <!--&lt;!&ndash;<img  class="header-logo" src="../../static/images/logo.png">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>&ndash;&gt;-->
+         <!---->
+
+        <!--</div>-->
 
         <div class="header-right">
           <router-link :to="loginStatus? '/user' :'/' " class="head_login">
@@ -81,50 +83,48 @@
       box-sizing:content-box;
       overflow:hidden;
       @include font-dpr(20px);*/
-    .header {
-      position: fixed;
-      box-sizing: border-box;
-      width: 100%;
-      height:66px;
-      font-size: 14px;
-      line-height: 66px;
-      background-color:rgb(72,79,95);
-      box-shadow:2px 0 3px rgba(0,0,0,.5);
-      z-index:1000;
-      padding:0 32px 0 25px;
-      overflow:hidden;
+    /*.header {*/
+      /*position: fixed;*/
+      /*box-sizing: border-box;*/
+      /*width: 100%;*/
+      /*height:60px;*/
+      /*font-size: 14px;*/
+      /*line-height: 66px;*/
+      /*//background-color:rgb(72,79,95);*/
+      /*//box-shadow:2px 0 3px rgba(0,0,0,.5);*/
+      /*z-index:1000;*/
+      /*//padding:0 32px 0 25px;*/
+      /*overflow: visible;*/
 
-      .header-left{
-        float:left;
-        line-height:66px;
-        width:200px;
-        font-size:18px;
-        .logo_prefix{
-          color:#209e91;
-          font-size:19px;
-        }
-        .logo_suffix{
-          color:#fff;
-        }
-        .header-logo{
-          width: 100%;
-          height: 3rem;
-        }
+      /*.header-left{*/
+        /*float:left;*/
+        /*line-height:66px;*/
+        /*width:200px;*/
+        /*font-size:18px;*/
+        /*.logo_prefix{*/
+          /*color:#209e91;*/
+          /*font-size:19px;*/
+        /*}*/
+        /*.logo_suffix{*/
+          /*color:#fff;*/
+        /*}*/
+        /*.header-logo{*/
+          /*width: 100%;*/
+          /*height: 3rem;*/
+        /*}*/
 
-      }
-      .header-right{
-        float:right;
-        line-height: 66px;
-        width:5rem;
-      }
+      /*}*/
 
 
-
-
-
-
-
-    }
+    /*}*/
+.header-right{
+  float:right;
+  line-height: 60px;
+  width:5rem;
+  //padding-left:-40px;
+  margin-right:20px;
+  //background-color:rgb(72,79,95);
+}
 
 
 

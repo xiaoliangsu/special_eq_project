@@ -48,6 +48,7 @@
 </script>
 
 <style lang="scss" scoped>
+
   body {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
     //background-color: #f8f8f9;
@@ -60,7 +61,7 @@
       z-index: 1;
       background-repeat: no-repeat;
       background-image:url('assets/demo-1-bg.jpg');
-
+height:100%;
   }
 
 

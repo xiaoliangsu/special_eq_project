@@ -11,7 +11,7 @@
         <!--<Col span="8">-->
         <!--<label>订单状态</label>-->
         <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
-          <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
         <!--</Select>-->
         <!--</Col>-->
         <Col span="12">
@@ -164,11 +164,9 @@
         num: 200,
 
 
-
-
-
       }
     },
+
     methods: {
       ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
       //获取申请列表信息
@@ -220,6 +218,7 @@
           console.log(error);
         })
       },
+
       query(){
         this.params.time = this.time;
         this.params.sort = this.model1;
@@ -255,7 +254,7 @@
 //                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
 //            }
       continueApp(value){
-          console.log(this.data5[value].changeDeviceNum);
+        console.log(this.data5[value].changeDeviceNum);
         switch (this.data5[value].changeApplyNum) {
           case 1:
             //首次申请
@@ -264,12 +263,46 @@
               query: {
                 dev_id: this.data5[value].id,
                 dev_name: this.data5[value].device,
+                //选择的设备种类
                 changeDeviceNum: this.data5[value].changeDeviceNum,
-                selectedNum:2
+                //selectedNum:2
               }
             });
+            //let temp = this.data5[value].changeDeviceNum;
+//            if (temp[0] == 'one' && temp[1] !== 'carbox') {
+//              this.$router.push({
+//                path: 'setApp',
+//                query: {
+//                  dev_id: this.data5[value].id,
+//                  dev_name: this.data5[value].device,
+//                  //选择的设备种类
+//                  changeDeviceNum: this.data5[value].changeDeviceNum,
+//                }
+//              });
+//            } else if (temp[0] == 'two') {
+//              this.$router.push({
+//                path: 'companyApp',
+//                query: {
+//                  dev_id: this.data5[value].id,
+//                  dev_name: this.data5[value].device,
+//                  //选择的设备种类
+//                  changeDeviceNum: this.data5[value].changeDeviceNum,
+//                }
+//              });
+//            } else if (temp[1] == 'carbox') {
+//              this.$router.push({
+//                path: 'carboxApp',
+//                query: {
+//                  dev_id: this.data5[value].id,
+//                  dev_name: this.data5[value].device,
+//                  //选择的设备种类
+//                  changeDeviceNum: this.data5[value].changeDeviceNum,
+//                }
+//              });
+//            }
+
             break;
-            /////需要改
+          /////需要改
           case 2:
             //改造变更
             this.$router.push({
@@ -354,13 +387,13 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    border-color:#dddee1;
+    border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
 
-    .page{
-      float:right;
-      margin:10px;
+    .page {
+      float: right;
+      margin: 10px;
     }
   }
 

@@ -15,10 +15,37 @@
   "RegistOne": {
     "ruleForm": [
       {
-        "eq_species": "xiaoliangsu"
-      },
-      {
-        "eq_species": "1111"
+        "eq_species": "蔡依林",
+        "eq_category": "",
+        "eq_variety": "",
+        "eq_name": "",
+        "eq_code": "",
+        "model": "",
+        "design_use_limit": "",
+        "design_com_name": "",
+        "manufacture_com_name": "",
+        "construct_com_name": "",
+        "supervise_com_name": "",
+        "test_com_name": "",
+        "use_com_name": "",
+        "use_com_addr": "",
+        "use_com_code": "",
+        "zip_code": "",
+        "com_code": "",
+        "eq_use_location": "",
+        "begin_use_date": "",
+        "com_phone": "",
+        "safe_admin": "",
+        "mobile_phone": "",
+        "property_com_name": "",
+        "property_com_code": "",
+        "telephone": "",
+        "check_com_name": "",
+        "check_category": "",
+        "check_report_num": "",
+        "check_date": "",
+        "check_conclusion": "",
+        "next_check_date": ""
       }
     ]
   },

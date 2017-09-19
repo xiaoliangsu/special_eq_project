@@ -16,7 +16,7 @@
     background-color: rgb(251,251,251);
     position: fixed;
     z-index: 100;
-    left: 180px;
+    left: 240px;
     right: 0;
     bottom: 0;
     @include wh(100%, 3rem);
