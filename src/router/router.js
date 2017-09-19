@@ -113,7 +113,7 @@ const router = new VueRouter({
         {
           path: "/firstApp", component: FirstApp,
           // 添加该字段，表示进入这个路由是需要登录的
-          meta: {requireAuth: true},
+          // meta: {requireAuth: true},
         },
 
         {path: "/setApp", component: SetApp},

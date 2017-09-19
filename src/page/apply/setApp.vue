@@ -198,6 +198,7 @@
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
       <div class="pdfInfo" v-if="this.active==3">
         <h2>相关证明</h2>
+        <!--这个接口是尝试过成功的-->
         <Form-item label="社会信用代码证明" :label-width="300">
           <Upload
             ref="upload"
@@ -205,7 +206,7 @@
             :on-success="handleSuccess"
             :on-remove="handleRemove"
             :default-file-list="defaultPdfList1"
-            action="//jsonplaceholder.typicode.com/posts/"
+            action="/admin/upload?applyId=1&fileTypeId=1"
             with-credentials>
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
           </Upload>
@@ -263,8 +264,9 @@
   export default {
     data() {
       return {
-        pdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-        //pdfUrl: '',
+          //等调的时候再拼接口
+        pdfUrl: '/admin/download?fileId=101',
+       // pdfUrl: '',
         deviceList: [
           {
             value: 'boiler',
@@ -395,34 +397,34 @@
       },
 //提交表单
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let param = Object.assign({}, this.ruleForm);
-            //把选择的哪一项带进去
-            param.selected = this.deviceType;
-            console.log(this.deviceType);
-            setAppService.submitSetInfo(param).then(res => {
-
-              if (res) {
-                console.log(res.success);
-              }
-              this.active++;
-              this.modalCertain=false;
-              console.log(this.modalCertain);
-            })
-              .catch(error => {
-                console.log(error)
-              })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-       // this.active++;
-
-//        let params="fileId=101"
-//        console.log( '/download?'+params);
+//        this.$refs[formName].validate((valid) => {
+//          if (valid) {
+//            let param = Object.assign({}, this.ruleForm);
+//            //把选择的哪一项带进去
+//            param.selected = this.deviceType;
+//            console.log(this.deviceType);
+//            setAppService.submitSetInfo(param).then(res => {
 //
+//              if (res) {
+//                console.log(res.success);
+//              }
+//              this.active++;
+//              this.modalCertain=false;
+//              console.log(this.modalCertain);
+//            })
+//              .catch(error => {
+//                console.log(error)
+//              })
+//          } else {
+//            console.log('error submit!!');
+//            return false;
+//          }
+//        });
+        this.active++;
+
+        let params="fileId=101"
+        console.log( '/download?'+params);
+
 //        setAppService.getRegistOne("fileId=101").then(res => {
 //
 //          //pdf信息

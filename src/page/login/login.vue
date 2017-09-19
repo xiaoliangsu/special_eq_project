@@ -21,25 +21,26 @@
             </Input>
           </Form-item>
           <!--去掉这个注释-->
-          <!--<Form-item prop="verif">-->
-            <!--<Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>-->
-            <!--<img src="/admin/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"-->
-                 <!--alt="验证码图片" v-on:click="reflushVerify"/>-->
-          <!--</Form-item>-->
-          <!--这里加注释-->
-          <Form-item prop="author_key">
-          <Select v-model="loginForm.author_key" placeholder="请选择角色" @on-change="selectAuthorKey">
-          <Option value="1">申请单位</Option>
-          <Option value="2">受理机关</Option>
-          <Option value="3">审批机关</Option>
-          <Option value="4">监管机关</Option>
-          <Option value="5">超级管理员</Option>
-          <Option value="6">all</Option>
-          </Select>
-          </Input>
+          <Form-item prop="verif">
+            <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
+            <img src="/admin/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
+                 alt="验证码图片" v-on:click="reflushVerify"/>
           </Form-item>
+          <!--这里加注释-->
+          <!--<Form-item prop="author_key">-->
+          <!--<Select v-model="loginForm.author_key" placeholder="请选择角色" @on-change="selectAuthorKey">-->
+          <!--<Option value="1">申请单位</Option>-->
+          <!--<Option value="2">受理机关</Option>-->
+          <!--<Option value="3">审批机关</Option>-->
+          <!--<Option value="4">监管机关</Option>-->
+          <!--<Option value="5">超级管理员</Option>-->
+          <!--<Option value="6">all</Option>-->
+          <!--</Select>-->
+          <!--</Input>-->
+          <!--</Form-item>-->
+          <!--到这里-->
           <Form-item>
-            <!--到这里-->
+
             <Button type="primary" @click="_login()" long>登录</Button>
           </Form-item>
         </Form>
@@ -282,36 +283,36 @@
         }
 //把data换成data2
         this.$store.dispatch('setLoadingState', true)
-        loginService.Login(data).then(res => {
+        loginService.Login(data2).then(res => {
             //去掉这个注释
-//          if(res.status=="true"){
-//            //获取权限点
-//            this.loginInfo.author_key=res.role;
-//
-//            console.log(this.loginInfo.author_key);
-//            //登陆状态
-//            this.loginInfo.state=res.status;
-//            console.log(this.loginInfo.state);
-//            //设置localstorage
-//            this.loginInfo.username=this.loginForm.username;
-//            this.setUserInfo(this.loginInfo);
-//            this.$router.push('home');
-//          }else {
-//            this.$Notice.error({
-//              title: '这是通知标题',
-//              desc: res.msg,
-//            });
-//          }
+          if(res.status=="true"){
+            //获取权限点
+            this.loginInfo.author_key=res.role;
+
+            console.log(this.loginInfo.author_key);
+            //登陆状态
+            this.loginInfo.state=res.status;
+            console.log(this.loginInfo.state);
+            //设置localstorage
+            this.loginInfo.username=this.loginForm.username;
+            this.setUserInfo(this.loginInfo);
+            this.$router.push('home');
+          }else {
+            this.$Notice.error({
+              title: '这是通知标题',
+              desc: res.msg,
+            });
+          }
 
           //这个加注释
-          if(res.success) {
-            // let userInfo = Object.assign()
-            //this.$store.dispatch('setLoadingState', false)
-            console.log(res);
-            //this.setUserInfo(res.data);
-            this.setUserInfo(res);
-            this.$router.push('home');
-          }
+//          if(res.success) {
+//            // let userInfo = Object.assign()
+//            //this.$store.dispatch('setLoadingState', false)
+//            console.log(res);
+//            //this.setUserInfo(res.data);
+//            this.setUserInfo(res);
+//            this.$router.push('home');
+//          }
 
         }).catch(error => {
            // console.log(2);
