@@ -62,7 +62,7 @@ export default function fetch(url, params, type){
     return new Promise((resolve, reject) => {
       axios.get(url)
         .then(response => {
-          resolve(response);
+          resolve(response.data);
         }, err => {
           reject(err);
         })

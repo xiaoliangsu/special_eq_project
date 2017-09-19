@@ -27,6 +27,7 @@ const User = r => require.ensure([], () => r(require('../page/user/user.vue')), 
 //import FirstApp from "../page/apply/firstApp.vue"
 const FirstApp = r => require.ensure([], () => r(require('../page/apply/firstApp.vue')), 'FirstApp');
 
+const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLast.vue')), 'NewOrLast');
 
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
@@ -115,7 +116,7 @@ const router = new VueRouter({
           // 添加该字段，表示进入这个路由是需要登录的
           meta: {requireAuth: true},
         },
-
+        {path: "/newOrLast", component: NewOrLast},
         {path: "/setApp", component: SetApp},
         {path: "/companyApp", component: CompanyApp},
         {path: "/carboxApp", component: CarboxApp},

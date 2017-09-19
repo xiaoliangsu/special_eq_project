@@ -36,20 +36,20 @@
               首次申请
             </template>
             <MenuGroup title="按台(套)申请">
-              <MenuItem name="setApp-one-boiler">锅炉</MenuItem>
-              <MenuItem name="setApp-one-pressure">压力容器（气瓶除外）</MenuItem>
-              <MenuItem name="setApp-one-elevator">电梯</MenuItem>
-              <MenuItem name="setApp-one-hoisting">起重机械</MenuItem>
-              <MenuItem name="setApp-one-cableway">客运索道</MenuItem>
-              <MenuItem name="setApp-one-play">大型游乐设施</MenuItem>
-              <MenuItem name="setApp-one-factorycar">场 (厂)内专用机动车辆</MenuItem>
+              <MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>
+              <MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>
+              <MenuItem name="newOrLast-one-elevator">电梯</MenuItem>
+              <MenuItem name="newOrLast-one-hoisting">起重机械</MenuItem>
+              <MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>
+              <MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>
+              <MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>
             </MenuGroup>
             <MenuGroup title="按单位申请">
-              <MenuItem name="companyApp-two-cylinders">气瓶(车用气瓶除外)</MenuItem>
-              <MenuItem name="companyApp-two-pipeline">工业管道</MenuItem>
+              <MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>
+              <MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>
             </MenuGroup>
             <MenuGroup title="车用气瓶">
-              <MenuItem name="carboxApp-one-carbox">车用气瓶</MenuItem>
+              <MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>
             </MenuGroup>
           </Submenu>
           <Submenu name="2-1">

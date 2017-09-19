@@ -2,13 +2,8 @@
   <!--按套申请的使用登记表-->
   <div class="setApp">
     <div class="bread">
-    <Breadcrumb>
+      <v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>
 
-      <BreadcrumbItem href="/home">首页</BreadcrumbItem>
-      <BreadcrumbItem href="/setApp">首次申请</BreadcrumbItem>
-      <BreadcrumbItem>{{this.bread_choose}}</BreadcrumbItem>
-
-    </Breadcrumb>
     </div>
     <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >
       <div class="statusInfo" v-if="this.active==1">
@@ -240,7 +235,7 @@
 
       <!--<Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>-->
 
-      <Button type="primary" @click="next()" v-if="this.active==2">下</Button>
+      <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
 
       <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
@@ -260,6 +255,8 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
   import * as registService from '../../services/registService'
+  //import breadCrumb from '../../components/breadCrumb/breadCrumb.vue'
+  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
   export default {
     data() {
       return {
@@ -332,7 +329,9 @@
       };
     },
     components: {
+      VBreadCrumb,
       'v-regist_one': regist_one,
+      //'v-breadCrumb':breadCrumb,
       // 'v-detailPdf': detailPdf,
 
     },
@@ -372,7 +371,7 @@
           }
         }
         //如果是第一次填写
-        if (!this.$route.query.changeDeviceNum) {
+        if (this.$route.query.ifold!==1) {
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
@@ -475,32 +474,6 @@
       },
       before() {
         this.active--;
-//        if (this.active == 1) {
-//          if (!this.$route.query.changeDeviceNum) {
-//            this.$router.push({
-//              path: 'firstApp',
-//              query: {
-//                changeDeviceNum: this.getSelectedOption,
-//                //selectedNum: this.getSelectedNum,
-//              }
-//            });
-//          } else {
-//            this.$router.push({
-//              path: 'firstApp',
-//              query: {
-//                dev_id: this.$route.query.dev_id,
-//                dev_name: this.$route.query.dev_name,
-//                changeDeviceNum: this.$route.query.changeDeviceNum,
-//                //selectedNum: this.getSelectedNum,
-//
-//              }
-//            });
-//          }
-//        } else {
-//
-//          this.active--;
-//
-//        }
       },
 
       confirmForm () {
@@ -517,14 +490,6 @@
         });
       },
 
-//      ok () {
-//        //this.$Message.info('点击了确定');
-//        this.submitForm('ruleForm');
-//
-//      },
-//      cancel () {
-//        this.$Message.info('点击了取消');
-//      },
 
 //      beSure() {
 //        //deviceNum用来计数

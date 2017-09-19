@@ -97,7 +97,7 @@
           "changeDevice":"单位",
           "changeDeviceNum":["two","cylinders"],
           "changeApply":"首次申请",
-          "changeApplyNum":1,
+          "changeApplyNum":2,
             "state":0
         },
         {
@@ -110,7 +110,7 @@
           "changeDevice":"车瓶",
           "changeDeviceNum":["one","carbox"],
           "changeApply":"首次申请",
-          "changeApplyNum":1,
+          "changeApplyNum":3,
           "state":0
         },
         {
