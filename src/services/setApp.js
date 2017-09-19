@@ -44,3 +44,7 @@ export function saveSetInfo(params) {
   return fetch('/api/submitSetInfo', params,'post')
 }
 
+
+export function getRegistOne(params) {
+  return fetch('/download?'+params, params,'get')
+}

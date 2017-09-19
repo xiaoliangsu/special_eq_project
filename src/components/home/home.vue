@@ -131,11 +131,18 @@
         <v-header v-show="headShow" signinUp="true"></v-header>
       </div>
       <div class="layout-breadcrumb">
-        <Breadcrumb>
-          <BreadcrumbItem href="#">首页</BreadcrumbItem>
-          <BreadcrumbItem href="#">应用中心</BreadcrumbItem>
-          <BreadcrumbItem>某应用</BreadcrumbItem>
-        </Breadcrumb>
+        <!--<Breadcrumb>-->
+
+          <!--<BreadcrumbItem href="/home">首页</BreadcrumbItem>-->
+          <!--<BreadcrumbItem href="/setApp">首次申请</BreadcrumbItem>-->
+          <!--<BreadcrumbItem>锅炉</BreadcrumbItem>-->
+          <!--&lt;!&ndash;<BreadcrumbItem>某应用</BreadcrumbItem>&ndash;&gt;-->
+          <!--&lt;!&ndash;<Breadcrumb-item href="/">首页</Breadcrumb-item>&ndash;&gt;-->
+          <!--&lt;!&ndash;<Breadcrumb-item href="#">文章管理</Breadcrumb-item>&ndash;&gt;-->
+          <!--&lt;!&ndash;<Breadcrumb-item href="/articles">文章列表</Breadcrumb-item>&ndash;&gt;-->
+          <!--&lt;!&ndash;<Breadcrumb-item>文章{{ id ? '编辑' : '新增' }}</Breadcrumb-item>&ndash;&gt;-->
+        <!--</Breadcrumb>-->
+        <!--<v-breadCrumb></v-breadCrumb>-->
       </div>
       <div class="layout-content">
         <div class="layout-content-main">
@@ -160,6 +167,7 @@
     import header from '../header/header.vue'
     import footer from "../footer/footer.vue"
     import sidebar from '../sidebar/sidebar.vue'
+    import breadCrumb from '../breadCrumb/breadCrumb.vue'
     //import login from '../../page/login/login.vue'
 
     import {mapGetters, mapState, mapActions} from 'vuex'
@@ -190,6 +198,7 @@
         'v-header': header,
         'v-sidebar': sidebar,
         'v-footer': footer,
+        'v-breadCrumb':breadCrumb,
 
       },
       methods: {
@@ -245,7 +254,7 @@
       border-radius: 4px;
       position:absolute;
       left:0;
-      top:87px;
+      top:60px;
       bottom:30px;
       right:0;
       height:auto;

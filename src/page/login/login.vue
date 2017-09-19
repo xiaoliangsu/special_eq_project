@@ -296,11 +296,12 @@
 //            this.loginInfo.username=this.loginForm.username;
 //            this.setUserInfo(this.loginInfo);
 //            this.$router.push('home');
-//          }else{
+//          }else {
 //            this.$Notice.error({
 //              title: '这是通知标题',
 //              desc: res.msg,
 //            });
+//          }
 
           //这个加注释
           if(res.success) {

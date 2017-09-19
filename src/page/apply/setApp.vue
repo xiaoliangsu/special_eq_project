@@ -1,6 +1,15 @@
 <template>
   <!--按套申请的使用登记表-->
   <div class="setApp">
+    <div class="bread">
+    <Breadcrumb>
+
+      <BreadcrumbItem href="/home">首页</BreadcrumbItem>
+      <BreadcrumbItem href="/setApp">首次申请</BreadcrumbItem>
+      <BreadcrumbItem>{{this.bread_choose}}</BreadcrumbItem>
+
+    </Breadcrumb>
+    </div>
     <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >
       <div class="statusInfo" v-if="this.active==1">
         <!--<h2>选择设备种类</h2>-->
@@ -14,7 +23,7 @@
           <Row>
             <Col span="12">
             <!--<label class="form_label_left">设备种类</label>-->
-            <Form-item label="设备种类" prop="eq_species">
+            <Form-item label="设备种类" prop="eq_species" class="fontsize" >
               <Input v-model="ruleForm.eq_species" placeholder="请输入设备种类"></Input>
               <!--<Input v-model="ruleForm.eq_species" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>-->
             </Form-item>
@@ -175,7 +184,7 @@
       <div class="setTable" v-if="this.active==2">
         <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
         <!--要这两行-->
-        <!--<iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:700px;"></iframe>-->
+        <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:700px;"></iframe>
         <!--<input type="button"  value="打印" @click="printTrigger('iFramePdf');" />-->
         pdf预览
 
@@ -255,6 +264,7 @@
     data() {
       return {
         pdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        //pdfUrl: '',
         deviceList: [
           {
             value: 'boiler',
@@ -315,6 +325,8 @@
         ruleForms: '',
         //previousNum: 0,
         value1: '',
+        bread_choose_value:'',
+        bread_choose:'',
 
 
       };
@@ -353,6 +365,12 @@
 
       initData(){
         this.active = 1;
+        this.bread_choose_value=this.$route.query.device_detail;
+        for(let i=0;i<this.deviceList.length;i++){
+          if(this.deviceList[i].value==this.bread_choose_value){
+              this.bread_choose=this.deviceList[i].label;
+          }
+        }
         //如果是第一次填写
         if (!this.$route.query.changeDeviceNum) {
           this.clearRegistOneForm();
@@ -400,6 +418,23 @@
             return false;
           }
         });
+       // this.active++;
+
+//        let params="fileId=101"
+//        console.log( '/download?'+params);
+//
+//        setAppService.getRegistOne("fileId=101").then(res => {
+//
+//          //pdf信息
+//          console.log(res);
+//          this.pdfUrl = res.data;
+//          //获取对象长度
+//         // this.pdfNum = Object.keys(this.pdfUrl).length;
+//
+//
+//        }).catch(error => {
+//          console.log(error)
+//        })
       },
       saveForm(formName){
         this.$refs[formName].validate((valid) => {
@@ -626,11 +661,24 @@
     display: inline-block;
 
   }
-  label{
-    font-size:20px;
-    background-color: red;
-    display: inline-block;
+
+  .bread{
+    margin-bottom: 5px;
   }
+
+
+
+
+
+  .fontsize.ivu-form-item{
+    font-size: 16px;
+    .ivu-form-item-label{
+      font-size: 16px !important;
+    }
+  }
+
+
+
 
   /*.form_label_left {*/
 
