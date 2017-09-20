@@ -66,7 +66,6 @@ const ChangeReq_Form = r => require.ensure([], () => r(require('../page/print/ch
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
-const  TransformChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')),'TransformChange');
 const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
 const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
@@ -88,7 +87,6 @@ const Supervision = r => require.ensure([], () => r(require('../page/supervision
 
 //const login = r => require.ensure([], () => r(require('../page/login/login')), 'Login');
 const router = new VueRouter({
-<<<<<<< HEAD
   routes: [
     {path: "/", component: Login},
     {path: "/login", component: Login},
@@ -142,6 +140,13 @@ const router = new VueRouter({
         {path: "/waitAccept", component: WaitAccept},
         {path: "/accepted", component: Accepted},
         {path: "/transformChange", component: TransformChange},
+
+        {path: "/areaInChange", component: AreaInChange},
+        {path: "/areaAcrossChange", component: AreaAcrossChange},
+        {path: "/companyChange", component: CompanyChange},
+        {path: "/nameChange", component: NameChange},
+        {path: "/yearsChange", component: YearsChange},
+
         {path: "/approvaled", component: Approvaled},
         {path: "/waitApproval", component: WaitApproval},
         {path: "/supervision", component: Supervision},
@@ -150,73 +155,10 @@ const router = new VueRouter({
       ]
     }
   ]
-    routes: [
-        {path: "/", component: Login},
-        {path: "/login", component: Login},
-        //{path: "/home", component: Home},
+    
 
-        {path: '/sidebar', component: Sidebar},
-        {path: "/header", component: Header},
-        {path: "/footer", component: Footer},
-        {path: "/manage", component: Manage},
-        {path: "/regist_One", component: Regist_One},
-      {path: "/regist_Two", component: Regist_Two},
-      {path: "/regist_Three", component: Regist_Three},
-      {path: "/disabled_form", component: Disabled_Form},
-      {path: "/disabled_form2", component: Disabled_Form2},
-      {path: "/cylinders_Form", component: Cylinders_Form},
-      {path: "/pressure_Form", component: Pressure_Form},
-      {path: "/changeReq_Form", component: ChangeReq_Form},
-
-
-
-      {
-            path: '/home', component: Home,
-            children: [
-                {
-                    path: "/test", component: Test,
-                    meta: {
-                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-                    },
-                },
-
-                {path: "/user", component: User},
-                {
-                    path: "/firstApp", component: FirstApp,
-                    // 添加该字段，表示进入这个路由是需要登录的
-                    meta: {requireAuth: true}
-                },
-                {path: "/setApp", component: SetApp},
-                {path: "/companyApp", component: CompanyApp},
-                {path: "/carboxApp", component: CarboxApp},
-                {path: "/orderList", component: OrderList},
-              {path: "/unSubmitOrder", component: UnSubmitOrder},
-              {path: "/devList", component: DevList},
-                {path: "/changeReq", component: ChangeReq},
-                {path: "/appDetail", component: AppDetail},
-              {path: "/comAppDetail", component: ComAppDetail},
-              {path: "/carboxAppDetail", component: CarboxAppDetail},
-
-
-              {path: "/waitAccept", component: WaitAccept},
-                {path: "/accepted", component: Accepted},
-                {path: "/transformChange", component: TransformChange},
-                {path: "/areaInChange", component: AreaInChange},
-                {path: "/areaAcrossChange", component: AreaAcrossChange},
-                {path: "/companyChange", component: CompanyChange},
-                {path: "/nameChange", component: NameChange},
-                {path: "/yearsChange", component: YearsChange},
-              {path: "/approvaled", component: Approvaled},
-              {path: "/waitApproval", component: WaitApproval},
-              {path: "/supervision", component: Supervision},
-
-
-
-
-
-            ]
-        }
-    ]
+        
+    
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
