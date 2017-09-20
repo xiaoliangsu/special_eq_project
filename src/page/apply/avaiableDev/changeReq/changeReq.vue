@@ -27,16 +27,19 @@
               value: 'transChange',
               label: '改造变更',
             }, {
-              value: 'moveChange',
-              label: '移装变更'
+              value: 'inChange',
+              label: '登记机关行政区域内移装变更'
+            }, {
+              value: 'acrossChange',
+              label: '跨登记机关行政区域移装变更'
             }, {
               value: 'compChange',
               label: '单位变更'
             }, {
-              value: 'nameChange',
+              value: 'namChange',
               label: '更名变更'
             }, {
-              value: 'ageChange',
+              value: 'yearChange',
               label: '达到设计年限变更'
             },]
           ,
@@ -71,7 +74,23 @@
         if(this.getSelectedChangeOption=='transChange')
         {
           this.$router.push('transformChange');
+        } else if (this.getSelectedChangeOption=='inChange')
+        {
+          this.$router.push('areaInChange');
+        }else if (this.getSelectedChangeOption=='acrossChange')
+        {
+          this.$router.push('areaAcrossChange');
+        } else if (this.getSelectedChangeOption=='compChange')
+        {
+          this.$router.push('companyChange');
+        } else if (this.getSelectedChangeOption=='namChange')
+        {
+          this.$router.push('nameChange');
+        } else if (this.getSelectedChangeOption=='yearChange')
+        {
+          this.$router.push('yearsChange');
         }
+
 
 
       },
