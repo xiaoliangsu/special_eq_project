@@ -211,17 +211,23 @@
           //console.log(e);
           //this.$router.push(e);
           let params = e.split("-");
-          let routerPath = params[0];
-          let device_type = params[1];
-          let device_detail = params[2];
-          this.$router.push({
-            path: routerPath,
-            query: {
-              device_type: device_type,
-              device_detail: device_detail
-            }
-          });
-
+          if(params.length>1){
+            let routerPath = params[0];
+            let device_type = params[1];
+            let device_detail = params[2];
+            this.$router.push({
+              path: routerPath,
+              query: {
+                device_type: device_type,
+                device_detail: device_detail
+              }
+            });
+          }else{
+            let routerPath = params[0];
+            this.$router.push({
+              path: routerPath,
+            });
+          }
         },
         ...mapActions([
           'getUserInfo'
