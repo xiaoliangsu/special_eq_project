@@ -27,6 +27,7 @@ const User = r => require.ensure([], () => r(require('../page/user/user.vue')), 
 //import FirstApp from "../page/apply/firstApp.vue"
 const FirstApp = r => require.ensure([], () => r(require('../page/apply/firstApp.vue')), 'FirstApp');
 
+const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLast.vue')), 'NewOrLast');
 
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
@@ -65,6 +66,12 @@ const ChangeReq_Form = r => require.ensure([], () => r(require('../page/print/ch
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
+const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
+const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
+const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
+const  NameChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/nameChange.vue')),'NameChange');
+const  YearsChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/yearsChange.vue')),'YearsChange');
+
 
 //import Accepted from "../page/accept/accepted.vue"
 const Accepted = r => require.ensure([], () => r(require('../page/accept/accepted.vue')), 'Accepted');
@@ -115,7 +122,7 @@ const router = new VueRouter({
           // 添加该字段，表示进入这个路由是需要登录的
           // meta: {requireAuth: true},
         },
-
+        {path: "/newOrLast", component: NewOrLast},
         {path: "/setApp", component: SetApp},
         {path: "/companyApp", component: CompanyApp},
         {path: "/carboxApp", component: CarboxApp},
@@ -133,6 +140,13 @@ const router = new VueRouter({
         {path: "/waitAccept", component: WaitAccept},
         {path: "/accepted", component: Accepted},
         {path: "/transformChange", component: TransformChange},
+
+        {path: "/areaInChange", component: AreaInChange},
+        {path: "/areaAcrossChange", component: AreaAcrossChange},
+        {path: "/companyChange", component: CompanyChange},
+        {path: "/nameChange", component: NameChange},
+        {path: "/yearsChange", component: YearsChange},
+
         {path: "/approvaled", component: Approvaled},
         {path: "/waitApproval", component: WaitApproval},
         {path: "/supervision", component: Supervision},
@@ -141,6 +155,10 @@ const router = new VueRouter({
       ]
     }
   ]
+    
+
+        
+    
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
