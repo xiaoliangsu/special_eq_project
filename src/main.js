@@ -4,7 +4,9 @@ import App from './App.vue'
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-default/index.css'
 import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+//import 'iview/dist/styles/iview.css'
+import '../my-theme/dist/iview.css';
+//import './my-theme/index.less';
 
 import router from "./router/router.js"
 import store from './store/'

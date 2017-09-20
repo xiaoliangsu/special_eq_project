@@ -6,7 +6,12 @@
       <Menu theme="dark" class="sideMenu"  width="auto"  :open-names="['1']"
             accordion style="font-size: 16px;"
             @on-select="routeTo" accordion>
-        <div class="layout-logo-left"></div>
+        <div class="layout-logo-left"  style="color:white;font-size: 25px;">
+
+          <!--<img  class="header-logo" src="../../static/images/logo.png">-->
+          <span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>
+
+        </div>
         <!--<Submenu name="1">-->
         <!--<template slot="title">-->
         <!--<Icon type="ios-paper"></Icon>-->
@@ -291,10 +296,14 @@
     .layout-logo-left{
       width: 90%;
       height: 30px;
-      background: #5b6270;
+     // background: #5b6270;
       border-radius: 3px;
       margin: 15px auto;
+
     }
+
+
+
     .ivu-row-flex{
       height:100%;
     }

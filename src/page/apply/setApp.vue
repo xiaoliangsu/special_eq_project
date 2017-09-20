@@ -5,7 +5,7 @@
       <v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>
 
     </div>
-    <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >
+    <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
       <div class="statusInfo" v-if="this.active==1">
         <!--<h2>选择设备种类</h2>-->
         <!--<Select v-model="deviceType" style="width:200px">-->
@@ -16,78 +16,53 @@
           <h2 class="header_one">特种设备使用登记表</h2>
           <h2 class="header_two">设备基本情况</h2>
           <Row>
-            <Col span="12">
+            <Col span="11">
             <!--<label class="form_label_left">设备种类</label>-->
-            <Form-item label="设备种类" prop="eq_species" class="fontsize" >
+            <Form-item label="设备种类" prop="eq_species" class="fontsize">
               <Input v-model="ruleForm.eq_species" placeholder="请输入设备种类"></Input>
               <!--<Input v-model="ruleForm.eq_species" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>-->
             </Form-item>
+            <Form-item label="设备品种" prop="eq_variety">
+              <Input v-model="ruleForm.eq_variety" placeholder="请输入设备品种"></Input>
+            </Form-item>
+            <Form-item label="设备代码" prop="eq_code">
+              <Input v-model="ruleForm.eq_code" placeholder="请输入设备代码"></Input>
+            </Form-item>
+            <Form-item label="设计使用年限" prop="design_use_limit">
+              <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
+            </Form-item>
+            <Form-item label="制造单位名称" prop="manufacture_com_name">
+              <Input v-model="ruleForm.manufacture_com_name" placeholder="请输入制造单位名称"></Input>
+            </Form-item>
+            <Form-item label="监督检验机构名称" prop="supervise_com_name">
+              <Input v-model="ruleForm.supervise_com_name" placeholder="请输入监督检验机构名称"></Input>
+            </Form-item>
             </Col>
-            <Col span="12">
+
+            <Col span="11" offset="2">
             <!--<label class="form_label_right">设备类别</label>-->
             <Form-item label="设备类别" prop="eq_category">
               <Input v-model="ruleForm.eq_category" placeholder="请输入设备类别"></Input>
             </Form-item>
-            </Col>
-          </Row>
-          <Row>
-            <Col span="12">
-            <!--<label class="form_label_left">设备品种</label>-->
-            <Form-item  label="设备品种" prop="eq_variety">
-              <Input v-model="ruleForm.eq_variety" placeholder="请输入设备品种"></Input>
-            </Form-item>
-            </Col>
-            <Col span="12">
-            <!--<label class="form_label_right">产品名称</label>-->
             <Form-item label="产品名称" prop="eq_name">
               <Input v-model="ruleForm.eq_name" placeholder="请输入产品名称"></Input>
             </Form-item>
+            <Form-item label="型号（规格）" prop="model">
+              <Input v-model="ruleForm.model" placeholder="请输入型号（规格）"></Input>
+            </Form-item>
+            <Form-item label="设计单位名称" prop="design_com_name">
+              <Input v-model="ruleForm.design_com_name" placeholder="请输入设计单位名称"></Input>
+            </Form-item>
+            <Form-item label="施工单位名称" prop="construct_com_name">
+              <Input v-model="ruleForm.construct_com_name" placeholder="请输入施工单位名称"></Input>
+            </Form-item>
+
+            <Form-item label="型式试验机构名称" prop="test_com_name">
+              <Input v-model="ruleForm.test_com_name" placeholder="请输入型式试验机构名称"></Input>
+            </Form-item>
             </Col>
           </Row>
 
-          <Row>
-            <Col span="12">
-            <!--<label class="form_label_left">设备代码</label>-->
-          <Form-item label="设备代码"  prop="eq_code">
-            <Input v-model="ruleForm.eq_code" placeholder="请输入设备代码"></Input>
-          </Form-item>
-            </Col>
-            <Col span="12">
-            <!--<label class="form_label_right">型号（规格）</label>-->
-          <Form-item label="型号（规格）"   prop="model">
-            <Input v-model="ruleForm.model" placeholder="请输入型号（规格）"></Input>
-          </Form-item>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span="12">
-          <!--<label class="form_label_left">设计使用年限</label>-->
-          <Form-item  label="设计使用年限"  prop="design_use_limit">
-            <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
-          </Form-item>
-            </Col>
-            <Col span="12">
-          <!--<label class="form_label_right">设计单位名称</label>-->
-          <Form-item label="设计单位名称"  prop="design_com_name">
-            <Input v-model="ruleForm.design_com_name" placeholder="请输入设计单位名称"></Input>
-          </Form-item>
-            </Col>
-          </Row>
-
-
-          <Form-item label="制造单位名称" prop="manufacture_com_name">
-            <Input v-model="ruleForm.manufacture_com_name" placeholder="请输入制造单位名称"></Input>
-          </Form-item>
-          <Form-item label="施工单位名称" prop="construct_com_name">
-            <Input v-model="ruleForm.construct_com_name" placeholder="请输入施工单位名称"></Input>
-          </Form-item>
-          <Form-item label="监督检验机构名称" prop="supervise_com_name">
-            <Input v-model="ruleForm.supervise_com_name" placeholder="请输入监督检验机构名称"></Input>
-          </Form-item>
-          <Form-item label="型式试验机构名称" prop="test_com_name">
-            <Input v-model="ruleForm.test_com_name" placeholder="请输入型式试验机构名称"></Input>
-          </Form-item>
         </div>
         <!--</div>-->
         <!--<div class="useInfo" v-if="this.active==2">-->
@@ -99,61 +74,110 @@
           <Form-item label="使用单位地址" prop="use_com_addr">
             <Input v-model="ruleForm.use_com_addr" placeholder="请输入使用单位地址"></Input>
           </Form-item>
-          <Form-item label="使用单位统一社会信用代码" prop="use_com_code">
-            <Input v-model="ruleForm.use_com_code" placeholder="请输入使用单位统一社会信用代码"></Input>
-          </Form-item>
-          <Form-item label="邮政编码" prop="zip_code">
-            <Input v-model="ruleForm.zip_code" placeholder="请输入邮政编码"></Input>
-          </Form-item>
-          <Form-item label="单位内编号" prop="com_code">
-            <Input v-model="ruleForm.com_code" placeholder="请输入单位内编号"></Input>
-          </Form-item>
-          <Form-item label="设备使用地点" prop="eq_use_location">
-            <Input v-model="ruleForm.eq_use_location" placeholder="请输入设备使用地点"></Input>
-          </Form-item>
-          <Form-item label="投入使用日期" prop="begin_use_date">
-            <Input v-model="ruleForm.begin_use_date" placeholder="请输入投入使用日期"></Input>
-          </Form-item>
-          <Form-item label="单位固定电话" prop="com_phone">
-            <Input v-model="ruleForm.com_phone" placeholder="请输入单位固定电话"></Input>
-          </Form-item>
-          <Form-item label="安全管理员" prop="safe_admin">
-            <Input v-model="ruleForm.safe_admin" placeholder="请输入安全管理员"></Input>
-          </Form-item>
-          <Form-item label="移动电话" prop="mobile_phone">
-            <Input v-model="ruleForm.mobile_phone" placeholder="请输入移动电话"></Input>
-          </Form-item>
+          <Row>
+            <Col span="11">
+            <Form-item label="使用单位统一社会信用代码" prop="use_com_code">
+              <Input v-model="ruleForm.use_com_code" placeholder="请输入使用单位统一社会信用代码"></Input>
+            </Form-item>
+            <Form-item label="单位内编号" prop="com_code">
+              <Input v-model="ruleForm.com_code" placeholder="请输入单位内编号"></Input>
+            </Form-item>
+            <Form-item label="投入使用日期" prop="begin_use_date">
+              <Input v-model="ruleForm.begin_use_date" placeholder="请输入投入使用日期"></Input>
+            </Form-item>
+            <Form-item label="安全管理员" prop="safe_admin">
+              <Input v-model="ruleForm.safe_admin" placeholder="请输入安全管理员"></Input>
+            </Form-item>
+            </Col>
+            <Col span="11" offset="2">
+            <Form-item label="邮政编码" prop="zip_code">
+              <Input v-model="ruleForm.zip_code" placeholder="请输入邮政编码"></Input>
+            </Form-item>
+            <Form-item label="设备使用地点" prop="eq_use_location">
+              <Input v-model="ruleForm.eq_use_location" placeholder="请输入设备使用地点"></Input>
+            </Form-item>
+            <Form-item label="单位固定电话" prop="com_phone">
+              <Input v-model="ruleForm.com_phone" placeholder="请输入单位固定电话"></Input>
+            </Form-item>
+            <Form-item label="移动电话" prop="mobile_phone">
+              <Input v-model="ruleForm.mobile_phone" placeholder="请输入移动电话"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+
           <Form-item label="产权单位名称" prop="property_com_name">
             <Input v-model="ruleForm.property_com_name" placeholder="请输入产权单位名称"></Input>
           </Form-item>
-          <Form-item label="产权单位统一社会信用代码" prop="property_com_code">
-            <Input v-model="ruleForm.property_com_code" placeholder="请输入产权单位统一社会信用代码"></Input>
-          </Form-item>
-          <Form-item label="联系电话" prop="telephone">
-            <Input v-model="ruleForm.telephone" placeholder="请输入联系电话"></Input>
-          </Form-item>
+          <Row>
+            <Col span="11">
+            <Form-item label="产权单位统一社会信用代码" prop="property_com_code">
+              <Input v-model="ruleForm.property_com_code" placeholder="请输入产权单位统一社会信用代码"></Input>
+            </Form-item>
+            </Col>
+            <Col span="11" offset="2">
+            <Form-item label="联系电话" prop="telephone">
+              <Input v-model="ruleForm.telephone" placeholder="请输入联系电话"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+
         </div>
         <!--</div>-->
         <!--<div class="checkInfo" v-if="this.active==3">-->
-        <div class="base-box" >
+        <div class="base-box">
           <h2 class="header_two">设备检验情况</h2>
           <Form-item label="检验机构名称" prop="check_com_name">
             <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
           </Form-item>
-          <Form-item label="检验类别" prop="check_category">
-            <Input v-model="ruleForm.check_category" placeholder="请输入检验类别"></Input>
-          </Form-item>
-          <Form-item label="检验报告编号" prop="check_report_num">
-            <Input v-model="ruleForm.check_report_num" placeholder="请输入检验报告编号"></Input>
-          </Form-item>
-          <Form-item label="检验日期" prop="check_date">
-            <Input v-model="ruleForm.check_date" placeholder="请输入检验日期"></Input>
-          </Form-item>
-          <Form-item label="检验结论" prop="check_conclusion">
-            <Input v-model="ruleForm.check_conclusion" placeholder="请输入检验结论"></Input>
-          </Form-item>
+          <Row>
+            <Col span="11">
+            <Form-item label="检验类别" prop="check_category">
+              <Input v-model="ruleForm.check_category" placeholder="请输入检验类别"></Input>
+            </Form-item>
+            <Form-item label="检验日期" prop="check_date">
+              <Input v-model="ruleForm.check_date" placeholder="请输入检验日期"></Input>
+            </Form-item>
+            </Col>
+            <Col span="11" offset="2">
+            <Form-item label="检验报告编号" prop="check_report_num">
+              <Input v-model="ruleForm.check_report_num" placeholder="请输入检验报告编号"></Input>
+            </Form-item>
+            <Form-item label="检验结论" prop="check_conclusion">
+              <Input v-model="ruleForm.check_conclusion" placeholder="请输入检验结论"></Input>
+            </Form-item>
+            </Col>
+          </Row>
           <Form-item label="下次检验日期" prop="next_check_date">
             <Input v-model="ruleForm.next_check_date" placeholder="请输入下次检验日期"></Input>
+          </Form-item>
+        </div>
+        <div class="base-box">
+          <h2 class="header_two">其他信息</h2>
+          <p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特
+            种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。
+          </p>
+
+          <Row>
+            <Col span="11">
+            <Form-item label="使用单位填表人员" prop="check_com_name">
+              <Input v-model="ruleForm.check_com_name" placeholder="请输入检验机构名称"></Input>
+            </Form-item>
+
+            <Form-item label="使用单位安全管理人员" prop="check_date">
+              <Input v-model="ruleForm.check_date" placeholder="请输入检验日期"></Input>
+            </Form-item>
+            </Col>
+            <Col span="11" offset="2">
+            <Form-item label="使用单位填表人员日期" prop="check_category">
+              <Input v-model="ruleForm.check_category" placeholder="请输入检验类别"></Input>
+            </Form-item>
+            <Form-item label="安全管理人员填表日期" prop="check_report_num">
+              <Input v-model="ruleForm.check_report_num" placeholder="请输入检验报告编号"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+          <Form-item label="加盖公章日期" prop="check_conclusion">
+            <Input v-model="ruleForm.check_conclusion" placeholder="请输入检验结论"></Input>
           </Form-item>
         </div>
       </div>
@@ -322,8 +346,8 @@
         ruleForms: '',
         //previousNum: 0,
         value1: '',
-        bread_choose_value:'',
-        bread_choose:'',
+        bread_choose_value: '',
+        bread_choose: '',
 
 
       };
@@ -364,14 +388,14 @@
 
       initData(){
         this.active = 1;
-        this.bread_choose_value=this.$route.query.device_detail;
-        for(let i=0;i<this.deviceList.length;i++){
-          if(this.deviceList[i].value==this.bread_choose_value){
-              this.bread_choose=this.deviceList[i].label;
+        this.bread_choose_value = this.$route.query.device_detail;
+        for (let i = 0; i < this.deviceList.length; i++) {
+          if (this.deviceList[i].value == this.bread_choose_value) {
+            this.bread_choose = this.deviceList[i].label;
           }
         }
         //如果是第一次填写
-        if (this.$route.query.ifold!==1) {
+        if (this.$route.query.ifold !== 1) {
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
@@ -406,7 +430,7 @@
                 console.log(res.success);
               }
               this.active++;
-              this.modalCertain=false;
+              this.modalCertain = false;
               console.log(this.modalCertain);
             })
               .catch(error => {
@@ -417,7 +441,7 @@
             return false;
           }
         });
-       // this.active++;
+        // this.active++;
 
 //        let params="fileId=101"
 //        console.log( '/download?'+params);
@@ -589,7 +613,6 @@
     color: #495060;
   }
 
-
   .base-box {
     margin: 0 auto;
     display: block;
@@ -611,69 +634,29 @@
     text-align: center;
     margin-left: -100px;
     margin-top: 20px;
-    font-size: large;
+    font-size: 25px;
   }
 
   .header_two {
     margin-left: -30px;
     margin-top: 10px;
+    font-size: 19px;
   }
 
-
-  .ivu-form .ivu-form-item-label{
-    font-size:20px;
+  .ivu-form .ivu-form-item-label {
+    font-size: 18px;
     background-color: red;
     display: inline-block;
 
   }
 
-  .bread{
+  .bread {
     margin-bottom: 5px;
   }
 
-
-
-
-
-  .fontsize.ivu-form-item{
-    font-size: 16px;
-    .ivu-form-item-label{
-      font-size: 16px !important;
-    }
+  .ivu-form-item {
+    margin-bottom: 10px;
   }
-
-
-
-
-  /*.form_label_left {*/
-
-    /*text-align: left;*/
-    /*vertical-align: middle;*/
-    /*float: left;*/
-    /*font-size: 16px;*/
-    /*color: #495060;*/
-    /*line-height: 1;*/
-    /*padding: 10px 0px 10px 0;*/
-    /*box-sizing: border-box;*/
-    /*width: 100px;*/
-  /*}*/
-
-
-  /*.form_label_right {*/
-
-    /*text-align: left;*/
-    /*vertical-align: middle;*/
-    /*float: left;*/
-    /*font-size: 16px;*/
-    /*color: #495060;*/
-    /*line-height: 1;*/
-    /*padding: 10px 12px 10px 10px;*/
-    /*box-sizing: border-box;*/
-    /*width: 105px;*/
-    /*// margin-right:5px;*/
-
-  /*}*/
-
 
 
 </style>
