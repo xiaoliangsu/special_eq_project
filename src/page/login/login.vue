@@ -310,7 +310,7 @@
             console.log(res);
             //this.setUserInfo(res.data);
             this.setUserInfo(res);
-            this.$router.push('home');
+            this.$router.push('devlist');
           }
 
         }).catch(error => {
