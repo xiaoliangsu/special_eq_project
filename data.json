@@ -65,10 +65,7 @@
   "RegistThree": {
     "ruleForm": [
       {
-        "eq_kind": "设备种类"
-      },
-      {
-        "eq_kind": "wwdwd"
+        "eq_kind": "eqkind"
       }
     ]
   },
