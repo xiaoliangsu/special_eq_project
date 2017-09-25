@@ -100,7 +100,7 @@ const actions = {
   },
   setRegistThreeForm({commit}, res) {
 
-    commit(SET_REGISTTWO_FORM, res)
+    commit(SET_REGISTTHREE_FORM, res)
   },
 
 

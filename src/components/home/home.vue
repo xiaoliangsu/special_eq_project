@@ -77,9 +77,9 @@
           <!--<Menu-group title="申请列表" v-if="this.author_key==1" >-->
           <label class="menu-label">申请列表</label>
 
-          <Menu-item name="orderList">待受理申请</Menu-item>
-          <Menu-item name="orderList2">待审批申请</Menu-item>
-          <Menu-item name="orderList3">已完成申请</Menu-item>
+          <Menu-item name="waitAcceptList">待受理申请</Menu-item>
+          <Menu-item name="waitCheckList">待审批申请</Menu-item>
+          <Menu-item name="finishList">已完成申请</Menu-item>
           <label class="menu-label">已有设备</label>
 
           <Menu-item name="devList">已有设备列表</Menu-item>
@@ -211,17 +211,23 @@
           //console.log(e);
           //this.$router.push(e);
           let params = e.split("-");
-          let routerPath = params[0];
-          let device_type = params[1];
-          let device_detail = params[2];
-          this.$router.push({
-            path: routerPath,
-            query: {
-              device_type: device_type,
-              device_detail: device_detail
-            }
-          });
-
+          if(params.length>1){
+            let routerPath = params[0];
+            let device_type = params[1];
+            let device_detail = params[2];
+            this.$router.push({
+              path: routerPath,
+              query: {
+                device_type: device_type,
+                device_detail: device_detail
+              }
+            });
+          }else{
+            let routerPath = params[0];
+            this.$router.push({
+              path: routerPath,
+            });
+          }
         },
         ...mapActions([
           'getUserInfo'
@@ -267,6 +273,7 @@
     }
     .layout-content-main{
       padding: 10px;
+      padding-top:0;
      // height:540px;
 
     }

@@ -27,3 +27,8 @@ export function GetUnSubmitOrders(param) {
   return fetch('/api/getorders',param,'get')
 }
 
+//删除待受理订单
+export function deleteApp(param) {
+  return fetch('/api/getorders',param,'get')
+}
+

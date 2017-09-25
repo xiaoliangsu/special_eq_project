@@ -33,7 +33,10 @@ const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLa
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
 
 //import OrderList from "../page/apply/orderStatus/orderList.vue"
-const OrderList = r => require.ensure([], () => r(require('../page/apply/orderStatus/orderList.vue')), 'OrderList');
+const WaitAcceptList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitAcceptList.vue')), 'WaitAcceptList');
+const WaitCheckList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitCheckList.vue')), 'WaitCheckList');
+const FinishList = r => require.ensure([], () => r(require('../page/apply/orderStatus/finishList.vue')), 'FinishList');
+
 const UnSubmitOrder = r => require.ensure([], () => r(require('../page/apply/orderStatus/unSubmitOrder.vue')), 'UnSubmitOrder');
 
 
@@ -128,8 +131,11 @@ const router = new VueRouter({
         {path: "/carboxApp", component: CarboxApp},
 
 
-        {path: "/orderList", component: OrderList},
+        {path: "/waitAcceptList", component: WaitAcceptList},
+        {path: "/waitCheckList", component: WaitCheckList},
+        {path: "/finishList", component: FinishList},
         {path: "/unSubmitOrder", component: UnSubmitOrder},
+
         {path: "/devList", component: DevList},
         {path: "/changeReq", component: ChangeReq},
         {path: "/appDetail", component: AppDetail},
@@ -155,10 +161,10 @@ const router = new VueRouter({
       ]
     }
   ]
-    
 
-        
-    
+
+
+
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
