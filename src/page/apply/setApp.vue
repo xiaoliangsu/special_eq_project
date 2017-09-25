@@ -16,7 +16,7 @@
     </div>
 
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div class="city_select_app">
+      <div class="city_select_app" v-if="this.active==1">
         <h2 class="header_one">基本信息</h2>
 
         <label>选择城市：</label>
