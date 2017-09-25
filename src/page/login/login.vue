@@ -297,7 +297,7 @@
             //设置localstorage
             this.loginInfo.username=this.loginForm.username;
             this.setUserInfo(this.loginInfo);
-            this.$router.push('home');
+            this.$router.push('devlist');
           }else {
             this.$Notice.error({
               title: '这是通知标题',
