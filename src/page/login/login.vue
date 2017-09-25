@@ -23,7 +23,7 @@
           <!--去掉这个注释-->
           <Form-item prop="verif">
             <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
-            <img src="/admin/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
+            <img src="/admin/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
                  alt="验证码图片" v-on:click="reflushVerify"/>
           </Form-item>
           <!--这里加注释-->
@@ -285,9 +285,10 @@
         this.$store.dispatch('setLoadingState', true)
         loginService.Login(data2).then(res => {
             //去掉这个注释
-          if(res.status=="true"){
+          console.log(res);
+          if(res.status==true){
             //获取权限点
-            this.loginInfo.author_key=res.role;
+            this.loginInfo.author_key=res.data.role;
 
             console.log(this.loginInfo.author_key);
             //登陆状态

@@ -3,7 +3,7 @@
   <div class="setApp">
     <div class="setApp_topbar">
       <!--<div class="bread">-->
-        <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
+      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
       <!--</div>-->
       <div class="step" style="width:94%; margin-top:20px;">
         <Steps :current="current">
@@ -227,48 +227,47 @@
         </div>
 
 
+        <!--提交pdf 可能需要调一下格式，以后再说吧-->
+        <div class="pdfInfo" v-if="this.active==3">
+          <h2>相关证明</h2>
+          <!--这个接口是尝试过成功的-->
+          <Form-item label="社会信用代码证明" :label-width="300">
+            <Upload
+              ref="upload"
+              :before-upload="handleBeforeUpload"
+              :on-success="handleSuccess"
+              :on-remove="handleRemove"
+              :default-file-list="defaultPdfList1"
+              action="/admin/upload?applyId=1&fileTypeId=1"
+              with-credentials>
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+            </Upload>
 
-      <!--提交pdf 可能需要调一下格式，以后再说吧-->
-      <div class="pdfInfo" v-if="this.active==3">
-        <h2>相关证明</h2>
-        <!--这个接口是尝试过成功的-->
-        <Form-item label="社会信用代码证明" :label-width="300">
-          <Upload
-            ref="upload"
-            :before-upload="handleBeforeUpload"
-            :on-success="handleSuccess"
-            :on-remove="handleRemove"
-            :default-file-list="defaultPdfList1"
-            action="/admin/upload?applyId=1&fileTypeId=1"
-            with-credentials>
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-          </Upload>
-
-        </Form-item>
-        <Form-item label="产品合格证" :label-width="300">
-          <Upload action="//jsonplaceholder.typicode.com/posts/"
-                  :on-success="handleSuccess"
-                  with-credentials>
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-          </Upload>
-        </Form-item>
-        <Form-item label="监督检验证明" :label-width="300">
-          <Upload action="//jsonplaceholder.typicode.com/posts/"
-                  :on-success="handleSuccess"
-                  with-credentials>
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-          </Upload>
-        </Form-item>
-        <Form-item label="锅炉能效证明" :label-width="300" v-if="this.deviceType=='boiler'">
-          <Upload action="//jsonplaceholder.typicode.com/posts/"
-                  :on-success="handleSuccess"
-                  with-credentials>
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-          </Upload>
-        </Form-item>
-        <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
-        <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
-      </div>
+          </Form-item>
+          <Form-item label="产品合格证" :label-width="300">
+            <Upload action="//jsonplaceholder.typicode.com/posts/"
+                    :on-success="handleSuccess"
+                    with-credentials>
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+            </Upload>
+          </Form-item>
+          <Form-item label="监督检验证明" :label-width="300">
+            <Upload action="//jsonplaceholder.typicode.com/posts/"
+                    :on-success="handleSuccess"
+                    with-credentials>
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+            </Upload>
+          </Form-item>
+          <Form-item label="锅炉能效证明" :label-width="300" v-if="this.deviceType=='boiler'">
+            <Upload action="//jsonplaceholder.typicode.com/posts/"
+                    :on-success="handleSuccess"
+                    with-credentials>
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+            </Upload>
+          </Form-item>
+          <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
+          <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
+        </div>
 
 
         <div class="setApp_button">
@@ -304,9 +303,9 @@
   export default {
     data() {
       return {
-          //等调的时候再拼接口
+        //等调的时候再拼接口
         pdfUrl: '/admin/download?fileId=101',
-       // pdfUrl: '',
+        // pdfUrl: '',
         deviceList: [
           {
             value: 'boiler',
@@ -467,12 +466,12 @@
 //            return false;
 //          }
 //        });
-        this.active++;
-
-
-        let params="fileId=101"
-        console.log( '/download?'+params);
-        setAppService.getRegistOne(param).then(res => {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.active++;
+            let params = "fileId=101"
+            console.log('/download?' + params);
+            setAppService.getRegistOne(params).then(res => {
               if (res) {
                 console.log(res.success);
               }

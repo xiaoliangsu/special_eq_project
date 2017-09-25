@@ -33,7 +33,7 @@ module.exports = {
         target: 'http://10.210.59.79:8080',
         changeOrigin: true,
         pathRewrite: {
-          '^/admin': '/admin'
+          '^/admin': ''
         }
       }
     },
