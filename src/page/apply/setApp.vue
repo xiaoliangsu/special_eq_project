@@ -16,7 +16,7 @@
     </div>
 
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div class="city_select_app">
+      <div class="city_select_app" v-if="this.active==1">
         <h2 class="header_one">基本信息</h2>
 
         <label>选择城市：</label>
@@ -532,10 +532,11 @@
 //        });
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.active++;
+
             let params = "fileId=101"
             console.log('/download?' + params);
             setAppService.getRegistOne(params).then(res => {
+              this.active++;
               if (res) {
                 console.log(res.success);
               }
@@ -634,16 +635,25 @@
       remoteMethod1 (query) {
         if (query !== '') {
           this.loading1 = true;
-          setTimeout(() => {
-            this.loading1 = false;
-            const list = this.list.map(item => {
-              return {
-                value: item,
-                label: item
-              };
-            });
-            this.options1 = list.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1);
-          }, 200);
+          setAppService.getProvinces().then(res=>{
+              console.log(res);
+          }).catch(error=>{
+              console.log(error);
+
+          })
+
+
+//          setTimeout(() => {
+//            this.loading1 = false;
+//            const list = this.list.map(item => {
+//              return {
+//                value: item,
+//                label: item
+//              };
+//            });
+//            this.options1 = list.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1);
+//          }, 200);
+
         } else {
           this.options1 = [];
         }

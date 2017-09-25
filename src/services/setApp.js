@@ -48,3 +48,8 @@ export function saveSetInfo(params) {
 export function getRegistOne(params) {
   return fetch('/download?'+params, params,'get')
 }
+
+//获取省市县
+export function getProvinces(params) {
+  return fetch('/map/provinces', params,'get')
+}
