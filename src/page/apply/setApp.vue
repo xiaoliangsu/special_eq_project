@@ -7,7 +7,7 @@
       <!--</div>-->
       <div class="step" style="width:94%; margin-top:20px;">
         <Steps :current="current">
-          <Step title="步骤1" content="填写特种设备使用登记表"></Step>
+          <Step title="步骤1" content="填写基本信息及特种设备使用登记表"></Step>
           <Step title="步骤2" content="预览特种设备使用登记表"></Step>
           <Step title="步骤3" content="提交相关证件"></Step>
           <Step title="步骤4" content="完成申请"></Step>
@@ -16,7 +16,63 @@
     </div>
 
     <div class="setApp_content" style="position:absolute;top:85px;">
+      <div class="city_select_app">
+        <h2 class="header_one">基本信息</h2>
 
+        <label>选择城市：</label>
+      <Row>
+        <Col span="8" style="padding-right:10px">
+        <Select
+          v-model="model13"
+          filterable
+          remote
+          :remote-method="remoteMethod1"
+          :loading="loading1">
+          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
+        </Select>
+        </Col>
+        <Col span="8" style="padding-right:10px">
+        <Select
+          v-model="model14"
+          multiple
+          filterable
+          remote
+          :remote-method="remoteMethod2"
+          :loading="loading2">
+          <Option v-for="(option, index) in options2" :value="option.value" :key="index">{{option.label}}</Option>
+        </Select>
+        </Col>
+        <Col span="8">
+        <Select
+          v-model="model14"
+          multiple
+          filterable
+          remote
+          :remote-method="remoteMethod2"
+          :loading="loading2">
+          <Option v-for="(option, index) in options2" :value="option.value" :key="index">{{option.label}}</Option>
+        </Select>
+        </Col>
+      </Row>
+        <label>选择受理单位：</label>
+        <Select
+          v-model="model13"
+          filterable
+          remote
+          :remote-method="remoteMethod1"
+          :loading="loading1">
+          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
+        </Select>
+        <label>选择审批单位：</label>
+        <Select
+          v-model="model13"
+          filterable
+          remote
+          :remote-method="remoteMethod1"
+          :loading="loading1">
+          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
+        </Select>
+      </div>
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
           <!--<h2>选择设备种类</h2>-->
@@ -370,6 +426,14 @@
         bread_choose: '',
         current: 0,
 
+        model13: '',
+        loading1: false,
+        options1: [],
+        model14: [],
+        loading2: false,
+        options2: [],
+        list: ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New hampshire', 'New jersey', 'New mexico', 'New york', 'North carolina', 'North dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode island', 'South carolina', 'South dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West virginia', 'Wisconsin', 'Wyoming']
+
 
       };
     },
@@ -567,6 +631,41 @@
           }
         });
       },
+      remoteMethod1 (query) {
+        if (query !== '') {
+          this.loading1 = true;
+          setTimeout(() => {
+            this.loading1 = false;
+            const list = this.list.map(item => {
+              return {
+                value: item,
+                label: item
+              };
+            });
+            this.options1 = list.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          }, 200);
+        } else {
+          this.options1 = [];
+        }
+      },
+      remoteMethod2 (query) {
+        if (query !== '') {
+          this.loading2 = true;
+          setTimeout(() => {
+            this.loading2 = false;
+            const list = this.list.map(item => {
+              return {
+                value: item,
+                label: item
+              };
+            });
+            this.options2 = list.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          }, 200);
+        } else {
+          this.options2 = [];
+        }
+      }
+    },
 
 
 //      beSure() {
@@ -609,48 +708,48 @@
 //        window.print();
 //      },
 
-      handleBeforeUpload () {
-        this.uploadList = this.$refs.upload.fileList;
-        const check = this.uploadList.length < 1;
+    handleBeforeUpload () {
+      this.uploadList = this.$refs.upload.fileList;
+      const check = this.uploadList.length < 1;
 
-        if (!check) {
-          this.$Notice.warning({
-            title: '最多上传 1 张图片。'
-          });
-        }
-        return check;
-      },
-      handleSuccess (res, file) {
-        //需要沟通一下，成功给我返回什么然后判断
-        console.log(res);
-        console.log(file);
-
-      },
-      handleRemove(res, file) {
-        //res是移除的 file剩下的
-        console.log(res);
-        console.log(file);
-
-      },
-
-      instance (type) {
-        const title = '通知';
-        const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-        switch (type) {
-          case 'success':
-            this.$Modal.success({
-              title: title,
-              content: content
-            });
-            this.current++;
-            break;
-        }
-        this.$router.push('home');
-
+      if (!check) {
+        this.$Notice.warning({
+          title: '最多上传 1 张图片。'
+        });
       }
+      return check;
+    },
+    handleSuccess (res, file) {
+      //需要沟通一下，成功给我返回什么然后判断
+      console.log(res);
+      console.log(file);
+
+    },
+    handleRemove(res, file) {
+      //res是移除的 file剩下的
+      console.log(res);
+      console.log(file);
+
     },
 
+    instance (type) {
+      const title = '通知';
+      const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+      switch (type) {
+        case 'success':
+          this.$Modal.success({
+            title: title,
+            content: content
+          });
+          this.current++;
+          break;
+      }
+      this.$router.push('home');
+
+    }
   }
+
+
 </script>
 <style lang="scss" scoped>
 
@@ -682,7 +781,7 @@
   .base-box {
     margin: 0 auto;
     display: block;
-    border: 1px solid #dddee1;
+    border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
@@ -698,7 +797,7 @@
 
   .header_one {
     text-align: center;
-    margin-left: -100px;
+    margin-left: -50px;
     margin-top: 20px;
     font-size: 25px;
   }
@@ -723,6 +822,20 @@
 
   .setApp_button {
     margin: 10px;
+  }
+  .city_select_app{
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    padding:10px;
+    background-color: white;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-bottom:10px;
+
   }
 
   /*.ivu-form-item {*/
