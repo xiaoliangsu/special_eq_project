@@ -2,8 +2,9 @@ import fetch from '../fetch/http.js';
 /**
  * 提交按套申请的申请表信息
  */
+//调好了
 export function submitSetInfo(params) {
-    return fetch('/api/submitSetInfo', params,'post')
+    return fetch('/apply/create', params,'post')
 }
 
 export function submitCompanyInfo(params) {
@@ -49,7 +50,13 @@ export function getRegistOne(params) {
   return fetch('/download?'+params, params,'get')
 }
 
-//获取省市县
+//获取省市县已经调完
 export function getProvinces(params) {
   return fetch('/map/provinces', params,'get')
+}
+export function getCities(params) {
+  return fetch('/map/cities?'+params, params,'get')
+}
+export function getArea(params) {
+  return fetch('/map/areas?'+params, params,'get')
 }

@@ -4,9 +4,9 @@
             <Row>
                 <Col :xs="8" :sm="8" :md="8" :lg="8">
                 <label>设备申请时间</label>
-                <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
-                             style="width: 200px" v-model="time"></Date-picker>
-                </Col>
+              <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
+                           format="yyyy/MM/dd"     style="width: 220px;display:inline-block;" v-model="time" ></Date-picker>
+              </Col>
 
                 <Col  :xs="8" :sm="8" :md="8" :lg="8">
                 <label>设备类别</label>

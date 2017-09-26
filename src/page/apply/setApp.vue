@@ -5,12 +5,13 @@
       <!--<div class="bread">-->
       <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
       <!--</div>-->
-      <div class="step" style="width:94%; margin-top:20px;">
+      <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <Step title="步骤1" content="填写基本信息及特种设备使用登记表"></Step>
-          <Step title="步骤2" content="预览特种设备使用登记表"></Step>
-          <Step title="步骤3" content="提交相关证件"></Step>
-          <Step title="步骤4" content="完成申请"></Step>
+          <Step title="步骤1" content="填写基本信息"></Step>
+          <Step title="步骤2" content="填写特种设备使用登记表"></Step>
+          <Step title="步骤3" content="预览特种设备使用登记表"></Step>
+          <Step title="步骤4" content="提交相关证件"></Step>
+          <Step title="步骤5" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
@@ -20,61 +21,34 @@
         <h2 class="header_one">基本信息</h2>
 
         <label>选择城市：</label>
-      <Row>
-        <Col span="8" style="padding-right:10px">
-        <Select
-          v-model="model13"
-          filterable
-          remote
-          :remote-method="remoteMethod1"
-          :loading="loading1">
-          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
-        </Select>
-        </Col>
-        <Col span="8" style="padding-right:10px">
-        <Select
-          v-model="model14"
-          multiple
-          filterable
-          remote
-          :remote-method="remoteMethod2"
-          :loading="loading2">
-          <Option v-for="(option, index) in options2" :value="option.value" :key="index">{{option.label}}</Option>
-        </Select>
-        </Col>
-        <Col span="8">
-        <Select
-          v-model="model14"
-          multiple
-          filterable
-          remote
-          :remote-method="remoteMethod2"
-          :loading="loading2">
-          <Option v-for="(option, index) in options2" :value="option.value" :key="index">{{option.label}}</Option>
-        </Select>
-        </Col>
-      </Row>
+        <Row>
+          <Col span="8" style="padding-right:10px">
+          <Select v-model="province" filterable @on-change="chosenPro">
+            <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+          <Col span="8" style="padding-right:10px">
+          <Select v-model="city" filterable @on-change="chosenCity">
+            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+          <Col span="8">
+          <Select v-model="area" filterable>
+            <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+        </Row>
         <label>选择受理单位：</label>
-        <Select
-          v-model="model13"
-          filterable
-          remote
-          :remote-method="remoteMethod1"
-          :loading="loading1">
-          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
+        <Select v-model="acceptCom" filterable>
+          <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
         <label>选择审批单位：</label>
-        <Select
-          v-model="model13"
-          filterable
-          remote
-          :remote-method="remoteMethod1"
-          :loading="loading1">
-          <Option v-for="(option, index) in options1" :value="option.value" :key="index">{{option.label}}</Option>
+        <Select v-model="checkCom" filterable>
+          <Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </div>
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
-        <div class="statusInfo" v-if="this.active==1">
+        <div class="statusInfo" v-if="this.active==2">
           <!--<h2>选择设备种类</h2>-->
           <!--<Select v-model="deviceType" style="width:200px">-->
           <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
@@ -267,7 +241,7 @@
         <!--&lt;!&ndash;<v-regist_one :ruleForm="ruleForm"></v-regist_one>&ndash;&gt;-->
         <!--</div>-->
         <!--让用户预览信息的表格-->
-        <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
@@ -278,13 +252,13 @@
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==3">下一步</Button>
 
         </div>
 
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
-        <div class="pdfInfo" v-if="this.active==3">
+        <div class="pdfInfo" v-if="this.active==4">
           <h2>相关证明</h2>
           <!--这个接口是尝试过成功的-->
           <Form-item label="社会信用代码证明" :label-width="300">
@@ -329,7 +303,8 @@
         <div class="setApp_button">
 
 
-          <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
+          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
 
           <!--<Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>-->
 
@@ -337,9 +312,9 @@
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
-          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
-          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
+          <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
+          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">重置</Button>
+          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">保存</Button>
 
         </div>
 
@@ -426,13 +401,16 @@
         bread_choose: '',
         current: 0,
 
-        model13: '',
-        loading1: false,
-        options1: [],
-        model14: [],
-        loading2: false,
-        options2: [],
-        list: ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New hampshire', 'New jersey', 'New mexico', 'New york', 'North carolina', 'North dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode island', 'South carolina', 'South dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West virginia', 'Wisconsin', 'Wyoming']
+        province: '',
+        city: '',
+        provinceList: [],
+        cityList: [],
+        area: '',
+        areaList: [],
+        acceptCom: '',
+        acceptComList: [],
+        checkCom: '',
+        checkComList: [],
 
 
       };
@@ -469,6 +447,31 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
+      chosenPro(value){
+        let params = 'provinceCode=' + value;
+        setAppService.getCities(params).then(res => {
+          console.log(res);
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.cityList.push({value: res[i].code, label: res[i].id});
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+
+      },
+      chosenCity(value){
+        let params = 'cityCode=' + value;
+        setAppService.getArea(params).then(res => {
+          console.log(res);
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.areaList.push({value: res[i].code, label: res[i].id});
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+      },
 
 
       initData(){
@@ -481,6 +484,15 @@
             this.bread_choose = this.deviceList[i].label;
           }
         }
+        setAppService.getProvinces().then(res => {
+          console.log(res);
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.provinceList.push({value: res[i].code, label: res[i].id});
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
           this.clearRegistOneForm();
@@ -532,11 +544,32 @@
 //        });
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.current++;
+            this.active++;
+            console.log(valid);
+            console.log(this.active);
+            let form1 = Object.assign({}, this.ruleForm);
+            //把选择的哪一项带进去
+            let submitParam={};
+            submitParam.form1=form1;
+            submitParam.address=[{"provinceId":this.province,"cityId":this.city,"areaId":this.area}];
+           // submitParam.address=[{"provinceId":"100030","cityId":"100034","areaId":"100045"}];
+            submitParam.agencies=["12","13"];
+            submitParam.deviceTypeId=1;
+            submitParam.applyTypeId=1;
+            submitParam.hasFiles=true;
+            console.log(submitParam);
+            setAppService.submitSetInfo(submitParam).then(res => {
+              console.log(res);
 
+            }).catch(error => {
+              console.log(error);
+
+            })
             let params = "fileId=101"
             console.log('/download?' + params);
             setAppService.getRegistOne(params).then(res => {
-              this.active++;
+
               if (res) {
                 console.log(res.success);
               }
@@ -606,7 +639,7 @@
 //          this.submitForm('ruleForm');
 //        }
 //        this.active = 2;
-        if (this.current == 3) {
+        if (this.current == 4) {
           this.current = 0;
         } else {
           this.current += 1;
@@ -635,10 +668,10 @@
       remoteMethod1 (query) {
         if (query !== '') {
           this.loading1 = true;
-          setAppService.getProvinces().then(res=>{
-              console.log(res);
-          }).catch(error=>{
-              console.log(error);
+          setAppService.getProvinces().then(res => {
+            console.log(res);
+          }).catch(error => {
+            console.log(error);
 
           })
 
@@ -674,6 +707,45 @@
         } else {
           this.options2 = [];
         }
+      },
+      handleBeforeUpload () {
+        this.uploadList = this.$refs.upload.fileList;
+        const check = this.uploadList.length < 1;
+
+        if (!check) {
+          this.$Notice.warning({
+            title: '最多上传 1 张图片。'
+          });
+        }
+        return check;
+      },
+      handleSuccess (res, file) {
+        //需要沟通一下，成功给我返回什么然后判断
+        console.log(res);
+        console.log(file);
+
+      },
+      handleRemove(res, file) {
+        //res是移除的 file剩下的
+        console.log(res);
+        console.log(file);
+
+      },
+
+      instance (type) {
+        const title = '通知';
+        const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+        switch (type) {
+          case 'success':
+            this.$Modal.success({
+              title: title,
+              content: content
+            });
+            this.current++;
+            break;
+        }
+        this.$router.push('home');
+
       }
     },
 
@@ -718,45 +790,7 @@
 //        window.print();
 //      },
 
-    handleBeforeUpload () {
-      this.uploadList = this.$refs.upload.fileList;
-      const check = this.uploadList.length < 1;
 
-      if (!check) {
-        this.$Notice.warning({
-          title: '最多上传 1 张图片。'
-        });
-      }
-      return check;
-    },
-    handleSuccess (res, file) {
-      //需要沟通一下，成功给我返回什么然后判断
-      console.log(res);
-      console.log(file);
-
-    },
-    handleRemove(res, file) {
-      //res是移除的 file剩下的
-      console.log(res);
-      console.log(file);
-
-    },
-
-    instance (type) {
-      const title = '通知';
-      const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-      switch (type) {
-        case 'success':
-          this.$Modal.success({
-            title: title,
-            content: content
-          });
-          this.current++;
-          break;
-      }
-      this.$router.push('home');
-
-    }
   }
 
 
@@ -833,18 +867,21 @@
   .setApp_button {
     margin: 10px;
   }
-  .city_select_app{
+
+  .city_select_app {
+
     margin: 0 auto;
     display: block;
     width: 80%;
-    padding:10px;
+    padding: 10px;
     background-color: white;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    margin-bottom:10px;
+    margin-left: 200px;
+    margin-bottom: 10px;
 
   }
 

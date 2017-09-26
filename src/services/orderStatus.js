@@ -1,8 +1,15 @@
 import fetch from '../fetch/http.js';
+
 //获取已经提交的订单
+// export function GetOrders(param) {
+//     return fetch('/api/getorders',param,'get')
+// }
 export function GetOrders(param) {
-    return fetch('/api/getorders',param,'get')
+  return fetch('/device/get',param,'post')
 }
+
+
+
 export function ChangeTime(param) {
     return fetch('/api/getorders',param,'get')
 }

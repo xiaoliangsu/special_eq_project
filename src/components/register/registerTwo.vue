@@ -12,7 +12,8 @@
         <tr>
           <td rowspan="6" class="rowsText" id="pdf-wrap"><span>设备基本情况</span></td>
           <td>设备类别</td>
-          <td>{{this.ruleForm.equipment_category}}</td>
+          <!--<td>{{this.ruleForm.equipment_category}}</td>-->
+          <td><textarea v-model="ruleForm.eq_species" placeholder="请输入设备种类"></textarea></td>
           <td>设备品种</td>
           <td>{{this.ruleForm.equipment_variety}}</td>
         </tr>

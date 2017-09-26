@@ -1,12 +1,13 @@
 <template>
     <div class="devList">
+      <!--已有设备列表-->
         <div class="filter-box">
             <Row>
                 <Col span="8">
                 <label>设备申请时间</label>
-                <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
-                             style="width: 200px" v-model="time"></Date-picker>
-                </Col>
+              <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
+                           format="yyyy/MM/dd"     style="width: 220px;display:inline-block;" v-model="time" ></Date-picker>
+              </Col>
 
                 <Col span="8">
                 <label>设备类别</label>
@@ -201,7 +202,11 @@
             ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
             //获取申请列表信息
             getOrders(page){
-                orderStatusService.GetOrders(page).then(res => {
+                let getOrdersParams={
+                    page:page
+                }
+                orderStatusService.GetOrders(getOrdersParams).then(res => {
+                    console.log(res);
                     if (res.success) {
                         this.data5 = res.success;
                         for (var i = 0; i < this.data5.length; i++) {
