@@ -246,7 +246,7 @@
           <!--要这两行-->
 
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
-          <!--<input type="button"  value="打印" @click="printTrigger('iFramePdf');" />-->
+          <input type="button"  value="打印" @click="printTrigger('iFramePdf');" />
 
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
@@ -335,8 +335,8 @@
     data() {
       return {
         //等调的时候再拼接口
-        pdfUrl: '/admin/download?fileId=101',
-        // pdfUrl: '',
+        //pdfUrl: '/admin/download?fileId=101',
+         pdfUrl: '/admin/file/preview?fileId=101',
         deviceList: [
           {
             value: 'boiler',
@@ -551,37 +551,31 @@
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam={};
-            submitParam.form1=form1;
-            submitParam.address=[{"provinceId":this.province,"cityId":this.city,"areaId":this.area}];
-           // submitParam.address=[{"provinceId":"100030","cityId":"100034","areaId":"100045"}];
-            submitParam.agencies=["12","13"];
+            submitParam.form1=this.ruleForm;
+            submitParam.address=this.area||this.city;
+           // submitParam.agencies=["12","13"];
+            submitParam.approverAgencyId=12;
+            submitParam.acceptorAgencyId=13;
             submitParam.deviceTypeId=1;
             submitParam.applyTypeId=1;
             submitParam.hasFiles=true;
             console.log(submitParam);
             setAppService.submitSetInfo(submitParam).then(res => {
-              console.log(res);
+//              console.log(res);
+//              this.active++;
+//              this.current++;
+              this.$Message.info('您已提交信息，请预览结果');
+              this.modalCertain = false;
+              console.log(this.modalCertain);
+              if(res.status==true){
+
+              }
 
             }).catch(error => {
               console.log(error);
 
             })
-            let params = "fileId=101"
-            console.log('/download?' + params);
-            setAppService.getRegistOne(params).then(res => {
 
-              if (res) {
-                console.log(res.success);
-              }
-              this.active++;
-              this.current++;
-              this.$Message.info('您已提交信息，请预览结果');
-              this.modalCertain = false;
-              console.log(this.modalCertain);
-            })
-              .catch(error => {
-                console.log(error)
-              })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');

@@ -14,18 +14,18 @@ axios.defaults.withCredentials = true;
 
 
 //POST传参序列化
-axios.interceptors.request.use((config) => {
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data);
-  }
-  return config;
-}, (error) => {
-  _.toast("错误的传参", 'fail');
-  // this.$Notice.error({
-  //     title: '错误的传参',
-  // });
-  return Promise.reject(error);
-});
+// axios.interceptors.request.use((config) => {
+//   if (config.method === 'post') {
+//     config.data = qs.stringify(config.data);
+//   }
+//   return config;
+// }, (error) => {
+//   _.toast("错误的传参", 'fail');
+//   // this.$Notice.error({
+//   //     title: '错误的传参',
+//   // });
+//   return Promise.reject(error);
+// });
 
 //返回状态判断
 axios.interceptors.response.use((res) => {

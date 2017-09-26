@@ -275,6 +275,7 @@
           verifycode:this.loginForm.verif
           //author_key:this.loginForm.author_key,
         }
+        data2=qs.stringify(data2);
         let data = {
           username: this.loginForm.username,
           password: this.loginForm.password,

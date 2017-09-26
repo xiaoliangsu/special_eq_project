@@ -35,6 +35,9 @@ const actions = {
     commit(SET_USER_INFO, res)
     commit(SET_LOGIN_STATUS, true)
   },
+  getUserInfo({commit}, res) {
+    console.log(2);
+  },
 
   /**
    * 退出登录
@@ -73,9 +76,9 @@ const getters = {
 }
 
 const mutations = {
-  [SET_USER_INFO](state, res) {
-    state.userInfo = res
-  },
+  // [SET_USER_INFO](state, res) {
+  //   state.userInfo = res
+  // },
 
   [SET_LOGIN_STATUS](state, status) {
     state.loginStatus = status

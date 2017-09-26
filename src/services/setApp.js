@@ -47,7 +47,7 @@ export function saveSetInfo(params) {
 
 
 export function getRegistOne(params) {
-  return fetch('/download?'+params, params,'get')
+  return fetch('/file/preview?'+params, params,'get')
 }
 
 //获取省市县已经调完

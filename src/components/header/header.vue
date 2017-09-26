@@ -9,10 +9,10 @@
 
         <div class="header-right">
           <router-link :to="loginStatus? '/user' :'/' " class="head_login">
-            <div v-if="loginStatus" class="user_name">
-              <span>{{userInfo.username}}</span>
+            <div v-if="loginStatus=='true'" class="user_name">
+              <span>{{userInfo}}</span>
             </div>
-            <span v-else>登陆｜注册</span>
+            <span v-if="loginStatus=='false'">登陆｜注册</span>
           </router-link>
 
           <!--<div>-->
@@ -38,7 +38,7 @@
     export default {
         data() {
             return {
-
+              userName:'',
             };
         },
         props: {
@@ -62,12 +62,14 @@
           ])
         },
         methods: {
-            ...mapActions([
-                'getUserData'
-            ]),
+          ...mapActions(
+            ['setSignOut', 'getUserInfo'],
+          ),
 
 
-        }
+
+        },
+
 
     }
 

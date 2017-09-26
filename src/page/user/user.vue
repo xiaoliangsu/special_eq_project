@@ -1,7 +1,7 @@
 <template>
   <div class="user">
-    <span>{{userInfo.username}}</span>
-    <Button type="primary" @click="sighOut">退出</Button>
+    <span>{{userInfo}}</span>
+    <Button type="primary" @click="sighOut">退出{{loginStatus}}</Button>
 
 
   </div>
@@ -15,7 +15,7 @@
           user: '',
           region: '',
           option: ''
-        }
+        },
       }
     },
     computed: {
@@ -33,12 +33,16 @@
       ])
     },
     methods: {
-      ...mapActions({ setSignOut: 'setSignOut' }),
+      ...mapActions(
+        ['setSignOut', 'getUserInfo'],
+      ),
       sighOut() {
         this.setSignOut();
 
       },
-    }
+
+    },
+
 
   }
 
