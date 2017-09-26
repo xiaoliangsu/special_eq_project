@@ -4,21 +4,23 @@
     <div class="comp_name">
       <h2 class="detailHeadTop">一、单位名称：</h2>
       <!--<span class="content"> {{this.dev_id}}</span>-->
-      <span class="content">{{this.appComName}}</span>
+      <span class="comp_name_content">{{this.appComName}}</span>
     </div>
 
     <div class="setTable">
       <h2 class="detailHead">二、特种设备使用登记表(按套申请)：</h2>
-      <Collapse v-model="value1" v-for="(item,index) in ruleForms" :key="item.id">
-        <Panel :name="''+index">
-          <span class="panel_content">特种设备使用登记表</span>
-          <div slot="content">
-              <v_regist_one :ruleForm="item"></v_regist_one>
-              <Button type="primary" @click="toblanck(index)">打印预览</Button>
+      <!--<Collapse v-model="value1" v-for="(item,index) in ruleForms" :key="item.id">-->
+      <!--<Panel :name="''+index">-->
+      <!--<span class="panel_content">特种设备使用登记表</span>-->
+      <!--<div slot="content">-->
+      <!--<v_regist_one :ruleForm="item"></v_regist_one>-->
+      <!--<Button type="primary" @click="toblanck(index)">打印预览</Button>-->
 
-          </div>
-        </Panel>
-      </Collapse>
+      <!--</div>-->
+      <!--</Panel>-->
+      <!--</Collapse>-->
+
+      <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:100%;height:1000px;"></iframe>
 
 
     </div>
@@ -38,14 +40,42 @@
     </div>
 
     <div class="approvalControl">
-      <Button type="primary" @click="approvalPass" v-if="orderState=='waitApproval'">审批通过</Button>
-      <Button @click="approvalRej" v-if="orderState=='waitApproval'">审批驳回</Button>
+      <Button type="primary" @click="approvalPass" v-if="orderState=='waitApproval'&& approvalStatus==false">审批通过</Button>
+      <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
     </div>
     <div class="acceptReason" v-if="orderState=='approvaled'">
       <h2 class="detailHead">四、审批结果：</h2>
       <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
       <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
     </div>
+    <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
+      <div class="statusInfo" v-if="this.approvalStatus ==true">
+        <!--<h2>选择设备种类</h2>-->
+        <!--<Select v-model="deviceType" style="width:200px">-->
+        <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+        <!--</Select>-->
+        <h2 class="detailHead">审批通过说明</h2>
+        <div class="base-box">
+            <Form-item label="说明" prop="eq_variety">
+              <Input v-model="ruleForm.eq_variety" placeholder="请输入设备品种"></Input>
+            </Form-item>
+            <Form-item label="登记机关登记人员" prop="eq_code">
+              <Input v-model="ruleForm.eq_code" placeholder="请输入设备代码"></Input>
+            </Form-item>
+            <Form-item label="日期" prop="design_use_limit">
+              <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
+            </Form-item>
+            <Form-item label="使用登记证编号" prop="manufacture_com_name">
+              <Input v-model="ruleForm.manufacture_com_name" placeholder="请输入制造单位名称"></Input>
+            </Form-item>
+            <Form-item label="日期" prop="design_use_limit">
+              <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
+            </Form-item>
+        </div>
+
+      </div>
+    </Form>
+
 
   </div>
 </template>
@@ -67,7 +97,7 @@
         ruleForm: [],
         dev_id: '',
         dev_name: '',
-        deviceSortNum:'',
+        deviceSortNum: '',
         value1: '',
 //              value2:'',
 //              ruleForm2: '',
@@ -89,6 +119,21 @@
         orderState: '',
         ruleForms: [],
         appComName: '',
+        registPdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        ruleForm: {},
+
+
+        rules: {
+          eq_species: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+//                    use_com_name: [
+//                        {required: true, message: '不能为空', trigger: 'blur'}
+//                    ],
+//                    check_com_name: [
+//                        {required: true, message: '不能为空', trigger: 'blur'}
+//                    ],
+        },
 
 //                testTrue:[],
 
@@ -146,7 +191,7 @@
         }
         if (this.$route.query.orderState) {
           this.orderState = this.$route.query.orderState;
-        //console.log(this.orderState);
+          //console.log(this.orderState);
         }
 
       },
@@ -155,7 +200,7 @@
         this.$router.push({
           path: 'regist_one',
           query: {
-              index: index,
+            index: index,
 //            selectedNum: this.getSelectedNum,
           }
         });
@@ -227,22 +272,23 @@
 
       //审批通过
       approvalPass(){
-        this.approvalStatus = true;
+
         this.$Modal.confirm({
           title: '确认信息',
           content: '<p>确认审批通过该申请订单？</p>',
           onOk: () => {
+            this.approvalStatus = true;
             this.$Message.info('点击了确定');
             let data = {
               approvalStatus: this.approvalStatus,
             }
-            appDetailService.ApprovalPass(data).then(res => {
-              console.log(res.success);
-              this.$router.push('waitApproval');
-
-            }).catch(error => {
-              console.log(error);
-            })
+//            appDetailService.ApprovalPass(data).then(res => {
+//              console.log(res.success);
+//              this.$router.push('waitApproval');
+//
+//            }).catch(error => {
+//              console.log(error);
+//            })
           },
           onCancel: () => {
 
@@ -356,5 +402,25 @@
     margin-bottom: 20px;
   }
 
+  .comp_name_content {
+    font-size: 16px;
+  }
+  .base-box {
+    width:50%;
+    display: block;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    //padding: 3px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top:10px;
+    box-sizing: border-box;
+    background-color: white;
+
+  }
 
 </style>

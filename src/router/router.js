@@ -84,6 +84,7 @@ const CarboxApp = r => require.ensure([], () => r(require('../page/apply/carboxA
 
 const Approvaled = r => require.ensure([], () => r(require('../page/approval/approvaled.vue')), 'Approvaled');
 const WaitApproval = r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')), 'WaitApproval');
+const ApprovaledDetail = r => require.ensure([], () => r(require('../page/approval/approvaledDetail.vue')), 'ApprovaledDetail');
 
 const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
 
@@ -155,6 +156,8 @@ const router = new VueRouter({
 
         {path: "/approvaled", component: Approvaled},
         {path: "/waitApproval", component: WaitApproval},
+        {path: "/approvaledDetail", component: ApprovaledDetail},
+
         {path: "/supervision", component: Supervision},
 
 
