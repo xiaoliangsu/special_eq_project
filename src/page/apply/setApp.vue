@@ -411,6 +411,7 @@
         acceptComList: [],
         checkCom: '',
         checkComList: [],
+        device_type:'',
 
 
       };
@@ -478,6 +479,7 @@
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
+        this.device_type=this.$route.query.device_type;
         this.bread_choose_value = this.$route.query.device_detail;
         for (let i = 0; i < this.deviceList.length; i++) {
           if (this.deviceList[i].value == this.bread_choose_value) {
@@ -556,7 +558,7 @@
            // submitParam.agencies=["12","13"];
             submitParam.approverAgencyId=12;
             submitParam.acceptorAgencyId=13;
-            submitParam.deviceTypeId=1;
+            submitParam.deviceTypeId=this.device_type;
             submitParam.applyTypeId=1;
             submitParam.hasFiles=true;
             console.log(submitParam);

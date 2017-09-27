@@ -5,7 +5,7 @@
         <Col span="9">
         <label>订单时间</label>
         <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
-                     format="yyyy/MM/dd"     style="width: 220px;display:inline-block;" v-model="time" ></Date-picker>
+                     format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
 
         <Col span="7">
@@ -90,12 +90,16 @@
         model2: '',
         columns5: [
           {
+            title: '序号',
+            key: 'id'
+          },
+          {
             title: '设备名称',
             key: 'device'
           },
           {
             title: '日期',
-            key: 'time',
+            key: 'createTime',
             sortable: true
           },
           {
@@ -233,6 +237,9 @@
     mounted(){
       this.initData();
     },
+    watch: {
+      '$route': 'initData'
+    },
 
     methods: {
       ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
@@ -241,20 +248,31 @@
       },
       //获取申请列表信息
       getOrders(page){
-        orderStatusService.GetOrders(page).then(res => {
-          if (res.success) {
-            this.data5 = res.success;
-            for (var i = 0; i < this.data5.length; i++) {
-              this.data5[i].state = this.state[this.data5[i].state];
-            }
-          }
+        let waitAccparams = {
+          page: 0,
+          size: 10,
 
-        }).catch(error => {
+        }
+        orderStatusService.GetOrders(waitAccparams).then(res => {
+            console.log(res);
+            //this.data5.device = res.data.content[0].id;
+            this.data5 = res.data.content;
+
+//          if (res.success) {
+//            this.data5 = res.success;
+//            for (var i = 0; i < this.data5.length; i++) {
+//              this.data5[i].state = this.state[this.data5[i].state];
+//            }
+//          }
+
+          }
+        ).catch(error => {
           console.log(error);
         })
 
       },
-      changeTime(value){
+      changeTime(value)
+      {
         console.log(value);
         orderStatusService.ChangeTime().then(res => {
           if (res.success) {
@@ -265,8 +283,10 @@
         }).catch(error => {
           console.log(error);
         })
-      },
-      changeState(value){
+      }
+      ,
+      changeState(value)
+      {
         //console.log(value)
         orderStatusService.ChangeState(value).then(res => {
           if (res.success) {
@@ -277,8 +297,10 @@
           console.log(error);
         })
 
-      },
-      changeSort(value){
+      }
+      ,
+      changeSort(value)
+      {
         orderStatusService.ChangeSort(value).then(res => {
           if (res.success) {
             this.data5 = res.success;
@@ -287,8 +309,10 @@
         }).catch(error => {
           console.log(error);
         })
-      },
-      query(){
+      }
+      ,
+      query()
+      {
         this.params.time = this.time;
         this.params.sort = this.model1;
         this.params.state = this.model2;
@@ -303,8 +327,10 @@
           console.log(error);
         })
 
-      },
-      initSize(value){
+      }
+      ,
+      initSize(value)
+      {
         orderStatusService.GetOrders(value).then(res => {
           if (res.success) {
             this.data5 = res.success;
@@ -317,97 +343,104 @@
             console.log(error);
           })
 
-      },
-      deleteApp(value){
+      }
+      ,
+      deleteApp(value)
+      {
         console.log(value);
         orderStatusService.deleteApp(value).then(res => {
-         this.initData();
+          this.initData();
         }).catch(error => {
           console.log(error);
         })
-      },
+      }
+      ,
 
-//      modifyApp(value){
-//        console.log(1111);
-//        console.log(this.data5[value].changeApplyNum);
-//        switch (this.data5[value].changeApplyNum) {
-//          case 1:
-//            //按套首次申请
-//            this.$router.push({
-//              path: 'setApp',
-//              query: {
-//                dev_id: this.data5[value].id,
-//                dev_name: this.data5[value].device,
-//                //是保存之后的
-//                ifold: 1,
-//                //selectedNum:2
-//              }
-//            });
-//            //let temp = this.data5[value].changeDeviceNum;
-//            break;
-//
-//          case 2:
-//            //单位首次申请
-//            this.$router.push({
-//              path: 'companyApp',
-//              query: {
-//                dev_id: this.data5[value].id,
-//                dev_name: this.data5[value].device,
-//                //是保存之后的
-//                ifold: 1,
-//                //changeDeviceNum: this.data5[value].changeDeviceNum,
-//
-//              }
-//            });
-//            break;
-//          case 3:
-//            //车瓶首次申请
-//            this.$router.push({
-//              path: 'carboxApp',
-//              query: {
-//                dev_id: this.data5[value].id,
-//                dev_name: this.data5[value].device,
-//                //是保存之后的
-//                ifold: 1,
-//              }
-//            });
-//            break;
-//          case 4:
-//            //单位变更
-//            this.$router.push({
-//              path: 'appDetail',
-//              query: {
-//                dev_id: this.data5[value].id,
-//                dev_name: this.data5[value].device,
-//                orderState: this.orderState
-//              }
-//            });
-//            break;
-//          ////等等
-//
-//
-//        }
-//
-//
-//      },
+      //      modifyApp(value){
+      //        console.log(1111);
+      //        console.log(this.data5[value].changeApplyNum);
+      //        switch (this.data5[value].changeApplyNum) {
+      //          case 1:
+      //            //按套首次申请
+      //            this.$router.push({
+      //              path: 'setApp',
+      //              query: {
+      //                dev_id: this.data5[value].id,
+      //                dev_name: this.data5[value].device,
+      //                //是保存之后的
+      //                ifold: 1,
+      //                //selectedNum:2
+      //              }
+      //            });
+      //            //let temp = this.data5[value].changeDeviceNum;
+      //            break;
+      //
+      //          case 2:
+      //            //单位首次申请
+      //            this.$router.push({
+      //              path: 'companyApp',
+      //              query: {
+      //                dev_id: this.data5[value].id,
+      //                dev_name: this.data5[value].device,
+      //                //是保存之后的
+      //                ifold: 1,
+      //                //changeDeviceNum: this.data5[value].changeDeviceNum,
+      //
+      //              }
+      //            });
+      //            break;
+      //          case 3:
+      //            //车瓶首次申请
+      //            this.$router.push({
+      //              path: 'carboxApp',
+      //              query: {
+      //                dev_id: this.data5[value].id,
+      //                dev_name: this.data5[value].device,
+      //                //是保存之后的
+      //                ifold: 1,
+      //              }
+      //            });
+      //            break;
+      //          case 4:
+      //            //单位变更
+      //            this.$router.push({
+      //              path: 'appDetail',
+      //              query: {
+      //                dev_id: this.data5[value].id,
+      //                dev_name: this.data5[value].device,
+      //                orderState: this.orderState
+      //              }
+      //            });
+      //            break;
+      //          ////等等
+      //
+      //
+      //        }
+      //
+      //
+      //      },
 
-//            appDetail(value){
-//                // console.log(value);
-//                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
-//            }
-      appDetail(value){
-        switch (this.data5[value].changeApplyNum) {
+      //            appDetail(value){
+      //                // console.log(value);
+      //                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
+      //            }
+      appDetail(value)
+      {
+//    switch (this.data5[value].changeApplyNum) {
+        switch (1) {
+
           case 1:
             //首次申请
-            if (this.data5[value].changeDeviceNum[0] == 'one' && this.data5[value].changeDeviceNum[1] !== 'carbox') {
-              this.$router.push({
-                path: 'appDetail',
-                query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
-                }
-              });
+            if (this.data5[value].deviceTypeId==12) {
+//              this.$router.push({
+//                path: 'appDetail',
+//                query: {
+//                  dev_id: this.data5[value].id,
+//                  dev_name: this.data5[value].device,
+//                  orderState: this.orderState,
+//                }
+//              });
+              this.$router.push("appDetail");
             } else if (this.data5[value].changeDeviceNum[0] == 'two') {
               this.$router.push({
                 path: 'comAppDetail',
@@ -474,11 +507,14 @@
 
     },
     computed: {
-      ...mapState(['selectedOption']),
-      ...mapGetters([
-        "getSelectedOption",
-      ]),
-    },
+      ...
+        mapState(['selectedOption']),
+      ...
+        mapGetters([
+          "getSelectedOption",
+        ]),
+    }
+    ,
 
 
   }

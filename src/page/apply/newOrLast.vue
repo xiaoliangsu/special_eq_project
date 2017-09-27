@@ -182,15 +182,17 @@
           })
       },
       toNewApp(){
-        if(this.device_type=='one'&& this.device_detail!=='carbox'){
-          this.$router.push({
+//        if(this.device_type=='one'&& this.device_detail!=='carbox'){
+          if(this.device_type<7){
+
+            this.$router.push({
             path:"setApp" ,
             query: {
               device_type: this.device_type,
               device_detail: this.device_detail
             }
           });
-        }else if(this.device_type=='two'){
+        }else if(this.device_type==9||this.device_type==10){
           this.$router.push({
             path:"companyApp" ,
             query: {

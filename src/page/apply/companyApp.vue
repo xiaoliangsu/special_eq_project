@@ -381,6 +381,7 @@
         value2: '',
         value3: '',
         ruleForms: '',
+        current:0,
 
 
       };

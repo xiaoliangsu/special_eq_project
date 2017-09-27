@@ -9,10 +9,10 @@
 
         <div class="header-right">
           <router-link :to="loginStatus? '/user' :'/' " class="head_login">
-            <div v-if="loginStatus=='true'" class="user_name">
-              <span>{{userInfo}}</span>
+            <div v-if="loginStatus" class="user_name">
+              <span>{{userName}}</span>
             </div>
-            <span v-if="loginStatus=='false'">登陆｜注册</span>
+            <span v-if="!loginStatus">登陆｜注册</span>
           </router-link>
 
           <!--<div>-->
@@ -65,10 +65,22 @@
           ...mapActions(
             ['setSignOut', 'getUserInfo'],
           ),
+          initData(){
+              this.userName= localStorage.getItem('userInfo');
+          }
 
 
 
         },
+      mounted(){
+        this.initData();
+      },
+      watch: {
+        // 如果路由有变化，会再次执行该方法
+        '$route': 'initData'
+      },
+
+
 
 
     }

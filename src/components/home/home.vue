@@ -36,25 +36,25 @@
         <!--<Menu-item name="changeReq_form">变更申请</Menu-item>-->
         <div v-if="this.author_key==1">
           <label class="menu-label">申请</label>
-          <Submenu name="1-1">
+          <Submenu name="1-1" >
             <template slot="title" style="font-size: 16px;">
               首次申请
             </template>
-            <MenuGroup title="按台(套)申请">
-              <MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>
-              <MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>
-              <MenuItem name="newOrLast-one-elevator">电梯</MenuItem>
-              <MenuItem name="newOrLast-one-hoisting">起重机械</MenuItem>
-              <MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>
-              <MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>
-              <MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>
+            <MenuGroup title="按台(套)申请"  >
+              <MenuItem name="newOrLast-1-boiler">锅炉</MenuItem>
+              <MenuItem name="newOrLast-2-pressure">压力容器（气瓶除外）</MenuItem>
+              <MenuItem name="newOrLast-3-elevator">电梯</MenuItem>
+              <MenuItem name="newOrLast-4-hoisting">起重机械</MenuItem>
+              <MenuItem name="newOrLast-5-cableway">客运索道</MenuItem>
+              <MenuItem name="newOrLast-6-play">大型游乐设施</MenuItem>
+              <MenuItem name="newOrLast-7-factorycar">场 (厂)内专用机动车辆</MenuItem>
             </MenuGroup>
             <MenuGroup title="按单位申请">
-              <MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>
-              <MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>
+              <MenuItem name="newOrLast-9-cylinders">气瓶(车用气瓶除外)</MenuItem>
+              <MenuItem name="newOrLast-10-pipeline">工业管道</MenuItem>
             </MenuGroup>
             <MenuGroup title="车用气瓶">
-              <MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>
+              <MenuItem name="newOrLast-8-carbox">车用气瓶</MenuItem>
             </MenuGroup>
           </Submenu>
           <Submenu name="2-1">
@@ -82,7 +82,7 @@
           <Menu-item name="finishList">已完成申请</Menu-item>
           <label class="menu-label">已有设备</label>
 
-          <Menu-item name="devList">已有设备列表</Menu-item>
+          <Menu-item name="devList" >已有设备列表</Menu-item>
         </div>
 
 
@@ -94,7 +94,7 @@
           <Menu-item name="accepted">已受理申请</Menu-item>
         </Menu-group>
 
-        <Menu-group title="审批机关" v-if="this.author_key==3">
+        <Menu-group title="审批机关" v-if="this.author_key==3" >
           <Menu-item name="waitApproval">未审批申请</Menu-item>
           <Menu-item name="approvaled">已审批申请</Menu-item>
         </Menu-group>
@@ -188,14 +188,16 @@
           return this.$route.path.replace('/', '');
         },
         ...mapGetters([
-          "headShow",
-
+          "userInfo",
+          "headShow"
 
         ])
       },
 
+
       mounted() {
         this.author_key = localStorage.getItem('author_key');
+
 
       },
       components: {

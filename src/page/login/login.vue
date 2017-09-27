@@ -298,7 +298,29 @@
             //设置localstorage
             this.loginInfo.username=this.loginForm.username;
             this.setUserInfo(this.loginInfo);
-            this.$router.push('devlist');
+            this.$router.push('home');
+            switch (this.loginInfo.author_key) {
+              case 1:
+                //申请人
+                this.$router.push('devList');
+
+                break;
+              case 2:
+                //受理
+                this.$router.push('waitAccept');
+                break;
+              case 3:
+                //移装变更
+                this.$router.push('waitApproval');
+
+                break;
+              case 4:
+                //单位变更
+                this.$router.push('supervision');
+
+                break;
+              ////等等
+            }
           }else {
             this.$Notice.error({
               title: '这是通知标题',

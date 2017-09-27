@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <span>{{userInfo}}</span>
+    <span>{{userName}}</span>
     <Button type="primary" @click="sighOut">退出{{loginStatus}}</Button>
 
 
@@ -16,6 +16,7 @@
           region: '',
           option: ''
         },
+        userName:'',
       }
     },
     computed: {
@@ -40,7 +41,17 @@
         this.setSignOut();
 
       },
+      initData(){
+        this.userName= localStorage.getItem('userInfo');
+      }
 
+    },
+    mounted(){
+      this.initData();
+    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route': 'initData'
     },
 
 

@@ -5,7 +5,7 @@ import fetch from '../fetch/http.js';
 //     return fetch('/api/getorders',param,'get')
 // }
 export function GetOrders(param) {
-  return fetch('/device/get',param,'post')
+  return fetch('/apply/get',param,'post')
 }
 
 
