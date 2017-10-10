@@ -6,10 +6,10 @@
       <Menu theme="dark" class="sideMenu"  width="auto"  :open-names="['1']"
             accordion style="font-size: 16px;"
             @on-select="routeTo" accordion>
-        <div class="layout-logo-left"  style="color:white;font-size: 25px;">
+        <div class="layout-logo-left"  style="color:white;font-size: 25px;position:fixed;z-index:100;">
 
           <!--<img  class="header-logo" src="../../static/images/logo.png">-->
-          <span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>
+          <span class="logo_prefix">特种设备</span><span class="logo_suffix">使用登记系统</span>
 
         </div>
         <!--<Submenu name="1">-->
@@ -34,12 +34,13 @@
         <!--<Menu-item name="disabled_form">停用报废表</Menu-item>-->
         <!--<Menu-item name="disabled_form2">停用报废表2</Menu-item>-->
         <!--<Menu-item name="changeReq_form">变更申请</Menu-item>-->
-        <div v-if="this.author_key==1">
-          <label class="menu-label">申请</label>
+        <div v-if="this.author_key==1" class="menu-content" style="position:absolute;top:60px;width:100%;">
+          <label class="menu-label" >申请类别</label>
           <Submenu name="1-1">
             <template slot="title" style="font-size: 16px;">
               首次申请
             </template>
+            <div style="overflow: scroll">
             <MenuGroup title="按台(套)申请">
               <MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>
               <MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>
@@ -56,6 +57,7 @@
             <MenuGroup title="车用气瓶">
               <MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>
             </MenuGroup>
+            </div>
           </Submenu>
           <Submenu name="2-1">
             <template slot="title">
@@ -75,7 +77,7 @@
           <!--</Menu-group>-->
 
           <!--<Menu-group title="申请列表" v-if="this.author_key==1" >-->
-          <label class="menu-label">申请列表</label>
+          <label class="menu-label">受理审查发证情况</label>
 
           <Menu-item name="waitAcceptList">待受理申请</Menu-item>
           <Menu-item name="waitCheckList">待审批申请</Menu-item>
@@ -293,7 +295,8 @@
     .layout-menu-left{
       background: #464c5b;
       height:100%;
-      overflow: auto;
+      overflow: scroll;
+
     }
     .layout-header{
       height: 60px;
@@ -301,13 +304,16 @@
       box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
     .layout-logo-left{
-      width: 90%;
-      height: 30px;
-     // background: #5b6270;
+      width: 20.6%;
+      height: 60px;
+      background: #464c5b;
       border-radius: 3px;
-      margin: 15px auto;
+      padding:10px;
+      padding-left:17px;
+     // margin: 15px auto;
 
     }
+
 
 
 
@@ -340,6 +346,11 @@
       overflow-y: scroll;
       //margin: 15 px 15 px 15 px 15 px;
       margin: 0;
+    }
+    .ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item{
+      padding-left:43px;
+      padding-top: 5px;
+      padding-bottom:5px;
     }
 
 
