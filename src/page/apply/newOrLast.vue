@@ -150,16 +150,16 @@
     methods: {
       initData(){
         //this.active = 1;
-        this.bread_choose_value = this.$route.query.device_detail;
-        for (let i = 0; i < this.deviceList.length; i++) {
-          if (this.deviceList[i].value == this.bread_choose_value) {
-            this.bread_choose = this.deviceList[i].label;
-          }
-        }
-        this.device_detail=this.$route.query.device_detail;
+//        this.bread_choose_value = this.$route.query.device_detail;
+//        for (let i = 0; i < this.deviceList.length; i++) {
+//          if (this.deviceList[i].value == this.bread_choose_value) {
+//            this.bread_choose = this.deviceList[i].label;
+//          }
+//        }
+       // this.device_detail=this.$route.query.device_detail;
         this.device_type=this.$route.query.device_type;
         let params={
-          device_detail:this.device_detail,
+         // device_detail:this.device_detail,
           device_type:this.device_type,
         }
         this.getOrders(params);
@@ -189,15 +189,17 @@
             path:"setApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+            //  device_detail: this.device_detail
             }
           });
         }else if(this.device_type==9||this.device_type==10){
+       // }else if(this.device_type=='two'){
+
           this.$router.push({
             path:"companyApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+            //  device_detail: this.device_detail
             }
           });
         }else{
@@ -205,7 +207,7 @@
             path:"carboxApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+          //    device_detail: this.device_detail
             }
           });
         }

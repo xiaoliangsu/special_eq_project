@@ -42,20 +42,31 @@
             </template>
             <div style="overflow: scroll">
               <MenuGroup title="按台(套)申请">
-                <MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>
-                <MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>
-                <MenuItem name="newOrLast-one-elevator">电梯</MenuItem>
-                <MenuItem name="newOrLast-one-hoisting">起重机械</MenuItem>
-                <MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>
-                <MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>
-                <MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>
+                <!--<MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-elevator">电梯</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-hoisting">起重机械</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>-->
+                <!--<MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>-->
+                <MenuItem name="newOrLast-0">锅炉</MenuItem>
+                <MenuItem name="newOrLast-1">压力容器（气瓶除外）</MenuItem>
+                <MenuItem name="newOrLast-2">电梯</MenuItem>
+                <MenuItem name="newOrLast-3">起重机械</MenuItem>
+                <MenuItem name="newOrLast-4">客运索道</MenuItem>
+                <MenuItem name="newOrLast-5">大型游乐设施</MenuItem>
+                <MenuItem name="newOrLast-6">场 (厂)内专用机动车辆</MenuItem>
               </MenuGroup>
               <MenuGroup title="按单位申请">
-                <MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>
-                <MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>
+                <!--<MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>-->
+                <!--<MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>-->
+                <MenuItem name="newOrLast-8">气瓶(车用气瓶除外)</MenuItem>
+                <MenuItem name="newOrLast-9">工业管道</MenuItem>
               </MenuGroup>
               <MenuGroup title="车用气瓶">
-                <MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>
+                <!--<MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>-->
+                <MenuItem name="newOrLast-7">车用气瓶</MenuItem>
+
               </MenuGroup>
             </div>
           </Submenu>
@@ -216,12 +227,12 @@
         if(params.length>1){
           let routerPath = params[0];
           let device_type = params[1];
-          let device_detail = params[2];
+        //  let device_detail = params[2];
           this.$router.push({
             path: routerPath,
             query: {
               device_type: device_type,
-              device_detail: device_detail
+            //  device_detail: device_detail
             }
           });
         }else{
@@ -231,6 +242,28 @@
           });
         }
       },
+//      routeTo(e) {
+//        //console.log(e);
+//        //this.$router.push(e);
+//        let params = e.split("-");
+//        if(params.length>1){
+//          let routerPath = params[0];
+//          let device_type = params[1];
+//          let device_detail = params[2];
+//          this.$router.push({
+//            path: routerPath,
+//            query: {
+//              device_type: device_type,
+//              device_detail: device_detail
+//            }
+//          });
+//        }else{
+//          let routerPath = params[0];
+//          this.$router.push({
+//            path: routerPath,
+//          });
+//        }
+//      },
       ...mapActions([
         'getUserInfo'
       ]),

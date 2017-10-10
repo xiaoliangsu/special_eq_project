@@ -5,20 +5,51 @@
       <!--<div class="bread">-->
       <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
       <!--</div>-->
-      <div class="step" style="width:94%; margin-top:20px;">
+      <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <Step title="步骤1" content="填写特种设备使用登记表"></Step>
-          <Step title="步骤2" content="预览特种设备使用登记表"></Step>
-          <Step title="步骤3" content="提交相关证件"></Step>
-          <Step title="步骤4" content="完成申请"></Step>
+          <Step title="步骤1" content="填写基本信息"></Step>
+          <Step title="步骤2" content="填写特种设备使用登记表"></Step>
+          <Step title="步骤3" content="预览特种设备使用登记表"></Step>
+          <Step title="步骤4" content="提交相关证件"></Step>
+          <Step title="步骤5" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
+      <div class="city_select_app" v-if="this.active==1">
+        <h2 class="header_one">基本信息</h2>
+
+        <label>选择城市：</label>
+        <Row>
+          <Col span="8" style="padding-right:10px">
+          <Select v-model="province" filterable @on-change="chosenPro">
+            <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+          <Col span="8" style="padding-right:10px">
+          <Select v-model="city" filterable @on-change="chosenCity">
+            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+          <Col span="8">
+          <Select v-model="area" filterable>
+            <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          </Col>
+        </Row>
+        <label>选择受理单位：</label>
+        <Select v-model="acceptCom" filterable>
+          <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+        <label>选择审批单位：</label>
+        <Select v-model="checkCom" filterable>
+          <Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </div>
 
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
         <!--<h2>车用气瓶申请</h2>-->
-        <div class="statusInfo" v-if="this.active==1">
+        <div class="statusInfo" v-if="this.active==2">
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
             <h2 class="header_two">设备基本情况</h2>
@@ -108,23 +139,25 @@
         <!--</Panel>-->
         <!--</Collapse>-->
         <!--</div>-->
-        <div class="setTable" v-if="this.active==2"  style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
-          <iframe id="iFramePdf" v-bind:src=this.pdfUrl  style="width:100%;height:1000px;"></iframe>
-          <!--<input type="button"  value="打印" @click="printTrigger('iFramePdf');" />-->
+          <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
+          <input type="button"  value="打印" @click="printTrigger('iFramePdf');" />
 
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==3">下一步</Button>
+          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
+
 
         </div>
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
-        <div class="pdfInfo" v-if="this.active==3">
+        <div class="pdfInfo" v-if="this.active==4">
           <h2 >相关证明</h2>
           <Form-item label="社会信用代码证明" :label-width="300">
             <Upload
@@ -165,18 +198,21 @@
         </div>
 
         <div class="setApp_button">
-          <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
-          <!--<Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>-->
 
-          <!--<Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>-->
+          <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
+          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
+
+          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
-          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
-          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
+          <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
+          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">重置</Button>
+          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">保存</Button>
+
         </div>
       </Form>
     </div>
@@ -230,6 +266,17 @@
         ruleForms: '',
         value1: '',
         current: 0,
+        province: '',
+        city: '',
+        provinceList: [],
+        cityList: [],
+        area: '',
+        areaList: [],
+        acceptCom: '',
+        acceptComList: [],
+        checkCom: '',
+        checkComList: [],
+        device_type:'',
 
       };
     },
@@ -253,12 +300,53 @@
     },
     mounted(){
       this.initData();
+      setAppService.getProvinces().then(res => {
+        //  console.log(res);
+        for (let i = 0, len = res.length; i < len; i++) {
+          this.provinceList.push({value: res[i].code, label: res[i].name});
+        }
+      }).catch(error => {
+        console.log(error);
+
+      })
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
       ...mapActions(
         ['clearRegistThreeForm', 'setRegistThreeForm'],
       ),
+      printTrigger(elementId) {
+        var getMyFrame = document.getElementById(elementId);
+        getMyFrame.focus();
+        getMyFrame.contentWindow.print();
+      },
+      chosenPro(value){
+        let params = 'provinceCode=' + value;
+        setAppService.getCities(params).then(res => {
+          console.log(res);
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.cityList.push({value: res[i].code, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+
+      },
+      chosenCity(value){
+        let params = 'cityCode=' + value;
+        setAppService.getArea(params).then(res => {
+          console.log(res);
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.areaList.push({value: res[i].code, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+      },
+
+
       initData(){
         this.deviceNum = 1;
         this.active = 1;
@@ -266,6 +354,7 @@
         this.resetForm('ruleForm');
         this.selected = this.getSelectedOption;
         this.selectedNum = this.getSelectedNum;
+
         if (this.$route.query.ifold !== 1) {
           // console.log(this.selectedNum);
           this.clearRegistThreeForm();
@@ -297,33 +386,113 @@
         }
       },
 
+//      submitForm(formName) {
+//        this.$refs[formName].validate((valid) => {
+//          if (valid) {
+//            let param = Object.assign({}, this.ruleForm);
+//            // console.log(param);
+//            this.ifNext = false;
+//            setAppService.submitCarboxInfo(param).then(res => {
+//              //console.log(res);
+//              if (res) {
+//                console.log(res.success);
+//              }
+//              this.active++;
+//              this.current++;
+//              this.$Message.info('您已提交信息，请预览结果');
+//              this.modalCertain = false;
+//              console.log(this.modalCertain);
+//            })
+//              .catch(error => {
+//                console.log(error)
+//              })
+//          } else {
+//            console.log('error submit!!');
+//            this.$Message.info('尚有信息不符合要求，请检查');
+//            return false;
+//
+//          }
+//        });
+//      },
       submitForm(formName) {
+//        this.$refs[formName].validate((valid) => {
+//          if (valid) {
+//            let param = Object.assign({}, this.ruleForm);
+//            //把选择的哪一项带进去
+//            param.selected = this.deviceType;
+//            console.log(this.deviceType);
+//            setAppService.submitSetInfo(param).then(res => {
+//
+//              if (res) {
+//                console.log(res.success);
+//              }
+//              this.active++;
+//              this.modalCertain=false;
+//              console.log(this.modalCertain);
+//            })
+//              .catch(error => {
+//                console.log(error)
+//              })
+//          } else {
+//            console.log('error submit!!');
+//            return false;
+//          }
+//        });
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let param = Object.assign({}, this.ruleForm);
-            // console.log(param);
-            this.ifNext = false;
-            setAppService.submitCarboxInfo(param).then(res => {
-              //console.log(res);
-              if (res) {
-                console.log(res.success);
-              }
-              this.active++;
-              this.current++;
+            this.current++;
+            this.active++;
+            console.log(valid);
+            console.log(this.active);
+            let form1 = Object.assign({}, this.ruleForm);
+            //把选择的哪一项带进去
+            let submitParam={};
+            submitParam.form1=this.ruleForm;
+            submitParam.address=this.area||this.city;
+            // submitParam.agencies=["12","13"];
+            submitParam.approverAgencyId=12;
+            submitParam.acceptorAgencyId=13;
+            submitParam.deviceTypeId=this.device_type;
+            submitParam.applyTypeId=1;
+            submitParam.hasFiles=true;
+            console.log(submitParam);
+            setAppService.submitSetInfo(submitParam).then(res => {
+//              console.log(res);
+//              this.active++;
+//              this.current++;
               this.$Message.info('您已提交信息，请预览结果');
               this.modalCertain = false;
               console.log(this.modalCertain);
+              if(res.status==true){
+
+              }
+
+            }).catch(error => {
+              console.log(error);
+
             })
-              .catch(error => {
-                console.log(error)
-              })
+
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
             return false;
-
           }
         });
+        // this.active++;
+
+
+//        setAppService.getRegistOne("fileId=101").then(res => {
+//
+//          //pdf信息
+//          console.log(res);
+//          this.pdfUrl = res.data;
+//          //获取对象长度
+//         // this.pdfNum = Object.keys(this.pdfUrl).length;
+//
+//
+//        }).catch(error => {
+//          console.log(error)
+//        })
       },
       saveForm(formName){
         this.$refs[formName].validate((valid) => {
@@ -363,7 +532,7 @@
 //          this.submitForm('ruleForm');
 //        }
 //        this.beSure();
-        if (this.current == 3) {
+        if (this.current == 4) {
           this.current = 0;
         } else {
           this.current += 1;
@@ -372,6 +541,7 @@
 
       },
       before() {
+        this.current--;
         this.active--;
       },
       confirmForm () {
@@ -495,6 +665,7 @@
               title: title,
               content: content
             });
+            this.current++;
             break;
         }
         this.$router.push('home');
@@ -576,5 +747,20 @@
     margin: 10px;
   }
 
+  .city_select_app {
 
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+
+  }
 </style>

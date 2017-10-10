@@ -253,6 +253,8 @@
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
           <Button type="primary" @click="next()" v-if="this.active==3">下一步</Button>
+          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
+
 
         </div>
 
@@ -268,7 +270,7 @@
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
-              action="/admin/upload?applyId=1&fileTypeId=1"
+              action="/admin/file/upload?applyId=1&fileTypeId=1"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
             </Upload>
@@ -306,7 +308,7 @@
           <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
           <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
 
-          <!--<Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>-->
+          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
 
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
@@ -437,6 +439,15 @@
     },
     mounted(){
       this.initData();
+      setAppService.getProvinces().then(res => {
+        //  console.log(res);
+        for (let i = 0, len = res.length; i < len; i++) {
+          this.provinceList.push({value: res[i].code, label: res[i].name});
+        }
+      }).catch(error => {
+        console.log(error);
+
+      })
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
@@ -453,7 +464,7 @@
         setAppService.getCities(params).then(res => {
           console.log(res);
           for (let i = 0, len = res.length; i < len; i++) {
-            this.cityList.push({value: res[i].code, label: res[i].id});
+            this.cityList.push({value: res[i].code, label: res[i].name});
           }
         }).catch(error => {
           console.log(error);
@@ -466,7 +477,7 @@
         setAppService.getArea(params).then(res => {
           console.log(res);
           for (let i = 0, len = res.length; i < len; i++) {
-            this.areaList.push({value: res[i].code, label: res[i].id});
+            this.areaList.push({value: res[i].code, label: res[i].name});
           }
         }).catch(error => {
           console.log(error);
@@ -480,21 +491,13 @@
         this.current = 0;
         this.resetForm('ruleForm');
         this.device_type=this.$route.query.device_type;
-        this.bread_choose_value = this.$route.query.device_detail;
-        for (let i = 0; i < this.deviceList.length; i++) {
-          if (this.deviceList[i].value == this.bread_choose_value) {
-            this.bread_choose = this.deviceList[i].label;
-          }
-        }
-        setAppService.getProvinces().then(res => {
-          console.log(res);
-          for (let i = 0, len = res.length; i < len; i++) {
-            this.provinceList.push({value: res[i].code, label: res[i].id});
-          }
-        }).catch(error => {
-          console.log(error);
+//        this.bread_choose_value = this.$route.query.device_detail;
+//        for (let i = 0; i < this.deviceList.length; i++) {
+//          if (this.deviceList[i].value == this.bread_choose_value) {
+//            this.bread_choose = this.deviceList[i].label;
+//          }
+//        }
 
-        })
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
           this.clearRegistOneForm();
@@ -644,6 +647,7 @@
 
       },
       before() {
+        this.current--;
         this.active--;
       },
 
@@ -879,6 +883,9 @@
     margin-left: 200px;
     margin-bottom: 10px;
 
+  }
+  .pdfInfo{
+    margin:15px;
   }
 
   /*.ivu-form-item {*/
