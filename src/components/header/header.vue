@@ -8,6 +8,7 @@
               <!--<BreadcrumbItem href="/">Home</BreadcrumbItem>-->
               <BreadcrumbItem v-for="(item, index) in $route.meta" key="index">{{item}}</BreadcrumbItem>
               <BreadcrumbItem v-if="$route.meta[1]=='首次申请'">{{this.getDeviceTypeName}}</BreadcrumbItem>
+              <BreadcrumbItem v-if="$route.meta[0]=='已有设备列表'">{{this.getApplyTypeName}}</BreadcrumbItem>
 
             </Breadcrumb>
           </div>
@@ -65,7 +66,8 @@
           ...mapGetters([
               "userInfo",
             "loginStatus",
-            "getDeviceTypeName"
+            "getDeviceTypeName",
+            "getApplyTypeName"
 
           ])
         },

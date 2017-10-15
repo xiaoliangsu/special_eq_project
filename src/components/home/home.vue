@@ -80,10 +80,10 @@
             <MenuItem name="2-1-4">更名变更</MenuItem>
             <MenuItem name="2-1-5">达到设计使用年限变更</MenuItem>
           </Submenu>
-          <Menu-item name="changeReq_form">停用申请</Menu-item>
-          <Menu-item name="disabled_form">停用后启用申请</Menu-item>
+          <Menu-item name="devList-2">停用申请</Menu-item>
+          <Menu-item name="devList-4">停用后启用申请</Menu-item>
 
-          <Menu-item name="disabled_form2">报废申请</Menu-item>
+          <Menu-item name="devList-3">报废申请</Menu-item>
 
           <!--</Menu-group>-->
 
@@ -273,7 +273,18 @@
             }
           });
 
-        }else{
+        }else if(params[0]=='devList'){
+          let routerPath = params[0];
+          let applyState = params[1];
+          this.$router.push({
+            path: routerPath,
+            query: {
+              apply_state: applyState,
+              ///    device_detail: device_detail
+            }
+          });
+
+        }else {
           let routerPath = params[0];
           this.$router.push({
             path: routerPath,

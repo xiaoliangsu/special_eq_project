@@ -139,11 +139,11 @@
 //              value2:'',
 //              ruleForm2: '',
         pdfUrl: {
-//                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-//                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-//                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
-//                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
-//                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
         },
         pdfNum: 0,
         accStatus: '',
@@ -230,7 +230,7 @@
 
           // console.log(this.getRegistOne)
           this.ruleForm = this.getRegistOne;
-          this.defaultPdfList1 = res.pdfUrlDefault;
+         // this.defaultPdfList1 = res.pdfUrlDefault;
 
         }).catch(error => {
           console.log(error)
