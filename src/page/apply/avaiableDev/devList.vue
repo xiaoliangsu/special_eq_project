@@ -105,10 +105,10 @@
                         title: '受理机关',
                         key: 'accepter',
                     },
-                    {
-                        title: '审批机关',
-                        key: 'checker'
-                    },
+//                    {
+//                        title: '审批机关',
+//                        key: 'checker'
+//                    },
                     {
                         title: '监管机关',
                         key: 'watcher'

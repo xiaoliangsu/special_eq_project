@@ -2,6 +2,7 @@ import fetch from '../fetch/http.js';
 /*
  获取表格1信息
  */
+
 export function getRegistOne(params) {
   return fetch('/api/getRegistOne', params,'get')
 }
@@ -28,3 +29,8 @@ export function AccRej(param) {
 export function ApprovalPass(param) {
   return fetch('/api/submitSetInfo',param,"post")
 }
+
+export function getAppDetail(params) {
+  return fetch('/apply/get?'+params, params,'get')
+}
+

@@ -15,24 +15,44 @@
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
+      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <!--<h2>按单位申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表(按单位申请)</h2>
+
+            <Form-item label="登记类别" prop="registKind">
+              <Select v-model="ruleForm.registKind" >
+                <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </Form-item>
+
             <h2 class="header_two">设备基本情况</h2>
-            <Form-item label="设备类别" prop="equipment_category">
-              <Input v-model="ruleForm.equipment_category" placeholder="请输入设备类别"></Input>
-            </Form-item>
-            <Form-item label="设备品种" prop="equipment_variety">
-              <Input v-model="ruleForm.equipment_variety" placeholder="请输入设备品种"></Input>
-            </Form-item>
-            <Form-item label="产品名称" prop="equipment_name">
-              <Input v-model="ruleForm.equipment_name" placeholder="请输入产品名称"></Input>
-            </Form-item>
-            <Form-item label="设备数量" prop="equipment_num">
-              <Input v-model="ruleForm.equipment_num" placeholder="请输入产品名称"></Input>
-            </Form-item>
+            <Row>
+              <Col span="11">
+              <Form-item label="设备类别" prop="equipmentCategory">
+                <Input v-model="ruleForm.equipmentCategory" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="设备品种" prop="equipmentVariety">
+                <Input v-model="ruleForm.equipmentVariety" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="产品名称" prop="equipmentName">
+                <Input v-model="ruleForm.equipmentName" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="设备数量" prop="equipmentNum">
+                <Input v-model="ruleForm.equipmentNum" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
           </div>
           <!--</div>-->
           <!--<div class="useInfo" v-if="this.active==2">-->
@@ -44,27 +64,130 @@
             <Form-item label="使用单位地址" prop="using_company_addr">
               <Input v-model="ruleForm.using_company_addr" placeholder="请输入使用单位地址"></Input>
             </Form-item>
-            <Form-item label="设备使用地点" prop="eq_use_loc">
-              <Input v-model="ruleForm.eq_use_loc" placeholder="请输入使用单位统一社会信用代码"></Input>
+            <Row>
+              <Col span="11">
+              <Form-item label="设备使用地点" prop="eqUseLoc">
+                <Input v-model="ruleForm.eqUseLoc" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="单位固定电话" prop="comPhone">
+                <Input v-model="ruleForm.comPhone" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="使用单位统一社会信用代码" prop="usingCompanyCode">
+                <Input v-model="ruleForm.usingCompanyCode" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="邮政编码" prop="zipCode">
+                <Input v-model="ruleForm.zipCode" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="安全管理员" prop="safetyAdministrator">
+                <Input v-model="ruleForm.safetyAdministrator" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="移动电话" prop="mobilNumber">
+                <Input v-model="ruleForm.mobileNumber" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+          </div>
+
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特
+              种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。
+            </p>
+            </br>
+            <p>附：压力管道(气瓶)基本信息汇总表
+            </p>
+            </br>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="使用单位填表人员" prop="comTablePerson">
+                <Input v-model="ruleForm.comTablePerson" ></Input>
+              </Form-item>
+
+              <Form-item label="使用单位安全管理人员" prop="comSafePerson">
+                <Input v-model="ruleForm.comSafePerson" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="使用单位填表人员日期" prop="comDate1">
+                <DatePicker v-model="ruleForm.comDate1" ></DatePicker>
+              </Form-item>
+              <Form-item label="安全管理人员填表日期" prop="comDate2">
+                <DatePicker v-model="ruleForm.comDate2" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span="11" offset="13">
+              <Form-item label="加盖使用单位公章日期" prop="comDate3">
+                <DatePicker v-model="ruleForm.comDate3" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+
+          </div>
+
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <Form-item label="说明" prop="explanation">
+              <Input v-model="ruleForm.explanation" ></Input>
             </Form-item>
-            <Form-item label="单位固定电话" prop="com_phone">
-              <Input v-model="ruleForm.com_phone" placeholder="请输入单位固定电话"></Input>
-            </Form-item>
-            <Form-item label="使用单位统一社会信用代码" prop="using_company_code">
-              <Input v-model="ruleForm.using_company_code" placeholder="请输入使用单位统一社会信用代码"></Input>
-            </Form-item>
-            <Form-item label="邮政编码" prop="zipCode">
-              <Input v-model="ruleForm.zipCode" placeholder="请输入邮政编码"></Input>
-            </Form-item>
-            <Form-item label="安全管理员" prop="safety_administrator">
-              <Input v-model="ruleForm.safety_administrator" placeholder="请输入安全管理员"></Input>
-            </Form-item>
-            <Form-item label="移动电话" prop="mobile_number">
-              <Input v-model="ruleForm.mobile_number" placeholder="请输入移动电话"></Input>
-            </Form-item>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="登记机关登记人员" prop="registPerson">
+                <Input v-model="ruleForm.registPerson" ></Input>
+              </Form-item>
+
+              <Form-item label="使用登记证编号" prop="registCode">
+                <Input v-model="ruleForm.registCode" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="登记机关登记人员日期" prop="registDate">
+                <DatePicker v-model="ruleForm.registDate" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11" offset="13">
+              <Form-item label="加盖登记机关公章日期" prop="comDate4">
+                <DatePicker v-model="ruleForm.comDate4" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+
           </div>
 
         </div>
+
+
+
+
+
+
+
 
         <!--让用户确认信息的表格-->
         <div class="setTable" v-if="this.active==1">
@@ -336,6 +459,40 @@
             }
           ]
         },
+        registKindList:[
+          {
+            value:'新设备首次启用',
+            label:'新设备首次启用'
+          },
+          {
+            value:'停用后启用',
+            label:'停用后启用'
+          },
+          {
+            value:'改造',
+            label:'改造'
+          },
+          {
+            value:'使用单位更名',
+            label:'使用单位更名'
+          },
+          {
+            value:'使用地址变更',
+            label:'使用地址变更'
+          },
+          {
+            value:'过户',
+            label:'过户'
+          },
+          {
+            value:'移装',
+            label:'移装'
+          },
+          {
+            value:'达到设计使用年限',
+            label:'达到设计使用年限'
+          },
+        ],
         formDynamicPres: {
           items: [
             {

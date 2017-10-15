@@ -1,11 +1,18 @@
 <template>
-    <header class="header" >
-        <!--<div class="header-left">-->
-            <!--&lt;!&ndash;<img  class="header-logo" src="../../static/images/logo.png">&ndash;&gt;-->
-          <!--&lt;!&ndash;<span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>&ndash;&gt;-->
-         <!---->
+    <header class="header_container" >
+        <div class="header-left">
+            <!--<img  class="header-logo" src="../../static/images/logo.png">-->
+          <!--<span class="logo_prefix">特种设备</span><span class="logo_suffix">管理系统</span>-->
+          <div class="bread">
+            <Breadcrumb>
+              <!--<BreadcrumbItem href="/">Home</BreadcrumbItem>-->
+              <BreadcrumbItem v-for="(item, index) in $route.meta" key="index">{{item}}</BreadcrumbItem>
+              <BreadcrumbItem v-if="$route.meta[1]=='首次申请'">{{this.getDeviceTypeName}}</BreadcrumbItem>
 
-        <!--</div>-->
+            </Breadcrumb>
+          </div>
+
+        </div>
 
         <div class="header-right">
           <router-link :to="loginStatus? '/user' :'/' " class="head_login">
@@ -57,7 +64,8 @@
             ]),
           ...mapGetters([
               "userInfo",
-            "loginStatus"
+            "loginStatus",
+            "getDeviceTypeName"
 
           ])
         },
@@ -67,6 +75,7 @@
           ),
           initData(){
               this.userName= localStorage.getItem('userInfo');
+              console.log(this.getDeviceTypeName)
           }
 
 
@@ -79,6 +88,8 @@
         // 如果路由有变化，会再次执行该方法
         '$route': 'initData'
       },
+
+
 
 
 
@@ -138,6 +149,19 @@
   //padding-left:-40px;
   margin-right:20px;
   //background-color:rgb(72,79,95);
+}
+.header_container{
+  //background-color: #EFF2F7;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}
+.avator{
+
+  border-radius: 50%;
+  margin-right: 37px;
 }
 
 

@@ -7,6 +7,15 @@ import fetch from '../fetch/http.js';
 export function GetOrders(param) {
   return fetch('/apply/get',param,'post')
 }
+//精准搜索
+export function GetExactOrders(param) {
+  return fetch('/apply/get?'+param,param,'get')
+}
+
+export function deleteApp(param) {
+  return fetch('/apply/delete?'+param,param,'get')
+}
+
 
 
 
@@ -34,8 +43,4 @@ export function GetUnSubmitOrders(param) {
   return fetch('/api/getorders',param,'get')
 }
 
-//删除待受理订单
-export function deleteApp(param) {
-  return fetch('/api/getorders',param,'get')
-}
 

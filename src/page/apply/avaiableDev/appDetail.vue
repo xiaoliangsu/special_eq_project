@@ -14,6 +14,12 @@
         </Steps>
       </div>
     </div>
+    <div class="appDetail_topbar" >
+      <!--<div class="bread">-->
+      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
+      <!--</div>-->
+      <h1 style="margin:10px;">申请详情：</h1>
+    </div>
     <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.approvalStatus ==false">
       <div class="comp_name">
         <h2 class="detailHeadTop">一、单位名称：</h2>
@@ -172,14 +178,18 @@
 
       }
     },
-    mounted(){
-      //获取表格信息
-      this.initData();
-
-    },
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-      '$route': 'initData'
+//    mounted(){
+//      //获取表格信息
+//      this.initData();
+//
+//    },
+//    watch: {
+//      // 如果路由有变化，会再次执行该方法
+//      '$route': 'initData'
+//    },
+    activated() {
+      const _this = this;
+      _this.initData();
     },
     methods: {
       ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
@@ -189,25 +199,43 @@
       initData(){
         this.transparam();
         this.current=0;
-        appDetailService.getRegistOne(1).then(res => {
-          //表格信息
-          this.ruleForms = res.success.ruleForm;
-          //pdf信息
-          this.pdfUrl = res.pdfUrl;
-          //获取对象长度
-          this.pdfNum = Object.keys(this.pdfUrl).length;
-          //受理驳回理由
-          this.accStatus = res.accState;
-          this.accReason = res.accReason;
-          //审批驳回理由
-          this.approvalStatus = res.approvalState;
-          this.approvalReason = res.approvalReason;
-          //单位名称
-          this.appComName = res.appComName;
+//        appDetailService.getRegistOne(1).then(res => {
+//          //表格信息
+//          this.ruleForms = res.success.ruleForm;
+//          //pdf信息
+//          this.pdfUrl = res.pdfUrl;
+//          //获取对象长度
+//          this.pdfNum = Object.keys(this.pdfUrl).length;
+//          //受理驳回理由
+//          this.accStatus = res.accState;
+//          this.accReason = res.accReason;
+//          //审批驳回理由
+//          this.approvalStatus = res.approvalState;
+//          this.approvalReason = res.approvalReason;
+//          //单位名称
+//          this.appComName = res.appComName;
+//
+//        }).catch(error => {
+//          console.log(error)
+//        })
+        let params = 'applyId=' + this.$route.query.applyId;
+        appDetailService.getAppDetail(params).then(res => {
+
+          console.log(res);
+          this.acceptCom=res.data.acceptorAgencyId;
+          this.ruleForm.eq_species="锅炉";
+          // this.ruleForm = res.success.ruleForm[0];
+          this.clearRegistOneForm();
+          this.setRegistOneForm(res.success.ruleForm[0]);
+
+          // console.log(this.getRegistOne)
+          this.ruleForm = this.getRegistOne;
+          this.defaultPdfList1 = res.pdfUrlDefault;
 
         }).catch(error => {
           console.log(error)
         })
+
         this.accRejValue = '';
         this.approvalRejValue = '';
 

@@ -49,23 +49,23 @@
                 <!--<MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>-->
                 <!--<MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>-->
                 <!--<MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>-->
-                <MenuItem name="newOrLast-0">锅炉</MenuItem>
-                <MenuItem name="newOrLast-1">压力容器（气瓶除外）</MenuItem>
-                <MenuItem name="newOrLast-2">电梯</MenuItem>
-                <MenuItem name="newOrLast-3">起重机械</MenuItem>
-                <MenuItem name="newOrLast-4">客运索道</MenuItem>
-                <MenuItem name="newOrLast-5">大型游乐设施</MenuItem>
-                <MenuItem name="newOrLast-6">场 (厂)内专用机动车辆</MenuItem>
+                <MenuItem name="newOrLast-1">锅炉</MenuItem>
+                <MenuItem name="newOrLast-2">压力容器（气瓶除外）</MenuItem>
+                <MenuItem name="newOrLast-3">电梯</MenuItem>
+                <MenuItem name="newOrLast-4">起重机械</MenuItem>
+                <MenuItem name="newOrLast-5">客运索道</MenuItem>
+                <MenuItem name="newOrLast-6">大型游乐设施</MenuItem>
+                <MenuItem name="newOrLast-7">场 (厂)内专用机动车辆</MenuItem>
               </MenuGroup>
               <MenuGroup title="按单位申请">
                 <!--<MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>-->
                 <!--<MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>-->
-                <MenuItem name="newOrLast-8">气瓶(车用气瓶除外)</MenuItem>
-                <MenuItem name="newOrLast-9">工业管道</MenuItem>
+                <MenuItem name="newOrLast-9">气瓶(车用气瓶除外)</MenuItem>
+                <MenuItem name="newOrLast-10">工业管道</MenuItem>
               </MenuGroup>
               <MenuGroup title="车用气瓶">
                 <!--<MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>-->
-                <MenuItem name="newOrLast-7">车用气瓶</MenuItem>
+                <MenuItem name="newOrLast-8">车用气瓶</MenuItem>
 
               </MenuGroup>
             </div>
@@ -81,21 +81,27 @@
             <MenuItem name="2-1-5">达到设计使用年限变更</MenuItem>
           </Submenu>
           <Menu-item name="changeReq_form">停用申请</Menu-item>
+          <Menu-item name="disabled_form">停用后启用申请</Menu-item>
 
           <Menu-item name="disabled_form2">报废申请</Menu-item>
-          <Menu-item name="disabled_form">停用后启用申请</Menu-item>
 
           <!--</Menu-group>-->
 
           <!--<Menu-group title="申请列表" v-if="this.author_key==1" >-->
           <label class="menu-label">受理审查发证情况</label>
 
-          <Menu-item name="waitAcceptList">待受理申请</Menu-item>
-          <Menu-item name="waitCheckList">待审批申请</Menu-item>
-          <Menu-item name="finishList">已完成申请</Menu-item>
+          <!--<Menu-item name="waitAcceptList">待受理申请</Menu-item>-->
+          <Menu-item name="unSubmitOrder">未提交申请</Menu-item>
+          <Menu-item name="applyerList">受理中申请</Menu-item>
+          <Menu-item name="finishList">已受理申请</Menu-item>
+
+
+          <!--<Menu-item name="waitCheckList">待审批申请</Menu-item>-->
+          <!--<Menu-item name="finishList">已完成申请</Menu-item>-->
           <label class="menu-label">已有设备</label>
 
           <Menu-item name="devList">已有设备列表</Menu-item>
+          <Menu-item name="devList">打印登记表</Menu-item>
         </div>
 
 
@@ -220,28 +226,6 @@
 
     },
     methods: {
-      routeTo(e) {
-        //console.log(e);
-        //this.$router.push(e);
-        let params = e.split("-");
-        if(params.length>1){
-          let routerPath = params[0];
-          let device_type = params[1];
-        //  let device_detail = params[2];
-          this.$router.push({
-            path: routerPath,
-            query: {
-              device_type: device_type,
-            //  device_detail: device_detail
-            }
-          });
-        }else{
-          let routerPath = params[0];
-          this.$router.push({
-            path: routerPath,
-          });
-        }
-      },
 //      routeTo(e) {
 //        //console.log(e);
 //        //this.$router.push(e);
@@ -249,12 +233,12 @@
 //        if(params.length>1){
 //          let routerPath = params[0];
 //          let device_type = params[1];
-//          let device_detail = params[2];
+//        //  let device_detail = params[2];
 //          this.$router.push({
 //            path: routerPath,
 //            query: {
 //              device_type: device_type,
-//              device_detail: device_detail
+//            //  device_detail: device_detail
 //            }
 //          });
 //        }else{
@@ -264,6 +248,38 @@
 //          });
 //        }
 //      },
+      routeTo(e) {
+        //console.log(e);
+        //this.$router.push(e);
+        let params = e.split("-");
+        if(params[0]=='newOrLast'){
+          let routerPath = params[0];
+          let device_type = params[1];
+
+          this.$router.push({
+            path: routerPath,
+            query: {
+              device_type: device_type,
+            }
+          });
+        }else if(params[0]=='applyerList'){
+          let routerPath = params[0];
+          let applyState = params[1];
+          this.$router.push({
+            path: routerPath,
+            query: {
+              apply_state: applyState,
+              ///    device_detail: device_detail
+            }
+          });
+
+        }else{
+          let routerPath = params[0];
+          this.$router.push({
+            path: routerPath,
+          });
+        }
+      },
       ...mapActions([
         'getUserInfo'
       ]),

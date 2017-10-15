@@ -46,9 +46,13 @@ export function saveSetInfo(params) {
 }
 
 
+
+
 export function getRegistOne(params) {
   return fetch('/file/preview?'+params, params,'get')
 }
+
+
 
 //获取省市县已经调完
 export function getProvinces(params) {
@@ -60,3 +64,13 @@ export function getCities(params) {
 export function getArea(params) {
   return fetch('/map/areas?'+params, params,'get')
 }
+
+//获取未提交的申请
+export function getUnsubmitApp(params) {
+  return fetch('/apply/get?'+params, params,'get')
+}
+//确认提交
+export function confrimApp(param) {
+  return fetch('/apply/confirm?'+param,param,'get')
+}
+

@@ -5,6 +5,7 @@ import user from './user'
 import firstApp from './firstApp'
 import changeReq from './changeReq'
 import registOne from './regist'
+import deviceType from './device_type'
 export default {
     baseInfo,
     header,
@@ -12,7 +13,8 @@ export default {
     user,
     firstApp,
     changeReq,
-    registOne
+    registOne,
+  deviceType
 
 
 }

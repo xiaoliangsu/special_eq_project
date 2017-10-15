@@ -37,93 +37,221 @@
           </Select>
           </Col>
         </Row>
-        <label>选择受理单位：</label>
+        <label>选择受理机关：</label>
         <Select v-model="acceptCom" filterable>
           <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
-        <label>选择审批单位：</label>
+        <label>选择审批机关：</label>
         <Select v-model="checkCom" filterable>
           <Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </div>
+      <!--<div class="city_select_app_exit" v-if="this.active==1&&this.ifold == 1">-->
+        <!--<h2 class="header_one">基本信息</h2>-->
 
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
+        <!--<h3 >城市：</h3>-->
+        <!--<p class="city_select_content ">北京市海淀区</p>-->
+
+        <!--<h3>受理单位：</h3>-->
+        <!--<p class="city_select_content ">受理单位名字</p>-->
+
+        <!--<h3>审批单位：</h3>-->
+        <!--<p class="city_select_content ">审批单位名字</p>-->
+        <!--<Button type="warning" @click="changeBasic()" >修改</Button>-->
+
+      <!--</div>-->
+
+      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >  <!--qiu-->
         <!--<h2>车用气瓶申请</h2>-->
         <div class="statusInfo" v-if="this.active==2">
+
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
+            <Form-item label="登记类别" prop="registKind">
+              <Select v-model="ruleForm.registKind" >
+                <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </Form-item>
             <h2 class="header_two">设备基本情况</h2>
-            <Form-item label="设备品种" prop="eq_kind">
-              <Input v-model="ruleForm.eq_kind" placeholder="请输入设备品种"></Input>
+            <Row>     <!--qiu-->
+              <Col span="11">   <!--qiu-->
+              <Form-item label="设备品种" prop="eqKind">
+                <Input v-model="ruleForm.eqKind" ></Input>
+              </Form-item>
+              <Form-item label="气瓶数量" prop="cylinderNum">
+                <Input v-model="ruleForm.cylinderNum" ></Input>
+              </Form-item>
+              <Form-item label="气瓶公称工作压力" prop="cylinderWorkPressure">
+                <Input v-model="ruleForm.cylinderWorkPressure" ></Input>
+              </Form-item>
+              </Col>   <!--qiu-->
+              <!--qiu-->
+              <Col span="11" offset="2">
+              <Form-item label="产品名称" prop="productName">
+                <Input v-model="ruleForm.productName" ></Input>
+              </Form-item>
+              <Form-item label="充装介质" prop="fillMedium">
+                <Input v-model="ruleForm.fillMedium" ></Input>
+              </Form-item>
+              <Form-item label="气瓶容积" prop="cylinderVolume">
+                <Input v-model="ruleForm.cylinderVolume" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+            <!--qiu-->
+
+            <Row>     <!--qiu-->
+              <Col span="11">   <!--qiu-->
+              <Form-item label="制造单位名称" prop="manuComName">
+                <Input v-model="ruleForm.manuComName" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="制造日期" prop="manufactureDate">
+                <DatePicker v-model="ruleForm.manufactureDate"></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>     <!--qiu-->
+              <Col span="11">   <!--qiu-->
+              <Form-item label="产品编号" prop="productNum">
+                <Input v-model="ruleForm.productNum" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="单位内编号" prop="companyCode">
+                <Input v-model="ruleForm.companyCode" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Form-item label="施工单位名称" prop="constrComName">
+              <Input v-model="ruleForm.constrComName" ></Input>
             </Form-item>
-            <Form-item label="产品名称" prop="product_name">
-              <Input v-model="ruleForm.product_name" placeholder="请输入产品名称"></Input>
-            </Form-item>
-            <Form-item label="气瓶数量" prop="cylinder_num">
-              <Input v-model="ruleForm.cylinder_num" placeholder="请输入设备代码"></Input>
-            </Form-item>
-            <Form-item label="充装介质" prop="fill_medium">
-              <Input v-model="ruleForm.fill_medium" placeholder="请输入型号（规格）"></Input>
-            </Form-item>
-            <Form-item label="气瓶公称工作压力" prop="cylinder_work_pressure">
-              <Input v-model="ruleForm.cylinder_work_pressure" placeholder="请输入设计使用年限"></Input>
-            </Form-item>
-            <Form-item label="气瓶容积" prop="cylinder_volume">
-              <Input v-model="ruleForm.cylinder_volume" placeholder="请输入设计单位名称"></Input>
-            </Form-item>
-            <Form-item label="制造单位名称" prop="manu_com_name">
-              <Input v-model="ruleForm.manu_com_name" placeholder="请输入制造单位名称"></Input>
-            </Form-item>
-            <Form-item label="制造日期" prop="manufacture_date">
-              <Input v-model="ruleForm.manufacture_date" placeholder="请输入制造单位名称"></Input>
-            </Form-item>
-            <Form-item label="产品编号" prop="product_num">
-              <Input v-model="ruleForm.product_num" placeholder="请输入制造单位名称"></Input>
-            </Form-item>
-            <Form-item label="单位内编号" prop="company_code">
-              <Input v-model="ruleForm.company_code" placeholder="请输入制造单位名称"></Input>
-            </Form-item>
-            <Form-item label="施工单位名称" prop="constr_com_name">
-              <Input v-model="ruleForm.constr_com_name" placeholder="请输入施工单位名称"></Input>
-            </Form-item>
-            <Form-item label="监督检验机构名称" prop="inspect_com_name">
-              <Input v-model="ruleForm.inspect_com_name" placeholder="请输入监督检验机构名称"></Input>
+            <Form-item label="监督检验机构名称" prop="inspectComName">
+              <Input v-model="ruleForm.inspectComName" ></Input>
             </Form-item>
           </div>
           <!--</div>-->
           <!--<div class="useInfo" v-if="this.active==2">-->
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
-            <Form-item label="使用单位名称" prop="use_company_name">
-              <Input v-model="ruleForm.use_company_name" placeholder="请输入使用单位名称"></Input>
+            <Form-item label="使用单位名称" prop="useCompanyName">
+              <Input v-model="ruleForm.useCompanyName" ></Input>
             </Form-item>
-            <Form-item label="使用单位地址" prop="use_company_addr">
-              <Input v-model="ruleForm.use_company_addr" placeholder="请输入使用单位地址"></Input>
+            <Form-item label="使用单位地址" prop="useCompanyAddr">
+              <Input v-model="ruleForm.useCompanyAddr" ></Input>
             </Form-item>
-            <Form-item label="使用单位统一社会信用代码" prop="use_company_code">
-              <Input v-model="ruleForm.use_company_code" placeholder="请输入使用单位统一社会信用代码"></Input>
+
+            <Row>     <!--qiu-->
+              <Col span="11">   <!--qiu-->
+              <Form-item label="使用单位统一社会信用代码" prop="useCompanyCode">
+                <Input v-model="ruleForm.useCompanyCode" ></Input>
+              </Form-item>
+              </Col>
+
+              <Col span="11" offset="2">
+              <Form-item label="邮政编码" prop="zipcode">
+                <Input v-model="ruleForm.zipcode" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+
+            <Row>     <!--qiu-->
+              <Col span="11">   <!--qiu-->
+              <Form-item label="车牌号" prop="license">
+                <Input v-model="ruleForm.license" ></Input>
+              </Form-item>
+              <Form-item label="投入使用日期" prop="beginToUseDate">
+                <DatePicker v-model="ruleForm.beginToUseDate" ></DatePicker>
+              </Form-item>
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <Input v-model="ruleForm.safeAdministrator" ></Input>
+              </Form-item>
+              </Col>   <!--qiu-->
+              <!--qiu-->
+              <Col span="11" offset="2">
+              <Form-item label="车辆VIN码" prop="vin">
+                <Input v-model="ruleForm.vin" ></Input>
+              </Form-item>
+              <Form-item label="单位固定电话" prop="companyPhone">
+                <Input v-model="ruleForm.companyPhone" ></Input>
+              </Form-item>
+              <Form-item label="移动电话" prop="mobilePhone">
+                <Input v-model="ruleForm.mobilePhone" ></Input>
+              </Form-item>
+              </Col>
+            </Row>
+            <!--qiu-->
+          </div>
+
+          <!--qiu-->
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特
+              种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。
+            </p>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="使用单位填表人员" prop="comTablePerson">
+                <Input v-model="ruleForm.comTablePerson" ></Input>
+              </Form-item>
+
+              <Form-item label="使用单位安全管理人员" prop="comSafePerson">
+                <Input v-model="ruleForm.comSafePerson" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="使用单位填表人员日期" prop="comPersonDate">
+                <DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>
+              </Form-item>
+              <Form-item label="安全管理人员填表日期" prop="safePersonDate">
+                <DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11" offset="13">
+              <Form-item label="加盖使用单位公章日期" prop="comStampDate">
+                <DatePicker v-model="ruleForm.comStampDate" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+          </div>
+
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <Form-item label="说明" prop="explanation">
+              <Input v-model="ruleForm.explanation" ></Input>
             </Form-item>
-            <Form-item label="邮政编码" prop="zipcode">
-              <Input v-model="ruleForm.zipcode" placeholder="请输入邮政编码"></Input>
-            </Form-item>
-            <Form-item label="车牌号" prop="license">
-              <Input v-model="ruleForm.license" placeholder="请输入单位内编号"></Input>
-            </Form-item>
-            <Form-item label="车辆VIN码" prop="vin">
-              <Input v-model="ruleForm.vin" placeholder="请输入设备使用地点"></Input>
-            </Form-item>
-            <Form-item label="投入使用日期" prop="begin_to_use_date">
-              <Input v-model="ruleForm.begin_to_use_date" placeholder="请输入投入使用日期"></Input>
-            </Form-item>
-            <Form-item label="单位固定电话" prop="company_phone">
-              <Input v-model="ruleForm.company_phone" placeholder="请输入单位固定电话"></Input>
-            </Form-item>
-            <Form-item label="安全管理员" prop="safe_administrator">
-              <Input v-model="ruleForm.safe_administrator" placeholder="请输入安全管理员"></Input>
-            </Form-item>
-            <Form-item label="移动电话" prop="mobilePhone">
-              <Input v-model="ruleForm.mobilePhone" placeholder="请输入移动电话"></Input>
-            </Form-item>
+
+            <Row>
+              <Col span="11">
+              <Form-item label="登记机关登记人员" prop="registPerson">
+                <Input v-model="ruleForm.registPerson" ></Input>
+              </Form-item>
+
+              <Form-item label="使用登记证编号" prop="registCode">
+                <Input v-model="ruleForm.registCode" ></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="登记机关登记人员日期" prop="registDate">
+                <DatePicker v-model="ruleForm.registDate" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11" offset="13">
+              <Form-item label="加盖登记机关公章日期" prop="registStampDate">
+                <DatePicker v-model="ruleForm.registStampDate" ></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
           </div>
         </div>
 
@@ -144,7 +272,8 @@
           <!--要这两行-->
 
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
-          <input type="button"  value="打印" @click="printTrigger('iFramePdf');" />
+          <Button  type="warning"  @click="printTrigger('iFramePdf');" >打印</Button>
+
 
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
@@ -233,17 +362,142 @@
 
         ruleForm: {},
 
-
+        registKindList:[
+          {
+            value:'新设备首次启用',
+            label:'新设备首次启用'
+          },
+          {
+            value:'停用后启用',
+            label:'停用后启用'
+          },
+          {
+            value:'改造',
+            label:'改造'
+          },
+          {
+            value:'使用单位更名',
+            label:'使用单位更名'
+          },
+          {
+            value:'使用地址变更',
+            label:'使用地址变更'
+          },
+          {
+            value:'过户',
+            label:'过户'
+          },
+          {
+            value:'移装',
+            label:'移装'
+          },
+          {
+            value:'达到设计使用年限',
+            label:'达到设计使用年限'
+          },
+        ],
         rules: {
-//                    kind1: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-//                    use_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-//                    check_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
+          registKind: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+//          eqKind: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+//          productName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          cylinderNum: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          fillMedium: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          cylinderWorkPressure: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          cylinderVolume: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          manuComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          manufactureDate: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          productNum: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          companyCode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          constrComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          inspectComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          useCompanyName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          useCompanyAddr: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          useCompanyCode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          zipcode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          license: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          vin: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          beginToUseDate: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          companyPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          safeAdministrator: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          mobilePhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          comTablePerson: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          comPersonDate: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          comSafePerson: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          safePersonDate: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          explanation: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+//          registPerson: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+//          registCode: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+//          registDate: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+//          comStampDate: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          registStampDate: [
+//            {required: false, message: '', trigger: 'blur'}
+//          ],
+
+
         },
         ifNext: true,
         active: 1,
@@ -277,6 +531,7 @@
         checkCom: '',
         checkComList: [],
         device_type:'',
+        ifold:0,
 
       };
     },
@@ -286,9 +541,18 @@
       //'v-detailPdf': detailPdf,
 
     },
+//    watch: {
+//      // 如果路由有变化，会再次执行该方法
+//      '$route': 'initData'
+//    },
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route': 'initData'
+      '$route.query':function(){
+        console.log(this.$route.path);
+        if(this.$route.path=='/carboxApp'){
+          this.initData();
+        }
+      }
     },
     computed: {
       //...mapState(['selectedOption']),
@@ -299,7 +563,35 @@
       ]),
     },
     mounted(){
-      this.initData();
+      //this.initData();
+      this.ifold=this.$route.query.ifold;
+      if(this.ifold==1){
+        let params = 'applyId=' + this.$route.query.applyId;
+        setAppService.getUnsubmitApp(params).then(res => {
+          setAppService.getProvinces().then(res => {
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.provinceList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+          this.province= '120000';
+          this.city="120100";
+          this.area="120101";
+          this.ruleForm.eqKind="车用气瓶";
+          // this.ruleForm = res.success.ruleForm[0];
+          this.clearRegistThreeForm();
+          this.setRegistThreeForm(res.success.ruleForm[0]);
+
+
+          this.ruleForm = this.getRegistThree;
+          console.log(this.ruleForm);
+          this.defaultPdfList1 = res.pdfUrlDefault;
+
+        }).catch(error => {
+          console.log(error)
+        })
+      }
       setAppService.getProvinces().then(res => {
         //  console.log(res);
         for (let i = 0, len = res.length; i < len; i++) {
@@ -322,28 +614,31 @@
       },
       chosenPro(value){
         let params = 'provinceCode=' + value;
-        setAppService.getCities(params).then(res => {
-          console.log(res);
-          for (let i = 0, len = res.length; i < len; i++) {
-            this.cityList.push({value: res[i].code, label: res[i].name});
-          }
-        }).catch(error => {
-          console.log(error);
+        if(value!==''){
+          setAppService.getCities(params).then(res => {
+            this.cityList=[];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.cityList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+        }
 
-        })
 
       },
       chosenCity(value){
         let params = 'cityCode=' + value;
-        setAppService.getArea(params).then(res => {
-          console.log(res);
-          for (let i = 0, len = res.length; i < len; i++) {
-            this.areaList.push({value: res[i].code, label: res[i].name});
-          }
-        }).catch(error => {
-          console.log(error);
-
-        })
+        if(value!==""){
+          setAppService.getArea(params).then(res => {
+            this.areaList=[];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.areaList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+        }
       },
 
 
@@ -354,36 +649,54 @@
         this.resetForm('ruleForm');
         this.selected = this.getSelectedOption;
         this.selectedNum = this.getSelectedNum;
+        this.device_type=this.$route.query.device_type;
+        this.ifold=this.$route.query.ifold;
+        this.province='';
+        this.city='';
+        this.area='';
+        this.provinceList=[];
+        this.cityList=[];
+        this.areaList=[];
 
         if (this.$route.query.ifold !== 1) {
           // console.log(this.selectedNum);
+          setAppService.getProvinces().then(res => {
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.provinceList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
           this.clearRegistThreeForm();
           this.ruleForm = this.getRegistThree;
           this.defaultPdfList1 = [];
         } else {
           // 获取已经保存的信息
-          registService.getRegistThree(this.$route.query.dev_id).then(res => {
-//            this.ruleForms = res.success;
-//            this.ruleForm = this.ruleForms.ruleForm[0];
-//            this.defaultPdfList1 = res.pdfUrl;
-//            console.log(res);
-//            // this.ruleForm = res.success.ruleForm[0];
-            console.log(res);
-
-            this.clearRegistThreeForm();
-            this.setRegistThreeForm(res.success.ruleForm[0]);
-            console.log(res.success.ruleForm[0]);
-
-            // console.log(this.getRegistOne)
-            this.ruleForm = this.getRegistThree;
-            console.log(this.getRegistThree);
-
-            console.log(this.ruleForm)
-            this.defaultPdfList1 = res.pdfUrlDefault;
-          }).catch(error => {
-            console.log(error)
-          })
+          this.getOldInfo();
         }
+      },
+      getOldInfo(){
+        let params = 'applyId=' + this.$route.query.applyId;
+        setAppService.getUnsubmitApp(params).then(res => {
+          setAppService.getProvinces().then(res => {
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.provinceList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+          this.province= '120000';
+          this.city="120100";
+          this.area="120101";
+          this.acceptCom=res.data.acceptorAgencyId;
+          this.ruleForm.eqKind ="种类";
+          this.clearRegistThreeForm();
+          this.setRegistThreeForm(res.success.ruleForm[0]);
+          this.ruleForm = this.getRegistThree;
+          this.defaultPdfList1 = res.pdfUrlDefault;
+        }).catch(error => {
+          console.log(error)
+        })
       },
 
 //      submitForm(formName) {
@@ -414,30 +727,20 @@
 //          }
 //        });
 //      },
-      submitForm(formName) {
-//        this.$refs[formName].validate((valid) => {
-//          if (valid) {
-//            let param = Object.assign({}, this.ruleForm);
-//            //把选择的哪一项带进去
-//            param.selected = this.deviceType;
-//            console.log(this.deviceType);
-//            setAppService.submitSetInfo(param).then(res => {
-//
-//              if (res) {
-//                console.log(res.success);
-//              }
-//              this.active++;
-//              this.modalCertain=false;
-//              console.log(this.modalCertain);
-//            })
-//              .catch(error => {
-//                console.log(error)
-//              })
-//          } else {
-//            console.log('error submit!!');
-//            return false;
-//          }
-//        });
+      submit(submitParam){
+        setAppService.submitSetInfo(submitParam).then(res => {
+          this.$Message.info('您已提交信息，请预览结果');
+          this.modalCertain = false;
+          console.log(this.modalCertain);
+          if(res.status==true){
+          }
+
+        }).catch(error => {
+          console.log(error);
+
+        })
+      },
+      submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.current++;
@@ -456,21 +759,7 @@
             submitParam.applyTypeId=1;
             submitParam.hasFiles=true;
             console.log(submitParam);
-            setAppService.submitSetInfo(submitParam).then(res => {
-//              console.log(res);
-//              this.active++;
-//              this.current++;
-              this.$Message.info('您已提交信息，请预览结果');
-              this.modalCertain = false;
-              console.log(this.modalCertain);
-              if(res.status==true){
-
-              }
-
-            }).catch(error => {
-              console.log(error);
-
-            })
+           this.submit(submitParam);
 
           } else {
             console.log('error submit!!');
@@ -495,26 +784,39 @@
 //        })
       },
       saveForm(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let param = Object.assign({}, this.ruleForm);
-            //把选择的哪一项带进去
-            param.selected = this.selected;
-            console.log(param);
-            this.ifNext = false;
-            setAppService.saveCarboxInfo(param).then(res => {
-              if (res) {
-                console.log(res.success);
+        let form1 = Object.assign({}, this.ruleForm);
+        //把选择的哪一项带进去
+        let submitParam={};
+        submitParam.form1=this.ruleForm;
+        submitParam.address=this.area||this.city;
+        // submitParam.agencies=["12","13"];
+        submitParam.approverAgencyId=12;
+        submitParam.acceptorAgencyId=13;
+        submitParam.deviceTypeId=this.device_type;
+        submitParam.applyTypeId=1;
+        submitParam.hasFiles=true;
+        console.log(submitParam);
+        this.$Modal.confirm({
+          title: '保存登记表信息',
+          content: '<p>确认保存已经填写信息？</p>',
+          onOk: () => {
+            setAppService.submitSetInfo(submitParam).then(res => {
+              this.$Message.info('您已保存信息');
+              this.modalCertain = false;
+              console.log(this.modalCertain);
+              if(res.status==true){
               }
+            }).catch(error => {
+              console.log(error);
+
             })
-              .catch(error => {
-                console.log(error)
-              })
-          } else {
-            console.log('error submit!!');
-            return false;
+          },
+          onCancel: () => {
+            this.$Message.info('点击了取消');
           }
         });
+
+
 
       },
 
@@ -550,7 +852,7 @@
           content: '<p>请确认全部填写信息</p><p>点击"确认"后不可更改</p>',
           onOk: () => {
 
-            this.submitForm('ruleForm');
+            this.submitContent('ruleForm');
 
           },
           onCancel: () => {
@@ -657,19 +959,31 @@
       },
 
       instance (type) {
-        const title = '通知';
-        const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-        switch (type) {
-          case 'success':
-            this.$Modal.success({
-              title: title,
-              content: content
-            });
-            this.current++;
-            break;
-        }
-        this.$router.push('home');
+        let params = 'applyId=' + 1;
+        setAppService.confrimApp(params).then(res => {
+          if(res){
+            const title = '通知';
+            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+            switch (type) {
+              case 'success':
+                this.$Modal.success({
+                  title: title,
+                  content: content
+                });
+                this.current++;
+                break;
+            }
+            this.$router.push('home');
+          }
+        }).catch(error => {
+          console.log(error);
 
+        })
+
+
+      },
+      changeBasic(){
+        this.ifold=0;
       }
     },
 
@@ -689,6 +1003,7 @@
 
   .setApp {
     color: #495060;
+    position: relative;
   }
 
   .setApp_topbar {
@@ -704,7 +1019,7 @@
   .base-box {
     margin: 0 auto;
     display: block;
-    border: 1px solid #dddee1;
+    border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
@@ -720,7 +1035,7 @@
 
   .header_one {
     text-align: center;
-    margin-left: -100px;
+    margin-left: -50px;  /*qiu*/
     margin-top: 20px;
     font-size: 25px;
   }
@@ -762,5 +1077,23 @@
     margin-left: 200px;
     margin-bottom: 10px;
 
+  }
+  .city_select_app_exit{
+    width:700px;
+    display: block;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    .city_select_content{
+      border-bottom:1px solid #dddee1;
+      margin-bottom:5px;
+      padding-bottom:5px;
+    }
   }
 </style>

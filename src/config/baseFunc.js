@@ -1,25 +1,50 @@
 exports.install = function (Vue, options) {
   //首次申请，保存后再次填写和受理前修改
-  Vue.prototype.modifyApp = function (value) {
+  Vue.prototype.modifyApp = function (value,device_type) {
     console.log("baseFunc");
-    console.log(this.data5[value].changeApplyNum);
-    switch (this.data5[value].changeApplyNum) {
-      case 1:
+    console.log(this.data5[value].deviceType);
+    switch (this.data5[value].applyType) {
+      case "首次申请":
         //按套首次申请
-        this.$router.push({
-          path: 'setApp',
-          query: {
-            dev_id: this.data5[value].id,
-            dev_name: this.data5[value].device,
-            //是保存之后的
-            ifold: 1,
-            //selectedNum:2
-          }
-        });
+        if(device_type<8){
+          this.$router.push({
+            path: 'setApp',
+            query: {
+              applyId: this.data5[value].id,
+             // dev_name: this.data5[value].device,
+              //是保存之后的
+              ifold: 1,
+              //selectedNum:2
+            }
+          });
+        }else if(device_type>8){
+          this.$router.push({
+            path: 'companyApp',
+            query: {
+              dev_id: this.data5[value].id,
+            //  dev_name: this.data5[value].device,
+              //是保存之后的
+              ifold: 1,
+              //changeDeviceNum: this.data5[value].changeDeviceNum,
+
+            }
+          });
+        }else{
+          this.$router.push({
+            path: 'carboxApp',
+            query: {
+              dev_id: this.data5[value].id,
+            //  dev_name: this.data5[value].device,
+              //是保存之后的
+              ifold: 1,
+            }
+          });
+        }
+
         //let temp = this.data5[value].changeDeviceNum;
         break;
 
-      case 2:
+      case "变更申请":
         //单位首次申请
         this.$router.push({
           path: 'companyApp',
@@ -33,6 +58,7 @@ exports.install = function (Vue, options) {
           }
         });
         break;
+        //修改
       case 3:
         //车瓶首次申请
         this.$router.push({
