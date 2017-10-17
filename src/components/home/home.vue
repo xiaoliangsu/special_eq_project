@@ -61,11 +61,12 @@
             <template slot="title">
               变更申请
             </template>
-            <MenuItem name="changeReq">改造变更</MenuItem>
-            <MenuItem name="2-1-2">移装变更</MenuItem>
-            <MenuItem name="2-1-3">单位变更</MenuItem>
-            <MenuItem name="2-1-4">更名变更</MenuItem>
-            <MenuItem name="2-1-5">达到设计使用年限变更</MenuItem>
+            <MenuItem name="transformChange">改造变更</MenuItem>
+            <MenuItem name="areaInChange">登记机关行政区域内移装变更</MenuItem>
+            <MenuItem name="areaAcrossChange">跨登记机关行政区域移装变更</MenuItem>
+            <MenuItem name="companyChange">单位变更</MenuItem>
+            <MenuItem name="nameChange">更名变更</MenuItem>
+            <MenuItem name="yearsChange">达到设计使用年限变更</MenuItem>
           </Submenu>
           <Menu-item name="changeReq_form">停用申请</Menu-item>
 
@@ -211,17 +212,23 @@
           //console.log(e);
           //this.$router.push(e);
           let params = e.split("-");
-          let routerPath = params[0];
-          let device_type = params[1];
-          let device_detail = params[2];
-          this.$router.push({
-            path: routerPath,
-            query: {
-              device_type: device_type,
-              device_detail: device_detail
-            }
-          });
-
+          if(params.length>1){
+            let routerPath = params[0];
+            let device_type = params[1];
+            let device_detail = params[2];
+            this.$router.push({
+              path: routerPath,
+              query: {
+                device_type: device_type,
+                device_detail: device_detail
+              }
+            });
+          }else{
+            let routerPath = params[0];
+            this.$router.push({
+              path: routerPath,
+            });
+          }
         },
         ...mapActions([
           'getUserInfo'
