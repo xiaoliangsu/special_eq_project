@@ -4,15 +4,20 @@
       <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
     <!--</div>-->
 
-    <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
-      <Icon type="plus-round"></Icon>
-      新建申请
-    </Button>
+
     <div class="list-box">
+      <h2 class="list-box-head">未提交申请</h2>
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize"></Page>
 
     </div>
+
+      <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
+        <Icon type="plus-round"></Icon>
+        新建申请
+      </Button>
+
+
   </div>
 </template>
 <script>
@@ -62,20 +67,30 @@
         bread_choose: '',
         columns5: [
           {
-            title: '序号',
+            title: '设备代码',
             key: 'id'
           },
           {
-            title: '设备名称',
+            title: '产品名称',
             key: 'device'
           },
           {
-            title: '日期',
+            title: '提交日期',
             key: 'createTime',
             sortable: true
           },
           {
+            title: '设备种类',
+            key: 'deviceType',
+
+          },
+          {
             title: '设备类别',
+            key: 'deviceType',
+
+          },
+          {
+            title: '设备品种',
             key: 'deviceType',
 
           },
@@ -86,15 +101,19 @@
           },
 
           {
-            title: '受理机关',
+            title: '登记机关',
             key: 'acceptorAgencyName',
           },
 //          {
 //            title: '审批机关',
 //            key: 'checker'
 //          },
+//          {
+//            title: '监管机关',
+//            key: 'acceptorAgencyName'
+//          },
           {
-            title: '监管机关',
+            title: '申请状态',
             key: 'acceptorAgencyName'
           },
 
@@ -278,8 +297,9 @@
   }
   .list-box {
     display: block;
-    height: 400px;
-    //border: 1 px solid rgb(229, 229, 229);
+    height: auto;
+    padding:0 10px 50px 10px;
+    border: 1px solid rgb(229, 229, 229);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
@@ -288,10 +308,14 @@
     margin-top: 10px;
     box-sizing: border-box;
 
+
     .page {
       float: right;
       margin: 10px;
     }
+  }
+  .list-box-head{
+    margin:5px;
   }
 
 </style>

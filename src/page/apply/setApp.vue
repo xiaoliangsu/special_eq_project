@@ -7,62 +7,49 @@
       <!--</div>-->
       <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <Step title="步骤1" content="填写基本信息"></Step>
-          <Step title="步骤2" content="填写特种设备使用登记表"></Step>
-          <Step title="步骤3" content="预览特种设备使用登记表"></Step>
-          <Step title="步骤4" content="提交相关证件"></Step>
-          <Step title="步骤5" content="完成申请"></Step>
+          <!--<Step title="步骤1" content="填写基本信息"></Step>-->
+          <Step title="步骤1" content="填写特种设备使用登记表"></Step>
+          <Step title="步骤2" content="预览特种设备使用登记表"></Step>
+          <Step title="步骤3" content="提交相关证件"></Step>
+          <Step title="步骤4" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
 
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div class="city_select_app" v-if="this.active==1">
-        <h2 class="header_one">基本信息</h2>
-
-        <label>选择城市：</label>
-        <Row>
-          <Col span="8" style="padding-right:10px">
-          <Select v-model="province" filterable @on-change="chosenPro" >
-            <Option v-for="item in provinceList" :value="item.value" :key="item.value" >{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="8" style="padding-right:10px">
-          <Select v-model="city" filterable @on-change="chosenCity">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="8">
-          <Select v-model="area" filterable>
-            <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-        </Row>
-        <label>选择受理机关：</label>
-        <Select v-model="acceptCom" filterable>
-          <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-        <label>选择审批机关：</label>
-        <Select v-model="checkCom" filterable>
-          <Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-      </div>
-      <!--<div class="city_select_app_exit" v-if="this.active==1&&this.ifold == 1">-->
+      <!--<div class="city_select_app" v-if="this.active==1">-->
         <!--<h2 class="header_one">基本信息</h2>-->
 
-        <!--<h3 >城市：</h3>-->
-        <!--<p class="city_select_content ">北京市海淀区</p>-->
-
-        <!--<h3>受理单位：</h3>-->
-         <!--<p class="city_select_content ">受理单位名字</p>-->
-
-        <!--<h3>审批单位：</h3>-->
-        <!--<p class="city_select_content ">审批单位名字</p>-->
-        <!--<Button type="warning" @click="changeBasic()" >修改</Button>-->
-
+        <!--<label>选择城市：</label>-->
+        <!--<Row>-->
+          <!--<Col span="8" style="padding-right:10px">-->
+          <!--<Select v-model="province" filterable @on-change="chosenPro" >-->
+            <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value" >{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+          <!--<Col span="8" style="padding-right:10px">-->
+          <!--<Select v-model="city" filterable @on-change="chosenCity">-->
+            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+          <!--<Col span="8">-->
+          <!--<Select v-model="area" filterable>-->
+            <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+        <!--</Row>-->
+        <!--<label>选择受理机关：</label>-->
+        <!--<Select v-model="acceptCom" filterable>-->
+          <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+        <!--</Select>-->
+        <!--<label>选择审批机关：</label>-->
+        <!--<Select v-model="checkCom" filterable>-->
+          <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+        <!--</Select>-->
       <!--</div>-->
+
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
-        <div class="statusInfo" v-if="this.active==2">
+        <div class="statusInfo" v-if="this.active==1">
           <!--<h2>选择设备种类</h2>-->
           <!--<Select v-model="deviceType" style="width:200px">-->
           <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
@@ -87,10 +74,23 @@
                 </Select>
               </Form-item>
               <Form-item label="设备品种" prop="eqVariety">
-                <Input v-model="ruleForm.eqVariety" ></Input>
+                <!--<Input v-model="ruleForm.eqVariety" ></Input>-->
+                <Poptip trigger="focus" >
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>按照《特种设备目录》填写。没有品种的划“—”</p>
+                  </div>
+                  <i-input v-model="ruleForm.eqVariety" ></i-input>
+                </Poptip>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
-                <Input v-model="ruleForm.eqCode" ></Input>
+                <!--<Input v-model="ruleForm.eqCode" ></Input>-->
+                <Poptip trigger="focus" >
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记 机关的行政区划代码(比制造单位代号多一位)。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.eqCode" ></i-input>
+                </Poptip>
               </Form-item>
               <Form-item label="设计使用年限" prop="designUseLimit">
                 <Input v-model="ruleForm.designUseLimit" ></Input>
@@ -322,7 +322,7 @@
         <!--&lt;!&ndash;<v-regist_one :ruleForm="ruleForm"></v-regist_one>&ndash;&gt;-->
         <!--</div>-->
         <!--让用户预览信息的表格-->
-        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
@@ -333,28 +333,31 @@
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==3">下一步</Button>
-          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
 
 
         </div>
 
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
-        <div class="pdfInfo" v-if="this.active==4">
+        <div class="pdfInfo" v-if="this.active==3">
           <h2>相关证明</h2>
           <!--这个接口是尝试过成功的-->
           <Form-item label="社会信用代码证明" :label-width="300">
             <Upload
               ref="upload"
-              :before-upload="handleBeforeUpload"
+
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
-              action="/admin/file/upload?applyId=1&fileTypeId=1"
+              action="/admin/file/upload?applyId=2&fileTypeId=1"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
             </Upload>
+
+
 
           </Form-item>
           <Form-item label="产品合格证" :label-width="300">
@@ -378,6 +381,21 @@
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
             </Upload>
           </Form-item>
+          <h5>上传文件缩略图</h5>
+          <div class="demo-upload-list" v-for="(item,index) in uploadList" >
+            <template v-if="uploadList">
+              <img :src="item.url">
+              <div class="demo-upload-list-cover">
+                <Icon type="ios-eye-outline" @click.native="handleView(index)"></Icon>
+              </div>
+
+            </template>
+
+          </div>
+          <Modal title="查看图片" v-model="visible">
+            <iframe id="iFramePdf" v-bind:src=this.pdfUrlTest style="width:100%;height:1000px;"  v-if="visible"></iframe>
+
+          </Modal>
           <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
           <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
@@ -386,18 +404,18 @@
         <div class="setApp_button">
 
 
-          <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
-          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
+          <!--<Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>-->
+          <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
-          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+          <!--<Button type="primary" @click="before()" v-if="this.active==1">上一步</Button>-->
 
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
-          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">重置</Button>
-          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">保存</Button>
+          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
+          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
         </div>
 
@@ -418,8 +436,9 @@
     data() {
       return {
         //等调的时候再拼接口
-        //pdfUrl: '/admin/download?fileId=101',
          pdfUrl: '/admin/file/preview?fileId=101',
+        pdfUrlTest:'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+
         deviceList: [
           {
             value: 'boiler',
@@ -514,9 +533,9 @@
 
         //wang
         rules: {
-          eqSpecies: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          eqSpecies: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
 //          eqVariety: [
 //            {required:false, message: '', trigger: 'blur'}
 //          ],
@@ -644,7 +663,7 @@
         //selected: '',
         //imgName: '',
         //visible: false,
-        uploadList: [],
+        //uploadList: [],
         //modal1: false,
         modalCertain: false,
         author_key: '',
@@ -665,19 +684,28 @@
         bread_choose: '',
         current: 0,
 
-        province: '',
-        city: '',
-        defaultPro:'',
-        provinceList: [],
-        cityList: [],
-        area: '',
-        areaList: [],
-        acceptCom: '',
-        acceptComList: [],
-        checkCom: '',
-        checkComList: [],
+//        province: '',
+//        city: '',
+//        defaultPro:'',
+//        provinceList: [],
+//        cityList: [],
+//        area: '',
+//        areaList: [],
+//        acceptCom: '',
+//        acceptComList: [],
+//        checkCom: '',
+//        checkComList: [],
         device_type:'',
         ifold:0,
+        uploadList:[
+        {
+          'name': '',
+          'url': ''
+        },
+
+      ],
+
+      visible:false,
 
 
 
@@ -714,34 +742,35 @@
       if(this.ifold==1){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-          this.province= '120000';
-          this.city="120100";
-          this.area="120101";
-          this.ruleForm.eqCategory="设备类别";
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//          this.province= '120000';
+//          this.city="120100";
+//          this.area="120101";
+
           this.clearRegistOneForm();
-          this.setRegistOneForm(res.success.ruleForm[0]);
+        //  this.setRegistOneForm(res.success.ruleForm[0]);
           this.ruleForm = this.getRegistOne;
-          this.defaultP0dfList1 = res.pdfUrlDefault;
+          this.ruleForm.eqVariety="设备类别";
+          this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
           console.log(error)
         })
       }else{
-        setAppService.getProvinces().then(res => {
-          // this.provinceList.shift();
-          for (let i = 0, len = res.length; i < len; i++) {
-            this.provinceList.push({value: res[i].code, label: res[i].name});
-          }
-        }).catch(error => {
-          console.log(error);
-
-        })
+//        setAppService.getProvinces().then(res => {
+//          // this.provinceList.shift();
+//          for (let i = 0, len = res.length; i < len; i++) {
+//            this.provinceList.push({value: res[i].code, label: res[i].name});
+//          }
+//        }).catch(error => {
+//          console.log(error);
+//
+//        })
       }
 
 
@@ -751,52 +780,56 @@
       ...mapActions(
         ['clearRegistOneForm', 'setRegistOneForm'],
       ),
+      handleView(index){
+          console.log(index);
+        this.visible = true;
+      },
       //打印按钮
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
-      chosenPro(value){
-        let params = 'provinceCode=' + value;
-        if(value!==''){
-          setAppService.getCities(params).then(res => {
-            this.cityList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.cityList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-        }
-
-      },
-      chosenCity(value){
-        let params = 'cityCode=' + value;
-        if(value!==""){
-          setAppService.getArea(params).then(res => {
-            this.areaList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.areaList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-        }
-
-      },
+//      chosenPro(value){
+//        let params = 'provinceCode=' + value;
+//        if(value!==''){
+//          setAppService.getCities(params).then(res => {
+//            this.cityList=[];
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.cityList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//        }
+//
+//      },
+//      chosenCity(value){
+//        let params = 'cityCode=' + value;
+//        if(value!==""){
+//          setAppService.getArea(params).then(res => {
+//            this.areaList=[];
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.areaList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//        }
+//
+//      },
       initData(){
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
-        this.province='';
-        this.city='';
-        this.area='';
-        this.provinceList=[];
-        this.cityList=[];
-        this.areaList=[];
+//        this.province='';
+//        this.city='';
+//        this.area='';
+//        this.provinceList=[];
+//        this.cityList=[];
+//        this.areaList=[];
 
 //        this.bread_choose_value = this.$route.query.device_detail;
 //        for (let i = 0; i < this.deviceList.length; i++) {
@@ -806,13 +839,13 @@
 //        }
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
@@ -825,21 +858,23 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-          this.province= '120000';
-          this.city="120100";
-          this.area="120101";
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//          this.province= '120000';
+//          this.city="120100";
+//          this.area="120101";
           this.acceptCom=res.data.acceptorAgencyId;
-          this.ruleForm.eq_species="锅炉2";
           this.clearRegistOneForm();
-          this.setRegistOneForm(res.success.ruleForm[0]);
+          //this.setRegistOneForm(res.success.ruleForm[0]);
           this.ruleForm = this.getRegistOne;
+          this.ruleForm.eqVariety="设备类别";
+
+
           this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
           console.log(error)
@@ -941,7 +976,7 @@
         this.$refs[formName].resetFields();
       },
       next() {
-        if (this.current == 4) {
+        if (this.current == 3) {
           this.current = 0;
         } else {
           this.current += 1;
@@ -969,21 +1004,23 @@
         });
       },
 
-      handleBeforeUpload () {
-        this.uploadList = this.$refs.upload.fileList;
-        const check = this.uploadList.length < 1;
-
-        if (!check) {
-          this.$Notice.warning({
-            title: '最多上传 1 张图片。'
-          });
-        }
-        return check;
-      },
+//      handleBeforeUpload () {
+//        this.uploadList = this.$refs.upload.fileList;
+//        const check = this.uploadList.length < 2;
+//
+//        if (!check) {
+//          this.$Notice.warning({
+//            title: '最多上传 1 张图片。'
+//          });
+//        }
+//        return check;
+//      },
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
-        console.log(res);
-        console.log(file);
+
+       // this.uploadList = this.$refs.upload.fileList;
+        this.uploadList[0].url = res.data.thumbnail;
+        console.log(this.uploadList)
 
       },
       handleRemove(res, file) {
@@ -1144,6 +1181,41 @@
   /*.ivu-form-item {*/
   /*margin-bottom: 10px;*/
   /*}*/
-
+  .demo-upload-list{
+    display: inline-block;
+    width: 150px;
+    height: 200px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+    margin-right: 4px;
+  }
+  .demo-upload-list img{
+    width: 100%;
+    height: 100%;
+  }
+  .demo-upload-list-cover{
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.6);
+  }
+  .demo-upload-list:hover .demo-upload-list-cover{
+    display: block;
+  }
+  .demo-upload-list-cover i{
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 2px;
+  }
 
 </style>

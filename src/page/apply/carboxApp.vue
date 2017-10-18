@@ -7,63 +7,50 @@
       <!--</div>-->
       <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <Step title="步骤1" content="填写基本信息"></Step>
-          <Step title="步骤2" content="填写特种设备使用登记表"></Step>
-          <Step title="步骤3" content="预览特种设备使用登记表"></Step>
-          <Step title="步骤4" content="提交相关证件"></Step>
-          <Step title="步骤5" content="完成申请"></Step>
+          <!--<Step title="步骤1" content="填写基本信息"></Step>-->
+          <Step title="步骤1" content="填写特种设备使用登记表"></Step>
+          <Step title="步骤2" content="预览特种设备使用登记表"></Step>
+          <Step title="步骤3" content="提交相关证件"></Step>
+          <Step title="步骤4" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div class="city_select_app" v-if="this.active==1">
-        <h2 class="header_one">基本信息</h2>
-
-        <label>选择城市：</label>
-        <Row>
-          <Col span="8" style="padding-right:10px">
-          <Select v-model="province" filterable @on-change="chosenPro">
-            <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="8" style="padding-right:10px">
-          <Select v-model="city" filterable @on-change="chosenCity">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="8">
-          <Select v-model="area" filterable>
-            <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-        </Row>
-        <label>选择受理机关：</label>
-        <Select v-model="acceptCom" filterable>
-          <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-        <label>选择审批机关：</label>
-        <Select v-model="checkCom" filterable>
-          <Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-      </div>
-      <!--<div class="city_select_app_exit" v-if="this.active==1&&this.ifold == 1">-->
+      <!--<div class="city_select_app" v-if="this.active==1">-->
         <!--<h2 class="header_one">基本信息</h2>-->
 
-        <!--<h3 >城市：</h3>-->
-        <!--<p class="city_select_content ">北京市海淀区</p>-->
-
-        <!--<h3>受理单位：</h3>-->
-        <!--<p class="city_select_content ">受理单位名字</p>-->
-
-        <!--<h3>审批单位：</h3>-->
-        <!--<p class="city_select_content ">审批单位名字</p>-->
-        <!--<Button type="warning" @click="changeBasic()" >修改</Button>-->
-
+        <!--<label>选择城市：</label>-->
+        <!--<Row>-->
+          <!--<Col span="8" style="padding-right:10px">-->
+          <!--<Select v-model="province" filterable @on-change="chosenPro">-->
+            <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+          <!--<Col span="8" style="padding-right:10px">-->
+          <!--<Select v-model="city" filterable @on-change="chosenCity">-->
+            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+          <!--<Col span="8">-->
+          <!--<Select v-model="area" filterable>-->
+            <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
+        <!--</Row>-->
+        <!--<label>选择受理机关：</label>-->
+        <!--<Select v-model="acceptCom" filterable>-->
+          <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+        <!--</Select>-->
+        <!--<label>选择审批机关：</label>-->
+        <!--<Select v-model="checkCom" filterable>-->
+          <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+        <!--</Select>-->
       <!--</div>-->
+
 
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >  <!--qiu-->
         <!--<h2>车用气瓶申请</h2>-->
-        <div class="statusInfo" v-if="this.active==2">
+        <div class="statusInfo" v-if="this.active==1">
 
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
@@ -267,7 +254,7 @@
         <!--</Panel>-->
         <!--</Collapse>-->
         <!--</div>-->
-        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
@@ -279,14 +266,14 @@
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==3">下一步</Button>
-          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
 
 
         </div>
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
-        <div class="pdfInfo" v-if="this.active==4">
+        <div class="pdfInfo" v-if="this.active==3">
           <h2 >相关证明</h2>
           <Form-item label="社会信用代码证明" :label-width="300">
             <Upload
@@ -329,18 +316,18 @@
         <div class="setApp_button">
 
 
-          <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
-          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
+          <!--<Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>-->
+          <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
-          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+          <!--<Button type="primary" @click="before()" v-if="this.active==1">上一步</Button>-->
 
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
-          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">重置</Button>
-          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==2">保存</Button>
+          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
+          <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
         </div>
       </Form>
@@ -520,16 +507,16 @@
         ruleForms: '',
         value1: '',
         current: 0,
-        province: '',
-        city: '',
-        provinceList: [],
-        cityList: [],
-        area: '',
-        areaList: [],
-        acceptCom: '',
-        acceptComList: [],
-        checkCom: '',
-        checkComList: [],
+//        province: '',
+//        city: '',
+//        provinceList: [],
+//        cityList: [],
+//        area: '',
+//        areaList: [],
+//        acceptCom: '',
+//        acceptComList: [],
+//        checkCom: '',
+//        checkComList: [],
         device_type:'',
         ifold:0,
 
@@ -568,16 +555,16 @@
       if(this.ifold==1){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-          this.province= '120000';
-          this.city="120100";
-          this.area="120101";
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//          this.province= '120000';
+//          this.city="120100";
+//          this.area="120101";
           this.ruleForm.eqKind="车用气瓶";
           // this.ruleForm = res.success.ruleForm[0];
           this.clearRegistThreeForm();
@@ -592,15 +579,15 @@
           console.log(error)
         })
       }
-      setAppService.getProvinces().then(res => {
-        //  console.log(res);
-        for (let i = 0, len = res.length; i < len; i++) {
-          this.provinceList.push({value: res[i].code, label: res[i].name});
-        }
-      }).catch(error => {
-        console.log(error);
-
-      })
+//      setAppService.getProvinces().then(res => {
+//        //  console.log(res);
+//        for (let i = 0, len = res.length; i < len; i++) {
+//          this.provinceList.push({value: res[i].code, label: res[i].name});
+//        }
+//      }).catch(error => {
+//        console.log(error);
+//
+//      })
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
@@ -612,34 +599,34 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
-      chosenPro(value){
-        let params = 'provinceCode=' + value;
-        if(value!==''){
-          setAppService.getCities(params).then(res => {
-            this.cityList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.cityList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-        }
-
-
-      },
-      chosenCity(value){
-        let params = 'cityCode=' + value;
-        if(value!==""){
-          setAppService.getArea(params).then(res => {
-            this.areaList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.areaList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-        }
-      },
+//      chosenPro(value){
+//        let params = 'provinceCode=' + value;
+//        if(value!==''){
+//          setAppService.getCities(params).then(res => {
+//            this.cityList=[];
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.cityList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//        }
+//
+//
+//      },
+//      chosenCity(value){
+//        let params = 'cityCode=' + value;
+//        if(value!==""){
+//          setAppService.getArea(params).then(res => {
+//            this.areaList=[];
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.areaList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//        }
+//      },
 
 
       initData(){
@@ -651,22 +638,22 @@
         this.selectedNum = this.getSelectedNum;
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
-        this.province='';
-        this.city='';
-        this.area='';
-        this.provinceList=[];
-        this.cityList=[];
-        this.areaList=[];
+//        this.province='';
+//        this.city='';
+//        this.area='';
+//        this.provinceList=[];
+//        this.cityList=[];
+//        this.areaList=[];
 
         if (this.$route.query.ifold !== 1) {
           // console.log(this.selectedNum);
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
           this.clearRegistThreeForm();
           this.ruleForm = this.getRegistThree;
           this.defaultPdfList1 = [];
@@ -678,16 +665,16 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          setAppService.getProvinces().then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.provinceList.push({value: res[i].code, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
-          this.province= '120000';
-          this.city="120100";
-          this.area="120101";
+//          setAppService.getProvinces().then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.provinceList.push({value: res[i].code, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
+//          this.province= '120000';
+//          this.city="120100";
+//          this.area="120101";
           this.acceptCom=res.data.acceptorAgencyId;
           this.ruleForm.eqKind ="种类";
           this.clearRegistThreeForm();
@@ -834,7 +821,7 @@
 //          this.submitForm('ruleForm');
 //        }
 //        this.beSure();
-        if (this.current == 4) {
+        if (this.current == 3) {
           this.current = 0;
         } else {
           this.current += 1;

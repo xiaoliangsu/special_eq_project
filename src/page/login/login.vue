@@ -9,18 +9,25 @@
           <p>特种设备使用登记管理系统</p>
         </div>
         <!--用户名密码登陆-->
-        <Form ref="loginForm" :model="loginForm" :rules="rules">
-          <Form-item prop="username">
-            <Input type="text" v-model="loginForm.username" placeholder="用户名" size="large">
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </Input>
-          </Form-item>
+        <Form ref="loginForm" :model="loginForm" :rules="rules"  :label-width="100">
+          <!--<Form-item prop="username">-->
+          <label class="label">用户名：</label>
+            <FormItem   prop="username">
+              <Input type="text" v-model="loginForm.username" placeholder="用户名" size="large" >
+              <Icon type="ios-person-outline" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+
+          <!--</Form-item>-->
+          <label class="label">密码：</label>
           <Form-item prop="password">
             <Input type="password" v-model="loginForm.password" placeholder="密码" size="large">
             <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
           </Form-item>
           <!--去掉这个注释-->
+          <label class="label">验证码：</label>
+
           <Form-item prop="verif">
             <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
             <img src="/admin/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
@@ -40,8 +47,7 @@
           <!--</Form-item>-->
           <!--到这里-->
           <Form-item>
-
-            <Button type="primary" @click="_login()" long>登录</Button>
+            <Button type="primary" @click="_login()" long style="font-size:16px;font-weight:bold;">登录</Button>
           </Form-item>
         </Form>
 
@@ -405,13 +411,14 @@
     p {
       font-size: 29px;
       color: #FFFFFF;
+      font-weight:bold;
     }
   }
 
   .form_contianer {
 
-    @include wh(350px, 240px);
-    @include ctp(350px, 240px);
+    @include wh(500px, 300px);
+    @include ctp(500px, 300px);
     padding: 25px;
     border-radius: 5px;
     text-align: center;
@@ -437,6 +444,18 @@
     //transform: translate3d(0, -50px, 0);
     opacity: 0;
   }
+  .label{
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 18px;
+    font-weight:bold;
+    color: white;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+  }
+
 
 
 </style>
