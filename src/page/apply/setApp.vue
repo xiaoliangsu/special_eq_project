@@ -17,37 +17,6 @@
     </div>
 
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <!--<div class="city_select_app" v-if="this.active==1">-->
-        <!--<h2 class="header_one">基本信息</h2>-->
-
-        <!--<label>选择城市：</label>-->
-        <!--<Row>-->
-          <!--<Col span="8" style="padding-right:10px">-->
-          <!--<Select v-model="province" filterable @on-change="chosenPro" >-->
-            <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value" >{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-          <!--<Col span="8" style="padding-right:10px">-->
-          <!--<Select v-model="city" filterable @on-change="chosenCity">-->
-            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-          <!--<Col span="8">-->
-          <!--<Select v-model="area" filterable>-->
-            <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-        <!--</Row>-->
-        <!--<label>选择受理机关：</label>-->
-        <!--<Select v-model="acceptCom" filterable>-->
-          <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-        <!--</Select>-->
-        <!--<label>选择审批机关：</label>-->
-        <!--<Select v-model="checkCom" filterable>-->
-          <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-        <!--</Select>-->
-      <!--</div>-->
-
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
           <!--<h2>选择设备种类</h2>-->
@@ -304,24 +273,7 @@
 
         </div>
 
-        <!--让用户确认信息的表格-->
-        <!--<div class="setTable" v-if="this.active==1">-->
-        <!--<Alert closable>请确认表格信息是否全部正确</Alert>-->
-        <!--<Collapse v-model="value1">-->
-        <!--<Panel name="1">-->
-        <!--<span class="panel_content">特种设备使用登记表</span>-->
-        <!--<div slot="content">-->
-        <!--<v-regist_one :ruleForm="ruleForm"></v-regist_one>-->
-        <!--<Button @click="addElecSeal()" v-if="this.active==1">添加</Button>-->
 
-        <!--</div>-->
-        <!--</Panel>-->
-        <!--</Collapse>-->
-        <!--&lt;!&ndash;<embed  v-bind:src=this.pdfUrl width="100%" height="1000px"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<iframe v-bind:src=this.pdfUrl  style="width:718px; height:700px;" frameborder="0"></iframe>&ndash;&gt;-->
-        <!--&lt;!&ndash;<v-regist_one :ruleForm="ruleForm"></v-regist_one>&ndash;&gt;-->
-        <!--</div>-->
-        <!--让用户预览信息的表格-->
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
@@ -390,8 +342,12 @@
               </div>
 
             </template>
+            <!--<img src="/admin/file/thumbnail?fileId=201" ref="verifyImg"  style="width:100px;height:35px;float:right"-->
+            <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
+
 
           </div>
+
           <Modal title="查看图片" v-model="visible">
             <iframe id="iFramePdf" v-bind:src=this.pdfUrlTest style="width:100%;height:1000px;"  v-if="visible"></iframe>
 
@@ -663,7 +619,7 @@
         //selected: '',
         //imgName: '',
         //visible: false,
-        //uploadList: [],
+
         //modal1: false,
         modalCertain: false,
         author_key: '',
@@ -698,11 +654,6 @@
         device_type:'',
         ifold:0,
         uploadList:[
-        {
-          'name': '',
-          'url': ''
-        },
-
       ],
 
       visible:false,
@@ -742,17 +693,6 @@
       if(this.ifold==1){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//          this.province= '120000';
-//          this.city="120100";
-//          this.area="120101";
-
           this.clearRegistOneForm();
         //  this.setRegistOneForm(res.success.ruleForm[0]);
           this.ruleForm = this.getRegistOne;
@@ -762,15 +702,7 @@
           console.log(error)
         })
       }else{
-//        setAppService.getProvinces().then(res => {
-//          // this.provinceList.shift();
-//          for (let i = 0, len = res.length; i < len; i++) {
-//            this.provinceList.push({value: res[i].code, label: res[i].name});
-//          }
-//        }).catch(error => {
-//          console.log(error);
-//
-//        })
+
       }
 
 
@@ -784,68 +716,26 @@
           console.log(index);
         this.visible = true;
       },
+      reflushVerify() {
+          console.log(1);
+        this.$refs.verifyImg.src="/admin/file/thumbnail?fileId=201";
+      },
       //打印按钮
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
-//      chosenPro(value){
-//        let params = 'provinceCode=' + value;
-//        if(value!==''){
-//          setAppService.getCities(params).then(res => {
-//            this.cityList=[];
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.cityList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//        }
-//
-//      },
-//      chosenCity(value){
-//        let params = 'cityCode=' + value;
-//        if(value!==""){
-//          setAppService.getArea(params).then(res => {
-//            this.areaList=[];
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.areaList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//        }
-//
-//      },
+
       initData(){
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
-//        this.province='';
-//        this.city='';
-//        this.area='';
-//        this.provinceList=[];
-//        this.cityList=[];
-//        this.areaList=[];
 
-//        this.bread_choose_value = this.$route.query.device_detail;
-//        for (let i = 0; i < this.deviceList.length; i++) {
-//          if (this.deviceList[i].value == this.bread_choose_value) {
-//            this.bread_choose = this.deviceList[i].label;
-//          }
-//        }
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
           this.clearRegistOneForm();
           this.ruleForm = this.getRegistOne;
           this.defaultPdfList1 = [];
@@ -858,16 +748,6 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//          this.province= '120000';
-//          this.city="120100";
-//          this.area="120101";
           this.acceptCom=res.data.acceptorAgencyId;
           this.clearRegistOneForm();
           //this.setRegistOneForm(res.success.ruleForm[0]);
@@ -924,18 +804,7 @@
         // this.active++;
 
 
-//        setAppService.getRegistOne("fileId=101").then(res => {
-//
-//          //pdf信息
-//          console.log(res);
-//          this.pdfUrl = res.data;
-//          //获取对象长度
-//         // this.pdfNum = Object.keys(this.pdfUrl).length;
-//
-//
-//        }).catch(error => {
-//          console.log(error)
-//        })
+
       },
       saveForm(formName){
 
@@ -1004,22 +873,12 @@
         });
       },
 
-//      handleBeforeUpload () {
-//        this.uploadList = this.$refs.upload.fileList;
-//        const check = this.uploadList.length < 2;
-//
-//        if (!check) {
-//          this.$Notice.warning({
-//            title: '最多上传 1 张图片。'
-//          });
-//        }
-//        return check;
-//      },
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
 
        // this.uploadList = this.$refs.upload.fileList;
-        this.uploadList[0].url = res.data.thumbnail;
+        //this.uploadList[0].name="缩略图";
+        this.uploadList.push({"url":res.data.thumbnail});
         console.log(this.uploadList)
 
       },
