@@ -30,9 +30,10 @@ const actions = {
     // console.log(JSON.parse(localStorage.getItem('userInfo')).success);
     localStorage.setItem('loginStatus', res.state)
     localStorage.setItem('author_key', res.author_key)
+    console.log( localStorage.getItem('userInfo'));
     //console.log(localStorage.getItem('author_key'))
     //console.log(localStorage.getItem('author_key')
-    commit(SET_USER_INFO, res)
+  //  commit(SET_USER_INFO, res)
     commit(SET_LOGIN_STATUS, true)
   },
 
@@ -45,7 +46,7 @@ const actions = {
       localStorage.removeItem('loginStatus')
       localStorage.removeItem('userInfo')
       commit(SET_LOGIN_STATUS, false)
-      commit(SET_USER_INFO, {})
+      //commit(SET_USER_INFO, {})
     }).catch(error => {
       console.log(2);
       console.log(error)
@@ -73,9 +74,9 @@ const getters = {
 }
 
 const mutations = {
-  [SET_USER_INFO](state, res) {
-    state.userInfo = res
-  },
+  // [SET_USER_INFO](state, res) {
+  //   state.userInfo = res
+  // },
 
   [SET_LOGIN_STATUS](state, status) {
     state.loginStatus = status

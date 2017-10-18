@@ -10,10 +10,12 @@ import '../my-theme/dist/iview.css';
 
 import router from "./router/router.js"
 import store from './store/'
+import base from './config/baseFunc.js'
 
 
 //Vue.use(ElementUI);
 Vue.use(iView);
+Vue.use(base);
 
 require('./static/css/reset.css');
 // const router = new VueRouter({

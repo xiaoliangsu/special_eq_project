@@ -1,8 +1,24 @@
 import fetch from '../fetch/http.js';
+
 //获取已经提交的订单
+// export function GetOrders(param) {
+//     return fetch('/api/getorders',param,'get')
+// }
 export function GetOrders(param) {
-    return fetch('/api/getorders',param,'get')
+  return fetch('/apply/get',param,'post')
 }
+//精准搜索
+export function GetExactOrders(param) {
+  return fetch('/apply/get?'+param,param,'get')
+}
+
+export function deleteApp(param) {
+  return fetch('/apply/delete?'+param,param,'get')
+}
+
+
+
+
 export function ChangeTime(param) {
     return fetch('/api/getorders',param,'get')
 }
@@ -26,4 +42,5 @@ export function InitSize(param) {
 export function GetUnSubmitOrders(param) {
   return fetch('/api/getorders',param,'get')
 }
+
 

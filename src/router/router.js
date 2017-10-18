@@ -32,8 +32,10 @@ const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLa
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
 
-//import OrderList from "../page/apply/orderStatus/orderList.vue"
-const OrderList = r => require.ensure([], () => r(require('../page/apply/orderStatus/orderList.vue')), 'OrderList');
+// const WaitAcceptList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitAcceptList.vue')), 'WaitAcceptList');
+// const WaitCheckList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitCheckList.vue')), 'WaitCheckList');
+const FinishList = r => require.ensure([], () => r(require('../page/apply/orderStatus/finishList.vue')), 'FinishList');
+const ApplyerList = r => require.ensure([], () => r(require('../page/apply/orderStatus/applyerList.vue')), 'ApplyerList');
 const UnSubmitOrder = r => require.ensure([], () => r(require('../page/apply/orderStatus/unSubmitOrder.vue')), 'UnSubmitOrder');
 
 
@@ -120,17 +122,28 @@ const router = new VueRouter({
         {
           path: "/firstApp", component: FirstApp,
           // 添加该字段，表示进入这个路由是需要登录的
-          meta: {requireAuth: true},
+          // meta: {requireAuth: true},
         },
-        {path: "/newOrLast", component: NewOrLast},
-        {path: "/setApp", component: SetApp},
+        {path: "/newOrLast", component: NewOrLast,
+          meta: [ '申请类别','首次申请'],},
+        {path: "/setApp", component: SetApp,
+          meta: [ '申请类别','首次申请']},
         {path: "/companyApp", component: CompanyApp},
-        {path: "/carboxApp", component: CarboxApp},
+        {path: "/carboxApp", component: CarboxApp,
+          meta: [  '申请类别','首次申请']},
 
 
-        {path: "/orderList", component: OrderList},
-        {path: "/unSubmitOrder", component: UnSubmitOrder},
-        {path: "/devList", component: DevList},
+        // {path: "/waitAcceptList", component: WaitAcceptList},
+        // {path: "/waitCheckList", component: WaitCheckList},
+        {path: "/finishList", component: FinishList,
+          meta: ['受理申请发证情况', '已受理申请']},
+        {path: "/applyerList", component: ApplyerList,
+          meta: [ '受理申请发证情况', '受理中申请']},
+        {path: "/unSubmitOrder", component: UnSubmitOrder,
+          meta: ['受理申请发证情况',  '未提交申请']},
+
+        {path: "/devList", component: DevList,
+          meta: [ '已有设备列表']},
         {path: "/changeReq", component: ChangeReq},
         {path: "/appDetail", component: AppDetail},
         {path: "/comAppDetail", component: ComAppDetail},
@@ -155,10 +168,10 @@ const router = new VueRouter({
       ]
     }
   ]
-    
 
-        
-    
+
+
+
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限

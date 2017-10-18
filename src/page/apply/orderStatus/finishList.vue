@@ -1,5 +1,5 @@
 <template>
-  <div class="devList">
+  <div class="unSubmitOrder">
     <div class="filter-box">
       <Row>
         <Col span="9">
@@ -18,7 +18,7 @@
         <Col span="7">
         <label>申请状态</label>
         <Select v-model="applyState" style="width:180px" placeholder="请选择">
-          <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
+        <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
         </Select>
         <!--<label>申请id</label>-->
         <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
@@ -56,22 +56,22 @@
 //            value: '0',
 //            label: '未提交'
 //          },
-          {
-            value: '1',
-            label: '提交未受理'
-          },
-          {
-            value: '2',
-            label: '受理通过未审批'
-          },
 //          {
-//            value: '3',
-//            label: '审批通过'
+//            value: '1',
+//            label: '提交未受理'
 //          },
 //          {
-//            value: '4',
-//            label: '驳回'
+//            value: '2',
+//            label: '受理通过未审批'
 //          },
+          {
+            value: '3',
+            label: '审批通过'
+          },
+          {
+            value: '4',
+            label: '驳回'
+          },
 
         ],
         sort: [
@@ -151,17 +151,66 @@
           {
             title: '申请状态',
             key: 'state',
+//                        render: (h, params) => {
+//                            return h('div', [
+//                                h('Button', {
+//                                    props: {
+//                                        type: 'primary',
+//                                        size: 'small'
+//                                    },
+//                                    style: {
+//                                        marginRight: '5px'
+//                                    },
+//                                    on: {
+//                                        click: () => {
+//                                            this.show(params.index)
+//                                        }
+//                                    }
+//                                }, '查看'),
+//                                h('Button', {
+//                                    props: {
+//                                        type: 'error',
+//                                        size: 'small'
+//                                    },
+//                                    on: {
+//                                        click: () => {
+//                                            this.remove(params.index)
+//                                        }
+//                                    }
+//                                }, '删除')
+//                            ]);
+//                        }
+
           },
           {
             title: '操作',
-            key: 'opera',
+            key: 'state',
             render: (h, params) => {
-              if(params.row.state=='已提交待受理'){
+              if(params.row.state=='已审批通过'){
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    fontSize: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.appDetail(params.index)
+                    }
+                  }
+                }, '详情'),
+
+              ]);
+              }else if(params.row.state=='驳回'){
                 return h('div', [
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small',
+                      size: 'small'
                     },
                     style: {
                       marginRight: '5px',
@@ -173,21 +222,6 @@
                       }
                     }
                   }, '详情'),
-                  h('Button', {
-                    props: {
-                      type: 'error',
-                      size: 'small'
-                    },
-                    style: {
-                      marginleft: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.deleteApp(params.index)
-                      }
-                    }
-                  }, '删除'),
                   h('Button', {
                     props: {
                       type: 'warning',
@@ -204,27 +238,10 @@
                     }
                   }, '修改'),
 
-                ]);
-              }else if(params.row.state=='已受理待审批'){
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small',
-                    },
-                    style: {
-                      marginRight: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.appDetail(params.index)
-                      }
-                    }
-                  }, '详情'),
+              ]);
 
-                ]);
               }
+
 
             }
 
@@ -268,34 +285,16 @@
 //        }
 //      }
 //    },
-//    activated() {
-//      const _this = this;
-//      _this.initData();
-//    },
-    mounted(){
-      this.initData();
-    },
-
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-      '$route.query.apply_state':function(){
-        console.log(this.$route.path);
-        if(this.$route.path=='/devList'){
-          this.initData();
-        }
-
-      }
+    activated() {
+      const _this = this;
+      _this.initData();
     },
 
     methods: {
-      ...mapActions(
-        ['selectedDeviceOption', 'setApplyType'],
-      ),
+      ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
       initData(){
         this.time = ['', ''];
         this.applyType = '';
-        this.setApplyType(this.$route.query.apply_state);
-        console.log(this.getApplyTypeName)
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
@@ -305,7 +304,7 @@
           size: 10,
         }
 
-        waitAccparams.states = [1,2];
+        waitAccparams.states = [3,4];
         console.log(waitAccparams)
 
 
@@ -389,7 +388,6 @@
         }
         if (this.applyState !== '') {
           waitAccparams.states = [this.applyState,this.applyState];
-
         }
         if (this.applyType !== '') {
           waitAccparams.applyTypeId = this.applyType;
@@ -574,7 +572,6 @@
       ...
         mapGetters([
           "getSelectedOption",
-          "getApplyTypeName"
         ]),
     }
     ,

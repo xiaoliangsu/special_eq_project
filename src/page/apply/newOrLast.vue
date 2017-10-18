@@ -1,18 +1,23 @@
 <template>
   <div class="newOrLast">
-    <div class="bread">
-      <v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>
-    </div>
+    <!--<div class="bread">-->
+      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
+    <!--</div>-->
 
-    <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
-      <Icon type="plus-round"></Icon>
-      新建申请
-    </Button>
+
     <div class="list-box">
+      <h2 class="list-box-head">未提交申请</h2>
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize"></Page>
 
     </div>
+
+      <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
+        <Icon type="plus-round"></Icon>
+        新建申请
+      </Button>
+
+
   </div>
 </template>
 <script>
@@ -62,36 +67,54 @@
         bread_choose: '',
         columns5: [
           {
-            title: '设备名称',
+            title: '设备代码',
+            key: 'id'
+          },
+          {
+            title: '产品名称',
             key: 'device'
           },
           {
-            title: '日期',
-            key: 'time',
+            title: '提交日期',
+            key: 'createTime',
             sortable: true
           },
           {
+            title: '设备种类',
+            key: 'deviceType',
+
+          },
+          {
             title: '设备类别',
-            key: 'changeDevice',
+            key: 'deviceType',
+
+          },
+          {
+            title: '设备品种',
+            key: 'deviceType',
 
           },
           {
             title: '申请类别',
-            key: 'changeApply',
+            key: 'applyType',
 
           },
 
           {
-            title: '受理机关',
-            key: 'accepter',
+            title: '登记机关',
+            key: 'acceptorAgencyName',
           },
+//          {
+//            title: '审批机关',
+//            key: 'checker'
+//          },
+//          {
+//            title: '监管机关',
+//            key: 'acceptorAgencyName'
+//          },
           {
-            title: '审批机关',
-            key: 'checker'
-          },
-          {
-            title: '监管机关',
-            key: 'watcher'
+            title: '申请状态',
+            key: 'acceptorAgencyName'
           },
 
           {
@@ -121,7 +144,7 @@
         ],
         data5: [],
         //订单总数
-        num: 200,
+        num: 0,
         params: {
           time: '',
           sort: '',
@@ -136,66 +159,96 @@
       VBreadCrumb,
 
     },
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-      '$route': 'initData'
-    },
-
+//    activated() {
+//      const _this = this;
+//      _this.initData();
+//    },
     mounted(){
       this.initData();
+    },
 
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route.query.device_type':function(){
+        console.log(this.$route.path);
+        if(this.$route.path=='/newOrLast'){
+          this.initData();
+        }
 
-
+      }
+    },
+    computed: {
+      //...mapState(['selectedOption']),
+      ...mapGetters([
+        "getDeviceType",
+        "getDeviceTypeName"
+      ]),
     },
     methods: {
+      ...mapActions(
+        ['setDeviceType'],
+      ),
       initData(){
-        //this.active = 1;
-        this.bread_choose_value = this.$route.query.device_detail;
-        for (let i = 0; i < this.deviceList.length; i++) {
-          if (this.deviceList[i].value == this.bread_choose_value) {
-            this.bread_choose = this.deviceList[i].label;
-          }
-        }
-        this.device_detail=this.$route.query.device_detail;
         this.device_type=this.$route.query.device_type;
+        this.setDeviceType(this.$route.query.device_type);
+        console.log(this.getDeviceTypeName)
         let params={
-          device_detail:this.device_detail,
-          device_type:this.device_type,
+         // device_detail:this.device_detail,
+          deviceTypeId:this.device_type,
+          applyTypeId:0,
         }
-        this.getOrders(params);
+        this.getInitOrders(params);
 
 
+      },
+      getOrders(params){
+        orderStatusService.GetOrders(params).then(res => {
+
+            console.log(res.data.content);
+            if(res.data.content){
+              this.data5 = res.data.content;
+              this.num=res.data.content.length;
+              //  this.data5.state=res.data.content.status.state;
+              for (var i = 0; i < res.data.content.length; i++) {
+                this.data5[i].state = res.data.content[i].status.states;
+                let newDate= new Date(res.data.content[i].createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth()+1 < 10 ? '0'+(newDate.getMonth()+1) : newDate.getMonth()+1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[i].createTime=Y+M+D;
+              }
+            }else{
+              this.data5='';
+            }
+
+          }
+        ).catch(error => {
+          console.log(error);
+        })
       },
       //获取申请列表信息
-      getOrders(page){
-        orderStatusService.GetUnSubmitOrders(page).then(res => {
-           // console.log(res);
-          if (res.success) {
-            this.data5 = res.success;
-//            for (var i = 0; i < this.data5.length; i++) {
-//              this.data5[i].state = this.state[this.data5[i].state];
-//            }
-          }
-        })
-          .catch(error => {
-            console.log(error);
-          })
+      getInitOrders(params){
+          this.getOrders(params);
       },
       toNewApp(){
-        if(this.device_type=='one'&& this.device_detail!=='carbox'){
-          this.$router.push({
+//        if(this.device_type=='one'&& this.device_detail!=='carbox'){
+          if(this.device_type<8){
+
+            this.$router.push({
             path:"setApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+            //  device_detail: this.device_detail
             }
           });
-        }else if(this.device_type=='two'){
+        }else if(this.device_type==9||this.device_type==10){
+       // }else if(this.device_type=='two'){
+
           this.$router.push({
             path:"companyApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+            //  device_detail: this.device_detail
             }
           });
         }else{
@@ -203,89 +256,34 @@
             path:"carboxApp" ,
             query: {
               device_type: this.device_type,
-              device_detail: this.device_detail
+          //    device_detail: this.device_detail
             }
           });
         }
 
       },
       initSize(value){
-        orderStatusService.GetOrders(value).then(res => {
-          if (res.success) {
-            this.data5 = res.success;
-            for (var i = 0; i < this.data5.length; i++) {
-              this.data5[i].state = this.state[this.data5[i].state];
-            }
-          }
-        })
-          .catch(error => {
-            console.log(error);
-          })
+
+        let params = {
+          page: value,
+          size: 10,
+
+        }
+        if (this.time[0] !== '') {
+          params.time = this.time;
+        }
+        if (this.applyState !== '') {
+          params.states = this.applyState;
+        }
+        if (this.applyType !== '') {
+          params.applyTypeId = this.applyType;
+        }
+        this.getOrders(params);
 
       },
       continueApp(value){
-        console.log(1111);
-        console.log(this.data5[value].changeApplyNum);
-        switch (this.data5[value].changeApplyNum) {
-          case 1:
-            //按套首次申请
-            this.$router.push({
-              path: 'setApp',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                //是保存之后的
-                ifold: 1,
-                //selectedNum:2
-              }
-            });
-            //let temp = this.data5[value].changeDeviceNum;
-            break;
-
-          case 2:
-            //单位首次申请
-            this.$router.push({
-              path: 'companyApp',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                //是保存之后的
-                ifold: 1,
-                //changeDeviceNum: this.data5[value].changeDeviceNum,
-
-              }
-            });
-            break;
-          case 3:
-            //车瓶首次申请
-            this.$router.push({
-              path: 'carboxApp',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                //是保存之后的
-                ifold: 1,
-              }
-            });
-            break;
-          case 4:
-            //单位变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          ////等等
-
-
-        }
-
-
-      }
+          this.modifyApp(value,this.device_type)
+      },
     }
   }
 
@@ -299,8 +297,9 @@
   }
   .list-box {
     display: block;
-    height: 400px;
-    //border: 1 px solid rgb(229, 229, 229);
+    height: auto;
+    padding:0 10px 50px 10px;
+    border: 1px solid rgb(229, 229, 229);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
@@ -309,10 +308,14 @@
     margin-top: 10px;
     box-sizing: border-box;
 
+
     .page {
       float: right;
       margin: 10px;
     }
+  }
+  .list-box-head{
+    margin:5px;
   }
 
 </style>

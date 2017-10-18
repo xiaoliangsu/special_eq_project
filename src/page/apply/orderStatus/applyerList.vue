@@ -1,5 +1,5 @@
 <template>
-  <div class="devList">
+  <div class="waitAcceptList">
     <div class="filter-box">
       <Row>
         <Col span="9">
@@ -156,75 +156,75 @@
             title: '操作',
             key: 'opera',
             render: (h, params) => {
-              if(params.row.state=='已提交待受理'){
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small',
-                    },
-                    style: {
-                      marginRight: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.appDetail(params.index)
+                if(params.row.state=='已提交待受理'){
+                  return h('div', [
+                    h('Button', {
+                      props: {
+                        type: 'primary',
+                        size: 'small',
+                      },
+                      style: {
+                        marginRight: '5px',
+                        fontSize: '5px',
+                      },
+                      on: {
+                        click: () => {
+                          this.appDetail(params.index)
+                        }
                       }
-                    }
-                  }, '详情'),
-                  h('Button', {
-                    props: {
-                      type: 'error',
-                      size: 'small'
-                    },
-                    style: {
-                      marginleft: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.deleteApp(params.index)
+                    }, '详情'),
+                    h('Button', {
+                      props: {
+                        type: 'error',
+                        size: 'small'
+                      },
+                      style: {
+                        marginleft: '5px',
+                        fontSize: '5px',
+                      },
+                      on: {
+                        click: () => {
+                          this.deleteApp(params.index)
+                        }
                       }
-                    }
-                  }, '删除'),
-                  h('Button', {
-                    props: {
-                      type: 'warning',
-                      size: 'small'
-                    },
-                    style: {
-                      marginleft: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.modifyApp(params.index)
+                    }, '删除'),
+                    h('Button', {
+                      props: {
+                        type: 'warning',
+                        size: 'small'
+                      },
+                      style: {
+                        marginleft: '5px',
+                        fontSize: '5px',
+                      },
+                      on: {
+                        click: () => {
+                          this.modifyApp(params.index)
+                        }
                       }
-                    }
-                  }, '修改'),
+                    }, '修改'),
 
-                ]);
-              }else if(params.row.state=='已受理待审批'){
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small',
-                    },
-                    style: {
-                      marginRight: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.appDetail(params.index)
+                  ]);
+                }else if(params.row.state=='已受理待审批'){
+                  return h('div', [
+                    h('Button', {
+                      props: {
+                        type: 'primary',
+                        size: 'small',
+                      },
+                      style: {
+                        marginRight: '5px',
+                        fontSize: '5px',
+                      },
+                      on: {
+                        click: () => {
+                          this.appDetail(params.index)
+                        }
                       }
-                    }
-                  }, '详情'),
+                    }, '详情'),
 
-                ]);
-              }
+                  ]);
+                }
 
             }
 
@@ -268,34 +268,16 @@
 //        }
 //      }
 //    },
-//    activated() {
-//      const _this = this;
-//      _this.initData();
-//    },
-    mounted(){
-      this.initData();
-    },
-
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-      '$route.query.apply_state':function(){
-        console.log(this.$route.path);
-        if(this.$route.path=='/devList'){
-          this.initData();
-        }
-
-      }
+    activated() {
+      const _this = this;
+      _this.initData();
     },
 
     methods: {
-      ...mapActions(
-        ['selectedDeviceOption', 'setApplyType'],
-      ),
+      ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
       initData(){
         this.time = ['', ''];
         this.applyType = '';
-        this.setApplyType(this.$route.query.apply_state);
-        console.log(this.getApplyTypeName)
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
@@ -574,7 +556,6 @@
       ...
         mapGetters([
           "getSelectedOption",
-          "getApplyTypeName"
         ]),
     }
     ,

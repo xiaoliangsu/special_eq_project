@@ -9,38 +9,45 @@
           <p>特种设备使用登记管理系统</p>
         </div>
         <!--用户名密码登陆-->
-        <Form ref="loginForm" :model="loginForm" :rules="rules">
-          <Form-item prop="username">
-            <Input type="text" v-model="loginForm.username" placeholder="用户名" size="large">
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </Input>
-          </Form-item>
+        <Form ref="loginForm" :model="loginForm" :rules="rules"  :label-width="100">
+          <!--<Form-item prop="username">-->
+          <label class="label">用户名：</label>
+            <FormItem   prop="username">
+              <Input type="text" v-model="loginForm.username" placeholder="用户名" size="large" >
+              <Icon type="ios-person-outline" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+
+          <!--</Form-item>-->
+          <label class="label">密码：</label>
           <Form-item prop="password">
             <Input type="password" v-model="loginForm.password" placeholder="密码" size="large">
             <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
           </Form-item>
           <!--去掉这个注释-->
-          <!--<Form-item prop="verif">-->
-            <!--<Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>-->
-            <!--<img src="/admin/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"-->
-                 <!--alt="验证码图片" v-on:click="reflushVerify"/>-->
-          <!--</Form-item>-->
-          <!--这里加注释-->
-          <Form-item prop="author_key">
-          <Select v-model="loginForm.author_key" placeholder="请选择角色" @on-change="selectAuthorKey">
-          <Option value="1">申请单位</Option>
-          <Option value="2">受理机关</Option>
-          <Option value="3">审批机关</Option>
-          <Option value="4">监管机关</Option>
-          <Option value="5">超级管理员</Option>
-          <Option value="6">all</Option>
-          </Select>
-          </Input>
+          <label class="label">验证码：</label>
+
+          <Form-item prop="verif">
+            <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
+            <img src="/admin/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
+                 alt="验证码图片" v-on:click="reflushVerify"/>
           </Form-item>
+          <!--这里加注释-->
+          <!--<Form-item prop="author_key">-->
+          <!--<Select v-model="loginForm.author_key" placeholder="请选择角色" @on-change="selectAuthorKey">-->
+          <!--<Option value="1">申请单位</Option>-->
+          <!--<Option value="2">受理机关</Option>-->
+          <!--<Option value="3">审批机关</Option>-->
+          <!--<Option value="4">监管机关</Option>-->
+          <!--<Option value="5">超级管理员</Option>-->
+          <!--<Option value="6">all</Option>-->
+          <!--</Select>-->
+          <!--</Input>-->
+          <!--</Form-item>-->
+          <!--到这里-->
           <Form-item>
-            <!--到这里-->
-            <Button type="primary" @click="_login()" long>登录</Button>
+            <Button type="primary" @click="_login()" long style="font-size:16px;font-weight:bold;">登录</Button>
           </Form-item>
         </Form>
 
@@ -274,6 +281,7 @@
           verifycode:this.loginForm.verif
           //author_key:this.loginForm.author_key,
         }
+        data2=qs.stringify(data2);
         let data = {
           username: this.loginForm.username,
           password: this.loginForm.password,
@@ -282,36 +290,60 @@
         }
 //把data换成data2
         this.$store.dispatch('setLoadingState', true)
-        loginService.Login(data).then(res => {
+        loginService.Login(data2).then(res => {
             //去掉这个注释
-//          if(res.status=="true"){
-//            //获取权限点
-//            this.loginInfo.author_key=res.role;
-//
-//            console.log(this.loginInfo.author_key);
-//            //登陆状态
-//            this.loginInfo.state=res.status;
-//            console.log(this.loginInfo.state);
-//            //设置localstorage
-//            this.loginInfo.username=this.loginForm.username;
-//            this.setUserInfo(this.loginInfo);
-//            this.$router.push('home');
-//          }else {
-//            this.$Notice.error({
-//              title: '这是通知标题',
-//              desc: res.msg,
-//            });
-//          }
+          console.log(res);
+          if(res.status==200){
+            //获取权限点
+            this.loginInfo.author_key=res.data.role;
+
+            console.log(this.loginInfo.author_key);
+            //登陆状态
+            //this.loginInfo.state=res.status;
+            this.loginInfo.state=true;
+            console.log(this.loginInfo.state);
+            //设置localstorage
+            this.loginInfo.username=this.loginForm.username;
+            this.setUserInfo(this.loginInfo);
+            this.$router.push('home');
+            switch (this.loginInfo.author_key) {
+              case 1:
+                //申请人
+                this.$router.push('devList');
+
+                break;
+              case 2:
+                //受理
+                this.$router.push('waitAccept');
+                break;
+              case 3:
+                //移装变更
+                this.$router.push('waitApproval');
+
+                break;
+              case 4:
+                //单位变更
+                this.$router.push('supervision');
+
+                break;
+              ////等等
+            }
+          }else {
+            this.$Notice.error({
+              title: '这是通知标题',
+              desc: res.msg,
+            });
+          }
 
           //这个加注释
-          if(res.success) {
-            // let userInfo = Object.assign()
-            //this.$store.dispatch('setLoadingState', false)
-            console.log(res);
-            //this.setUserInfo(res.data);
-            this.setUserInfo(res);
-            this.$router.push('home');
-          }
+//          if(res.success) {
+//            // let userInfo = Object.assign()
+//            //this.$store.dispatch('setLoadingState', false)
+//            console.log(res);
+//            //this.setUserInfo(res.data);
+//            this.setUserInfo(res);
+//            this.$router.push('home');
+//          }
 
         }).catch(error => {
            // console.log(2);
@@ -320,7 +352,7 @@
       },
       //刷新验证码
       reflushVerify() {
-        this.$refs.verifyImg.src="/admin/captchaimage?"+Math.random();
+        this.$refs.verifyImg.src="/admin/static/captchaimage?"+Math.random();
       },
       selectAuthorKey(value){
         this.author_key=value;
@@ -379,13 +411,14 @@
     p {
       font-size: 29px;
       color: #FFFFFF;
+      font-weight:bold;
     }
   }
 
   .form_contianer {
 
-    @include wh(350px, 240px);
-    @include ctp(350px, 240px);
+    @include wh(500px, 300px);
+    @include ctp(500px, 300px);
     padding: 25px;
     border-radius: 5px;
     text-align: center;
@@ -411,6 +444,18 @@
     //transform: translate3d(0, -50px, 0);
     opacity: 0;
   }
+  .label{
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 18px;
+    font-weight:bold;
+    color: white;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+  }
+
 
 
 </style>

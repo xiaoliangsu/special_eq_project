@@ -1,7 +1,7 @@
 <template>
   <div class="user">
-    <span>{{userInfo.username}}</span>
-    <Button type="primary" @click="sighOut">退出</Button>
+    <span>{{userName}}</span>
+    <Button type="primary" @click="sighOut">退出{{loginStatus}}</Button>
 
 
   </div>
@@ -15,7 +15,8 @@
           user: '',
           region: '',
           option: ''
-        }
+        },
+        userName:'',
       }
     },
     computed: {
@@ -33,12 +34,26 @@
       ])
     },
     methods: {
-      ...mapActions({ setSignOut: 'setSignOut' }),
+      ...mapActions(
+        ['setSignOut', 'getUserInfo'],
+      ),
       sighOut() {
         this.setSignOut();
 
       },
-    }
+      initData(){
+        this.userName= localStorage.getItem('userInfo');
+      }
+
+    },
+    mounted(){
+      this.initData();
+    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route': 'initData'
+    },
+
 
   }
 

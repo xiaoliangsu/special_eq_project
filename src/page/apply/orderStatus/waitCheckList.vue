@@ -1,23 +1,22 @@
 <template>
-  <div class="approvaled">
+  <div class="waitCheckList">
     <div class="filter-box">
       <Row>
-        <Col :xs="8" :sm="8" :md="8" :lg="8">
-        <label>设备申请时间</label>
+        <Col span="9">
+        <label>订单时间</label>
         <Date-picker @on-change="changeTime" type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd"     style="width: 220px;display:inline-block;" v-model="time" ></Date-picker>
         </Col>
 
-        <Col  :xs="8" :sm="8" :md="8" :lg="8">
-        <label>设备类别</label>
-        <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
-        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
-        <!--</Select>-->
-        <Cascader :data="options" trigger="hover" style="width:200px;display:inline-block;" @on-change="changeState"></Cascader>
+        <Col span="7">
+        <label>订单状态</label>
+        <Select v-model="model1" style="width:180px" placeholder="请选择" @on-change="changeState">
+          <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
+        </Select>
         </Col>
-        <Col  :xs="8" :sm="8" :md="8" :lg="8">
+        <Col span="8">
         <label>申请类别</label>
-        <Select v-model="model2" style="width:200px" @on-change="changeSort">
+        <Select v-model="model2" style="width:180px" @on-change="changeSort">
           <Option v-for="item in sort" :value="item.value" :key="item.value"> {{ item.label }}</Option>
         </Select>
         </Col>
@@ -34,8 +33,7 @@
 </template>
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import * as orderStatusService from '../../services/orderStatus'
-  import * as approvalService from '../../services/approval'
+  import * as orderStatusService from '../../../services/orderStatus'
   export default {
     data() {
       return {
@@ -53,47 +51,6 @@
             label: '已驳回'
           },
 
-        ],
-        options: [{
-          value: 'one',
-          label: '按台（套）申请',
-          children: [{
-            value: 'boiler',
-            label: '锅炉',
-          }, {
-            value: 'pressure',
-            label: '压力容器（气瓶除外）'
-          }, {
-            value: 'elevator',
-            label: '电梯'
-          }, {
-            value: 'hoisting',
-            label: '起重机械'
-          }, {
-            value: 'cableway',
-            label: '客运索道'
-          }, {
-            value: 'play',
-            label: '大型游乐设施'
-          }, {
-            value: 'factorycar',
-            label: '场 (厂)内专用机动车辆'
-          }, {
-            value: 'carbox',
-            label: '车用气瓶'
-          },]
-
-        }, {
-          value: 'two',
-          label: '按单位申请',
-          children: [{
-            value: 'cylinders',
-            label: '气瓶(车用气瓶除外)',
-          }, {
-            value: 'pipeline',
-            label: '工业管道'
-          },]
-        }
         ],
         sort: [
           {
@@ -134,8 +91,7 @@
         columns5: [
           {
             title: '设备名称',
-            key: 'device',
-
+            key: 'device'
           },
           {
             title: '日期',
@@ -166,10 +122,39 @@
             key: 'watcher'
           },
           {
-            title: '订单状态',
-            key: 'orderState'
-          },
+            title: '申请状态',
+            key: 'state',
+//                        render: (h, params) => {
+//                            return h('div', [
+//                                h('Button', {
+//                                    props: {
+//                                        type: 'primary',
+//                                        size: 'small'
+//                                    },
+//                                    style: {
+//                                        marginRight: '5px'
+//                                    },
+//                                    on: {
+//                                        click: () => {
+//                                            this.show(params.index)
+//                                        }
+//                                    }
+//                                }, '查看'),
+//                                h('Button', {
+//                                    props: {
+//                                        type: 'error',
+//                                        size: 'small'
+//                                    },
+//                                    on: {
+//                                        click: () => {
+//                                            this.remove(params.index)
+//                                        }
+//                                    }
+//                                }, '删除')
+//                            ]);
+//                        }
 
+          },
           {
             title: '操作',
             key: 'state',
@@ -181,12 +166,12 @@
                     size: 'small'
                   },
                   style: {
-                    marginRight: '5px'
+                    marginRight: '5px',
+                    fontSize: '5px',
                   },
                   on: {
                     click: () => {
                       this.appDetail(params.index)
-                      // this.$router.push('appDetail');
                     }
                   }
                 }, '详情'),
@@ -212,34 +197,34 @@
         time: '',
         //订单总数
         num: 200,
-        //订单状态
-        orderState:'',
+
+
       }
     },
+    mounted(){
+      this.initData();
+    },
+
     methods: {
       ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
+      initData(){
+        this.getOrders(this.params.page);
+      },
       //获取申请列表信息
       getOrders(page){
-        approvalService.GetApprovaledOrders(page).then(res => {
+        orderStatusService.GetOrders(page).then(res => {
           if (res.success) {
             this.data5 = res.success;
-            this.orderState=res.state;
-            console.log(this.orderState);
-//                        for (var i = 0; i < this.data5.length; i++) {
-//                            this.data5[i].state = this.state[this.data5[i].state];
-//                        }
             for (var i = 0; i < this.data5.length; i++) {
-              this.data5[i].orderState = this.orderState;
+              this.data5[i].state = this.state[this.data5[i].state];
             }
           }
+
+        }).catch(error => {
+          console.log(error);
         })
-          .catch(error => {
-            console.log(error);
-          })
 
       },
-
-      //下边这些应该需要改接口
       changeTime(value){
         console.log(value);
         orderStatusService.ChangeTime().then(res => {
@@ -304,22 +289,24 @@
           })
 
       },
-      changeReq(index){
-//                this.$Modal.info({
-//                    title: '用户信息',
-//                    content: `姓名：${this.data5[index].device}<br>年龄：${this.data5[index].age}<br>地址：${this.data5[index].address}`
-//                })
-        this.$router.push({
-          path: 'changeReq',
-          query: {dev_id: this.data5[index].id, dev_name: this.data5[index].device}
-        });
+      deleteApp(value){
+        console.log(value);
+        orderStatusService.deleteApp(value).then(res => {
+          this.initData();
+        }).catch(error => {
+          console.log(error);
+        })
 
       },
+//            appDetail(value){
+//                // console.log(value);
+//                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
+//            }
       appDetail(value){
         switch (this.data5[value].changeApplyNum) {
           case 1:
             //首次申请
-            if(this.data5[value].changeDeviceNum[0]=='one' && this.data5[value].changeDeviceNum[1]!=='carbox'){
+            if (this.data5[value].changeDeviceNum[0] == 'one' && this.data5[value].changeDeviceNum[1] !== 'carbox') {
               this.$router.push({
                 path: 'appDetail',
                 query: {
@@ -328,7 +315,7 @@
                   orderState: this.orderState,
                 }
               });
-            }else if(this.data5[value].changeDeviceNum[0]=='two'){
+            } else if (this.data5[value].changeDeviceNum[0] == 'two') {
               this.$router.push({
                 path: 'comAppDetail',
                 query: {
@@ -337,7 +324,7 @@
                   orderState: this.orderState,
                 }
               });
-            }else if(this.data5[value].changeDeviceNum[1]=='carbox'){
+            } else if (this.data5[value].changeDeviceNum[1] == 'carbox') {
               this.$router.push({
                 path: 'carboxAppDetail',
                 query: {
@@ -347,6 +334,8 @@
                 }
               });
             }
+
+
             break;
           case 2:
             //改造变更
@@ -397,15 +386,7 @@
         "getSelectedOption",
       ]),
     },
-    mounted(){
-      this.getOrders(this.params.page);
-    },
-//每次刷新页面时候，更新列表信息
-    watch: {
-      '$route' (to, from) {
-        this.getOrders(this.params.page)
-      }
-    }
+
 
   }
 
@@ -432,11 +413,12 @@
   .list-box {
     display: block;
     height: 400px;
-
+    //border: 1 px solid rgb(229, 229, 229);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+    border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
 
@@ -444,7 +426,6 @@
       float: right;
       margin: 10px;
     }
-
   }
 
 
