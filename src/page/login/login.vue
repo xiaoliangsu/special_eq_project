@@ -49,6 +49,7 @@
           <Form-item>
             <Button type="primary" @click="_login()" long style="font-size:16px;font-weight:bold;">登录</Button>
           </Form-item>
+          <Button type="text" class="regist" @click="regist()">立即注册</Button>
         </Form>
 
       </section>
@@ -358,6 +359,9 @@
         this.author_key=value;
         // alert(this.author_key);
       },
+      regist(){
+        this.$router.push('regist');
+      }
 
 
     }
@@ -454,6 +458,13 @@
     line-height: 1;
     padding: 10px 12px 10px 0;
     box-sizing: border-box;
+  }
+  .regist{
+    float:right;
+    font-size: 16px;
+    font-weight:bold;
+    color: white;
+    margin-top:-10px;
   }
 
 

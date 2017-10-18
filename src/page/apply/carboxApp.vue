@@ -274,41 +274,156 @@
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
         <div class="pdfInfo" v-if="this.active==3">
-          <h2 >相关证明</h2>
-          <Form-item label="社会信用代码证明" :label-width="300">
+          <h2>相关证明</h2>
+          <!--这个接口是尝试过成功的-->
+          <Row style="width:1000px;">
+            <Col span="10">
+            <Form-item label="社会信用代码证明" :label-width="200">
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="个人身份证明" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
+            </Form-item>
+            </Col>
+          </Row>
+          <h5>特种设备产品合格证</h5>
+          <Row>
+            <Col span="10">
+
+            <Form-item label="产品数据表" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="车用气瓶安装合格证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+          </Row>
+          <Form-item label="特种设备监督检验证明" :label-width="200">
             <Upload
-              ref="upload"
-              :before-upload="handleBeforeUpload"
+              ref="upload2"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
-              action="//jsonplaceholder.typicode.com/posts/"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+              :before-upload="handleBeforeUpload"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
             </Upload>
 
           </Form-item>
-          <Form-item label="产品合格证" :label-width="300">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
+          <Row>
+            <Col span="10">
+            <Form-item label="机动车行驶证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="机动车登记证书" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+          </Row>
+
+          <Form-item label="锅炉能效证明文件" :label-width="200">
+            <Upload
+              ref="upload2"
+              :on-success="handleSuccess"
+              :on-remove="handleRemove"
+              :default-file-list="defaultPdfList1"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+              :before-upload="handleBeforeUpload"
+              with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
             </Upload>
+
           </Form-item>
-          <Form-item label="监督检验证明" :label-width="300">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-            </Upload>
-          </Form-item>
-          <Form-item label="锅炉能效证明" :label-width="300" v-if="this.selected[1]=='boiler'">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-            </Upload>
-          </Form-item>
+
+
+          <h5>上传文件缩略图</h5>
+          <div class="demo-upload-list" v-for="(item,index) in uploadList">
+            <img :src="item.url">
+            <div class="demo-upload-list-cover">
+              <Icon type="ios-eye-outline" @click.native="handleView(index)"></Icon>
+            </div>
+
+          </div>
+          <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
+          <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
+
+          <Modal title="查看图片" v-model="visible">
+            <iframe id="iFramePdf" v-bind:src=this.pdf style="width:100%;height:1000px;" v-if="visible"></iframe>
+
+          </Modal>
+
           <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
           <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
@@ -519,6 +634,11 @@
 //        checkComList: [],
         device_type:'',
         ifold:0,
+        uploadList: [
+          {"url": ''}
+        ],
+        visible: false,
+        applyId: '',
 
       };
     },
@@ -716,6 +836,7 @@
 //      },
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
+          this.applyId = res.data.applyId;
           this.$Message.info('您已提交信息，请预览结果');
           this.modalCertain = false;
           console.log(this.modalCertain);
@@ -921,28 +1042,37 @@
 //        window.print();
 //      },
 
-      handleBeforeUpload () {
-        this.uploadList = this.$refs.upload.fileList;
-        const check = this.uploadList.length < 1;
-
-        if (!check) {
-          this.$Notice.warning({
-            title: '最多上传 1 张图片。'
-          });
-        }
-        return check;
-      },
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
-        console.log(res);
-        console.log(file);
+
+        // this.uploadList = this.$refs.upload.fileList;
+        //this.uploadList[0].name="缩略图";
+        if (this.uploadList[0].url === '') {
+          this.uploadList[0].url = "/admin" + res.data.thumbnail;
+          this.pdfList.push("/admin" + res.data.preview)
+        } else {
+          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
+          this.pdfList.push("/admin" + res.data.preview)
+
+        }
 
       },
       handleRemove(res, file) {
         //res是移除的 file剩下的
         console.log(res);
         console.log(file);
+        this.uploadList.pop();
+        console.log(this.uploadList);
 
+      },
+      handleBeforeUpload () {
+        const check = this.uploadList.length < 2;
+        if (!check) {
+          this.$Notice.warning({
+            title: '最多只能上传 2 张图片。'
+          });
+        }
+        return check;
       },
 
       instance (type) {
@@ -1082,5 +1212,45 @@
       margin-bottom:5px;
       padding-bottom:5px;
     }
+  }
+  .demo-upload-list {
+    display: inline-block;
+    width: 150px;
+    height: 200px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    margin-right: 4px;
+  }
+
+  .demo-upload-list img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .demo-upload-list-cover {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .6);
+  }
+
+  .demo-upload-list:hover .demo-upload-list-cover {
+    display: block;
+  }
+
+  .demo-upload-list-cover i {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 2px;
   }
 </style>

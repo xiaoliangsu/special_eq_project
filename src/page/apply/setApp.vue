@@ -276,7 +276,7 @@
         <div class="pdfInfo" v-if="this.active==3">
           <h2>相关证明</h2>
           <!--这个接口是尝试过成功的-->
-          <Row>
+          <Row style="width:1000px;">
             <Col span="10">
             <Form-item label="社会信用代码证明" :label-width="200">
               <Upload
@@ -466,7 +466,6 @@
       return {
         //等调的时候再拼接口
         pdfUrl: '/admin/file/preview?fileId=101',
-        pdfUrlTest: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
         pdfList: [],
         pdf: '',
 
@@ -803,6 +802,9 @@
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
+        this.uploadList=[
+          {"url": ''}
+        ];
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
@@ -964,6 +966,8 @@
         //res是移除的 file剩下的
         console.log(res);
         console.log(file);
+        this.uploadList.pop();
+        console.log(this.uploadList);
 
       },
       handleBeforeUpload () {

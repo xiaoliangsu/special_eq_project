@@ -15,6 +15,8 @@ const Footer = r => require.ensure([], () => r(require('../components/footer/foo
 const Home = r => require.ensure([], () => r(require('../components/home/home.vue')), 'Home');
 //import Login from "../page/login/login.vue"
 const Login = r => require.ensure([], () => r(require('../page/login/login.vue')), 'Login');
+const Regist = r => require.ensure([], () => r(require('../page/regist/regist.vue')), 'Regist');
+
 //import Test from "../page/test/test.vue"
 const Test = r => require.ensure([], () => r(require('../page/test/test.vue')), 'Test');
 //import Manage from "../page/manage.vue"
@@ -92,6 +94,7 @@ const router = new VueRouter({
   routes: [
     {path: "/", component: Login},
     {path: "/login", component: Login},
+    {path: "/regist", component: Regist},
     //{path: "/home", component: Home},
 
     {path: '/sidebar', component: Sidebar},

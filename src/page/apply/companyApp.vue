@@ -190,22 +190,7 @@
 
 
         <!--让用户确认信息的表格-->
-        <div class="setTable" v-if="this.active==1">
-          <!--<Alert closable>请确认表格信息是否全部正确</Alert>-->
 
-          <!--<v-regist_two :ruleForm="ruleForm"></v-regist_two>-->
-          <Alert closable>请确认表格信息是否全部正确</Alert>
-          <Collapse v-model="value2">
-            <Panel name="1">
-              <span class="panel_content">特种设备使用登记表</span>
-              <div slot="content">
-                <v-regist-two :ruleForm="ruleForm"></v-regist-two>
-              </div>
-            </Panel>
-          </Collapse>
-
-
-        </div>
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
         <div class="pdfInfo" v-if="this.active==4">
@@ -260,85 +245,90 @@
 
       </Form>
       <div v-if="this.active==2">
-        <h2>气瓶基本信息汇总</h2>
-        <div class="base-box">
-          <h2 class="header_one">气瓶基本信息汇总</h2>
-          <Form ref="formDynamicGas" :model="formDynamicGas" :label-width="80"
-                v-for="(item, index,key) in formDynamicGas.items"
-                :key="item.id" inline>
-            <FormItem
-              :key="index"
-              :label="'设备品种'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value0" placeholder="请输入..."></Input>
-            </FormItem>
-            <FormItem
-              :key="index"
-              :label="'产品编号'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value1" placeholder="请输入..."></Input>
-            </FormItem>
-            <FormItem
-              :key="index"
-              :label="'充装介质'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value2" placeholder="请输入..."></Input>
-            </FormItem>
-            <FormItem
-              :key="index"
-              :label="'制造单位'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value3" placeholder="请输入..."></Input>
-            </FormItem>
-            <FormItem
-              :key="index"
-              :label="'公称工作压力'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value4" placeholder="请输入..."></Input>
-            </FormItem>
-            <FormItem
-              :key="index"
-              :label="'容积'"
-              :prop="'items.' + index + '.value'"
-              :rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">
-              <Input type="text" v-model="item.value5" placeholder="请输入..."></Input>
-            </FormItem>
-
-            <FormItem>
-
-              <Button type="dashed" long @click="handleAddGas" icon="plus-round">新增</Button>
-            </FormItem>
-            <FormItem>
-
-              <Button type="ghost" @click="handleRemoveGas(index)">删除</Button>
-            </FormItem>
-            <br>
+        <!--<h2>气瓶基本信息汇总</h2>-->
+        <!--<div class="base-box">-->
+          <!--<h2 class="header_one">气瓶基本信息汇总</h2>-->
+          <!--<Form ref="formDynamicGas" :model="formDynamicGas" :label-width="80"-->
+                <!--v-for="(item, index,key) in formDynamicGas.items"-->
+                <!--:key="item.id" inline>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'设备品种'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value0" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'产品编号'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value1" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'充装介质'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value2" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'制造单位'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value3" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'公称工作压力'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value4" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
+            <!--<FormItem-->
+              <!--:key="index"-->
+              <!--:label="'容积'"-->
+              <!--:prop="'items.' + index + '.value'"-->
+              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+              <!--<Input type="text" v-model="item.value5" placeholder="请输入..."></Input>-->
+            <!--</FormItem>-->
 
             <!--<FormItem>-->
-            <!--<Button type="primary" @click="handleSubmit('formDynamic')">提交</Button>-->
-            <!--<Button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>-->
+
+              <!--<Button type="dashed" long @click="handleAddGas" icon="plus-round">新增</Button>-->
             <!--</FormItem>-->
-          </Form>
-        </div>
-        <div class="setTable" v-if="this.active==2">
+            <!--<FormItem>-->
 
-          <Alert closable>请确认表格信息是否全部正确</Alert>
-          <Collapse v-model="value1">
-            <Panel name="1">
-              <span class="panel_content">气瓶表</span>
-              <div slot="content">
-                <v-cylinders-form :formDynamicGas="formDynamicGas"></v-cylinders-form>
-              </div>
-            </Panel>
-          </Collapse>
+              <!--<Button type="ghost" @click="handleRemoveGas(index)">删除</Button>-->
+            <!--</FormItem>-->
+            <!--<br>-->
+
+            <!--&lt;!&ndash;<FormItem>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Button type="primary" @click="handleSubmit('formDynamic')">提交</Button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</FormItem>&ndash;&gt;-->
+          <!--</Form>-->
+        <!--</div>-->
+        <h2>一、下载标准气瓶基本信息汇总表</h2>
+        <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt" class="detail_a">标准气瓶基本信息汇总表</a>
+        <h2>二、上传气瓶基本信息汇总表</h2>
+        <Upload
+            ref="upload1"
+            :on-success="handleSuccess"
+            :on-remove="handleRemove"
+            :default-file-list="defaultPdfList1"
+            :before-upload="handleBeforeUpload"
+            :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+            with-credentials>
+            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+          </Upload>
+
+        <Button type="primary" @click="handleSubmitGas('formDynamicGas')">批量新增</Button>
+        <Button type="primary" @click="handleSubmitGas('formDynamicGas')">报废</Button>
 
 
-        </div>
         <Button type="primary" @click="handleSubmitGas('formDynamicGas')">下一步</Button>
 
 
@@ -411,15 +401,6 @@
         </div>
         <div class="setTable" v-if="this.active==3">
 
-          <Alert closable>请确认表格信息是否全部正确</Alert>
-          <Collapse v-model="value3">
-            <Panel name="1">
-              <span class="panel_content">气瓶表</span>
-              <div slot="content">
-                <v-pressure-form :formDynamicPres="formDynamicPres"></v-pressure-form>
-              </div>
-            </Panel>
-          </Collapse>
 
 
         </div>
@@ -879,6 +860,16 @@
 
   .setApp_button {
     margin: 10px;
+  }
+  .label{
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 18px;
+    font-weight:bold;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
   }
 
 
