@@ -176,70 +176,70 @@
           </div>
 
           <!--qiu-->
-          <div class="base-box">
-            <h2 class="header_two">其他信息</h2>
-            <p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特
-              种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。
-            </p>
+          <!--<div class="base-box">-->
+            <!--<h2 class="header_two">其他信息</h2>-->
+            <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特-->
+              <!--种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
+            <!--</p>-->
 
-            <Row>
-              <Col span="11">
-              <Form-item label="使用单位填表人员" prop="comTablePerson">
-                <Input v-model="ruleForm.comTablePerson" ></Input>
-              </Form-item>
+            <!--<Row>-->
+              <!--<Col span="11">-->
+              <!--<Form-item label="使用单位填表人员" prop="comTablePerson">-->
+                <!--<Input v-model="ruleForm.comTablePerson" ></Input>-->
+              <!--</Form-item>-->
 
-              <Form-item label="使用单位安全管理人员" prop="comSafePerson">
-                <Input v-model="ruleForm.comSafePerson" ></Input>
-              </Form-item>
-              </Col>
-              <Col span="11" offset="2">
-              <Form-item label="使用单位填表人员日期" prop="comPersonDate">
-                <DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>
-              </Form-item>
-              <Form-item label="安全管理人员填表日期" prop="safePersonDate">
-                <DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span="11" offset="13">
-              <Form-item label="加盖使用单位公章日期" prop="comStampDate">
-                <DatePicker v-model="ruleForm.comStampDate" ></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-          </div>
+              <!--<Form-item label="使用单位安全管理人员" prop="comSafePerson">-->
+                <!--<Input v-model="ruleForm.comSafePerson" ></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+              <!--<Col span="11" offset="2">-->
+              <!--<Form-item label="使用单位填表人员日期" prop="comPersonDate">-->
+                <!--<DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>-->
+              <!--</Form-item>-->
+              <!--<Form-item label="安全管理人员填表日期" prop="safePersonDate">-->
+                <!--<DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+            <!--<Row>-->
+              <!--<Col span="11" offset="13">-->
+              <!--<Form-item label="加盖使用单位公章日期" prop="comStampDate">-->
+                <!--<DatePicker v-model="ruleForm.comStampDate" ></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+          <!--</div>-->
 
-          <div class="base-box">
-            <h2 class="header_two">其他信息</h2>
-            <Form-item label="说明" prop="explanation">
-              <Input v-model="ruleForm.explanation" ></Input>
-            </Form-item>
+          <!--<div class="base-box">-->
+            <!--<h2 class="header_two">其他信息</h2>-->
+            <!--<Form-item label="说明" prop="explanation">-->
+              <!--<Input v-model="ruleForm.explanation" ></Input>-->
+            <!--</Form-item>-->
 
-            <Row>
-              <Col span="11">
-              <Form-item label="登记机关登记人员" prop="registPerson">
-                <Input v-model="ruleForm.registPerson" ></Input>
-              </Form-item>
+            <!--<Row>-->
+              <!--<Col span="11">-->
+              <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
+                <!--<Input v-model="ruleForm.registPerson" ></Input>-->
+              <!--</Form-item>-->
 
-              <Form-item label="使用登记证编号" prop="registCode">
-                <Input v-model="ruleForm.registCode" ></Input>
-              </Form-item>
-              </Col>
-              <Col span="11" offset="2">
-              <Form-item label="登记机关登记人员日期" prop="registDate">
-                <DatePicker v-model="ruleForm.registDate" ></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span="11" offset="13">
-              <Form-item label="加盖登记机关公章日期" prop="registStampDate">
-                <DatePicker v-model="ruleForm.registStampDate" ></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-          </div>
+              <!--<Form-item label="使用登记证编号" prop="registCode">-->
+                <!--<Input v-model="ruleForm.registCode" ></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+              <!--<Col span="11" offset="2">-->
+              <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
+                <!--<DatePicker v-model="ruleForm.registDate" ></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+            <!--<Row>-->
+              <!--<Col span="11" offset="13">-->
+              <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
+                <!--<DatePicker v-model="ruleForm.registStampDate" ></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+          <!--</div>-->
         </div>
 
         <!--让用户确认信息的表格-->
@@ -1004,7 +1004,7 @@
   }
 
   .base-box {
-    margin: 0 auto;
+    margin-left:140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -1012,7 +1012,7 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     //padding: 3px;
-    width: 80%;
+    width: 100%;
     padding-left: 100px;
     padding-right: 100px;
     box-sizing: border-box;

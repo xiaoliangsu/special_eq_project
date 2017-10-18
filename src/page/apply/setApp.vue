@@ -28,7 +28,7 @@
             <h2 class="header_two">设备基本情况</h2>
             <!--wang-->
             <Form-item label="登记类别" prop="registKind">
-              <Select v-model="ruleForm.registKind" >
+              <Select v-model="ruleForm.registKind">
                 <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
             </Form-item>
@@ -38,67 +38,68 @@
               <Form-item label="设备种类" prop="eqSpecies" class="fontsize">
                 <!--wang-->
                 <!--<Input v-model="ruleForm.eq_species" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>-->
-                <Select v-model="ruleForm.eqSpecies" >
+                <Select v-model="ruleForm.eqSpecies">
                   <Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
               </Form-item>
               <Form-item label="设备品种" prop="eqVariety">
                 <!--<Input v-model="ruleForm.eqVariety" ></Input>-->
-                <Poptip trigger="focus" >
+                <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>按照《特种设备目录》填写。没有品种的划“—”</p>
                   </div>
-                  <i-input v-model="ruleForm.eqVariety" ></i-input>
+                  <i-input v-model="ruleForm.eqVariety"></i-input>
                 </Poptip>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
                 <!--<Input v-model="ruleForm.eqCode" ></Input>-->
-                <Poptip trigger="focus" >
+                <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
-                    <p>按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记 机关的行政区划代码(比制造单位代号多一位)。
+                    <p>
+                      按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记 机关的行政区划代码(比制造单位代号多一位)。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.eqCode" ></i-input>
+                  <i-input v-model="ruleForm.eqCode"></i-input>
                 </Poptip>
               </Form-item>
               <Form-item label="设计使用年限" prop="designUseLimit">
-                <Input v-model="ruleForm.designUseLimit" ></Input>
+                <Input v-model="ruleForm.designUseLimit"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="设备类别" prop="eqCategory">
-                <Input v-model="ruleForm.eqCategory" ></Input>
+                <Input v-model="ruleForm.eqCategory"></Input>
               </Form-item>
               <Form-item label="产品名称" prop="eqName">
-                <Input v-model="ruleForm.eqName" ></Input>
+                <Input v-model="ruleForm.eqName"></Input>
               </Form-item>
               <Form-item label="型号（规格）" prop="model">
-                <Input v-model="ruleForm.model" ></Input>
+                <Input v-model="ruleForm.model"></Input>
               </Form-item>
               <Form-item label="设计单位名称" prop="designComName">
-                <Input v-model="ruleForm.designComName" ></Input>
+                <Input v-model="ruleForm.designComName"></Input>
               </Form-item>
               </Col>
             </Row>
             <Row><!--wang-->
               <Col span='11'>
               <Form-item label="制造单位名称" prop="manufactureComName">
-                <Input v-model="ruleForm.manufactureComName" ></Input>
+                <Input v-model="ruleForm.manufactureComName"></Input>
               </Form-item>
               <Form-item label="监督检验机构名称" prop="superviseComName">
-                <Input v-model="ruleForm.superviseComName" ></Input>
+                <Input v-model="ruleForm.superviseComName"></Input>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
               <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="施工单位名称" prop="constructComName">
-                <Input v-model="ruleForm.constructComName" ></Input>
+                <Input v-model="ruleForm.constructComName"></Input>
               </Form-item>
 
               <Form-item label="型式试验机构名称" prop="testComName">
-                <Input v-model="ruleForm.testComName" ></Input>
+                <Input v-model="ruleForm.testComName"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -109,32 +110,32 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName" ></Input>
+              <Input v-model="ruleForm.useComName"></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="ruleForm.useComAddr"></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="使用单位统一社会信用代码" prop="useComCode">
-                <Input v-model="ruleForm.useComCode" ></Input>
+                <Input v-model="ruleForm.useComCode"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="邮政编码" prop="zipCode">
-                <Input v-model="ruleForm.zipCode" ></Input>
+                <Input v-model="ruleForm.zipCode"></Input>
               </Form-item>
               </Col>
             </Row><!--wang-->
             <Row>
               <Col span="11">
               <Form-item label="单位内编号" prop="comCode">
-                <Input v-model="ruleForm.comCode" ></Input>
+                <Input v-model="ruleForm.comCode"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备使用地点" prop="eqUseLocation">
-                <Input v-model="ruleForm.eqUseLocation" ></Input>
+                <Input v-model="ruleForm.eqUseLocation"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -146,31 +147,31 @@
                 <DatePicker v-model="ruleForm.beginUseDate"></DatePicker>  <!--wang-->
               </Form-item>
               <Form-item label="安全管理员" prop="safeAdmin">
-                <Input v-model="ruleForm.safeAdmin" ></Input>
+                <Input v-model="ruleForm.safeAdmin"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="单位固定电话" prop="comPhone">
-                <Input v-model="ruleForm.comPhone" ></Input>
+                <Input v-model="ruleForm.comPhone"></Input>
               </Form-item>
               <Form-item label="移动电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone" ></Input>
+                <Input v-model="ruleForm.mobilePhone"></Input>
               </Form-item>
               </Col>
             </Row>
 
             <Form-item label="产权单位名称" prop="propertyComName">
-              <Input v-model="ruleForm.propertyComName" ></Input>
+              <Input v-model="ruleForm.propertyComName"></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="产权单位统一社会信用代码" prop="propertyComCode">
-                <Input v-model="ruleForm.propertyComCode" ></Input>
+                <Input v-model="ruleForm.propertyComCode"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="联系电话" prop="telephone">
-                <Input v-model="ruleForm.telephone" ></Input>
+                <Input v-model="ruleForm.telephone"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -181,17 +182,17 @@
           <div class="base-box">
             <h2 class="header_two">设备检验情况</h2>
             <Form-item label="检验机构名称" prop="checkComName">
-              <Input v-model="ruleForm.checkComName" ></Input>
+              <Input v-model="ruleForm.checkComName"></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="检验类别" prop="checkCategory">
-                <Input v-model="ruleForm.checkCategory" ></Input>
+                <Input v-model="ruleForm.checkCategory"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="检验报告编号" prop="checkReportNum">
-                <Input v-model="ruleForm.checkReportNum" ></Input>
+                <Input v-model="ruleForm.checkReportNum"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -205,8 +206,9 @@
               <Col span="11" offset="2">
               <Form-item label="检验结论" prop="checkConclusion">
                 <!--wang-->
-                <Select v-model="ruleForm.checkConclusion" >
-                  <Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                <Select v-model="ruleForm.checkConclusion">
+                  <Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
                 </Select>
               </Form-item>
               </Col>
@@ -216,60 +218,38 @@
               <DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>   <!--wang-->
             </Form-item>
           </div>
-          <div class="base-box">
-            <h2 class="header_two">其他信息</h2>
-            <p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特
-              种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。
-            </p>
-            <!--wang-->
-            <p>附产品数据表</p>
-            <Row>
-              <Col span="11">
-              <Form-item label="使用单位填表人员" prop="comTablePerson">
-                <Input v-model="ruleForm.comTablePerson" ></Input>
-              </Form-item>
-
-              <Form-item label="使用单位安全管理人员" prop="comSafePerson">
-                <Input v-model="ruleForm.comSafePerson" ></Input>
-              </Form-item>
-              </Col>
-              <Col span="11" offset="2">
-              <Form-item label="使用单位填表人员日期" prop="comPersonDate">
-                <DatePicker v-model="ruleForm.comPersonDate"></DatePicker>
-              </Form-item>
-              <Form-item label="安全管理人员填表日期" prop="safePersonDate">
-                <DatePicker v-model="ruleForm.safePersonDate"></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-            <Form-item label="加盖公章日期" prop="checkConclusion">
-              <DatePicker v-model="ruleForm.beginUseDate"></DatePicker>
-            </Form-item>
-          </div>
+          <!--<div class="base-box">-->
+            <!--<h2 class="header_two">其他信息</h2>-->
+            <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
+            <!--</p>-->
+            <!--&lt;!&ndash;wang&ndash;&gt;-->
+            <!--<p>附产品数据表</p>-->
+           <!---->
+          <!--</div>-->
           <!--wang-->
-          <div class="base-box">
-            <h2 class="header_two">说明</h2>
-            <Row>
-              <Col span="11">
-              <Form-item label="登记机关登记人员" prop="registPerson">
-                <Input v-model="ruleForm.registPerson" ></Input>
-              </Form-item>
+          <!--<div class="base-box">-->
+            <!--<h2 class="header_two">说明</h2>-->
+            <!--<Row>-->
+              <!--<Col span="11">-->
+              <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
+                <!--<Input v-model="ruleForm.registPerson"></Input>-->
+              <!--</Form-item>-->
 
-              <Form-item label="使用登记证编号" prop="registCode">
-                <Input v-model="ruleForm.registCode" ></Input>
-              </Form-item>
-              </Col>
-              <Col span="11" offset="2">
-              <Form-item label="登记机关登记人员日期" prop="registDate">
-                <DatePicker v-model="ruleForm.registDate" ></DatePicker>
-              </Form-item>
+              <!--<Form-item label="使用登记证编号" prop="registCode">-->
+                <!--<Input v-model="ruleForm.registCode"></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+              <!--<Col span="11" offset="2">-->
+              <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
+                <!--<DatePicker v-model="ruleForm.registDate"></DatePicker>-->
+              <!--</Form-item>-->
 
-              <Form-item label="加盖登记机关公章日期" prop="registStampDate">
-                <DatePicker v-model="ruleForm.registStampDate" ></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
-          </div>
+              <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
+                <!--<DatePicker v-model="ruleForm.registStampDate"></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+          <!--</div>-->
 
         </div>
 
@@ -279,7 +259,7 @@
           <!--要这两行-->
 
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
-          <Button  type="warning"  @click="printTrigger('iFramePdf');" >打印</Button>
+          <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
 
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
@@ -291,71 +271,162 @@
 
         </div>
 
-
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
+
         <div class="pdfInfo" v-if="this.active==3">
           <h2>相关证明</h2>
           <!--这个接口是尝试过成功的-->
-          <Form-item label="社会信用代码证明" :label-width="300">
-            <Upload
-              ref="upload"
+          <Row>
+            <Col span="10">
+            <Form-item label="社会信用代码证明" :label-width="200">
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
+              </Upload>
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="个人身份证明" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
+            </Form-item>
+            </Col>
+          </Row>
+          <h5>特种设备产品合格证</h5>
+          <Row>
+            <Col span="10">
+
+            <Form-item label="产品数据表" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="车用气瓶安装合格证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+          </Row>
+          <Form-item label="特种设备监督检验证明" :label-width="200">
+            <Upload
+              ref="upload2"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
-              action="/admin/file/upload?applyId=2&fileTypeId=1"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+              :before-upload="handleBeforeUpload"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
             </Upload>
 
+          </Form-item>
+          <Row>
+            <Col span="10">
+            <Form-item label="机动车行驶证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="机动车登记证书" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+          </Row>
+
+          <Form-item label="锅炉能效证明文件" :label-width="200">
+            <Upload
+              ref="upload2"
+              :on-success="handleSuccess"
+              :on-remove="handleRemove"
+              :default-file-list="defaultPdfList1"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+              :before-upload="handleBeforeUpload"
+              with-credentials>
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+            </Upload>
+
+          </Form-item>
 
 
-          </Form-item>
-          <Form-item label="产品合格证" :label-width="300">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-            </Upload>
-          </Form-item>
-          <Form-item label="监督检验证明" :label-width="300">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-            </Upload>
-          </Form-item>
-          <Form-item label="锅炉能效证明" :label-width="300" v-if="this.deviceType=='boiler'">
-            <Upload action="//jsonplaceholder.typicode.com/posts/"
-                    :on-success="handleSuccess"
-                    with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-            </Upload>
-          </Form-item>
           <h5>上传文件缩略图</h5>
-          <div class="demo-upload-list" v-for="(item,index) in uploadList" >
-            <template v-if="uploadList">
-              <img :src="item.url">
-              <div class="demo-upload-list-cover">
-                <Icon type="ios-eye-outline" @click.native="handleView(index)"></Icon>
-              </div>
-
-            </template>
-            <!--<img src="/admin/file/thumbnail?fileId=201" ref="verifyImg"  style="width:100px;height:35px;float:right"-->
-            <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
-
+          <div class="demo-upload-list" v-for="(item,index) in uploadList">
+            <img :src="item.url">
+            <div class="demo-upload-list-cover">
+              <Icon type="ios-eye-outline" @click.native="handleView(index)"></Icon>
+            </div>
 
           </div>
+          <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
+          <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
 
           <Modal title="查看图片" v-model="visible">
-            <iframe id="iFramePdf" v-bind:src=this.pdfUrlTest style="width:100%;height:1000px;"  v-if="visible"></iframe>
+            <iframe id="iFramePdf" v-bind:src=this.pdf style="width:100%;height:1000px;" v-if="visible"></iframe>
 
           </Modal>
+
           <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
           <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
-
 
         <div class="setApp_button">
 
@@ -364,19 +435,21 @@
           <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
           <!--<Button type="primary" @click="before()" v-if="this.active==1">上一步</Button>-->
+          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
 
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
           <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
           <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
         </div>
 
       </Form>
+
     </div>
+
 
   </div>
 </template>
@@ -392,8 +465,10 @@
     data() {
       return {
         //等调的时候再拼接口
-         pdfUrl: '/admin/file/preview?fileId=101',
-        pdfUrlTest:'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        pdfUrl: '/admin/file/preview?fileId=101',
+        pdfUrlTest: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        pdfList: [],
+        pdf: '',
 
         deviceList: [
           {
@@ -422,69 +497,67 @@
         deviceType: '',
         ruleForm: {},
         //wang
-        registKindList:[
+        registKindList: [
           {
-            value:'新设备首次启用',
-            label:'新设备首次启用'
+            value: '新设备首次启用',
+            label: '新设备首次启用'
           },
           {
-            value:'停用后启用',
-            label:'停用后启用'
+            value: '停用后启用',
+            label: '停用后启用'
           },
           {
-            value:'改造',
-            label:'改造'
+            value: '改造',
+            label: '改造'
           },
           {
-            value:'使用单位更名',
-            label:'使用单位更名'
+            value: '使用单位更名',
+            label: '使用单位更名'
           },
           {
-            value:'使用地址变更',
-            label:'使用地址变更'
+            value: '使用地址变更',
+            label: '使用地址变更'
           },
           {
-            value:'过户',
-            label:'过户'
+            value: '过户',
+            label: '过户'
           },
           {
-            value:'移装',
-            label:'移装'
+            value: '移装',
+            label: '移装'
           },
           {
-            value:'达到设计使用年限',
-            label:'达到设计使用年限'
+            value: '达到设计使用年限',
+            label: '达到设计使用年限'
           },
         ],
         //wang
         checkConclusionList: [
           {
-            value:'meetRequirement',
-            label:'符合要求'
+            value: 'meetRequirement',
+            label: '符合要求'
           },
           {
-            value:'basicallyMeetRequirement',
-            label:'基本符合要求'
+            value: 'basicallyMeetRequirement',
+            label: '基本符合要求'
           },
           {
-            value:'qualified',
-            label:'不符合要求'
+            value: 'qualified',
+            label: '不符合要求'
           },
           {
-            value:'qualified',
-            label:'合格'
+            value: 'qualified',
+            label: '合格'
           },
           {
-            value:'retestQualified',
-            label:'复检合格'
+            value: 'retestQualified',
+            label: '复检合格'
           },
           {
-            value:'unqualified',
-            label:'不合格'
+            value: 'unqualified',
+            label: '不合格'
           },
         ],
-
-
 
 
         //wang
@@ -651,13 +724,14 @@
 //        acceptComList: [],
 //        checkCom: '',
 //        checkComList: [],
-        device_type:'',
-        ifold:0,
-        uploadList:[
-      ],
+        device_type: '',
+        ifold: 0,
+        uploadList: [
+          {"url": ''}
+        ],
 
-      visible:false,
-
+        visible: false,
+        applyId: '',
 
 
       };
@@ -671,12 +745,12 @@
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
-    '$route.query':function(){
-      console.log(this.$route.path);
-      if(this.$route.path=='/setApp'){
+      '$route.query': function () {
+        console.log(this.$route.path);
+        if (this.$route.path == '/setApp') {
           this.initData();
+        }
       }
-    }
     },
     computed: {
       //...mapState(['selectedOption']),
@@ -688,20 +762,20 @@
     },
 
     mounted(){
-     // this.initData();
-      this.ifold=this.$route.query.ifold;
-      if(this.ifold==1){
+      // this.initData();
+      this.ifold = this.$route.query.ifold;
+      if (this.ifold == 1) {
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRegistOneForm();
-        //  this.setRegistOneForm(res.success.ruleForm[0]);
+          //  this.setRegistOneForm(res.success.ruleForm[0]);
           this.ruleForm = this.getRegistOne;
-          this.ruleForm.eqVariety="设备类别";
+          this.ruleForm.eqVariety = "设备类别";
           this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
           console.log(error)
         })
-      }else{
+      } else {
 
       }
 
@@ -713,13 +787,11 @@
         ['clearRegistOneForm', 'setRegistOneForm'],
       ),
       handleView(index){
-          console.log(index);
+        console.log(index);
         this.visible = true;
+        this.pdf = this.pdfList[index];
       },
-      reflushVerify() {
-          console.log(1);
-        this.$refs.verifyImg.src="/admin/file/thumbnail?fileId=201";
-      },
+
       //打印按钮
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
@@ -731,8 +803,8 @@
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
-        this.device_type=this.$route.query.device_type;
-        this.ifold=this.$route.query.ifold;
+        this.device_type = this.$route.query.device_type;
+        this.ifold = this.$route.query.ifold;
 
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
@@ -748,11 +820,11 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          this.acceptCom=res.data.acceptorAgencyId;
+          this.acceptCom = res.data.acceptorAgencyId;
           this.clearRegistOneForm();
           //this.setRegistOneForm(res.success.ruleForm[0]);
           this.ruleForm = this.getRegistOne;
-          this.ruleForm.eqVariety="设备类别";
+          this.ruleForm.eqVariety = "设备类别";
 
 
           this.defaultPdfList1 = res.pdfUrlDefault;
@@ -762,10 +834,11 @@
       },
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
+          this.applyId = res.data.applyId;
           this.$Message.info('您已提交信息，请预览结果');
           this.modalCertain = false;
           console.log(this.modalCertain);
-          if(res.status==true){
+          if (res.status == true) {
           }
 
         }).catch(error => {
@@ -784,17 +857,17 @@
             console.log(this.active);
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam={};
-            submitParam.form1=this.ruleForm;
-            submitParam.address=this.area||this.city;
+            let submitParam = {};
+            submitParam.form1 = this.ruleForm;
+            submitParam.address = this.area || this.city;
             // submitParam.agencies=["12","13"];
-            submitParam.approverAgencyId=12;
-            submitParam.acceptorAgencyId=13;
-            submitParam.deviceTypeId=this.device_type;
-            submitParam.applyTypeId=1;
-            submitParam.hasFiles=true;
+            submitParam.approverAgencyId = 12;
+            submitParam.acceptorAgencyId = 13;
+            submitParam.deviceTypeId = this.device_type;
+            submitParam.applyTypeId = 1;
+            submitParam.hasFiles = true;
             console.log(submitParam);
-              this.submit(submitParam);
+            this.submit(submitParam);
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -804,21 +877,20 @@
         // this.active++;
 
 
-
       },
       saveForm(formName){
 
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam={};
-        submitParam.form1=this.ruleForm;
-        submitParam.address=this.area||this.city;
+        let submitParam = {};
+        submitParam.form1 = this.ruleForm;
+        submitParam.address = this.area || this.city;
         // submitParam.agencies=["12","13"];
-        submitParam.approverAgencyId=12;
-        submitParam.acceptorAgencyId=13;
-        submitParam.deviceTypeId=this.device_type;
-        submitParam.applyTypeId=1;
-        submitParam.hasFiles=true;
+        submitParam.approverAgencyId = 12;
+        submitParam.acceptorAgencyId = 13;
+        submitParam.deviceTypeId = this.device_type;
+        submitParam.applyTypeId = 1;
+        submitParam.hasFiles = true;
         console.log(submitParam);
         this.$Modal.confirm({
           title: '保存登记表信息',
@@ -828,7 +900,7 @@
               this.$Message.info('您已保存信息');
               this.modalCertain = false;
               console.log(this.modalCertain);
-              if(res.status==true){
+              if (res.status == true) {
               }
             }).catch(error => {
               console.log(error);
@@ -876,10 +948,16 @@
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
 
-       // this.uploadList = this.$refs.upload.fileList;
+        // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
-        this.uploadList.push({"url":res.data.thumbnail});
-        console.log(this.uploadList)
+        if (this.uploadList[0].url === '') {
+          this.uploadList[0].url = "/admin" + res.data.thumbnail;
+          this.pdfList.push("/admin" + res.data.preview)
+        } else {
+          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
+          this.pdfList.push("/admin" + res.data.preview)
+
+        }
 
       },
       handleRemove(res, file) {
@@ -888,12 +966,21 @@
         console.log(file);
 
       },
+      handleBeforeUpload () {
+        const check = this.uploadList.length < 2;
+        if (!check) {
+          this.$Notice.warning({
+            title: '最多只能上传 2 张图片。'
+          });
+        }
+        return check;
+      },
 
       //这里参数要改
       instance (type) {
         let params = 'applyId=' + 1;
         setAppService.confrimApp(params).then(res => {
-          if(res){
+          if (res) {
             const title = '通知';
             const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
             switch (type) {
@@ -915,10 +1002,9 @@
 
       },
       changeBasic(){
-          this.ifold=0;
+        this.ifold = 0;
       }
     },
-
 
 
   }
@@ -953,7 +1039,7 @@
   }
 
   .base-box {
-    margin: 0 auto;
+    margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -961,7 +1047,7 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     //padding: 3px;
-    width: 80%;
+    width: 100%;
     padding-left: 100px;
     padding-right: 100px;
     box-sizing: border-box;
@@ -998,7 +1084,6 @@
     margin: 10px;
   }
 
-
   .city_select_app {
 
     margin: 0 auto;
@@ -1015,8 +1100,9 @@
     margin-bottom: 10px;
 
   }
-  .city_select_app_exit{
-    width:700px;
+
+  .city_select_app_exit {
+    width: 700px;
     display: block;
     padding: 10px;
     background-color: white;
@@ -1027,20 +1113,21 @@
     border-bottom-left-radius: 3px;
     margin-left: 200px;
     margin-bottom: 10px;
-    .city_select_content{
-      border-bottom:1px solid #dddee1;
-      margin-bottom:5px;
-      padding-bottom:5px;
+    .city_select_content {
+      border-bottom: 1px solid #dddee1;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
     }
   }
-  .pdfInfo{
-    margin:15px;
+
+  .pdfInfo {
+    margin: 15px;
   }
 
   /*.ivu-form-item {*/
   /*margin-bottom: 10px;*/
   /*}*/
-  .demo-upload-list{
+  .demo-upload-list {
     display: inline-block;
     width: 150px;
     height: 200px;
@@ -1051,26 +1138,30 @@
     overflow: hidden;
     background: #fff;
     position: relative;
-    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
     margin-right: 4px;
   }
-  .demo-upload-list img{
+
+  .demo-upload-list img {
     width: 100%;
     height: 100%;
   }
-  .demo-upload-list-cover{
+
+  .demo-upload-list-cover {
     display: none;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,.6);
+    background: rgba(0, 0, 0, .6);
   }
-  .demo-upload-list:hover .demo-upload-list-cover{
+
+  .demo-upload-list:hover .demo-upload-list-cover {
     display: block;
   }
-  .demo-upload-list-cover i{
+
+  .demo-upload-list-cover i {
     color: #fff;
     font-size: 20px;
     cursor: pointer;
