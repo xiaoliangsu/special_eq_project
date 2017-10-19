@@ -970,7 +970,7 @@
           this.applyId = res.data.applyId;
           this.$Message.info('您已提交信息，请预览结果');
           this.modalCertain = false;
-          console.log(this.modalCertain);
+         // console.log(this.modalCertain);
           if (res.status == true) {
           }
 
@@ -984,8 +984,8 @@
           if (valid) {
             this.current++;
             this.active++;
-            console.log(valid);
-            console.log(this.active);
+           // console.log(valid);
+           // console.log(this.active);
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = {};
@@ -997,7 +997,7 @@
             submitParam.deviceTypeId = this.device_type;
             submitParam.applyTypeId = 1;
             submitParam.hasFiles = true;
-            console.log(submitParam);
+           // console.log(submitParam);
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1048,7 +1048,7 @@
       },
       //重置
       resetForm(formName) {
-        console.log(this.$refs[formName]);
+      //  console.log(this.$refs[formName]);
         this.$refs[formName].resetFields();
       },
       //下一步

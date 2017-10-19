@@ -113,20 +113,30 @@
         applyType: '',
         columns5: [
           {
-            title: 'id号',
+            title: '设备代码',
             key: 'id'
           },
           {
-            title: '设备名称',
+            title: '产品名称',
             key: 'device'
           },
           {
-            title: '日期',
+            title: '提交日期',
             key: 'createTime',
             sortable: true
           },
           {
+            title: '设备种类',
+            key: 'deviceType',
+
+          },
+          {
             title: '设备类别',
+            key: 'deviceType',
+
+          },
+          {
+            title: '设备品种',
             key: 'deviceType',
 
           },
@@ -137,17 +147,10 @@
           },
 
           {
-            title: '受理机关',
+            title: '登记机关',
             key: 'acceptorAgencyName',
           },
-//          {
-//            title: '审批机关',
-//            key: 'acceptorAgencyName'
-//          },
-          {
-            title: '监管机关',
-            key: 'acceptorAgencyName'
-          },
+
           {
             title: '申请状态',
             key: 'state',
@@ -488,14 +491,14 @@
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceType == "压力容器") {
+            if (this.data5[value].deviceTypeId<8) {
               this.$router.push({
                 path: 'appDetail',
                 query: {
                   applyId: this.data5[value].id,
                 }
               });
-            } else if (this.data5[value].changeDeviceNum[0] == 'two') {
+            } else if (this.data5[value].deviceTypeId>8) {
               this.$router.push({
                 path: 'comAppDetail',
                 query: {
@@ -504,7 +507,7 @@
                   orderState: this.orderState,
                 }
               });
-            } else if (this.data5[value].changeDeviceNum[1] == 'carbox') {
+            } else if (this.data5[value].deviceTypeId==8) {
               this.$router.push({
                 path: 'carboxAppDetail',
                 query: {
