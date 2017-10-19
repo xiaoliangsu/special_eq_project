@@ -1076,7 +1076,7 @@
       },
 
       instance (type) {
-        let params = 'applyId=' + 1;
+        let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if(res){
             const title = '通知';

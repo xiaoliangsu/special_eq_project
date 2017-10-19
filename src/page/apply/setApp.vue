@@ -785,13 +785,7 @@
       ...mapActions(
         ['clearRegistOneForm', 'setRegistOneForm'],
       ),
-      handleView(index){
-        console.log(index);
-        this.visible = true;
-        this.pdf = this.pdfList[index];
-      },
 
-      //打印按钮
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
@@ -979,10 +973,17 @@
         }
         return check;
       },
+      handleView(index){
+        console.log(index);
+        this.visible = true;
+        this.pdf = this.pdfList[index];
+      },
+
+      //打印按钮
 
       //这里参数要改
       instance (type) {
-        let params = 'applyId=' + 1;
+        let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {
             const title = '通知';

@@ -303,6 +303,8 @@
             if(res.status===200){
               this.$Message.info('注册成功，请登录');
               this.$router.push('login');
+            }else if(res.status===500){
+              this.$Message.info(res.msg);
             }
 
         }).catch(error => {
