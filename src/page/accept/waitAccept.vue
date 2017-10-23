@@ -2,27 +2,33 @@
   <div class="waitAccepter">
     <div class="filter-box">
       <Row>
-        <Col span="9">
+        <Col :xs="8" :sm="8" :md="8" :lg="8">
         <label>订单时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
+        <label>设备类别</label>
+        <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
+        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+        <!--</Select>-->
+        <Cascader :data="options" v-model="deviceType" trigger="hover"
+                  style="width:200px;display:inline-block;"></Cascader>
+        </Col>
 
-
-        <Col span="8">
+        <Col :xs="8" :sm="8" :md="8" :lg="8">
         <label>申请类别</label>
         <Select v-model="applyType" style="width:180px">
           <Option v-for="item in sort" :value="item.value" :key="item.value"> {{ item.label }}</Option>
         </Select>
         </Col>
-        <Col span="7">
-        <label>申请状态</label>
-        <Select v-model="applyState" style="width:180px" placeholder="请选择">
-          <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
-        </Select>
-        <!--<label>申请id</label>-->
-        <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
-        </Col>
+        <!--<Col span="7">-->
+        <!--<label>申请状态</label>-->
+        <!--<Select v-model="applyState" style="width:180px" placeholder="请选择">-->
+        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+        <!--</Select>-->
+        <!--&lt;!&ndash;<label>申请id</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>&ndash;&gt;-->
+        <!--</Col>-->
         <Button type="primary" class="query" @click="query">查询</Button>
       </Row>
       <div class="innerBox">
@@ -48,30 +54,78 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as orderStatusService from '../../services/orderStatus'
+  import * as acceptService from '../../services/accept'
+
   export default {
     data() {
       return {
+        options: [{
+          value: 'one',
+          label: '按台（套）申请',
+          children: [{
+            value: '1',
+            label: '锅炉',
+          }, {
+            value: '2',
+            label: '压力容器（气瓶除外）'
+          }, {
+            value: '3',
+            label: '电梯'
+          }, {
+            value: '4',
+            label: '起重机械'
+          }, {
+            value: '5',
+            label: '客运索道'
+          }, {
+            value: '6',
+            label: '大型游乐设施'
+          }, {
+            value: '7',
+            label: '场 (厂)内专用机动车辆'
+          }, {
+            value: '8',
+            label: '车用气瓶'
+          },]
+
+        }, {
+          value: 'two',
+          label: '按单位申请',
+          children: [{
+            value: '9',
+            label: '气瓶(车用气瓶除外)',
+          }, {
+            value: '10',
+            label: '工业管道'
+          },]
+        }
+        ],
         List: [
-//          {
-//            value: '0',
-//            label: '未提交'
-//          },
-//          {
-//            value: '1',
-//            label: '提交未受理'
-//          },
-//          {
-//            value: '2',
-//            label: '受理通过未审批'
-//          },
+          {
+            value: '0',
+            label: '未提交'
+          },
+          {
+            value: '1',
+            label: '提交未受理'
+          },
+          {
+            value: '2',
+            label: '受理通过未审批'
+          },
           {
             value: '3',
             label: '审批通过'
           },
           {
             value: '4',
-            label: '驳回'
+            label: '受理驳回'
           },
+          {
+            value: '5',
+            label: '审批驳回'
+          },
+
 
         ],
         sort: [
@@ -109,24 +163,34 @@
           },
         ],
         //申请状态
-        applyState: '',
+        //applyState: '',
         applyType: '',
         columns5: [
           {
-            title: 'id号',
+            title: '设备代码',
             key: 'id'
           },
           {
-            title: '设备名称',
+            title: '产品名称',
             key: 'device'
           },
           {
-            title: '日期',
+            title: '提交日期',
             key: 'createTime',
             sortable: true
           },
           {
+            title: '设备种类',
+            key: 'deviceType',
+
+          },
+          {
             title: '设备类别',
+            key: 'deviceType',
+
+          },
+          {
+            title: '设备品种',
             key: 'deviceType',
 
           },
@@ -137,110 +201,35 @@
           },
 
           {
-            title: '受理机关',
+            title: '登记机关',
             key: 'acceptorAgencyName',
           },
-//          {
-//            title: '审批机关',
-//            key: 'acceptorAgencyName'
-//          },
           {
-            title: '监管机关',
-            key: 'acceptorAgencyName'
-          },
-          {
-            title: '申请状态',
+            title: '受理状态',
             key: 'state',
-//                        render: (h, params) => {
-//                            return h('div', [
-//                                h('Button', {
-//                                    props: {
-//                                        type: 'primary',
-//                                        size: 'small'
-//                                    },
-//                                    style: {
-//                                        marginRight: '5px'
-//                                    },
-//                                    on: {
-//                                        click: () => {
-//                                            this.show(params.index)
-//                                        }
-//                                    }
-//                                }, '查看'),
-//                                h('Button', {
-//                                    props: {
-//                                        type: 'error',
-//                                        size: 'small'
-//                                    },
-//                                    on: {
-//                                        click: () => {
-//                                            this.remove(params.index)
-//                                        }
-//                                    }
-//                                }, '删除')
-//                            ]);
-//                        }
-
           },
           {
             title: '操作',
             key: 'state',
             render: (h, params) => {
-              if(params.row.state=='已审批通过'){
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small'
-                    },
-                    style: {
-                      marginRight: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.appDetail(params.index)
-                      }
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    fontSize: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.appDetail(params.index)
                     }
-                  }, '详情'),
+                  }
+                }, '详情'),
 
-                ]);
-              }else if(params.row.state=='驳回'){
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small'
-                    },
-                    style: {
-                      marginRight: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.appDetail(params.index)
-                      }
-                    }
-                  }, '详情'),
-                  h('Button', {
-                    props: {
-                      type: 'warning',
-                      size: 'small'
-                    },
-                    style: {
-                      marginleft: '5px',
-                      fontSize: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        this.modifyApp(params.index)
-                      }
-                    }
-                  }, '修改'),
-
-                ]);
-
-              }
+              ]);
 
 
             }
@@ -265,6 +254,7 @@
         currentPage: 1,
         //申请id
         applyId: '',
+        deviceType: [],
 
 
       }
@@ -298,37 +288,39 @@
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
-        this.applyState = '';
+        //  this.applyState = '';
         let waitAccparams = {
           page: 0,
           size: 10,
         }
 
-        waitAccparams.states = [0,0];
+//        waitAccparams.states = 0;
         console.log(waitAccparams)
 
 
         this.getOrders(waitAccparams);
       },
+
       //获取申请列表信息
 
       getOrders(waitAccparams){
-        orderStatusService.GetOrders(waitAccparams).then(res => {
-            console.log("getorders");
-            //this.data5.device = res.data.content[0].id;
-            this.data5 = res.data.content;
-            this.num = res.data.totalElements;
-            //  this.data5.state=res.data.content.status.state;
-            for (var i = 0; i < res.data.content.length; i++) {
-              this.data5[i].state = res.data.content[i].status.states;
-              let newDate = new Date(res.data.content[i].createTime);
-              let Y = newDate.getFullYear() + '-';
-              let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-              let D = newDate.getDate() + ' ';
-              this.data5[i].createTime = Y + M + D;
+        acceptService.GetUnAcceptedOrders(waitAccparams).then(res => {
+            if (res.status === 200) {
+              //this.data5.device = res.data.content[0].id;
+              this.data5 = res.data.content;
+              this.num = res.data.totalElements;
+              //  this.data5.state=res.data.content.status.state;
+              for (var i = 0; i < res.data.content.length; i++) {
+                this.data5[i].state = res.data.content[i].status.states;
+                let newDate = new Date(res.data.content[i].createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[i].createTime = Y + M + D;
+              }
+            } else {
+              this.data5 = [];
             }
-
-
           }
         ).catch(error => {
           console.log(error);
@@ -348,13 +340,34 @@
         if (this.applyId) {
           this.time = ['', ''];
           this.applyType = '';
+          this.deviceType = [];
+          this.deviceTypeId = '';
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
-          this.applyState = '';
+          // this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
-          this.getOrders(waitAccparams);
+          acceptService.getDetailOrder(waitAccparams).then(res => {
+              console.log(res);
+              if (res.status === 200) {
+                this.data5 = [res.data];
+                this.data5[0].state = res.data.status.states;
+                let newDate = new Date(res.data.createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[0].createTime = Y + M + D;
+              }
+            }
+          ).catch(error => {
+            console.log(error);
+          })
         }
+      },
+      changeTime(time){
+        return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
+          time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
+
       },
       query(){
         this.$refs['pages'].currentPage = 1;
@@ -364,14 +377,17 @@
           page: 0,
           size: 10,
         }
+
+
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
+          // waitAccparams.time[1] = this.time[1];
         }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+        if (this.deviceType !== '') {
+          waitAccparams.deviceTypeId = parseInt(this.deviceType[1]);
         }
         if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
+          waitAccparams.applyTypeId = parseInt(this.applyType);
         }
         this.getOrders(waitAccparams);
       },
@@ -384,139 +400,46 @@
 
         }
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
+
         }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+        if (this.deviceType !== '') {
+          waitAccparams.deviceTypeId = parseInt(this.deviceType[1]);
         }
         if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
+          waitAccparams.applyTypeId = parseInt(this.applyType);
         }
         this.getOrders(waitAccparams);
 
       },
-      deleteApp(value)
-      {
-        this.$Modal.confirm({
-          title: '确认对话框标题',
-          content: '<p>确认删除该条申请？</p>',
-          onOk: () => {
-            let waitAccparams = 'applyId=' + this.data5[value].id;
-            orderStatusService.deleteApp(waitAccparams).then(res => {
-                this.$router.go(0);
-              }
-            ).catch(error => {
-              console.log(error);
-            })
-          },
-          onCancel: () => {
-            this.$Message.info('点击了取消');
-          }
-        });
 
 
-      }
-      ,
-
-      //      modifyApp(value){
-      //        console.log(1111);
-      //        console.log(this.data5[value].changeApplyNum);
-      //        switch (this.data5[value].changeApplyNum) {
-      //          case 1:
-      //            //按套首次申请
-      //            this.$router.push({
-      //              path: 'setApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //                //selectedNum:2
-      //              }
-      //            });
-      //            //let temp = this.data5[value].changeDeviceNum;
-      //            break;
-      //
-      //          case 2:
-      //            //单位首次申请
-      //            this.$router.push({
-      //              path: 'companyApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //                //changeDeviceNum: this.data5[value].changeDeviceNum,
-      //
-      //              }
-      //            });
-      //            break;
-      //          case 3:
-      //            //车瓶首次申请
-      //            this.$router.push({
-      //              path: 'carboxApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //              }
-      //            });
-      //            break;
-      //          case 4:
-      //            //单位变更
-      //            this.$router.push({
-      //              path: 'appDetail',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                orderState: this.orderState
-      //              }
-      //            });
-      //            break;
-      //          ////等等
-      //
-      //
-      //        }
-      //
-      //
-      //      },
-
-      //            appDetail(value){
-      //                // console.log(value);
-      //                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
-      //            }
-      appDetail(value)
-      {
+      appDetail(value){
 //    switch (this.data5[value].changeApplyNum) {
         console.log(this.data5[value].applyType);
         switch (this.data5[value].applyType) {
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceType == "压力容器") {
+            if (this.data5[value].deviceTypeId < 8) {
               this.$router.push({
                 path: 'appDetail',
                 query: {
                   applyId: this.data5[value].id,
                 }
               });
-            } else if (this.data5[value].changeDeviceNum[0] == 'two') {
+            } else if (this.data5[value].deviceTypeId > 8) {
               this.$router.push({
                 path: 'comAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
                 }
               });
-            } else if (this.data5[value].changeDeviceNum[1] == 'carbox') {
+            } else if (this.data5[value].deviceTypeId == 8) {
               this.$router.push({
                 path: 'carboxAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
                 }
               });
             }

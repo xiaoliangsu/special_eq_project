@@ -7,13 +7,14 @@ import fetch from '../fetch/http.js';
 export function GetOrders(param) {
   return fetch('/apply/get',param,'post')
 }
-//精准搜索
-export function GetExactOrders(param) {
-  return fetch('/apply/get?'+param,param,'get')
-}
+
 
 export function deleteApp(param) {
   return fetch('/apply/delete?'+param,param,'get')
+}
+//精准搜索
+export function getDetailOrder(params) {
+  return fetch('/apply/get?'+params, params,'get')
 }
 
 

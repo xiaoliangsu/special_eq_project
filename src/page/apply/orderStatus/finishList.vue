@@ -70,7 +70,11 @@
           },
           {
             value: '4',
-            label: '驳回'
+            label: '受理驳回'
+          },
+          {
+            value: '5',
+            label: '审批驳回'
           },
 
         ],
@@ -177,7 +181,7 @@
                 }, '详情'),
 
               ]);
-              }else if(params.row.state=='驳回'){
+              }else if(params.row.state=='受理驳回'||params.row.state=='审批驳回'){
                 return h('div', [
                   h('Button', {
                     props: {
@@ -276,7 +280,7 @@
           size: 10,
         }
 
-        waitAccparams.states = [3,4];
+        waitAccparams.states = [3,4,5];
         console.log(waitAccparams)
 
 
@@ -286,7 +290,7 @@
 
       getOrders(waitAccparams){
         orderStatusService.GetOrders(waitAccparams).then(res => {
-            console.log("getorders");
+          if (res.status === 200) {
             //this.data5.device = res.data.content[0].id;
             this.data5 = res.data.content;
             this.num = res.data.totalElements;
@@ -299,6 +303,10 @@
               let D = newDate.getDate() + ' ';
               this.data5[i].createTime = Y + M + D;
             }
+
+          } else {
+            this.data5 = [];
+          }
 
 
           }
@@ -325,8 +333,26 @@
 //       }
           this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
-          this.getOrders(waitAccparams);
+          orderStatusService.getDetailOrder(waitAccparams).then(res => {
+              console.log(res);
+              if (res.status === 200) {
+                this.data5 = [res.data];
+                this.data5[0].state = res.data.status.states;
+                let newDate = new Date(res.data.createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[0].createTime = Y + M + D;
+              }
+            }
+          ).catch(error => {
+            console.log(error);
+          })
         }
+      },
+      changeTime(time){
+        return [time[0].getFullYear()+"-"+(parseInt(time[0].getMonth())+1)+"-"+time[0].getDate(),
+          time[1].getFullYear()+"-"+(parseInt(time[1].getMonth())+1)+"-"+time[1].getDate()]
       },
       query(){
         this.$refs['pages'].currentPage = 1;
@@ -337,7 +363,7 @@
           size: 10,
         }
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
         }
         if (this.applyState !== '') {
           waitAccparams.states = [this.applyState,this.applyState];
@@ -356,7 +382,8 @@
 
         }
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
+
         }
         if (this.applyState !== '') {
           waitAccparams.states = [this.applyState,this.applyState];
@@ -477,18 +504,14 @@
               this.$router.push({
                 path: 'comAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
                 }
               });
             } else if (this.data5[value].deviceTypeId==8) {
               this.$router.push({
                 path: 'carboxAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
                 }
               });
             }

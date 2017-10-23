@@ -826,7 +826,7 @@
           {"url": ''}
         ],
         ifold: 0,
-        device_type:'',
+        device_type:9,
 
 
       };
@@ -856,6 +856,8 @@
     },
     mounted(){
       this.ifold = this.$route.query.ifold;
+      this.device_type = this.$route.query.device_type;
+
       if (this.ifold == 1) {
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {

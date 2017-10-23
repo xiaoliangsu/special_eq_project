@@ -62,6 +62,8 @@
       ),
       sighOut() {
         this.setSignOut();
+        this.$router.push('login');
+
 
       },
       initData(){

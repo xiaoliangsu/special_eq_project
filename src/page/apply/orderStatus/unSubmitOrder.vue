@@ -18,7 +18,7 @@
         <!--<Col span="7">-->
         <!--<label>申请状态</label>-->
         <!--<Select v-model="applyState" style="width:180px" placeholder="请选择">-->
-          <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
         <!--</Select>-->
         <!--&lt;!&ndash;<label>申请id</label>&ndash;&gt;-->
         <!--&lt;!&ndash;<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>&ndash;&gt;-->
@@ -298,7 +298,7 @@
           size: 10,
         }
 
-        waitAccparams.states = [0,0];
+        waitAccparams.states = [0, 0];
         console.log(waitAccparams)
 
 
@@ -308,21 +308,23 @@
 
       getOrders(waitAccparams){
         orderStatusService.GetOrders(waitAccparams).then(res => {
-            console.log("getorders");
-            //this.data5.device = res.data.content[0].id;
-            this.data5 = res.data.content;
-            this.num = res.data.totalElements;
-            //  this.data5.state=res.data.content.status.state;
-            for (var i = 0; i < res.data.content.length; i++) {
-              this.data5[i].state = res.data.content[i].status.states;
-              let newDate = new Date(res.data.content[i].createTime);
-              let Y = newDate.getFullYear() + '-';
-              let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-              let D = newDate.getDate() + ' ';
-              this.data5[i].createTime = Y + M + D;
+            if (res.status === 200) {
+              //this.data5.device = res.data.content[0].id;
+              this.data5 = res.data.content;
+              this.num = res.data.totalElements;
+              //  this.data5.state=res.data.content.status.state;
+              for (var i = 0; i < res.data.content.length; i++) {
+                this.data5[i].state = res.data.content[i].status.states;
+                let newDate = new Date(res.data.content[i].createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[i].createTime = Y + M + D;
+              }
+
+            } else {
+              this.data5 = [];
             }
-
-
           }
         ).catch(error => {
           console.log(error);
@@ -334,7 +336,7 @@
           size: 10,
         }
         if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+          waitAccparams.states = [this.applyState, this.applyState];
 
         }
         this.getOrders(waitAccparams);
@@ -348,8 +350,26 @@
 //       }
           this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
-          this.getOrders(waitAccparams);
+          orderStatusService.getDetailOrder(waitAccparams).then(res => {
+              console.log(res);
+              if (res.status === 200) {
+                this.data5 = [res.data];
+                this.data5[0].state = res.data.status.states;
+                let newDate = new Date(res.data.createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[0].createTime = Y + M + D;
+              }
+            }
+          ).catch(error => {
+            console.log(error);
+          })
         }
+      },
+      changeTime(time){
+        return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
+          time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
       query(){
         this.$refs['pages'].currentPage = 1;
@@ -360,10 +380,11 @@
           size: 10,
         }
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
+
         }
         if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+          waitAccparams.states = [this.applyState, this.applyState];
 
         }
         if (this.applyType !== '') {
@@ -380,10 +401,11 @@
 
         }
         if (this.time[0] !== '') {
-          waitAccparams.time = this.time;
+          waitAccparams.time = this.changeTime(this.time);
+
         }
         if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+          waitAccparams.states = [this.applyState, this.applyState];
 
         }
         if (this.applyType !== '') {
@@ -491,29 +513,27 @@
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceTypeId<8) {
+            if (this.data5[value].deviceTypeId < 8) {
               this.$router.push({
                 path: 'appDetail',
                 query: {
                   applyId: this.data5[value].id,
                 }
               });
-            } else if (this.data5[value].deviceTypeId>8) {
+            } else if (this.data5[value].deviceTypeId > 8) {
               this.$router.push({
                 path: 'comAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
+
                 }
               });
-            } else if (this.data5[value].deviceTypeId==8) {
+            } else if (this.data5[value].deviceTypeId == 8) {
               this.$router.push({
                 path: 'carboxAppDetail',
                 query: {
-                  dev_id: this.data5[value].id,
-                  dev_name: this.data5[value].device,
-                  orderState: this.orderState,
+                  applyId: this.data5[value].id,
+
                 }
               });
             }
