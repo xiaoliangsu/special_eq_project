@@ -1,51 +1,40 @@
 <template>
   <!--从后端去数据，然后填到相应的位置，还需要改一下页面的格式-->
   <div class="appDetail">
-    <div class="appDetail_topbar" v-if="orderState=='waitApproval'">
+    <div class="appDetail_topbar">
       <!--<div class="bread">-->
       <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
       <!--</div>-->
-      <div class="step" style="width:94%; margin-top:20px;">
+
+    </div>
+    <div class="appDetail_topbar">
+      <h1 style="margin:10px;" v-if="this.showPrintCard==false">申请详情：</h1>
+      <div class="step" style="width:94%; margin-top:20px;" v-if="this.showPrintCard==true">
         <Steps :current="current">
           <Step title="步骤1" content="检查申请信息"></Step>
-          <Step title="步骤2" content="填写审批信息"></Step>
-          <Step title="步骤3" content="预览、打印相关证件"></Step>
-          <Step title="步骤4" content="完成"></Step>
+          <Step title="步骤2" content="签发使用登记证"></Step>
+          <Step title="步骤3" content="完成"></Step>
         </Steps>
       </div>
     </div>
-    <div class="appDetail_topbar" >
-      <!--<div class="bread">-->
-      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
-      <!--</div>-->
-      <h1 style="margin:10px;">申请详情：</h1>
-    </div>
-    <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.approvalStatus ==false">
+    <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.showPrintCard==false">
       <div class="comp_name">
-        <h2 class="detailHeadTop">一、单位名称：</h2>
+        <h2 class="detailHeadTop">一、申请单位名称：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
         <span class="comp_name_content">{{this.appComName}}</span>
       </div>
+      <div class="apply_type">
+        <h2 class="detailHeadTop">二、申请类别：</h2>
+        <!--<span class="content"> {{this.dev_id}}</span>-->
+        <span class="comp_name_content">{{this.applyType}}</span>
+      </div>
 
       <div class="setTable">
-        <h2 class="detailHead">二、特种设备使用登记表(按套申请)：</h2>
-        <!--<Collapse v-model="value1" v-for="(item,index) in ruleForms" :key="item.id">-->
-        <!--<Panel :name="''+index">-->
-        <!--<span class="panel_content">特种设备使用登记表</span>-->
-        <!--<div slot="content">-->
-        <!--<v_regist_one :ruleForm="item"></v_regist_one>-->
-        <!--<Button type="primary" @click="toblanck(index)">打印预览</Button>-->
-
-        <!--</div>-->
-        <!--</Panel>-->
-        <!--</Collapse>-->
-
-        <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:100%;height:1000px;"></iframe>
-
-
+        <h2 class="detailHead">三、特种设备使用登记表(按套申请)：</h2>
+        <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>
       </div>
       <div class="pdfdownload">
-        <h2 class="detailHead">三、提交的资料：</h2>
+        <h2 class="detailHead">四、提交的资料：</h2>
         <v-detailPdf :pdfUrl="pdfUrl" :pdfNum="pdfNum"></v-detailPdf>
       </div>
       <div class="accpeterControl">
@@ -54,7 +43,7 @@
       </div>
 
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'">
-        <h2 class="detailHead">四、受理结果：</h2>
+        <h2 class="detailHead">五、受理结果：</h2>
         <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
         <span class="content" v-if="this.accStatus==false">{{this.accReason}}</span>
       </div>
@@ -65,51 +54,22 @@
         <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'">
-        <h2 class="detailHead">四、审批结果：</h2>
+        <h2 class="detailHead">五、审批结果：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
         <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
       </div>
 
 
     </div>
-    <div class="appro_form" v-if="this.approvalStatus ==true" style="position:absolute;top:85px;">
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" v-if="this.current==1">
-        <div class="statusInfo" >
-          <!--<h2>选择设备种类</h2>-->
-          <!--<Select v-model="deviceType" style="width:200px">-->
-          <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <h2 class="detailHead">审批通过说明</h2>
-          <div class="base-box">
-            <Row>
-              <Col span="11">
-              <Form-item label="说明" prop="eq_variety">
-                <Input v-model="ruleForm.eq_variety" placeholder="请输入设备品种"></Input>
-              </Form-item>
-              <Form-item label="登记机关登记人员" prop="eq_code">
-                <Input v-model="ruleForm.eq_code" placeholder="请输入设备代码"></Input>
-              </Form-item>
-              <Form-item label="日期" prop="design_use_limit">
-                <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
-              </Form-item>
-              </Col>
-              <Col span="11"  offset="2">
-              <Form-item label="使用登记证编号" prop="manufacture_com_name">
-                <Input v-model="ruleForm.manufacture_com_name" placeholder="请输入制造单位名称"></Input>
-              </Form-item>
-              <Form-item label="日期" prop="design_use_limit">
-                <Input v-model="ruleForm.design_use_limit" placeholder="请输入设计使用年限"></Input>
-              </Form-item>
-              </Col>
-            </Row>
-          </div>
+    <div class="appro_form" v-if="this.showPrintCard==true" style="position:absolute;top:85px;">
+      <div class="print_page">
+        <h2>签发使用登记证</h2>
+        <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>
+        </br>
+        <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
+        <Button @click="instance('success')" v-if="this.active==0">完成</Button>
 
-        </div>
-      </Form>
-      <Button type="primary" @click="next()" v-if="this.current==1">下一步</Button>
-      <div class="print_page" v-if="this.current==2">
-        打印页面
-        <Button type="primary" @click="next()">完成</Button>
+
       </div>
 
 
@@ -136,22 +96,21 @@
         dev_name: '',
         deviceSortNum: '',
         value1: '',
-//              value2:'',
-//              ruleForm2: '',
         pdfUrl: {
-                    锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-                    水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-                    水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
-                    水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
-                    水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+          锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+          水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+          水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+          水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+          水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
         },
         pdfNum: 0,
         accStatus: '',
-        accRejValue: '',
         accReason: '',
 
         approvalStatus: '',
-        approvalRejValue: '',
+       showPrintCard :false,
+
+      approvalRejValue: '',
         approvalReason: '',
         orderState: '',
         ruleForms: [],
@@ -159,22 +118,18 @@
         registPdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
         ruleForm: {},
         current: 0,
-
-
-        rules: {
-          eq_species: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-//                    use_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-//                    check_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-        },
-
-//                testTrue:[],
-
+        applyId: '',
+        //受理驳回原因
+        unAcceptedReason: [],
+        //受理驳回详情
+        unAcceptedContent: '',
+        //受理驳回原因
+        unApprovalReason: [],
+        //受理驳回详情
+        unApprovalContent: '',
+        //申请类别
+        applyType: '',
+        active: 0,
 
       }
     },
@@ -193,80 +148,64 @@
     },
     methods: {
       ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
-//          test(){
-//                this.testTrue=!this.testTrue;
-//          },
+      printTrigger(elementId) {
+        var getMyFrame = document.getElementById(elementId);
+        getMyFrame.focus();
+        getMyFrame.contentWindow.print();
+      },
+
       initData(){
         this.transparam();
-        this.current=0;
-//        appDetailService.getRegistOne(1).then(res => {
-//          //表格信息
-//          this.ruleForms = res.success.ruleForm;
-//          //pdf信息
-//          this.pdfUrl = res.pdfUrl;
-//          //获取对象长度
-//          this.pdfNum = Object.keys(this.pdfUrl).length;
-//          //受理驳回理由
-//          this.accStatus = res.accState;
-//          this.accReason = res.accReason;
-//          //审批驳回理由
-//          this.approvalStatus = res.approvalState;
-//          this.approvalReason = res.approvalReason;
-//          //单位名称
-//          this.appComName = res.appComName;
-//
-//        }).catch(error => {
-//          console.log(error)
-//        })
+        this.current = 0;
+        this.active = 0;
+        this.approvalStatus = '';
+        this.unAcceptedReason = [];
+        this.unAcceptedContent = '';
+        this.unApprovalReason = [];
+        this.unApprovalContent = '';
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-
-          console.log(res);
-          this.acceptCom=res.data.acceptorAgencyId;
-          this.ruleForm.eq_species="锅炉";
-          // this.ruleForm = res.success.ruleForm[0];
-          this.clearRegistOneForm();
-          this.setRegistOneForm(res.success.ruleForm[0]);
-
-          // console.log(this.getRegistOne)
-          this.ruleForm = this.getRegistOne;
-         // this.defaultPdfList1 = res.pdfUrlDefault;
+          this.appComName = res.data.acceptorAgencyId;
+          this.applyType = res.data.applyType + "/" + res.data.deviceType;
+          if (res.data.status.states === "已受理待审批") {
+            this.accStatus = true;
+            this.accReason = "已受理通过";
+          } else if (res.data.status.states === "受理驳回") {
+            this.accStatus = false;
+            this.accReason = res.data.status.acceptedComments || "受理驳回";
+          }
+          if (res.data.status.states === "已审批通过") {
+            this.approvalStatus = true;
+            this.approvalReason = "已审批通过";
+            this.accStatus = true;
+            this.accReason = "已受理通过";
+          } else if (res.data.status.states === "审批驳回") {
+            this.approvalStatus = false;
+            this.approvalReason = res.data.status.approveComments || "审批驳回";
+            this.accStatus = true;
+            this.accReason = "已受理通过";
+          }
 
         }).catch(error => {
           console.log(error)
         })
 
-        this.accRejValue = '';
+        this.unAcceptedContent = '';
         this.approvalRejValue = '';
 
-        //  this.getAccReason(this.dev_id);
-        // this.getApprovalReason(this.dev_id);
-
       },
-      next() {
-//        this.$refs[name].validate((valid) => {
-//          if (valid) {
-//
-//          }
-//        })
-//        if (this.active == 1) {
-//          this.submitForm('ruleForm');
+//      next() {
+//        if (this.current == 2) {
+//          this.current = 0;
+//        } else {
+//          this.current += 1;
 //        }
-//        this.active = 2;
-        if (this.current == 3) {
-          this.current = 0;
-        } else {
-          this.current += 1;
-        }
-        this.active++;
-
-      },
+//        this.active++;
+//
+//      },
       transparam(){
-        if (this.$route.query.dev_id) {
-          this.dev_id = this.$route.query.dev_id;
-        }
-        if (this.$route.query.dev_name) {
-          this.dev_name = this.$route.query.dev_name;
+        if (this.$route.query.applyId) {
+          this.applyId = this.$route.query.applyId;
         }
         if (this.$route.query.orderState) {
           this.orderState = this.$route.query.orderState;
@@ -286,19 +225,19 @@
       },
       //受理通过
       accPass(){
-        this.accStatus = true;
         this.$Modal.confirm({
           title: '确认信息',
           content: '<p>确认通过该申请订单？</p>',
           onOk: () => {
             this.$Message.info('点击了确定');
-            let data = {
-              accStatus: this.accStatus,
+            let params = {
+              applyId: this.applyId,
+              isPass: true,
             }
-            appDetailService.AccPass(data).then(res => {
-              console.log(res.success);
-              this.$router.push('waitAccept');
-
+            appDetailService.AccPass(params).then(res => {
+              if (res.status === 200) {
+                this.$router.push('waitAccept');
+              }
             }).catch(error => {
               console.log(error);
             })
@@ -312,66 +251,111 @@
       //受理驳回
       accRej () {
         this.$Modal.confirm({
+          title: '受理驳回',
           render: (h) => {
-            return h('Input', {
-              props: {
-                value: this.value,
-                autofocus: true,
-                placeholder: '请输入驳回理由',
-                type: 'textarea',
-                rows: 5,
-              },
-              on: {
-                input: (val) => {
-                  this.accRejValue = val;
-                }
-              },
-            })
+            return h('div', [
+              h('h4', {
+                props: {
+                  value: this.value,
+                },
+                style: {
+                  marginLeft: '-40px',
+                },
+
+              }, '原因：'),
+              h('checkbox', {
+                props: {
+                  value: this.value,
+                },
+                on: {
+                  input: (val) => {
+                    this.unAcceptedReason.push('申请资料不齐');
+                  }
+                },
+              }, '申请资料不齐'),
+              h('checkbox', {
+                props: {
+                  value: this.value,
+                },
+                on: {
+                  input: (val) => {
+                    this.unAcceptedReason.push('不符合规定');
+                  }
+                },
+              }, '不符合规定'),
+              h('h4', {
+                props: {
+                  value: this.value,
+                },
+                style: {
+                  marginLeft: '-40px',
+                },
+              }, '详情：'),
+              h('Input', {
+                props: {
+                  value: this.value,
+                  autofocus: true,
+                  placeholder: '请输入驳回理由详情',
+                  type: 'textarea',
+                  rows: 5,
+                },
+                on: {
+                  input: (val) => {
+                    this.unAcceptedContent = val;
+                  }
+                },
+              }),
+
+            ])
+
           },
           onOk: () => {
             this.$Message.info('点击了确定');
-            let data = {
-              accRejValue: this.accRejValue,
+            let params = {
+              applyId: this.applyId,
+              isPass: false,
+              comments: this.unAcceptedContent,
+              rejectReasons: this.unAcceptedReason[0] + this.unAcceptedReason[1],
             }
-            appDetailService.AccRej(data).then(res => {
-              console.log(res.success);
-              this.$router.push('waitAccept');
-
+            appDetailService.AccRej(params).then(res => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$router.push('waitAccept');
+              }
             }).catch(error => {
               console.log(error);
             })
             this.$router.push('waitAccept');
           },
           onCancel: () => {
-            this.accRejValue = '';
+            this.unAcceptedContent = '';
+            this.unAcceptedReason = [];
             this.$Message.info('点击了取消');
           }
         })
       },
-
       //审批通过
       approvalPass(){
-
         this.$Modal.confirm({
           title: '确认信息',
           content: '<p>确认审批通过该申请订单？</p>',
           onOk: () => {
-            this.approvalStatus = true;
-            this.current++;
-            this.$Message.info('点击了确定');
-            let data = {
-              approvalStatus: this.approvalStatus,
+            let params = {
+              applyId: this.applyId,
+              isPass: true,
             }
-//            appDetailService.ApprovalPass(data).then(res => {
-//              console.log(res.success);
-//              this.$router.push('waitApproval');
-//
-//            }).catch(error => {
-//              console.log(error);
-//            })
+            appDetailService.ApprovalPass(params).then(res => {
+              if (res.status === 200) {
+                this.approvalStatus = true;
+                this.showPrintCard = true;
+                this.$router.push('waitApproval');
+              }
+            }).catch(error => {
+              console.log(error);
+            })
+            this.current++;
           },
           onCancel: () => {
-
             this.$Message.info('点击了取消');
           }
         });
@@ -380,41 +364,111 @@
       //审批驳回
       approvalRej () {
         this.$Modal.confirm({
+          title: '审批驳回',
           render: (h) => {
-            return h('Input', {
-              props: {
-                value: this.value,
-                autofocus: true,
-                placeholder: '请输入审批驳回理由',
-                type: 'textarea',
-                rows: 5,
-              },
-              on: {
-                input: (val) => {
-                  this.approvalRejValue = val;
-                }
-              },
-            })
+            return h('div', [
+              h('h4', {
+                props: {
+                  value: this.value,
+                },
+                style: {
+                  marginLeft: '-40px',
+                },
+
+              }, '原因：'),
+              h('checkbox', {
+                props: {
+                  value: this.value,
+                },
+                on: {
+                  input: (val) => {
+                    this.unApprovalReason.push('不予登记');
+                  }
+                },
+              }, '不予登记'),
+              h('checkbox', {
+                props: {
+                  value: this.value,
+                },
+                on: {
+                  input: (val) => {
+                    this.unApprovalReason.push('对申请资料有疑问，需要进行现场核查');
+                  }
+                },
+              }, '对申请资料有疑问，需要进行现场核查'),
+              h('h4', {
+                props: {
+                  value: this.value,
+                },
+                style: {
+                  marginLeft: '-40px',
+                },
+              }, '详情：'),
+              h('Input', {
+                props: {
+                  value: this.value,
+                  autofocus: true,
+                  placeholder: '请输入驳回理由详情',
+                  type: 'textarea',
+                  rows: 5,
+                },
+                on: {
+                  input: (val) => {
+                    this.unApprovalContent = val;
+                  }
+                },
+              }),
+
+            ])
+
           },
           onOk: () => {
             this.$Message.info('点击了确定');
-            let data = {
-              approvalRejValue: this.approvalRejValue,
+            let params = {
+              applyId: this.applyId,
+              isPass: false,
+              comments: this.unApprovalContent,
+              rejectReasons: this.unApprovalReason[0] + this.unApprovalReason[1],
             }
-            appDetailService.AccRej(data).then(res => {
-              console.log(res.success);
-              this.$router.push('waitApproval');
-
+            appDetailService.ApprovalRej(params).then(res => {
+              if (res.status === 200) {
+                this.$router.push('waitApproval');
+              }
             }).catch(error => {
               console.log(error);
             })
-            this.$router.push('waitApproval');
           },
           onCancel: () => {
-            this.approvalRejValue = '';
+            this.unApprovalContent = '';
+            this.unApprovalReason = [];
             this.$Message.info('点击了取消');
           }
         })
+      },
+
+      instance (type) {
+        let params = 'applyId=' + this.applyId;
+        setAppService.confrimApp(params).then(res => {
+          if (res) {
+            const title = '通知';
+            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+            switch (type) {
+              case 'success':
+                this.$Modal.success({
+                  title: title,
+                  content: content
+                });
+                this.current++;
+                break;
+            }
+            this.$router.push('home');
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+
+
       },
 
     },
@@ -451,6 +505,7 @@
 
   .setTable {
     margin-bottom: 30px;
+    font-size: 16px;
   }
 
   .pdfdownload {
@@ -470,7 +525,7 @@
 
   .content {
     color: #495060;
-    font-size: small;
+    font-size: 17px;
   }
 
   .panel_content {
@@ -483,11 +538,11 @@
   }
 
   .comp_name_content {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .base-box {
-    margin:0 auto;
+    margin: 0 auto;
     width: 100%;
     display: block;
     border: 2px solid #dddee1;

@@ -121,7 +121,8 @@ const router = new VueRouter({
           },
         },
 
-        {path: "/user", component: User},
+        {path: "/user", component: User,
+          meta: [ '基本信息']},
         {
           path: "/firstApp", component: FirstApp,
           // 添加该字段，表示进入这个路由是需要登录的
@@ -153,8 +154,10 @@ const router = new VueRouter({
         {path: "/carboxAppDetail", component: CarboxAppDetail},
 
 
-        {path: "/waitAccept", component: WaitAccept},
-        {path: "/accepted", component: Accepted},
+        {path: "/waitAccept", component: WaitAccept,
+          meta: [ '未受理申请']},
+        {path: "/accepted", component: Accepted,
+          meta: [ '已受理申请']},
         {path: "/transformChange", component: TransformChange},
 
         {path: "/areaInChange", component: AreaInChange},
@@ -163,8 +166,10 @@ const router = new VueRouter({
         {path: "/nameChange", component: NameChange},
         {path: "/yearsChange", component: YearsChange},
 
-        {path: "/approvaled", component: Approvaled},
-        {path: "/waitApproval", component: WaitApproval},
+        {path: "/approvaled", component: Approvaled,
+          meta: [ '已审查、发证申请']},
+        {path: "/waitApproval", component: WaitApproval,
+          meta: [ '未审查、发证申请']},
         {path: "/supervision", component: Supervision},
 
 

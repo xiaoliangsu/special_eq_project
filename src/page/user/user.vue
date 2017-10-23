@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-    <Button type="primary" @click="sighOut" >退出{{loginStatus}}</Button>
+    <Button type="primary" @click="sighOut" >退出</Button>
 
 
   </div>

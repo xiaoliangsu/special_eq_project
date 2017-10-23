@@ -202,10 +202,10 @@
 
           },
 
-          {
-            title: '登记机关',
-            key: 'acceptorAgencyName',
-          },
+//          {
+//            title: '登记机关',
+//            key: 'acceptorAgencyName',
+//          },
           {
             title: '受理状态',
             key: 'state',
@@ -428,6 +428,7 @@
                 path: 'appDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'accepted'
                 }
               });
             } else if (this.data5[value].deviceTypeId > 8) {
@@ -435,6 +436,7 @@
                 path: 'comAppDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'accepted'
                 }
               });
             } else if (this.data5[value].deviceTypeId == 8) {
@@ -442,6 +444,7 @@
                 path: 'carboxAppDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'accepted'
                 }
               });
             }

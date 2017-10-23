@@ -204,7 +204,7 @@
           },
 
           {
-            title: '登记机关',
+            title: '受理人',
             key: 'acceptorAgencyName',
           },
           {
@@ -430,6 +430,7 @@
                 path: 'appDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'approvaled'
                 }
               });
             } else if (this.data5[value].deviceTypeId > 8) {
@@ -437,6 +438,7 @@
                 path: 'comAppDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'approvaled'
                 }
               });
             } else if (this.data5[value].deviceTypeId == 8) {
@@ -444,6 +446,7 @@
                 path: 'carboxAppDetail',
                 query: {
                   applyId: this.data5[value].id,
+                  orderState:'approvaled'
                 }
               });
             }
