@@ -462,7 +462,41 @@
       return {
         pdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
 
-        ruleForm: {},
+        ruleForm: {
+          eqKind: '',
+          productName:'',
+          cylinderNum: '',
+          fillMedium: '',
+          cylinderWorkPressure: '',
+          cylinderVolume: '',
+          manuComName: '',
+          manufactureDate: '',
+          productNum: '',
+          companyCode: '',
+          constrComName: '',
+          inspectComName: '',
+          useCompanyName: '',
+          useCompanyAddr: '',
+          useCompanyCode: '',
+          zipcode: '',
+          license: '',
+          vin: '',
+          beginToUseDate: '',
+          companyPhone: '',
+          safeAdministrator: '',
+          mobilePhone: '',
+          // comTablePerson: '',
+          // comPersonDate: '',
+          // comSafePerson: '',
+          // safePersonDate: '',
+          // explanation: '',
+          // registPerson: '',
+          // registCode: '',
+          // registDate: '',
+          // comStampDate: '',
+          // registStampDate: '',
+          registKind: '',
+        },
 
         registKindList:[
           {
@@ -687,12 +721,7 @@
 //          this.area="120101";
           this.ruleForm.eqKind="车用气瓶";
           // this.ruleForm = res.success.ruleForm[0];
-          this.clearRegistThreeForm();
-          this.setRegistThreeForm(res.success.ruleForm[0]);
-
-
-          this.ruleForm = this.getRegistThree;
-          console.log(this.ruleForm);
+          this.clearRuleForm();
           this.defaultPdfList1 = res.pdfUrlDefault;
 
         }).catch(error => {
@@ -774,8 +803,7 @@
 //          }).catch(error => {
 //            console.log(error);
 //          })
-          this.clearRegistThreeForm();
-          this.ruleForm = this.getRegistThree;
+          this.clearRuleForm();
           this.defaultPdfList1 = [];
         } else {
           // 获取已经保存的信息
@@ -795,15 +823,41 @@
 //          this.province= '120000';
 //          this.city="120100";
 //          this.area="120101";
-          this.acceptCom=res.data.acceptorAgencyId;
-          this.ruleForm.eqKind ="种类";
-          this.clearRegistThreeForm();
-          this.setRegistThreeForm(res.success.ruleForm[0]);
-          this.ruleForm = this.getRegistThree;
+         // this.acceptCom=res.data.acceptorAgencyId;
+
+          this.clearRuleForm();
+          this.ruleForm.eqKind ="车用气瓶";
           this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
           console.log(error)
         })
+      },
+      clearRuleForm(){
+        this.ruleForm={
+          eqKind: '',
+          productName:'',
+          cylinderNum: '',
+          fillMedium: '',
+          cylinderWorkPressure: '',
+          cylinderVolume: '',
+          manuComName: '',
+          manufactureDate: '',
+          productNum: '',
+          companyCode: '',
+          constrComName: '',
+          inspectComName: '',
+          useCompanyName: '',
+          useCompanyAddr: '',
+          useCompanyCode: '',
+          zipcode: '',
+          license: '',
+          vin: '',
+          beginToUseDate: '',
+          companyPhone: '',
+          safeAdministrator: '',
+          mobilePhone: '',
+          registKind: '',
+        }
       },
 
 //      submitForm(formName) {

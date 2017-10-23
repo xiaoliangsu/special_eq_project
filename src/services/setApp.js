@@ -52,6 +52,16 @@ export function getRegistOne(params) {
   return fetch('/file/preview?'+params, params,'get')
 }
 
+//获取设备类别
+export function getDeviceCategory(params) {
+  return fetch('/static/deviceCategory', params,'get')
+}
+export function getDeviceClass(params) {
+  return fetch('/static/deviceClass?'+params, params,'get')
+}
+export function getDeviceType(params) {
+  return fetch('/static/deviceType?'+params, params,'get')
+}
 
 
 //获取省市县已经调完

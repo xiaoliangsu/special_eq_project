@@ -648,7 +648,22 @@
   export default {
     data() {
       return {
-        ruleForm: {},
+        ruleForm: {
+          registKind: '',
+          equipmentCategory: '',
+          equipmentVariety: '',
+          equipmentName: '',
+          equipmentNum: '',
+          usingCompanyName: '',
+          usingCompanyAddr: '',
+          eqUseLoc: '',
+          comPhone: '',
+          zipCode: '',
+          usingCompanyCode: '',
+          zipCode: '',
+          safetyAdministrator: '',
+          mobileNumber: '',
+        },
         formDynamicGas: {
           items: [
             {
@@ -861,9 +876,7 @@
       if (this.ifold == 1) {
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          this.clearRegistTwoForm();
-          //  this.setRegistOneForm(res.success.ruleForm[0]);
-          this.ruleForm = this.getRegistTwo;
+          this.clearRuleForm();
           this.ruleForm.equipmentNum = "设备类别";
           this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
@@ -944,8 +957,7 @@
 
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
-          this.clearRegistTwoForm();
-          this.ruleForm = this.getRegistTwo;
+          this.clearRuleForm();
           this.defaultPdfList1 = [];
         } else {
           // 获取已经保存的信息
@@ -955,15 +967,31 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          this.acceptCom = res.data.acceptorAgencyId;
-          this.clearRegistTwoForm();
-          //this.setRegistOneForm(res.success.ruleForm[0]);
-          this.ruleForm = this.getRegistTwo;
+          //this.acceptCom = res.data.acceptorAgencyId;
+          this.clearRuleForm();
           this.ruleForm.equipmentNum = "设备类别";
           this.defaultPdfList1 = res.pdfUrlDefault;
         }).catch(error => {
           console.log(error)
         })
+      },
+      clearRuleForm(){
+        this.ruleForm={
+          registKind: '',
+          equipmentCategory: '',
+          equipmentVariety: '',
+          equipmentName: '',
+          equipmentNum: '',
+          usingCompanyName: '',
+          usingCompanyAddr: '',
+          eqUseLoc: '',
+          comPhone: '',
+          zipCode: '',
+          usingCompanyCode: '',
+          zipCode: '',
+          safetyAdministrator: '',
+          mobileNumber: '',
+        }
       },
 
       //提交表格信息

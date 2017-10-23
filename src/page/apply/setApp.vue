@@ -36,11 +36,15 @@
               <Col span="11"><!--wang-->
               <!--<label class="form_label_left">设备种类</label>-->
               <Form-item label="设备种类" prop="eqSpecies" class="fontsize">
-                <!--wang-->
-                <!--<Input v-model="ruleForm.eq_species" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>-->
-                <Select v-model="ruleForm.eqSpecies">
-                  <Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>设备种类、设备类别、设备品种三者联动</p>
+                  </div>
+                <Select v-model="ruleForm.eqSpecies" filterable @on-change="chosenDeviceCategory" :placeholder=this.deviceCategoryPlace>
+                  <Option v-for="item in deviceCategoryList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
                 </Select>
+                </Poptip>
               </Form-item>
               <Form-item label="设备品种" prop="eqVariety">
                 <!--<Input v-model="ruleForm.eqVariety" ></Input>-->
@@ -48,7 +52,11 @@
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>按照《特种设备目录》填写。没有品种的划“—”</p>
                   </div>
-                  <i-input v-model="ruleForm.eqVariety"></i-input>
+                  <!--<i-input v-model="ruleForm.eqVariety"></i-input>-->
+                  <Select v-model="ruleForm.eqVariety" filterable @on-change="chosenDeviceType" :disabled=this.ifDisabled  :placeholder=this.deviceTypePlace>
+                    <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
+                    </Option>
+                  </Select>
                 </Poptip>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
@@ -69,7 +77,11 @@
               <Col span="11" offset="2">
               <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="设备类别" prop="eqCategory">
-                <Input v-model="ruleForm.eqCategory"></Input>
+                <!--<Input v-model="ruleForm.eqCategory"></Input>-->
+                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceClass" :placeholder=this.deviceTypePlace>
+                  <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
+                </Select>
               </Form-item>
               <Form-item label="产品名称" prop="eqName">
                 <Input v-model="ruleForm.eqName"></Input>
@@ -219,36 +231,36 @@
             </Form-item>
           </div>
           <!--<div class="base-box">-->
-            <!--<h2 class="header_two">其他信息</h2>-->
-            <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
-            <!--</p>-->
-            <!--&lt;!&ndash;wang&ndash;&gt;-->
-            <!--<p>附产品数据表</p>-->
-           <!---->
+          <!--<h2 class="header_two">其他信息</h2>-->
+          <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
+          <!--</p>-->
+          <!--&lt;!&ndash;wang&ndash;&gt;-->
+          <!--<p>附产品数据表</p>-->
+          <!---->
           <!--</div>-->
           <!--wang-->
           <!--<div class="base-box">-->
-            <!--<h2 class="header_two">说明</h2>-->
-            <!--<Row>-->
-              <!--<Col span="11">-->
-              <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
-                <!--<Input v-model="ruleForm.registPerson"></Input>-->
-              <!--</Form-item>-->
+          <!--<h2 class="header_two">说明</h2>-->
+          <!--<Row>-->
+          <!--<Col span="11">-->
+          <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
+          <!--<Input v-model="ruleForm.registPerson"></Input>-->
+          <!--</Form-item>-->
 
-              <!--<Form-item label="使用登记证编号" prop="registCode">-->
-                <!--<Input v-model="ruleForm.registCode"></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-              <!--<Col span="11" offset="2">-->
-              <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
-                <!--<DatePicker v-model="ruleForm.registDate"></DatePicker>-->
-              <!--</Form-item>-->
+          <!--<Form-item label="使用登记证编号" prop="registCode">-->
+          <!--<Input v-model="ruleForm.registCode"></Input>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--<Col span="11" offset="2">-->
+          <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
+          <!--<DatePicker v-model="ruleForm.registDate"></DatePicker>-->
+          <!--</Form-item>-->
 
-              <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
-                <!--<DatePicker v-model="ruleForm.registStampDate"></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-            <!--</Row>-->
+          <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
+          <!--<DatePicker v-model="ruleForm.registStampDate"></DatePicker>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--</Row>-->
           <!--</div>-->
 
         </div>
@@ -465,36 +477,73 @@
     data() {
       return {
         //等调的时候再拼接口
-        pdfUrl: '/admin/file/preview?fileId=101',
+        pdfUrl: '',
         pdfList: [],
         pdf: '',
 
-        deviceList: [
-          {
-            value: 'boiler',
-            label: '锅炉',
-          }, {
-            value: 'pressure',
-            label: '压力容器（气瓶除外）'
-          }, {
-            value: 'elevator',
-            label: '电梯'
-          }, {
-            value: 'hoisting',
-            label: '起重机械'
-          }, {
-            value: 'cableway',
-            label: '客运索道'
-          }, {
-            value: 'play',
-            label: '大型游乐设施'
-          }, {
-            value: 'factorycar',
-            label: '场 (厂)内专用机动车辆'
-          },
-        ],
+//        deviceList: [
+//          {
+//            value: 'boiler',
+//            label: '锅炉',
+//          }, {
+//            value: 'pressure',
+//            label: '压力容器（气瓶除外）'
+//          }, {
+//            value: 'elevator',
+//            label: '电梯'
+//          }, {
+//            value: 'hoisting',
+//            label: '起重机械'
+//          }, {
+//            value: 'cableway',
+//            label: '客运索道'
+//          }, {
+//            value: 'play',
+//            label: '大型游乐设施'
+//          }, {
+//            value: 'factorycar',
+//            label: '场 (厂)内专用机动车辆'
+//          },
+//        ],
+        deviceCategoryList: [],
+        deviceClassList: [],
+        deviceTypeList: [],
         deviceType: '',
-        ruleForm: {},
+        ruleForm: {
+          registKind: '',
+          eqSpecies: '',
+          eqCategory: '',
+          eqVariety: '',
+          eqName: '',
+          eqCode: '',
+          model: '',
+          designUseLimit: '',
+          designComName: '',
+          manufactureComName: '',
+          constructComName: '',
+          superviseComName: '',
+          testComName: '',
+          useComName: '',
+          useComAddr: '',
+          useComCode: '',
+          zipCode: '',
+          comCode: '',
+          eqUseLocation: '',
+          beginUseDate: '',
+          comPhone: '',
+          safeAdmin: '',
+          mobilePhone: '',
+          propertyComName: '',
+          propertyComCode: '',
+          telephone: '',
+          checkComName: '',
+          checkCategory: '',
+          checkReportNum: '',
+          checkDate: '',
+          checkConclusion: '',
+          nextCheckDate: '',
+
+        },
         //wang
         registKindList: [
           {
@@ -688,11 +737,6 @@
 
         },
         active: 1,
-        //selected: '',
-        //imgName: '',
-        //visible: false,
-
-        //modal1: false,
         modalCertain: false,
         author_key: '',
 //        pdfUrl: {
@@ -711,18 +755,6 @@
         bread_choose_value: '',
         bread_choose: '',
         current: 0,
-
-//        province: '',
-//        city: '',
-//        defaultPro:'',
-//        provinceList: [],
-//        cityList: [],
-//        area: '',
-//        areaList: [],
-//        acceptCom: '',
-//        acceptComList: [],
-//        checkCom: '',
-//        checkComList: [],
         device_type: '',
         ifold: 0,
         uploadList: [
@@ -731,6 +763,16 @@
 
         visible: false,
         applyId: '',
+        //设备类别id
+        deviceCategoryId: '',
+        deviceClassId: '',
+        deviceClassTypeId: '',
+
+        ifDisabled:false,
+        deviceCategoryPlace:'请选择',
+        deviceTypePlace:'请选择',
+        deviceClassPlace:'请选择',
+        fileId:'',
 
 
       };
@@ -745,7 +787,6 @@
     watch: {
       // 如果路由有变化，会再次执行该方法
       '$route.query': function () {
-        console.log(this.$route.path);
         if (this.$route.path == '/setApp') {
           this.initData();
         }
@@ -763,17 +804,32 @@
     mounted(){
       // this.initData();
       this.ifold = this.$route.query.ifold;
+      this.deviceCategoryList = [];
+      this.deviceClassList = [];
+      this.deviceTypeList = [];
+      this.deviceCategoryPlace = '请选择';
+      this.deviceClassPlace= '请选择';
+      this.deviceTypePlace= '请选择';
+      setAppService.getDeviceCategory().then(res => {
+        for (let i = 0, len = res.length; i < len; i++) {
+          this.deviceCategoryList.push({value: res[i].code, label: res[i].name});
+        }
+      }).catch(error => {
+        console.log(error);
+      })
+     // this.ruleForm.eqSpecies="1000";
+
       if (this.ifold == 1) {
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          this.clearRegistOneForm();
-          //  this.setRegistOneForm(res.success.ruleForm[0]);
-          this.ruleForm = this.getRegistOne;
-          this.ruleForm.eqVariety = "设备类别";
+          this.clearRuleForm();
           this.defaultPdfList1 = res.pdfUrlDefault;
+          this.deviceCategoryPlace="锅炉";
         }).catch(error => {
           console.log(error)
         })
+        this.ruleForm.eqSpecies="1000"
+
       } else {
 
       }
@@ -796,16 +852,30 @@
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
-        this.uploadList=[
+        this.uploadList = [
           {"url": ''}
         ];
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
+        this.deviceCategoryList = [];
+        this.deviceClassList = [];
+        this.deviceTypeList = [];
+        this.deviceCategoryPlace = '请选择';
+        this.deviceClassPlace= '请选择';
+        this.deviceTypePlace= '请选择';
+        setAppService.getDeviceCategory().then(res => {
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.deviceCategoryList.push({value: res[i].code, label: res[i].name});
+          }
+          console.log(this.deviceCategoryList);
+        }).catch(error => {
+          console.log(error);
+        })
+      //  this.ruleForm.eqSpecies="1000";
 
         //如果是第一次填写
         if (this.$route.query.ifold !== 1) {
-          this.clearRegistOneForm();
-          this.ruleForm = this.getRegistOne;
+          this.clearRuleForm();
           this.defaultPdfList1 = [];
         } else {
           // 获取已经保存的信息
@@ -815,22 +885,102 @@
       },
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
+
         setAppService.getUnsubmitApp(params).then(res => {
           this.acceptCom = res.data.acceptorAgencyId;
-          this.clearRegistOneForm();
-          //this.setRegistOneForm(res.success.ruleForm[0]);
-          this.ruleForm = this.getRegistOne;
-          this.ruleForm.eqVariety = "设备类别";
-
-
+          this.clearRuleForm();
           this.defaultPdfList1 = res.pdfUrlDefault;
+          this.deviceCategoryPlace="锅炉";
+          this.ruleForm.eqSpecies="1000";
         }).catch(error => {
           console.log(error)
         })
+
+
       },
+      chosenDeviceCategory(value){
+        let params = 'code=' + value;
+        this.deviceCategoryId = value;
+        if (value !== '') {
+          setAppService.getDeviceClass(params).then(res => {
+            this.deviceClassList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.deviceClassList.push({value: res[i].code, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+
+      },
+      chosenDeviceClass(value){
+        let params = 'code=' + value;
+        this.deviceClassId = value;
+        if (value !== '') {
+          setAppService.getDeviceType(params).then(res => {
+            this.deviceTypeList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.deviceTypeList.push({value: res[i].code, label: res[i].name});
+            }
+            if(this.deviceTypeList.length===0){
+              this.ifDisabled=true;
+              this.deviceTypePlace='-';
+            }else{
+              this.ifDisabled=false;
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+
+      },
+      chosenDeviceType(value){
+        this.deviceClassTypeId = value;
+      },
+
+      clearRuleForm(){
+        this.ruleForm={
+          registKind: '',
+          eqSpecies: '',
+          eqCategory: '',
+          eqVariety: '',
+          eqName: '',
+          eqCode: '',
+          model: '',
+          designUseLimit: '',
+          designComName: '',
+          manufactureComName: '',
+          constructComName: '',
+          superviseComName: '',
+          testComName: '',
+          useComName: '',
+          useComAddr: '',
+          useComCode: '',
+          zipCode: '',
+          comCode: '',
+          eqUseLocation: '',
+          beginUseDate: '',
+          comPhone: '',
+          safeAdmin: '',
+          mobilePhone: '',
+          propertyComName: '',
+          propertyComCode: '',
+          telephone: '',
+          checkComName: '',
+          checkCategory: '',
+          checkReportNum: '',
+          checkDate: '',
+          checkConclusion: '',
+          nextCheckDate: '',
+        }
+      },
+
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
           this.applyId = res.data.applyId;
+          this.fileId=res.data.files;
+          this.pdfUrl='/admin/file/preview?fileId='+this.fileId;
+          console.log(this.pdfUrl);
           this.$Message.info('您已提交信息，请预览结果');
           this.modalCertain = false;
           console.log(this.modalCertain);
