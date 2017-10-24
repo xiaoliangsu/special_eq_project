@@ -7,6 +7,11 @@ export function submitSetInfo(params) {
     return fetch('/apply/create', params,'post')
 }
 
+export function updateSetInfo(params) {
+  return fetch('/apply/update', params,'post')
+}
+
+
 export function submitCompanyInfo(params) {
   return fetch('/api/submitSetInfo', params,'post')
 }

@@ -28,9 +28,11 @@
             <h2 class="header_two">设备基本情况</h2>
             <!--wang-->
             <Form-item label="登记类别" prop="registKind">
-              <Select v-model="ruleForm.registKind">
-                <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
+              <!--<Select v-model="ruleForm.registKind">-->
+                <!--<Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+              <!--</Select>-->
+              <Input v-model="ruleForm.registKind"></Input>
+
             </Form-item>
             <Row>
               <Col span="11"><!--wang-->
@@ -870,16 +872,18 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-          this.acceptCom = res.data.acceptorAgencyId;
+
           this.clearRuleForm();
-          this.defaultPdfList1 = res.pdfUrlDefault;
-          this.ruleForm.eqSpecies = "1000";
+          //this.defaultPdfList1 = res.pdfUrlDefault;
+          this.ruleForm= res.data.form1;
+          this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
         })
 
 
       },
+      //选择设备种类、类别、品种
       chosenDeviceCategory(value){
         let params = 'code=' + value.value;
         this.deviceCategoryId = value.label;
@@ -1011,6 +1015,55 @@
 
 
       },
+      //更新表单
+      updateContent(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.current++;
+            this.active++;
+            let form1 = Object.assign({}, this.ruleForm);
+            //把选择的哪一项带进去
+            let submitParam = {};
+            //提交表单1
+            submitParam.form1 = this.ruleForm;
+            //受理机关名称
+            submitParam.acceptorAgencyId = 13;
+            //设备类别
+            if (this.device_type) {
+              submitParam.deviceType = parseInt(this.device_type);
+            } else {
+              submitParam.deviceType = parseInt(this.$route.query.device_type);
+            }
+            //首次申请
+            submitParam.applyType = 1;
+            //提交设备类别等
+            submitParam.deviceCategory = this.deviceCategoryId;
+            submitParam.deviceClass = this.deviceClassId;
+            submitParam.deviceKind = this.deviceClassTypeId;
+            submitParam.deivceCode = this.ruleForm.eqCode;
+            setAppService.updateSetInfo(submitParam).then(res => {
+
+              if (res.status == 200) {
+                this.applyId = res.data.applyId;
+                this.fileId = res.data.files.split("=")[1].split("}")[0];
+                this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+                this.$Message.info('您已提交信息，请预览结果');
+                this.modalCertain = false;
+              }
+
+            }).catch(error => {
+              console.log(error);
+
+            })
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
+
+
+      },
       saveForm(formName){
 
         let form1 = Object.assign({}, this.ruleForm);
@@ -1071,18 +1124,35 @@
       },
 
       confirmForm () {
-        this.$Modal.confirm({
-          title: '确认登记表信息',
-          content: '<p>请确认全部填写信息</p>',
-          onOk: () => {
+          if(this.$route.query.ifold==1){
+            this.$Modal.confirm({
+              title: '确认登记表信息',
+              content: '<p>请确认全部填写信息</p>',
+              onOk: () => {
 
-            this.submitContent('ruleForm');
+                this.updateContent('ruleForm');
 
-          },
-          onCancel: () => {
-            this.$Message.info('点击了取消');
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
+            });
+
+          }else{
+            this.$Modal.confirm({
+              title: '确认登记表信息',
+              content: '<p>请确认全部填写信息</p>',
+              onOk: () => {
+
+                this.submitContent('ruleForm');
+
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
+            });
           }
-        });
+
       },
 
       handleSuccess (res, file) {
