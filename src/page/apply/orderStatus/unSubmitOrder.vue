@@ -118,7 +118,7 @@
           },
           {
             title: '产品名称',
-            key: 'device'
+            key: 'deviceName'
           },
           {
             title: '提交日期',
@@ -127,17 +127,17 @@
           },
           {
             title: '设备种类',
-            key: 'deviceType',
+            key: 'deviceCategory',
 
           },
           {
             title: '设备类别',
-            key: 'deviceType',
+            key: 'deviceClass',
 
           },
           {
             title: '设备品种',
-            key: 'deviceType',
+            key: 'deviceKind',
 
           },
           {

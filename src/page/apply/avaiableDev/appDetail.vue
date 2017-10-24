@@ -237,6 +237,8 @@
             appDetailService.AccPass(params).then(res => {
               if (res.status === 200) {
                 this.$router.push('waitAccept');
+              }else{
+                this.$Message.info(res.msg);
               }
             }).catch(error => {
               console.log(error);
@@ -321,6 +323,8 @@
               console.log(res);
               if (res.status === 200) {
                 this.$router.push('waitAccept');
+              }else{
+                this.$Message.info(res.msg);
               }
             }).catch(error => {
               console.log(error);
@@ -349,6 +353,8 @@
                 this.approvalStatus = true;
                 this.showPrintCard = true;
                 this.$router.push('waitApproval');
+              }else{
+                this.$Message.info(res.msg);
               }
             }).catch(error => {
               console.log(error);
@@ -433,6 +439,8 @@
             appDetailService.ApprovalRej(params).then(res => {
               if (res.status === 200) {
                 this.$router.push('waitApproval');
+              }else{
+                this.$Message.info(res.msg);
               }
             }).catch(error => {
               console.log(error);

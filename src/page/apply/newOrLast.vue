@@ -72,7 +72,7 @@
           },
           {
             title: '产品名称',
-            key: 'device'
+            key: 'deviceName'
           },
           {
             title: '提交日期',
@@ -81,17 +81,17 @@
           },
           {
             title: '设备种类',
-            key: 'deviceType',
+            key: 'deviceCategory',
 
           },
           {
             title: '设备类别',
-            key: 'deviceType',
+            key: 'deviceClass',
 
           },
           {
             title: '设备品种',
-            key: 'deviceType',
+            key: 'deviceKind',
 
           },
           {
@@ -114,7 +114,7 @@
 //          },
           {
             title: '申请状态',
-            key: 'acceptorAgencyName'
+            key: 'state'
           },
 
           {
@@ -212,6 +212,7 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
+                //this.data5[i].state = res.data.content[i].status.states;
                 let newDate = new Date(res.data.content[i].createTime);
                 let Y = newDate.getFullYear() + '-';
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';

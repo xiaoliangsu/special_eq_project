@@ -32,9 +32,9 @@
             <h2 class="header_two">设备基本情况</h2>
             <Row>
               <Col span="11">
-              <Form-item label="设备类别" prop="equipmentCategory">
+              <Form-item label="设备类别" prop="eqVariety">
                 <!--<Input v-model="ruleForm.equipmentCategory"></Input>-->
-                <Select v-model="ruleForm.equipmentCategory" filterable @on-change="chosenDeviceClass"
+                <Select v-model="ruleForm.eqVariety" filterable @on-change="chosenDeviceClass"
                         :label-in-value=true>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -43,9 +43,9 @@
 
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="设备品种" prop="equipmentVariety">
+              <Form-item label="设备品种" prop="eqCategory">
                 <!--<Input v-model="ruleForm.equipmentVariety"></Input>-->
-                <Select v-model="ruleForm.equipmentVariety" filterable @on-change="chosenDeviceType"
+                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceType"
                        :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -56,8 +56,8 @@
 
             <Row>
               <Col span="11">
-              <Form-item label="产品名称" prop="equipmentName">
-                <Input v-model="ruleForm.equipmentName"></Input>
+              <Form-item label="产品名称" prop="eqName">
+                <Input v-model="ruleForm.eqName"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
@@ -678,9 +678,9 @@
 
         ruleForm: {
           registKind: '',
-          equipmentCategory: '',
-          equipmentVariety: '',
-          equipmentName: '',
+          eqVariety: '',
+          eqCategory: '',
+          eqName: '',
           equipmentNum: '',
           usingCompanyName: '',
           usingCompanyAddr: '',
@@ -976,12 +976,12 @@
           this.deviceTypeList=[];
 
           if(this.$route.query.device_type==9){
-            this.ruleForm.equipmentCategory="2300";
+            this.ruleForm.eqVariety="2300";
           }else if(this.$route.query.device_type==10){
-            this.ruleForm.equipmentCategory="8300";
+            this.ruleForm.eqVariety="8300";
           }
-          let params = 'code=' + this.ruleForm.equipmentCategory;
-          if (this.deviceTypeList !== '' && this.ruleForm.equipmentCategory) {
+          let params = 'code=' + this.ruleForm.eqVariety;
+          if (this.deviceTypeList !== '' && this.ruleForm.eqVariety) {
             setAppService.getDeviceType(params).then(res => {
               this.deviceTypeList = [];
               for (let i = 0, len = res.length; i < len; i++) {
@@ -1010,9 +1010,9 @@
       clearRuleForm(){
         this.ruleForm={
           registKind: '',
-          equipmentCategory: '',
-          equipmentVariety: '',
-          equipmentName: '',
+          eqVariety: '',
+          eqCategory: '',
+          eqName: '',
           equipmentNum: '',
           usingCompanyName: '',
           usingCompanyAddr: '',

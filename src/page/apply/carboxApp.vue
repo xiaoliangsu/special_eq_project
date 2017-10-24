@@ -62,9 +62,9 @@
             <h2 class="header_two">设备基本情况</h2>
             <Row>     <!--qiu-->
               <Col span="11">   <!--qiu-->
-              <Form-item label="设备品种" prop="eqKind">
+              <Form-item label="设备品种" prop="eqCategory">
                 <!--<Input v-model="ruleForm.eqKind" ></Input>-->
-                <Select v-model="ruleForm.eqKind" filterable @on-change="chosenDeviceType" :label-in-value=true>
+                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceType" :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -78,8 +78,8 @@
               </Col>   <!--qiu-->
               <!--qiu-->
               <Col span="11" offset="2">
-              <Form-item label="产品名称" prop="productName">
-                <Input v-model="ruleForm.productName" ></Input>
+              <Form-item label="产品名称" prop="eqName">
+                <Input v-model="ruleForm.eqName" ></Input>
               </Form-item>
               <Form-item label="充装介质" prop="fillMedium">
                 <Input v-model="ruleForm.fillMedium" ></Input>
@@ -468,8 +468,8 @@
         pdfUrl: '',
 
         ruleForm: {
-          eqKind: '',
-          productName:'',
+          eqCategory: '',
+          eqName:'',
           cylinderNum: '',
           fillMedium: '',
           cylinderWorkPressure: '',
@@ -568,10 +568,10 @@
           registKind: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-//          eqKind: [
+//          eqCategory: [
 //            {required: false, message: '', trigger: 'blur'}
 //          ],
-//          productName: [
+//          eqName: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
 //          cylinderNum: [
@@ -770,8 +770,8 @@
 
       clearRuleForm(){
         this.ruleForm={
-          eqKind: '',
-          productName:'',
+          eqCategory: '',
+          eqName:'',
           cylinderNum: '',
           fillMedium: '',
           cylinderWorkPressure: '',
