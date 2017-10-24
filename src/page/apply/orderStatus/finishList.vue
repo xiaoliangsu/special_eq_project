@@ -18,7 +18,7 @@
         <Col span="7">
         <label>申请状态</label>
         <Select v-model="applyState" style="width:180px" placeholder="请选择">
-        <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
+          <Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>
         </Select>
         <!--<label>申请id</label>-->
         <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
@@ -162,26 +162,26 @@
             title: '操作',
             key: 'state',
             render: (h, params) => {
-              if(params.row.state=='已审批通过'){
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    fontSize: '5px',
-                  },
-                  on: {
-                    click: () => {
-                      this.appDetail(params.index)
+              if (params.row.state == '已审批通过') {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'primary',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px',
+                      fontSize: '5px',
+                    },
+                    on: {
+                      click: () => {
+                        this.appDetail(params.index)
+                      }
                     }
-                  }
-                }, '详情'),
+                  }, '详情'),
 
-              ]);
-              }else if(params.row.state=='受理驳回'||params.row.state=='审批驳回'){
+                ]);
+              } else if (params.row.state == '受理驳回' || params.row.state == '审批驳回') {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -214,7 +214,7 @@
                     }
                   }, '修改'),
 
-              ]);
+                ]);
 
               }
 
@@ -280,7 +280,7 @@
           size: 10,
         }
 
-        waitAccparams.states = [3,4,5];
+        waitAccparams.states = [3, 4, 5];
         console.log(waitAccparams)
 
 
@@ -290,23 +290,23 @@
 
       getOrders(waitAccparams){
         orderStatusService.GetOrders(waitAccparams).then(res => {
-          if (res.status === 200) {
-            //this.data5.device = res.data.content[0].id;
-            this.data5 = res.data.content;
-            this.num = res.data.totalElements;
-            //  this.data5.state=res.data.content.status.state;
-            for (var i = 0; i < res.data.content.length; i++) {
-              this.data5[i].state = res.data.content[i].status.states;
-              let newDate = new Date(res.data.content[i].createTime);
-              let Y = newDate.getFullYear() + '-';
-              let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-              let D = newDate.getDate() + ' ';
-              this.data5[i].createTime = Y + M + D;
-            }
+            if (res.status === 200) {
+              //this.data5.device = res.data.content[0].id;
+              this.data5 = res.data.content;
+              this.num = res.data.totalElements;
+              //  this.data5.state=res.data.content.status.state;
+              for (var i = 0; i < res.data.content.length; i++) {
+                this.data5[i].state = res.data.content[i].status.states;
+                let newDate = new Date(res.data.content[i].createTime);
+                let Y = newDate.getFullYear() + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+                let D = newDate.getDate() + ' ';
+                this.data5[i].createTime = Y + M + D;
+              }
 
-          } else {
-            this.data5 = [];
-          }
+            } else {
+              this.data5 = [];
+            }
 
 
           }
@@ -351,8 +351,8 @@
         }
       },
       changeTime(time){
-        return [time[0].getFullYear()+"-"+(parseInt(time[0].getMonth())+1)+"-"+time[0].getDate(),
-          time[1].getFullYear()+"-"+(parseInt(time[1].getMonth())+1)+"-"+time[1].getDate()]
+        return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
+          time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
       query(){
         this.$refs['pages'].currentPage = 1;
@@ -366,7 +366,7 @@
           waitAccparams.time = this.changeTime(this.time);
         }
         if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+          waitAccparams.states = [this.applyState, this.applyState];
         }
         if (this.applyType !== '') {
           waitAccparams.applyTypeId = this.applyType;
@@ -385,9 +385,9 @@
           waitAccparams.time = this.changeTime(this.time);
 
         }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
-        }
+
+        waitAccparams.states = [3, 4, 5];
+
         if (this.applyType !== '') {
           waitAccparams.applyTypeId = this.applyType;
         }

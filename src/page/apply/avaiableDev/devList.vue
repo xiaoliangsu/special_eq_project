@@ -171,14 +171,14 @@
                     },
                     on: {
                       click: () => {
-                       // this.appDetail(params.index)
-                      //  console.log(params.index)
+                        // this.appDetail(params.index)
+                        //  console.log(params.index)
                         this.$router.push({
                           path: 'disableApp',
                           query: {
                             applyId: this.data5[params.index].id,
                             dev_name: this.data5[params.index].device,
-                            orderState:2,
+                            orderState: 2,
                           }
                         });
                       }
@@ -401,10 +401,10 @@
         if (this.time[0] !== '') {
           waitAccparams.time = this.changeTime(this.time);
         }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
 
-        }
+       // waitAccparams.states = [this.applyState, this.applyState];
+
+
         if (this.applyType !== '') {
           waitAccparams.applyTypeId = parseInt(this.applyType);
         }

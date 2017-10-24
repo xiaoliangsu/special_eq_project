@@ -404,10 +404,10 @@
           waitAccparams.time = this.changeTime(this.time);
 
         }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
 
-        }
+        waitAccparams.states = [0, 0];
+
+
         if (this.applyType !== '') {
           waitAccparams.applyTypeId = this.applyType;
         }

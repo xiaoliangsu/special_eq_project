@@ -1,7 +1,7 @@
 <template>
   <div class="newOrLast">
     <!--<div class="bread">-->
-      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
+    <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
     <!--</div>-->
 
 
@@ -12,10 +12,10 @@
 
     </div>
 
-      <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
-        <Icon type="plus-round"></Icon>
-        新建申请
-      </Button>
+    <Button type="primary" shape="circle" @click="toNewApp()" class="newButton">
+      <Icon type="plus-round"></Icon>
+      新建申请
+    </Button>
 
 
   </div>
@@ -58,7 +58,7 @@
           }, {
             value: 'pipeline',
             label: '工业管道'
-          },{
+          }, {
             value: 'carbox',
             label: '车用气瓶'
           }
@@ -151,8 +151,8 @@
           state: '',
           page: 1,
         },
-        device_detail:'',
-        device_type:'',
+        device_detail: '',
+        device_type: '',
       }
     },
     components: {
@@ -169,9 +169,9 @@
 
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route.query.device_type':function(){
+      '$route.query.device_type': function () {
         console.log(this.$route.path);
-        if(this.$route.path=='/newOrLast'){
+        if (this.$route.path == '/newOrLast') {
           this.initData();
         }
 
@@ -189,13 +189,14 @@
         ['setDeviceType'],
       ),
       initData(){
-        this.device_type=this.$route.query.device_type;
+        this.device_type = this.$route.query.device_type;
         this.setDeviceType(this.$route.query.device_type);
         console.log(this.getDeviceTypeName)
-        let params={
-         // device_detail:this.device_detail,
-          deviceTypeId:this.device_type,
-          applyTypeId:0,
+        let params = {
+          // device_detail:this.device_detail,
+          deviceTypeId: this.device_type,
+          applyTypeId: 0,
+          states: [0, 0],
         }
         this.getInitOrders(params);
 
@@ -205,20 +206,20 @@
         orderStatusService.GetOrders(params).then(res => {
 
             console.log(res.data.content);
-            if(res.data.content){
+            if (res.data.content) {
               this.data5 = res.data.content;
-              this.num=res.data.content.length;
+              this.num = res.data.content.length;
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
-                let newDate= new Date(res.data.content[i].createTime);
+                let newDate = new Date(res.data.content[i].createTime);
                 let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth()+1 < 10 ? '0'+(newDate.getMonth()+1) : newDate.getMonth()+1) + '-';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
-                this.data5[i].createTime=Y+M+D;
+                this.data5[i].createTime = Y + M + D;
               }
-            }else{
-              this.data5='';
+            } else {
+              this.data5 = '';
             }
 
           }
@@ -228,35 +229,35 @@
       },
       //获取申请列表信息
       getInitOrders(params){
-          this.getOrders(params);
+        this.getOrders(params);
       },
       toNewApp(){
 //        if(this.device_type=='one'&& this.device_detail!=='carbox'){
-          if(this.device_type<8){
-
-            this.$router.push({
-            path:"setApp" ,
-            query: {
-              device_type: this.device_type,
-            //  device_detail: this.device_detail
-            }
-          });
-        }else if(this.device_type==9||this.device_type==10){
-       // }else if(this.device_type=='two'){
+        if (this.device_type < 8) {
 
           this.$router.push({
-            path:"companyApp" ,
+            path: "setApp",
             query: {
               device_type: this.device_type,
-            //  device_detail: this.device_detail
+              //  device_detail: this.device_detail
             }
           });
-        }else{
+        } else if (this.device_type == 9 || this.device_type == 10) {
+          // }else if(this.device_type=='two'){
+
           this.$router.push({
-            path:"carboxApp" ,
+            path: "companyApp",
             query: {
               device_type: this.device_type,
-          //    device_detail: this.device_detail
+              //  device_detail: this.device_detail
+            }
+          });
+        } else {
+          this.$router.push({
+            path: "carboxApp",
+            query: {
+              device_type: this.device_type,
+              //    device_detail: this.device_detail
             }
           });
         }
@@ -272,9 +273,9 @@
         if (this.time[0] !== '') {
           params.time = this.time;
         }
-        if (this.applyState !== '') {
-          params.states = this.applyState;
-        }
+
+        params.states = [0, 0];
+
         if (this.applyType !== '') {
           params.applyTypeId = this.applyType;
         }
@@ -282,7 +283,7 @@
 
       },
       continueApp(value){
-          this.modifyApp(value,this.device_type)
+        this.modifyApp(value, this.device_type)
       },
     }
   }
@@ -292,13 +293,15 @@
   .bread {
     margin-bottom: 5px;
   }
-  .newButton{
-    margin:10px;
+
+  .newButton {
+    margin: 10px;
   }
+
   .list-box {
     display: block;
     height: auto;
-    padding:0 10px 50px 10px;
+    padding: 0 10px 50px 10px;
     border: 1px solid rgb(229, 229, 229);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -308,14 +311,14 @@
     margin-top: 10px;
     box-sizing: border-box;
 
-
     .page {
       float: right;
       margin: 10px;
     }
   }
-  .list-box-head{
-    margin:5px;
+
+  .list-box-head {
+    margin: 5px;
   }
 
 </style>
