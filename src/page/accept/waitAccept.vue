@@ -416,39 +416,17 @@
 
       appDetail(value){
 //    switch (this.data5[value].changeApplyNum) {
-        console.log(this.data5[value].applyType);
         switch (this.data5[value].applyType) {
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceTypeId < 8) {
-              this.$router.push({
-                path: 'appDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'waitAccept'
-                }
-              });
-            } else if (this.data5[value].deviceTypeId > 8) {
-              this.$router.push({
-                path: 'comAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'waitAccept'
-                }
-              });
-            } else if (this.data5[value].deviceTypeId == 8) {
-              this.$router.push({
-                path: 'carboxAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'waitAccept'
-
-                }
-              });
-            }
-
-
+            this.$router.push({
+              path: 'appDetail',
+              query: {
+                applyId: this.data5[value].id,
+                orderState:'waitAccept'
+              }
+            });
             break;
           case 2:
             //改造变更

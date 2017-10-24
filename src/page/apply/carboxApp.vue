@@ -63,7 +63,11 @@
             <Row>     <!--qiu-->
               <Col span="11">   <!--qiu-->
               <Form-item label="设备品种" prop="eqKind">
-                <Input v-model="ruleForm.eqKind" ></Input>
+                <!--<Input v-model="ruleForm.eqKind" ></Input>-->
+                <Select v-model="ruleForm.eqKind" filterable @on-change="chosenDeviceType" :label-in-value=true>
+                  <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
+                </Select>
               </Form-item>
               <Form-item label="气瓶数量" prop="cylinderNum">
                 <Input v-model="ruleForm.cylinderNum" ></Input>
@@ -460,7 +464,7 @@
   export default {
     data() {
       return {
-        pdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        pdfUrl: '',
 
         ruleForm: {
           eqKind: '',
@@ -498,6 +502,31 @@
           registKind: '',
         },
 
+        //设备品种
+        deviceTypeList:[
+          {
+            value: "2210",
+            label: "铁路罐车"
+          },
+          {
+            value: "2220",
+            label: "汽车罐车"
+          },
+          {
+            value: "2230",
+            label: "长管拖车"
+          },
+          {
+            value: "2240",
+            label: "罐式集装箱"
+          },
+          {
+            value: "2250",
+            label: "管束式集装箱"
+          },
+        ],
+
+        //登记类别
         registKindList:[
           {
             value:'新设备首次启用',
@@ -532,6 +561,8 @@
             label:'达到设计使用年限'
           },
         ],
+        //设备品种名称
+        deviceClassTypeId:'',
         rules: {
           registKind: [
             {required: true, message: '不能为空', trigger: 'blur'}
@@ -635,13 +666,13 @@
 
 
         },
-        ifNext: true,
+        //ifNext: true,
         active: 1,
-        selected: '',
-        imgName: '',
+      //  selected: '',
+       // imgName: '',
         visible: false,
         uploadList: [],
-        modal1: false,
+       // modal1: false,
         author_key: '',
 //        pdfUrl: {
 //          锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
@@ -651,21 +682,11 @@
 //          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
 //        },
         defaultPdfList1: [],
-        selectedNum: '',
-        deviceNum: 1,
-        ruleForms: '',
-        value1: '',
+      //  selectedNum: '',
+       // deviceNum: 1,
+       // ruleForms: '',
+       // value1: '',
         current: 0,
-//        province: '',
-//        city: '',
-//        provinceList: [],
-//        cityList: [],
-//        area: '',
-//        areaList: [],
-//        acceptCom: '',
-//        acceptComList: [],
-//        checkCom: '',
-//        checkComList: [],
         device_type:'',
         ifold:0,
         uploadList: [
@@ -689,7 +710,6 @@
     watch: {
       // 如果路由有变化，会再次执行该方法
       '$route.query':function(){
-        console.log(this.$route.path);
         if(this.$route.path=='/carboxApp'){
           this.initData();
         }
@@ -704,39 +724,7 @@
       ]),
     },
     mounted(){
-      //this.initData();
-      this.ifold=this.$route.query.ifold;
-      if(this.ifold==1){
-        let params = 'applyId=' + this.$route.query.applyId;
-        setAppService.getUnsubmitApp(params).then(res => {
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//          this.province= '120000';
-//          this.city="120100";
-//          this.area="120101";
-          this.ruleForm.eqKind="车用气瓶";
-          // this.ruleForm = res.success.ruleForm[0];
-          this.clearRuleForm();
-          this.defaultPdfList1 = res.pdfUrlDefault;
-
-        }).catch(error => {
-          console.log(error)
-        })
-      }
-//      setAppService.getProvinces().then(res => {
-//        //  console.log(res);
-//        for (let i = 0, len = res.length; i < len; i++) {
-//          this.provinceList.push({value: res[i].code, label: res[i].name});
-//        }
-//      }).catch(error => {
-//        console.log(error);
-//
-//      })
+      this.initData();
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
@@ -748,61 +736,19 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
-//      chosenPro(value){
-//        let params = 'provinceCode=' + value;
-//        if(value!==''){
-//          setAppService.getCities(params).then(res => {
-//            this.cityList=[];
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.cityList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//        }
-//
-//
-//      },
-//      chosenCity(value){
-//        let params = 'cityCode=' + value;
-//        if(value!==""){
-//          setAppService.getArea(params).then(res => {
-//            this.areaList=[];
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.areaList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//        }
-//      },
-
-
       initData(){
-        this.deviceNum = 1;
+       // this.deviceNum = 1;
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
-        this.selected = this.getSelectedOption;
-        this.selectedNum = this.getSelectedNum;
+        this.uploadList = [
+          {"url": ''}
+        ];
+     //   this.selected = this.getSelectedOption;
+      //  this.selectedNum = this.getSelectedNum;
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
-//        this.province='';
-//        this.city='';
-//        this.area='';
-//        this.provinceList=[];
-//        this.cityList=[];
-//        this.areaList=[];
-
         if (this.$route.query.ifold !== 1) {
-          // console.log(this.selectedNum);
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
           this.clearRuleForm();
           this.defaultPdfList1 = [];
         } else {
@@ -813,18 +759,6 @@
       getOldInfo(){
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
-//          setAppService.getProvinces().then(res => {
-//            for (let i = 0, len = res.length; i < len; i++) {
-//              this.provinceList.push({value: res[i].code, label: res[i].name});
-//            }
-//          }).catch(error => {
-//            console.log(error);
-//          })
-//          this.province= '120000';
-//          this.city="120100";
-//          this.area="120101";
-         // this.acceptCom=res.data.acceptorAgencyId;
-
           this.clearRuleForm();
           this.ruleForm.eqKind ="车用气瓶";
           this.defaultPdfList1 = res.pdfUrlDefault;
@@ -832,6 +766,7 @@
           console.log(error)
         })
       },
+
       clearRuleForm(){
         this.ruleForm={
           eqKind: '',
@@ -859,42 +794,20 @@
           registKind: '',
         }
       },
+      //选择的设备品种
+      chosenDeviceType(value){
+        this.deviceClassTypeId = value.label;
+      },
 
-//      submitForm(formName) {
-//        this.$refs[formName].validate((valid) => {
-//          if (valid) {
-//            let param = Object.assign({}, this.ruleForm);
-//            // console.log(param);
-//            this.ifNext = false;
-//            setAppService.submitCarboxInfo(param).then(res => {
-//              //console.log(res);
-//              if (res) {
-//                console.log(res.success);
-//              }
-//              this.active++;
-//              this.current++;
-//              this.$Message.info('您已提交信息，请预览结果');
-//              this.modalCertain = false;
-//              console.log(this.modalCertain);
-//            })
-//              .catch(error => {
-//                console.log(error)
-//              })
-//          } else {
-//            console.log('error submit!!');
-//            this.$Message.info('尚有信息不符合要求，请检查');
-//            return false;
-//
-//          }
-//        });
-//      },
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
-          this.applyId = res.data.applyId;
-          this.$Message.info('您已提交信息，请预览结果');
-          this.modalCertain = false;
-          console.log(this.modalCertain);
-          if(res.status==true){
+
+          if (res.status == 200) {
+            this.applyId = res.data.applyId;
+            this.fileId = res.data.files.split("=")[1].split("}")[0];
+            this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+            this.$Message.info('您已提交信息，请预览结果');
+            this.modalCertain = false;
           }
 
         }).catch(error => {
@@ -902,62 +815,62 @@
 
         })
       },
+      //提交表单
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.current++;
             this.active++;
-            console.log(valid);
-            console.log(this.active);
+
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam={};
-            submitParam.form1=this.ruleForm;
-            submitParam.address=this.area||this.city;
-            // submitParam.agencies=["12","13"];
-            submitParam.approverAgencyId=12;
-            submitParam.acceptorAgencyId=13;
-            submitParam.deviceTypeId=this.device_type;
-            submitParam.applyTypeId=1;
-            submitParam.hasFiles=true;
-            console.log(submitParam);
+            let submitParam = {};
+            //提交表单1
+            submitParam.form1 = this.ruleForm;
+            //受理机关名称
+            submitParam.acceptorAgencyId = 13;
+            //设备类别
+            if (this.device_type) {
+              submitParam.deviceType = parseInt(this.device_type);
+            } else {
+              submitParam.deviceType = parseInt(this.$route.query.device_type);
+            }
+            //首次申请
+            submitParam.applyType = 1;
+            //提交设备类别等
+            submitParam.deviceCategory = "压力容器";
+            submitParam.deviceClass = "移动式压力容器";
+            submitParam.deviceKind = this.deviceClassTypeId;
+            submitParam.deivceCode = this.ruleForm.productNum;
            this.submit(submitParam);
-
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
             return false;
           }
         });
-        // this.active++;
-
-
-//        setAppService.getRegistOne("fileId=101").then(res => {
-//
-//          //pdf信息
-//          console.log(res);
-//          this.pdfUrl = res.data;
-//          //获取对象长度
-//         // this.pdfNum = Object.keys(this.pdfUrl).length;
-//
-//
-//        }).catch(error => {
-//          console.log(error)
-//        })
       },
       saveForm(formName){
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam={};
-        submitParam.form1=this.ruleForm;
-        submitParam.address=this.area||this.city;
-        // submitParam.agencies=["12","13"];
-        submitParam.approverAgencyId=12;
-        submitParam.acceptorAgencyId=13;
-        submitParam.deviceTypeId=this.device_type;
-        submitParam.applyTypeId=1;
-        submitParam.hasFiles=true;
-        console.log(submitParam);
+        let submitParam = {};
+        //提交表单1
+        submitParam.form1 = this.ruleForm;
+        //受理机关名称
+        submitParam.acceptorAgencyId = 13;
+        //设备类别
+        if (this.device_type) {
+          submitParam.deviceType = parseInt(this.device_type);
+        } else {
+          submitParam.deviceType = parseInt(this.$route.query.device_type);
+        }
+        //首次申请
+        submitParam.applyType = 1;
+        //提交设备类别等
+        submitParam.deviceCategory = "压力容器";
+        submitParam.deviceClass = "移动式压力容器";
+        submitParam.deviceKind = this.deviceClassTypeId;
+        submitParam.deivceCode = this.ruleForm.productNum;
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
@@ -978,24 +891,12 @@
           }
         });
 
-
-
       },
 
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
       next(name) {
-//        this.$refs[name].validate((valid) => {
-//          if (valid) {
-////            this.active++;
-////            console.log(this.active);
-//          }
-//        })
-//        if (this.active == 1) {
-//          this.submitForm('ruleForm');
-//        }
-//        this.beSure();
         if (this.current == 3) {
           this.current = 0;
         } else {
@@ -1022,79 +923,7 @@
           }
         });
       },
-//      beSure() {
-//
-//        if(this.deviceNum<this.selectedNum){
-//          if(this.selectedNum>this.ruleForms.ruleForm.length)
-//          {
-//            let len=this.ruleForms.ruleForm.length;
-//
-//            for(let i=0;i<this.selectedNum-len;i++){
-//              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length]={};
-//            }
-//
-//          }
-//
-//
-//          this.deviceNum++;
-//          this.active=1;
-//          if(!this.ruleForms){
-//            this.clearRegistThreeForm();
-//            this.ruleForm = this.getRegistThree;
-//          }else{
-//            this.ruleForm=this.ruleForms.ruleForm[(this.deviceNum-1)];
-//
-//          }
-//
-//
-//        }else{
-//          this.active=2;
-//        }
-//
-//      },
-//      beSure() {
-//
-//        if (this.deviceNum < this.selectedNum) {
-//
-//          if (this.ruleForms && this.selectedNum > this.ruleForms.ruleForm.length) {
-//            let len = this.ruleForms.ruleForm.length;
-//
-//            for (let i = 0; i < this.selectedNum - len; i++) {
-//              this.ruleForms.ruleForm[this.ruleForms.ruleForm.length] = {};
-//            }
-//
-//          }
-//
-//          this.deviceNum++;
-//          this.active = 1;
-//          if (!this.ruleForms) {
-//            this.clearRegistThreeForm();
-//            this.ruleForm = this.getRegistThree;
-//          } else {
-//            this.$Modal.success({
-//
-//              content: "请继续填写下一台(套)的登记表"
-//            });
-//            this.ruleForm = this.ruleForms.ruleForm[(this.deviceNum - 1)];
-//
-//          }
-//
-//
-//        } else {
-//          this.active = 2;
-//        }
-//
-//      },
-//      createPdf() {
-////                let newWindow = window.open("_blank");   //打开新窗口
-////                let codestr = document.getElementById("pdf-wrap").innerHTML;   //获取需要生成pdf页面的div代码
-////                newWindow.document.write(codestr);   //向文档写入HTML表达式或者JavaScript代码
-////                newWindow.document.close();     //关闭document的输出流, 显示选定的数据
-////                newWindow.print();   //打印当前窗口
-////                return true;
-//
-//        window.print();
-//      },
+
 
       handleSuccess (res, file) {
         //需要沟通一下，成功给我返回什么然后判断
@@ -1153,9 +982,7 @@
 
 
       },
-      changeBasic(){
-        this.ifold=0;
-      }
+
     },
 
   }

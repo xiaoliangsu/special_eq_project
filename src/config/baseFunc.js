@@ -2,11 +2,11 @@ exports.install = function (Vue, options) {
   //首次申请，保存后再次填写和受理前修改
   Vue.prototype.modifyApp = function (value,device_type) {
     console.log("baseFunc");
-    console.log(this.data5[value].deviceType);
+    console.log(this.data5[value].deviceTypeId);
     switch (this.data5[value].applyType) {
       case "首次申请":
         //按套首次申请
-        if(device_type<8){
+        if(device_type<8 ||this.data5[value].deviceTypeId<8){
           this.$router.push({
             path: 'setApp',
             query: {
@@ -17,11 +17,11 @@ exports.install = function (Vue, options) {
               //selectedNum:2
             }
           });
-        }else if(device_type>8){
+        }else if(device_type>8||this.data5[value].deviceTypeId>8){
           this.$router.push({
             path: 'companyApp',
             query: {
-              dev_id: this.data5[value].id,
+              applyId: this.data5[value].id,
             //  dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,
@@ -33,7 +33,7 @@ exports.install = function (Vue, options) {
           this.$router.push({
             path: 'carboxApp',
             query: {
-              dev_id: this.data5[value].id,
+              applyId: this.data5[value].id,
             //  dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,

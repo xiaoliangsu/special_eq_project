@@ -493,30 +493,12 @@
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceTypeId<8) {
-              this.$router.push({
-                path: 'appDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                }
-              });
-            } else if (this.data5[value].deviceTypeId>8) {
-              this.$router.push({
-                path: 'comAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                }
-              });
-            } else if (this.data5[value].deviceTypeId==8) {
-              this.$router.push({
-                path: 'carboxAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                }
-              });
-            }
-
-
+            this.$router.push({
+              path: 'appDetail',
+              query: {
+                applyId: this.data5[value].id,
+              }
+            });
             break;
           case 2:
             //改造变更

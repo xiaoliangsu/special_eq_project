@@ -33,12 +33,23 @@
             <Row>
               <Col span="11">
               <Form-item label="设备类别" prop="equipmentCategory">
-                <Input v-model="ruleForm.equipmentCategory"></Input>
+                <!--<Input v-model="ruleForm.equipmentCategory"></Input>-->
+                <Select v-model="ruleForm.equipmentCategory" filterable @on-change="chosenDeviceClass"
+                        :label-in-value=true>
+                  <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
+                </Select>
               </Form-item>
+
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备品种" prop="equipmentVariety">
-                <Input v-model="ruleForm.equipmentVariety"></Input>
+                <!--<Input v-model="ruleForm.equipmentVariety"></Input>-->
+                <Select v-model="ruleForm.equipmentVariety" filterable @on-change="chosenDeviceType"
+                       :label-in-value=true>
+                  <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
+                  </Option>
+                </Select>
               </Form-item>
               </Col>
             </Row>
@@ -648,6 +659,23 @@
   export default {
     data() {
       return {
+        //设备类别
+        deviceClassList: [
+          {
+            value: "2300",
+            label: "气瓶"
+          },
+          {
+            value: "8300",
+            label: "工业管道"
+          },
+
+        ],
+        deviceClassId:'',
+        //设备品种列表
+        deviceTypeList: [],
+        deviceClassTypeId:'',
+
         ruleForm: {
           registKind: '',
           equipmentCategory: '',
@@ -870,21 +898,7 @@
       ]),
     },
     mounted(){
-      this.ifold = this.$route.query.ifold;
-      this.device_type = this.$route.query.device_type;
-
-      if (this.ifold == 1) {
-        let params = 'applyId=' + this.$route.query.applyId;
-        setAppService.getUnsubmitApp(params).then(res => {
-          this.clearRuleForm();
-          this.ruleForm.equipmentNum = "设备类别";
-          this.defaultPdfList1 = res.pdfUrlDefault;
-        }).catch(error => {
-          console.log(error)
-        })
-      } else {
-
-      }
+      this.initData();
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
@@ -959,6 +973,24 @@
         if (this.$route.query.ifold !== 1) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
+          this.deviceTypeList=[];
+
+          if(this.$route.query.device_type==9){
+            this.ruleForm.equipmentCategory="2300";
+          }else if(this.$route.query.device_type==10){
+            this.ruleForm.equipmentCategory="8300";
+          }
+          let params = 'code=' + this.ruleForm.equipmentCategory;
+          if (this.deviceTypeList !== '' && this.ruleForm.equipmentCategory) {
+            setAppService.getDeviceType(params).then(res => {
+              this.deviceTypeList = [];
+              for (let i = 0, len = res.length; i < len; i++) {
+                this.deviceTypeList.push({value: res[i].code, label: res[i].name});
+              }
+            }).catch(error => {
+              console.log(error);
+            })
+          }
         } else {
           // 获取已经保存的信息
           this.getOldInfo();
@@ -993,15 +1025,41 @@
           mobileNumber: '',
         }
       },
+      chosenDeviceClass(value){
+        let params = 'code=' + value.value;
+        this.deviceClassId = value.label;
+        if (value.value !== '' && this.deviceTypeList !== []) {
+          setAppService.getDeviceType(params).then(res => {
+            this.deviceTypeList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.deviceTypeList.push({value: res[i].code, label: res[i].name});
+            }
+            if (this.deviceTypeList.length === 0) {
+              this.ifDisabled = true;
+              this.deviceTypePlace = '-';
+            } else {
+              this.ifDisabled = false;
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+
+      },
+      chosenDeviceType(value){
+        this.deviceClassTypeId = value.label;
+      },
+
 
       //提交表格信息
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
-          this.applyId = res.data.applyId;
-          this.$Message.info('您已提交信息，请预览结果');
-          this.modalCertain = false;
-         // console.log(this.modalCertain);
-          if (res.status == true) {
+          if (res.status == 200) {
+            this.applyId = res.data.applyId;
+            this.fileId = res.data.files.split("=")[1].split("}")[0];
+            this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+            this.$Message.info('您已提交信息，请预览结果');
+            this.modalCertain = false;
           }
 
         }).catch(error => {
@@ -1019,15 +1077,29 @@
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = {};
+            //提交表单1
             submitParam.form1 = this.ruleForm;
-            submitParam.address = this.area || this.city;
-            // submitParam.agencies=["12","13"];
-            submitParam.approverAgencyId = 12;
+            //受理机关名称
             submitParam.acceptorAgencyId = 13;
-            submitParam.deviceTypeId = this.device_type;
-            submitParam.applyTypeId = 1;
-            submitParam.hasFiles = true;
-           // console.log(submitParam);
+            //设备类别
+            if (this.device_type) {
+              submitParam.deviceType = parseInt(this.device_type);
+            } else {
+              submitParam.deviceType = parseInt(this.$route.query.device_type);
+            }
+            //首次申请
+            submitParam.applyType = 1;
+            //提交设备类别等
+            if(submitParam.deviceType===9){
+              submitParam.deviceCategory = "压力容器";
+              submitParam.deviceClass = "气瓶";
+              submitParam.deviceKind = this.deviceClassTypeId;
+            }else if(submitParam.deviceType===10){
+              submitParam.deviceCategory = "压力管道";
+              submitParam.deviceClass = "工业管道";
+              submitParam.deviceKind = this.deviceClassTypeId;
+            }
+            //submitParam.deivceCode = this.ruleForm.eqCode;
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1046,15 +1118,28 @@
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam = {};
+        //提交表单1
         submitParam.form1 = this.ruleForm;
-        submitParam.address = this.area || this.city;
-        // submitParam.agencies=["12","13"];
-        submitParam.approverAgencyId = 12;
+        //受理机关名称
         submitParam.acceptorAgencyId = 13;
-        submitParam.deviceTypeId = this.device_type;
-        submitParam.applyTypeId = 1;
-        submitParam.hasFiles = true;
-        console.log(submitParam);
+        //设备类别
+        if (this.device_type) {
+          submitParam.deviceType = parseInt(this.device_type);
+        } else {
+          submitParam.deviceType = parseInt(this.$route.query.device_type);
+        }
+        //首次申请
+        submitParam.applyType = 1;
+        //提交设备类别等
+        if(submitParam.deviceType===9){
+          submitParam.deviceCategory = "压力容器";
+          submitParam.deviceClass = "气瓶";
+          submitParam.deviceKind = this.deviceClassTypeId;
+        }else if(submitParam.deviceType===10){
+          submitParam.deviceCategory = "压力管道";
+          submitParam.deviceClass = "工业管道";
+          submitParam.deviceKind = this.deviceClassTypeId;
+        }
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
@@ -1096,14 +1181,7 @@
         this.current--;
         this.active--;
       },
-      //上一步
-//      before() {
-//        if (this.active == 1) {
-//          this.$router.push('firstApp');
-//        } else {
-//          this.active--;
-//        }
-//      },
+
       confirmForm () {
         this.$Modal.confirm({
           title: '确认登记表信息',

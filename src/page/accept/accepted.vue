@@ -423,32 +423,13 @@
 
           case "首次申请":
             //首次申请
-            if (this.data5[value].deviceTypeId < 8) {
-              this.$router.push({
-                path: 'appDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'accepted'
-                }
-              });
-            } else if (this.data5[value].deviceTypeId > 8) {
-              this.$router.push({
-                path: 'comAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'accepted'
-                }
-              });
-            } else if (this.data5[value].deviceTypeId == 8) {
-              this.$router.push({
-                path: 'carboxAppDetail',
-                query: {
-                  applyId: this.data5[value].id,
-                  orderState:'accepted'
-                }
-              });
-            }
-
+            this.$router.push({
+              path: 'appDetail',
+              query: {
+                applyId: this.data5[value].id,
+                orderState:'accepted'
+              }
+            });
 
             break;
           case 2:
