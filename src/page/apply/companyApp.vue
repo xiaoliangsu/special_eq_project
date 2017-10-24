@@ -1067,6 +1067,34 @@
 
         })
       },
+      makeParams(){
+        let submitParam = {};
+        //提交表单1
+        submitParam.form1 = this.ruleForm;
+        //受理机关名称
+        submitParam.acceptorAgencyId = 13;
+        //设备类别
+        if (this.device_type) {
+          submitParam.deviceType = parseInt(this.device_type);
+        } else {
+          submitParam.deviceType = parseInt(this.$route.query.device_type);
+        }
+        //首次申请
+        submitParam.applyType = 1;
+        //提交设备类别等
+        if(submitParam.deviceType===9){
+          submitParam.deviceCategory = "压力容器";
+          submitParam.deviceClass = "气瓶";
+          submitParam.deviceKind = this.deviceClassTypeId;
+        }else if(submitParam.deviceType===10){
+          submitParam.deviceCategory = "压力管道";
+          submitParam.deviceClass = "工业管道";
+          submitParam.deviceKind = this.deviceClassTypeId;
+        }
+        submitParam.deivceName = this.ruleForm.eqName;
+        return submitParam;
+
+      },
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -1076,29 +1104,8 @@
            // console.log(this.active);
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            if(submitParam.deviceType===9){
-              submitParam.deviceCategory = "压力容器";
-              submitParam.deviceClass = "气瓶";
-              submitParam.deviceKind = this.deviceClassTypeId;
-            }else if(submitParam.deviceType===10){
-              submitParam.deviceCategory = "压力管道";
-              submitParam.deviceClass = "工业管道";
-              submitParam.deviceKind = this.deviceClassTypeId;
-            }
+            let submitParam=this.makeParams();
+
             //submitParam.deivceCode = this.ruleForm.eqCode;
             this.submit(submitParam);
           } else {
@@ -1119,29 +1126,7 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            if(submitParam.deviceType===9){
-              submitParam.deviceCategory = "压力容器";
-              submitParam.deviceClass = "气瓶";
-              submitParam.deviceKind = this.deviceClassTypeId;
-            }else if(submitParam.deviceType===10){
-              submitParam.deviceCategory = "压力管道";
-              submitParam.deviceClass = "工业管道";
-              submitParam.deviceKind = this.deviceClassTypeId;
-            }
+            let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1171,29 +1156,7 @@
 
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam = {};
-        //提交表单1
-        submitParam.form1 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 13;
-        //设备类别
-        if (this.device_type) {
-          submitParam.deviceType = parseInt(this.device_type);
-        } else {
-          submitParam.deviceType = parseInt(this.$route.query.device_type);
-        }
-        //首次申请
-        submitParam.applyType = 1;
-        //提交设备类别等
-        if(submitParam.deviceType===9){
-          submitParam.deviceCategory = "压力容器";
-          submitParam.deviceClass = "气瓶";
-          submitParam.deviceKind = this.deviceClassTypeId;
-        }else if(submitParam.deviceType===10){
-          submitParam.deviceCategory = "压力管道";
-          submitParam.deviceClass = "工业管道";
-          submitParam.deviceKind = this.deviceClassTypeId;
-        }
+        let submitParam=this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',

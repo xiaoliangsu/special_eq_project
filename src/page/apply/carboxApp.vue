@@ -816,6 +816,27 @@
 
         })
       },
+      makeParams(){
+        let submitParam = {};
+        //提交表单1
+        submitParam.form1 = this.ruleForm;
+        //受理机关名称
+        submitParam.acceptorAgencyId = 13;
+        //设备类别
+        if (this.device_type) {
+          submitParam.deviceType = parseInt(this.device_type);
+        } else {
+          submitParam.deviceType = parseInt(this.$route.query.device_type);
+        }
+        //首次申请
+        submitParam.applyType = 1;
+        //提交设备类别等
+        submitParam.deviceCategory = "压力容器";
+        submitParam.deviceClass = "移动式压力容器";
+        submitParam.deviceKind = this.deviceClassTypeId;
+        submitParam.deivceCode = this.ruleForm.productNum;
+        submitParam.deivceName = this.ruleForm.eqName;
+      },
       //提交表单
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
@@ -825,25 +846,8 @@
 
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            submitParam.deviceCategory = "压力容器";
-            submitParam.deviceClass = "移动式压力容器";
-            submitParam.deviceKind = this.deviceClassTypeId;
-            submitParam.deivceCode = this.ruleForm.productNum;
-           this.submit(submitParam);
+            let submitParam=this.makeParams();
+            this.submit(submitParam);
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -859,24 +863,7 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            submitParam.deviceCategory = "压力容器";
-            submitParam.deviceClass = "移动式压力容器";
-            submitParam.deviceKind = this.deviceClassTypeId;
-            submitParam.deivceCode = this.ruleForm.productNum;
+            let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -903,24 +890,7 @@
       saveForm(formName){
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam = {};
-        //提交表单1
-        submitParam.form1 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 13;
-        //设备类别
-        if (this.device_type) {
-          submitParam.deviceType = parseInt(this.device_type);
-        } else {
-          submitParam.deviceType = parseInt(this.$route.query.device_type);
-        }
-        //首次申请
-        submitParam.applyType = 1;
-        //提交设备类别等
-        submitParam.deviceCategory = "压力容器";
-        submitParam.deviceClass = "移动式压力容器";
-        submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.productNum;
+        let submitParam=this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',

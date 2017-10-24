@@ -986,25 +986,7 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            submitParam.deviceCategory = this.deviceCategoryId;
-            submitParam.deviceClass = this.deviceClassId;
-            submitParam.deviceKind = this.deviceClassTypeId;
-            submitParam.deivceCode = this.ruleForm.eqCode;
-
+            let submitParam=this.makeParams();
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1015,6 +997,28 @@
 
 
       },
+      makeParams(){
+        let submitParam = {};
+        //提交表单1
+        submitParam.form1 = this.ruleForm;
+        //受理机关名称
+        submitParam.acceptorAgencyId = 13;
+        //设备类别
+        if (this.device_type) {
+          submitParam.deviceType = parseInt(this.device_type);
+        } else {
+          submitParam.deviceType = parseInt(this.$route.query.device_type);
+        }
+        //首次申请
+        submitParam.applyType = 1;
+        //提交设备类别等
+        submitParam.deviceCategory = this.deviceCategoryId;
+        submitParam.deviceClass = this.deviceClassId;
+        submitParam.deviceKind = this.deviceClassTypeId;
+        submitParam.deivceCode = this.ruleForm.eqCode;
+        submitParam.deivceName = this.ruleForm.eqName;
+        return submitParam;
+      },
       //更新表单
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
@@ -1023,24 +1027,7 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam = {};
-            //提交表单1
-            submitParam.form1 = this.ruleForm;
-            //受理机关名称
-            submitParam.acceptorAgencyId = 13;
-            //设备类别
-            if (this.device_type) {
-              submitParam.deviceType = parseInt(this.device_type);
-            } else {
-              submitParam.deviceType = parseInt(this.$route.query.device_type);
-            }
-            //首次申请
-            submitParam.applyType = 1;
-            //提交设备类别等
-            submitParam.deviceCategory = this.deviceCategoryId;
-            submitParam.deviceClass = this.deviceClassId;
-            submitParam.deviceKind = this.deviceClassTypeId;
-            submitParam.deivceCode = this.ruleForm.eqCode;
+            let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1068,24 +1055,7 @@
 
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam = {};
-        //提交表单1
-        submitParam.form1 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 13;
-        //设备类别
-        if (this.device_type) {
-          submitParam.deviceType = parseInt(this.device_type);
-        } else {
-          submitParam.deviceType = parseInt(this.$route.query.device_type);
-        }
-        //首次申请
-        submitParam.applyType = 1;
-        //提交设备类别等
-        submitParam.deviceCategory = this.deviceCategoryId;
-        submitParam.deviceClass = this.deviceClassId;
-        submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.eqCode;
+        let submitParam=this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',

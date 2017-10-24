@@ -33,6 +33,7 @@ axios.interceptors.response.use((res) => {
     //去掉这个注释
   if (res.status!==200) {
     return Promise.reject(res);
+
   }
   return res;
 }, (error) => {

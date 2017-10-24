@@ -293,16 +293,12 @@
         this.$store.dispatch('setLoadingState', true)
         loginService.Login(data2).then(res => {
             //去掉这个注释
-          console.log(res);
           if(res.status==200){
             //获取权限点
             this.loginInfo.author_key=res.data.role;
 
-            console.log(this.loginInfo.author_key);
             //登陆状态
-            //this.loginInfo.state=res.status;
             this.loginInfo.state=true;
-            console.log(this.loginInfo.state);
             //设置localstorage
             this.loginInfo.username=this.loginForm.username;
             this.setUserInfo(this.loginInfo);
