@@ -38,7 +38,7 @@
     </div>
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
-      <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
+      <Page class="page" ref="pages" :current.sync="currentPage" :total="this.num" size="small" show-elevator @on-change="initSize"
             :page-size="10"></Page>
 
     </div>
@@ -256,9 +256,10 @@
         time: '',
         //订单总数
         num: 0,
-        currentPage: 1,
         //申请id
         applyId: '',
+        //当前页面
+        currentPage:1,
 
 
       }
@@ -289,6 +290,7 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
+        this.currentPage=1;
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
@@ -393,10 +395,9 @@
         this.getOrders(waitAccparams);
       },
       initSize(value){
-        console.log(value);
 
         let waitAccparams = {
-          page: value,
+          page: value-1,
           size: 10,
 
         }
@@ -414,8 +415,7 @@
         this.getOrders(waitAccparams);
 
       },
-      deleteApp(value)
-      {
+      deleteApp(value){
         this.$Modal.confirm({
           title: '确认对话框标题',
           content: '<p>确认删除该条申请？</p>',
@@ -434,8 +434,7 @@
         });
 
 
-      }
-      ,
+      },
 
       //      modifyApp(value){
       //        console.log(1111);

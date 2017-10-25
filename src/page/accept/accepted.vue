@@ -397,7 +397,7 @@
         console.log(value);
 
         let waitAccparams = {
-          page: value,
+          page: value-1,
           size: 10,
 
         }

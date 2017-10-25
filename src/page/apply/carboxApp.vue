@@ -762,7 +762,7 @@
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRuleForm();
-          this.ruleForm= res.data.form1;
+          this.ruleForm= res.data.form3;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -808,7 +808,7 @@
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
-            this.fileId = res.data.files.split("=")[1].split("}")[0];
+            this.fileId = res.data.forms.split("=")[1].split("}")[0];
             this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
@@ -823,7 +823,7 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.eqVariety =   this.deviceClassTypeId;
-        submitParam.form1 = this.ruleForm;
+        submitParam.form3 = this.ruleForm;
         //受理机关名称
         submitParam.acceptorAgencyId = 1;
         //设备类别
@@ -848,7 +848,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form1 = Object.assign({}, this.ruleForm);
+            let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             this.submit(submitParam);
@@ -865,14 +865,14 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form1 = Object.assign({}, this.ruleForm);
+            let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
-                this.fileId = res.data.files.split("=")[1].split("}")[0];
+                this.fileId = res.data.forms.split("=")[1].split("}")[0];
                 this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
@@ -892,7 +892,7 @@
 
       },
       saveForm(formName){
-        let form1 = Object.assign({}, this.ruleForm);
+        let form3 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam=this.makeParams();
         this.$Modal.confirm({

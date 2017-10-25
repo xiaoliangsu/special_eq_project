@@ -8,7 +8,9 @@
     <div class="list-box">
       <h2 class="list-box-head">未提交申请</h2>
       <Table border :columns="columns5" :data="data5"></Table>
-      <Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize"></Page>
+      <!--<Page class="page" :total="this.num" size="small" show-elevator @on-change="initSize"></Page>-->
+      <Page class="page" ref="pages" :current="currentPage" :total="this.num" size="small" show-elevator @on-change="initSize"
+            :page-size="10"></Page>
 
     </div>
 
@@ -136,6 +138,20 @@
                     }
                   }
                 }, '继续填写'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteApp(params.index)
+                    }
+                  }
+                }, '删除'),
 
               ]);
             }
@@ -153,6 +169,8 @@
         },
         device_detail: '',
         device_type: '',
+        //当前页数
+        currentPage:1,
       }
     },
     components: {
@@ -189,14 +207,18 @@
         ['setDeviceType'],
       ),
       initData(){
+          this.currentPage=1;
         this.device_type = this.$route.query.device_type;
         this.setDeviceType(this.$route.query.device_type);
-        console.log(this.getDeviceTypeName)
+//        this.$refs["pages"].current=1;
+//        console.log(this.currentPage)
         let params = {
           // device_detail:this.device_detail,
           deviceTypeId: parseInt(this.device_type),
           applyTypeId: 0,
           states: [0, 0],
+          page:0,
+          size:10,
         }
         this.getInitOrders(params);
 
@@ -204,11 +226,10 @@
       },
       getOrders(params){
         orderStatusService.GetOrders(params).then(res => {
-
-            console.log(res.data.content);
             if (res.data.content) {
               this.data5 = res.data.content;
-              this.num = res.data.content.length;
+              this.num = res.data.totalElements;
+
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
@@ -265,22 +286,36 @@
 
       },
       initSize(value){
-
         let params = {
-          page: value,
-          size: 10,
-
+          // device_detail:this.device_detail,
+          deviceTypeId: parseInt(this.device_type),
+          applyTypeId: 0,
+          states: [0, 0],
+          page:value-1,
+          size:10,
         }
-        if (this.time[0] !== '') {
-          params.time = this.time;
-        }
 
-        params.states = [0, 0];
-
-        if (this.applyType !== '') {
-          params.applyTypeId = this.applyType;
-        }
         this.getOrders(params);
+
+      },
+      deleteApp(value){
+        this.$Modal.confirm({
+          title: '确认对话框标题',
+          content: '<p>确认删除该条申请？</p>',
+          onOk: () => {
+            let waitAccparams = 'applyId=' + this.data5[value].id;
+            orderStatusService.deleteApp(waitAccparams).then(res => {
+                this.$router.go(0);
+              }
+            ).catch(error => {
+              console.log(error);
+            })
+          },
+          onCancel: () => {
+            this.$Message.info('点击了取消');
+          }
+        });
+
 
       },
       continueApp(value){
