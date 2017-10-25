@@ -31,18 +31,20 @@
               <!--<Select v-model="ruleForm.registKind">-->
                 <!--<Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
               <!--</Select>-->
-              <Input v-model="ruleForm.registKind"></Input>
+              <Select v-model="ruleForm.registKind">
+                <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
+              </Select>
 
             </Form-item>
             <Row>
               <Col span="11"><!--wang-->
               <!--<label class="form_label_left">设备种类</label>-->
-              <Form-item label="设备种类" prop="eqSpecies" class="fontsize">
+              <Form-item label="设备种类" prop="eqSpeciesCode" class="fontsize">
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>设备种类、设备类别、设备品种三者联动</p>
                   </div>
-                  <Select v-model="ruleForm.eqSpecies" filterable @on-change="chosenDeviceCategory"
+                  <Select v-model="ruleForm.eqSpeciesCode" filterable @on-change="chosenDeviceCategory"
                           :label-in-value=true>
                     <Option v-for="item in deviceCategoryList" :value="item.value" :key="item.value">{{ item.label }}
                     </Option>
@@ -56,7 +58,7 @@
                     <p>按照《特种设备目录》填写。没有品种的划“—”</p>
                   </div>
                   <!--<i-input v-model="ruleForm.eqVariety"></i-input>-->
-                  <Select v-model="ruleForm.eqVariety" filterable @on-change="chosenDeviceType"
+                  <Select v-model="ruleForm.eqVarietyCode" filterable @on-change="chosenDeviceType"
                           :disabled=this.ifDisabled :label-in-value=true>
                     <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                     </Option>
@@ -82,7 +84,7 @@
               <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="设备类别" prop="eqCategory">
                 <!--<Input v-model="ruleForm.eqCategory"></Input>-->
-                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceClass"
+                <Select v-model="ruleForm.eqCategoryCode" filterable @on-change="chosenDeviceClass"
                         :label-in-value=true>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -535,10 +537,13 @@
         deviceTypeList: [],
         deviceType: '',
         ruleForm: {
-          registKind: '',
+          registKind: '新设备首次启用',
           eqSpecies: '',
+          eqSpeciesCode:'',
           eqCategory: '',
+          eqCategoryCode: '',
           eqVariety: '',
+          eqVarietyCode: '',
           eqName: '',
           eqCode: '',
           model: '',
@@ -633,7 +638,7 @@
         ],
         //wang
         rules: {
-//          eqSpecies: [
+//          eqSpeciesCode: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
 //          eqVariety: [
@@ -847,13 +852,13 @@
           this.deviceTypeList=[];
 
           if(this.$route.query.device_type<3){
-            this.ruleForm.eqSpecies=this.deviceCategoryList[parseInt(this.device_type)-1].value+"";
+            this.ruleForm.eqSpeciesCode=this.deviceCategoryList[parseInt(this.device_type)-1].value+"";
           }else if(2<this.$route.query.device_type<7){
-            this.ruleForm.eqSpecies=this.deviceCategoryList[parseInt(this.device_type)+1].value+"";
+            this.ruleForm.eqSpeciesCode=this.deviceCategoryList[parseInt(this.device_type)+1].value+"";
 
           }
-          let params = 'code=' + this.ruleForm.eqSpecies;
-          if (this.deviceClassList !== '' && this.ruleForm.eqSpecies) {
+          let params = 'code=' + this.ruleForm.eqSpeciesCode;
+          if (this.deviceClassList !== '' && this.ruleForm.eqSpeciesCode) {
             setAppService.getDeviceClass(params).then(res => {
               this.deviceClassList = [];
               for (let i = 0, len = res.length; i < len; i++) {
@@ -926,10 +931,13 @@
 
       clearRuleForm(){
         this.ruleForm = {
-          registKind: '',
+          registKind: '新设备首次启用',
           eqSpecies: '',
+          eqSpeciesCode: '',
           eqCategory: '',
+          eqCategoryCode: '',
           eqVariety: '',
+          eqVarietyCode: '',
           eqName: '',
           eqCode: '',
           model: '',
@@ -1000,9 +1008,13 @@
       makeParams(){
         let submitParam = {};
         //提交表单1
+        this.ruleForm.eqSpecies = this.deviceCategoryId;
+        this.ruleForm.eqCategory = this.deviceClassId;
+        this.ruleForm.eqVariety = this.deviceClassTypeId;
+
         submitParam.form1 = this.ruleForm;
         //受理机关名称
-        submitParam.acceptorAgencyId = 13;
+        submitParam.acceptorAgencyId = 1;
         //设备类别
         if (this.device_type) {
           submitParam.deviceType = parseInt(this.device_type);

@@ -56,15 +56,15 @@
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
             <Form-item label="登记类别" prop="registKind">
               <Select v-model="ruleForm.registKind" >
-                <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
             </Form-item>
             <h2 class="header_two">设备基本情况</h2>
             <Row>     <!--qiu-->
               <Col span="11">   <!--qiu-->
-              <Form-item label="设备品种" prop="eqCategory">
+              <Form-item label="设备品种" prop="eqVarietyCode">
                 <!--<Input v-model="ruleForm.eqKind" ></Input>-->
-                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceType" :label-in-value=true>
+                <Select v-model="ruleForm.eqVarietyCode" filterable @on-change="chosenDeviceType" :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -468,7 +468,8 @@
         pdfUrl: '',
 
         ruleForm: {
-          eqCategory: '',
+          eqVariety: '',
+          eqVarietyCode: '',
           eqName:'',
           cylinderNum: '',
           fillMedium: '',
@@ -500,7 +501,7 @@
           // registDate: '',
           // comStampDate: '',
           // registStampDate: '',
-          registKind: '',
+          registKind: '新设备首次启用',
         },
 
         //设备品种
@@ -568,7 +569,7 @@
           registKind: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-//          eqCategory: [
+//          eqVarietyCode: [
 //            {required: false, message: '', trigger: 'blur'}
 //          ],
 //          eqName: [
@@ -770,7 +771,9 @@
 
       clearRuleForm(){
         this.ruleForm={
-          eqCategory: '',
+          eqVariety: '',
+          eqVarietyCode: '',
+
           eqName:'',
           cylinderNum: '',
           fillMedium: '',
@@ -792,7 +795,7 @@
           companyPhone: '',
           safeAdministrator: '',
           mobilePhone: '',
-          registKind: '',
+          registKind: '新设备首次启用',
         }
       },
       //选择的设备品种
@@ -819,9 +822,10 @@
       makeParams(){
         let submitParam = {};
         //提交表单1
+        this.ruleForm.eqVariety =   this.deviceClassTypeId;
         submitParam.form1 = this.ruleForm;
         //受理机关名称
-        submitParam.acceptorAgencyId = 13;
+        submitParam.acceptorAgencyId = 1;
         //设备类别
         if (this.device_type) {
           submitParam.deviceType = parseInt(this.device_type);
@@ -836,6 +840,7 @@
         submitParam.deviceKind = this.deviceClassTypeId;
         submitParam.deivceCode = this.ruleForm.productNum;
         submitParam.deivceName = this.ruleForm.eqName;
+        return  submitParam;
       },
       //提交表单
       submitContent(formName) {
@@ -843,7 +848,6 @@
           if (valid) {
             this.current++;
             this.active++;
-
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();

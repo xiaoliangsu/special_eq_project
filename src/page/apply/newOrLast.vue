@@ -194,7 +194,7 @@
         console.log(this.getDeviceTypeName)
         let params = {
           // device_detail:this.device_detail,
-          deviceTypeId: this.device_type,
+          deviceTypeId: parseInt(this.device_type),
           applyTypeId: 0,
           states: [0, 0],
         }

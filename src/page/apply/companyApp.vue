@@ -25,16 +25,16 @@
 
             <Form-item label="登记类别" prop="registKind">
               <Select v-model="ruleForm.registKind">
-                <Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
             </Form-item>
 
             <h2 class="header_two">设备基本情况</h2>
             <Row>
               <Col span="11">
-              <Form-item label="设备类别" prop="eqVariety">
+              <Form-item label="设备类别" prop="eqVarietyCode">
                 <!--<Input v-model="ruleForm.equipmentCategory"></Input>-->
-                <Select v-model="ruleForm.eqVariety" filterable @on-change="chosenDeviceClass"
+                <Select v-model="ruleForm.eqVarietyCode" filterable @on-change="chosenDeviceClass"
                         :label-in-value=true>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -43,9 +43,9 @@
 
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="设备品种" prop="eqCategory">
+              <Form-item label="设备品种" prop="eqCategoryCode">
                 <!--<Input v-model="ruleForm.equipmentVariety"></Input>-->
-                <Select v-model="ruleForm.eqCategory" filterable @on-change="chosenDeviceType"
+                <Select v-model="ruleForm.eqCategoryCode" filterable @on-change="chosenDeviceType"
                        :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -677,9 +677,13 @@
         deviceClassTypeId:'',
 
         ruleForm: {
-          registKind: '',
+          registKind: '新设备首次启用',
           eqVariety: '',
+          eqVarietyCode: '',
+
           eqCategory: '',
+          eqCategoryCode: '',
+
           eqName: '',
           equipmentNum: '',
           usingCompanyName: '',
@@ -976,12 +980,12 @@
           this.deviceTypeList=[];
 
           if(this.$route.query.device_type==9){
-            this.ruleForm.eqVariety="2300";
+            this.ruleForm.eqVarietyCode="2300";
           }else if(this.$route.query.device_type==10){
-            this.ruleForm.eqVariety="8300";
+            this.ruleForm.eqVarietyCode="8300";
           }
-          let params = 'code=' + this.ruleForm.eqVariety;
-          if (this.deviceTypeList !== '' && this.ruleForm.eqVariety) {
+          let params = 'code=' + this.ruleForm.eqVarietyCode;
+          if (this.deviceTypeList !== '' && this.ruleForm.eqVarietyCode) {
             setAppService.getDeviceType(params).then(res => {
               this.deviceTypeList = [];
               for (let i = 0, len = res.length; i < len; i++) {
@@ -1009,9 +1013,11 @@
       },
       clearRuleForm(){
         this.ruleForm={
-          registKind: '',
+          registKind: '新设备首次启用',
           eqVariety: '',
+          eqVarietyCode: '',
           eqCategory: '',
+          eqCategoryCode: '',
           eqName: '',
           equipmentNum: '',
           usingCompanyName: '',
@@ -1069,10 +1075,8 @@
       },
       makeParams(){
         let submitParam = {};
-        //提交表单1
-        submitParam.form1 = this.ruleForm;
         //受理机关名称
-        submitParam.acceptorAgencyId = 13;
+        submitParam.acceptorAgencyId = 1;
         //设备类别
         if (this.device_type) {
           submitParam.deviceType = parseInt(this.device_type);
@@ -1086,12 +1090,18 @@
           submitParam.deviceCategory = "压力容器";
           submitParam.deviceClass = "气瓶";
           submitParam.deviceKind = this.deviceClassTypeId;
+          this.ruleForm.eqCategory = "气瓶";
+          this.ruleForm.eqVariety = this.deviceClassTypeId;
         }else if(submitParam.deviceType===10){
           submitParam.deviceCategory = "压力管道";
           submitParam.deviceClass = "工业管道";
           submitParam.deviceKind = this.deviceClassTypeId;
+          this.ruleForm.eqCategory = "工业管道";
+          this.ruleForm.eqVariety = this.deviceClassTypeId;
         }
         submitParam.deivceName = this.ruleForm.eqName;
+        submitParam.form1 = this.ruleForm;
+
         return submitParam;
 
       },
