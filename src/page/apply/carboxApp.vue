@@ -723,6 +723,7 @@
         "getSelectedOption",
         "getRegistThree",
         "getSelectedNum",
+        "getterUserData",
       ]),
     },
     mounted(){
@@ -738,6 +739,23 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
+      setUserDetailData(){
+//        this.userDetailData=this.getterUserData;
+//        this.ruleForm.useCompanyName=this.userDetailData.useComName;
+//        this.ruleForm.useCompanyAddr=this.userDetailData.useComAddr;
+//        this.ruleForm.useCompanyCode=this.userDetailData.useComCode
+//        this.ruleForm.zipcode=this.userDetailData.zipcode;
+//        //单位固定电话
+//        this.ruleForm.companyPhone= this.userDetailData.comPhone;
+//        this.ruleForm.mobilePhone=this.userDetailData.comMobilePhone;
+        this.ruleForm.useCompanyName=localStorage.getItem('useComName');
+        this.ruleForm.useCompanyAddr=localStorage.getItem('useComAddr');
+        this.ruleForm.useCompanyCode=localStorage.getItem('useComCode');
+        this.ruleForm.zipcode=localStorage.getItem('zipCode');
+        this.ruleForm.companyPhone=localStorage.getItem('comPhone');
+        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+
+      },
       initData(){
        // this.deviceNum = 1;
         this.active = 1;
@@ -750,9 +768,10 @@
       //  this.selectedNum = this.getSelectedNum;
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
-        if (this.$route.query.ifold !== 1) {
+        if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
+          this.setUserDetailData();
         } else {
           // 获取已经保存的信息
           this.getOldInfo();
@@ -762,7 +781,7 @@
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRuleForm();
-          this.ruleForm= res.data.form3;
+          this.ruleForm= res.data.form2;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -823,7 +842,7 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.eqVariety =   this.deviceClassTypeId;
-        submitParam.form3 = this.ruleForm;
+        submitParam.form2 = this.ruleForm;
         //受理机关名称
         submitParam.acceptorAgencyId = 1;
         //设备类别
@@ -848,7 +867,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form3 = Object.assign({}, this.ruleForm);
+            let form2 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             this.submit(submitParam);
@@ -865,7 +884,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form3 = Object.assign({}, this.ruleForm);
+            let form2 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -892,7 +911,7 @@
 
       },
       saveForm(formName){
-        let form3 = Object.assign({}, this.ruleForm);
+        let form2 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam=this.makeParams();
         this.$Modal.confirm({

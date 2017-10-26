@@ -187,11 +187,11 @@
 
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route.query.device_type': function () {
+      '$route.query': function () {
         console.log(this.$route.path);
-        if (this.$route.path == '/newOrLast') {
+       if (this.$route.path == '/newOrLast') {
           this.initData();
-        }
+       }
 
       }
     },
@@ -305,7 +305,15 @@
           onOk: () => {
             let waitAccparams = 'applyId=' + this.data5[value].id;
             orderStatusService.deleteApp(waitAccparams).then(res => {
-                this.$router.go(0);
+              let params = {
+                // device_detail:this.device_detail,
+                deviceTypeId: parseInt(this.device_type),
+                applyTypeId: 0,
+                states: [0, 0],
+                page:0,
+                size:10,
+              }
+              this.getInitOrders(params);
               }
             ).catch(error => {
               console.log(error);

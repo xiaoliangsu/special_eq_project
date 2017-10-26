@@ -794,6 +794,8 @@
         ifDisabled: false,
 
         fileId: '',
+        //用户基本信息
+        userDetailData:{},
 
 
       };
@@ -816,15 +818,17 @@
         "getSelectedOption",
         "getRegistOne",
         "getSelectedNum",
+        "getterUserData",
       ]),
     },
 
     mounted(){
       this.initData();
     },
+
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm'],
+        ['clearRegistOneForm', 'setRegistOneForm','getUserData'],
       ),
 
       printTrigger(elementId) {
@@ -833,24 +837,34 @@
         getMyFrame.contentWindow.print();
       },
 
+      setUserDetailData(){
+        this.ruleForm.useComName=localStorage.getItem('useComName');
+        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
+        this.ruleForm.useComCode=localStorage.getItem('useComCode');
+        this.ruleForm.zipCode=localStorage.getItem('zipCode');
+        this.ruleForm.comPhone=localStorage.getItem('comPhone');
+        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName=localStorage.getItem('propertyComName');
+        this.ruleForm.propertyComCode=localStorage.getItem('propertyComCode');
+      },
+
       initData(){
         this.active = 1;
         this.current = 0;
-        this.resetForm('ruleForm');
+        //this.resetForm('ruleForm');
         this.uploadList = [
           {"url": ''}
         ];
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
-
         //如果是第一次填写
-        if (this.$route.query.ifold !== 1) {
+        if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
           this.deviceClassList=[];
           this.deviceTypeList=[];
-
+          this.setUserDetailData();
           if(this.$route.query.device_type<3){
             this.ruleForm.eqSpeciesCode=this.deviceCategoryList[parseInt(this.device_type)-1].value+"";
           }else if(2<this.$route.query.device_type<7){
@@ -880,6 +894,7 @@
 
           this.clearRuleForm();
           //this.defaultPdfList1 = res.pdfUrlDefault;
+//          this.setUserDetailData();
           this.ruleForm= res.data.form1;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {

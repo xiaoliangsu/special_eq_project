@@ -279,11 +279,7 @@
           page: 0,
           size: 10,
         }
-
         waitAccparams.states = [3, 4, 5];
-        console.log(waitAccparams)
-
-
         this.getOrders(waitAccparams);
       },
       //获取申请列表信息
@@ -343,6 +339,8 @@
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
+                this.num=res.data.length;
+
               }
             }
           ).catch(error => {
@@ -354,45 +352,34 @@
         return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
+      makeParams(page,size,time,applyState,applyType){
+        let params={};
+        params.page=page;
+        params.size=size;
+        if(time!==''&& time[0]!==''&&time[1]!==''){
+          params.time=this.changeTime(time);;
+        }
+        if(applyState!==""){
+          params.states=[parseInt(applyState),parseInt(applyState)];
+        }
+        if(applyType!==""){
+          params.applyTypeId=parseInt(applyType);
+        }
+        return params;
+
+      },
+
       query(){
         this.$refs['pages'].currentPage = 1;
-        console.log(this.currentPage);
         this.applyId = '';
-        let waitAccparams = {
-          page: 0,
-          size: 10,
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-        }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
-        }
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
+        let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
+        params.states=[3,4,5];
+        this.getOrders(params);
       },
       initSize(value){
-        console.log(value);
-
-        let waitAccparams = {
-          page: value-1,
-          size: 10,
-
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-
-        waitAccparams.states = [3, 4, 5];
-
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
-
+        let params=this.makeParams(value-1,10,this.time,this.applyState,this.applyType);
+        params.states = [3, 4, 5];
+        this.getOrders(params);
       },
       deleteApp(value)
       {
@@ -402,7 +389,11 @@
           onOk: () => {
             let waitAccparams = 'applyId=' + this.data5[value].id;
             orderStatusService.deleteApp(waitAccparams).then(res => {
-                this.$router.go(0);
+              if(res.status==200){
+                let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
+                params.states=[3,4,5];
+                this.getOrders(params);
+              }
               }
             ).catch(error => {
               console.log(error);

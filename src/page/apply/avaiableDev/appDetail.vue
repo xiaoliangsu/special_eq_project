@@ -329,7 +329,7 @@
             }).catch(error => {
               console.log(error);
             })
-            this.$router.push('waitAccept');
+//            this.$router.push('waitAccept');
           },
           onCancel: () => {
             this.unAcceptedContent = '';

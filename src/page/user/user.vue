@@ -58,10 +58,11 @@
     },
     methods: {
       ...mapActions(
-        ['setSignOut', 'getUserInfo'],
+        ['setSignOut', 'getUserInfo','clearUserData'],
       ),
       sighOut() {
         this.setSignOut();
+        this.clearUserData();
         this.$router.push('login');
 
 

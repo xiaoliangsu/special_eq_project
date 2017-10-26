@@ -71,11 +71,11 @@
           <!--<div class="useInfo" v-if="this.active==2">-->
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
-            <Form-item label="使用单位名称" prop="using_company_name">
-              <Input v-model="ruleForm.using_company_name" placeholder="请输入使用单位名称"></Input>
+            <Form-item label="使用单位名称" prop="usingCompanyName">
+              <Input v-model="ruleForm.usingCompanyName" placeholder="请输入使用单位名称"></Input>
             </Form-item>
-            <Form-item label="使用单位地址" prop="using_company_addr">
-              <Input v-model="ruleForm.using_company_addr" placeholder="请输入使用单位地址"></Input>
+            <Form-item label="使用单位地址" prop="usingCompanyAddr">
+              <Input v-model="ruleForm.usingCompanyAddr" placeholder="请输入使用单位地址"></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -897,6 +897,7 @@
       ...mapGetters([
         "getSelectedOption",
         "getRegistTwo",
+        "getterUserData",
       ]),
     },
     mounted(){
@@ -961,6 +962,23 @@
 //         this.formDynamic.items="";
 //      },
       //初始化数据
+      setUserDetailData(){
+//        this.userDetailData=this.getterUserData;
+//        this.ruleForm.usingCompanyName=this.userDetailData.useComName;
+//        this.ruleForm.usingCompanyAddr=this.userDetailData.useComAddr;
+//        this.ruleForm.usingCompanyCode=this.userDetailData.useComCode
+//        this.ruleForm.zipCode=this.userDetailData.zipcode;
+//        //单位固定电话
+//        this.ruleForm.comPhone= this.userDetailData.comPhone;
+//        this.ruleForm.mobileNumber=this.userDetailData.comMobilePhone;
+
+        this.ruleForm.usingCompanyName=localStorage.getItem('useComName');
+        this.ruleForm.usingCompanyAddr=localStorage.getItem('useComAddr');
+        this.ruleForm.usingCompanyCode=localStorage.getItem('useComCode');
+        this.ruleForm.zipCode=localStorage.getItem('zipCode');
+        this.ruleForm.comPhone=localStorage.getItem('comPhone');
+        this.ruleForm.mobileNumber=localStorage.getItem('mobilePhone');
+      },
       initData(){
         this.active = 1;
         this.current = 0;
@@ -972,10 +990,12 @@
         this.ifold = this.$route.query.ifold;
 
         //如果是第一次填写
-        if (this.$route.query.ifold !== 1) {
+        if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
           this.deviceTypeList=[];
+          this.setUserDetailData();
+
 
           if(this.$route.query.device_type==9){
             this.ruleForm.eqVarietyCode="2300";
@@ -1003,7 +1023,7 @@
         setAppService.getUnsubmitApp(params).then(res => {
           //this.acceptCom = res.data.acceptorAgencyId;
           this.clearRuleForm();
-          this.ruleForm= res.data.form2;
+          this.ruleForm= res.data.form3;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -1098,7 +1118,7 @@
           this.ruleForm.eqVariety = this.deviceClassTypeId;
         }
         submitParam.deivceName = this.ruleForm.eqName;
-        submitParam.form2 = this.ruleForm;
+        submitParam.form3 = this.ruleForm;
 
         return submitParam;
 
@@ -1110,7 +1130,7 @@
             this.active++;
            // console.log(valid);
            // console.log(this.active);
-            let form2 = Object.assign({}, this.ruleForm);
+            let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
 
@@ -1132,7 +1152,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form2 = Object.assign({}, this.ruleForm);
+            let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -1162,7 +1182,7 @@
       //保存
       saveForm(formName){
 
-        let form2 = Object.assign({}, this.ruleForm);
+        let form3 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam=this.makeParams();
         this.$Modal.confirm({

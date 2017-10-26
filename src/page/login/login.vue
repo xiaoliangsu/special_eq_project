@@ -82,6 +82,7 @@
           username: '',
           state:'',
           author_key:'',
+          userData:{},
         },
         // loginway: true,
         rules: {
@@ -261,10 +262,14 @@
       ...mapState(['userInfo']),
       ...mapGetters([
         "showToast",
+        "getterUserData",
       ]),
     },
     methods: {
-      ...mapActions({ setUserInfo: 'setUserInfo' }),
+      ...mapActions(
+//          { setUserInfo: 'setUserInfo' }
+          ['setUserInfo','getUserData']
+          ),
       _login() {
         if (!this.loginForm.username || !this.loginForm.password) {
          // if (!this.loginForm.username || !this.loginForm.password ||!this.loginForm.verif) {
@@ -296,12 +301,26 @@
           if(res.status==200){
             //获取权限点
             this.loginInfo.author_key=res.data.role;
-
             //登陆状态
             this.loginInfo.state=true;
             //设置localstorage
             this.loginInfo.username=this.loginForm.username;
             this.setUserInfo(this.loginInfo);
+            //获取用户基本信息
+            this.getUserData();
+//            let userDetailData=this.getterUserData;
+//            console.log(userDetailData.useComAddr);
+//            localStorage.setItem('useComName', userDetailData.useComName);
+//            localStorage.setItem('useComAddr', userDetailData.useComAddr);
+//            localStorage.setItem('useComCode', userDetailData.useComCode);
+//            localStorage.setItem('zipCode', userDetailData.zipcode);
+//            localStorage.setItem('comPhone', userDetailData.comPhone);
+//            localStorage.setItem('mobilePhone', userDetailData.comMobilePhone);
+//            localStorage.setItem('propertyComName', userDetailData.propertyComName);
+//            localStorage.setItem('propertyComCode', userDetailData.propertyComCode);
+
+            //  this.setUserInfo(this.loginInfo);
+
             this.$router.push('home');
             switch (this.loginInfo.author_key) {
               case 1:

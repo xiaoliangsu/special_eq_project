@@ -289,7 +289,6 @@
           size: 10,
         }
         waitAccparams.states = [1, 2];
-        console.log(waitAccparams)
         this.getOrders(waitAccparams);
       },
       //获取申请列表信息
@@ -318,23 +317,11 @@
           console.log(error);
         })
       },
-//      getInitOrders(page){
-//        let waitAccparams = {
-//          page: 0,
-//          size: 10,
-//        }
-//        if (this.applyState !== '') {
-//          waitAccparams.states = this.applyState;
-//        }
-//        this.getOrders(waitAccparams);
-//      },
+
       exactSearch(){
         if (this.applyId) {
           this.time = ['', ''];
           this.applyType = '';
-//       if(this.$route.query.apply_state){
-//           this.applyState=parseInt(this.$route.query.apply_state);
-//       }
           this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
           orderStatusService.getDetailOrder(waitAccparams).then(res => {
@@ -347,6 +334,7 @@
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
+                this.num=res.data.length;
               }
             }
           ).catch(error => {
@@ -358,56 +346,53 @@
         return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
+
+      makeParams(page,size,time,applyState,applyType){
+          let params={};
+          params.page=page;
+          params.size=size;
+          if(time!==''&& time[0]!==''&&time[1]!==''){
+            params.time=this.changeTime(time);;
+          }
+          if(applyState!==""){
+            params.states=[parseInt(applyState),parseInt(applyState)];
+          }
+          if(applyType!==""){
+            params.applyTypeId=parseInt(applyType);
+          }
+          return params;
+
+      },
       query(){
         this.$refs['pages'].currentPage = 1;
-        console.log(this.currentPage);
-        this.applyId = '';
-        let waitAccparams = {
-          page: 0,
-          size: 10,
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
+//        console.log(this.currentPage);
+      //  this.applyId = '';
+        let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
 
-        }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
-        }
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
+        this.getOrders(params);
       },
       initSize(value){
-
-        let waitAccparams = {
-          page: value-1,
-          size: 10,
-
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-
-        waitAccparams.states = [1, 2];
-
-
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
+       let params=this.makeParams(value-1,10,this.time,this.applyState,this.applyType);
+        params.states = [1, 2];
+        this.getOrders(params);
 
       },
       deleteApp(value)
       {
+
         this.$Modal.confirm({
           title: '确认对话框标题',
           content: '<p>确认删除该条申请？</p>',
           onOk: () => {
             let waitAccparams = 'applyId=' + this.data5[value].id;
             orderStatusService.deleteApp(waitAccparams).then(res => {
-                this.$router.go(0);
+                if(res.status==200){
+
+                  let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
+                  params.states=[1,2];
+                  this.getOrders(params);
+                }
+
               }
             ).catch(error => {
               console.log(error);
@@ -419,77 +404,8 @@
         });
 
 
-      }
-      ,
+      },
 
-      //      modifyApp(value){
-      //        console.log(1111);
-      //        console.log(this.data5[value].changeApplyNum);
-      //        switch (this.data5[value].changeApplyNum) {
-      //          case 1:
-      //            //按套首次申请
-      //            this.$router.push({
-      //              path: 'setApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //                //selectedNum:2
-      //              }
-      //            });
-      //            //let temp = this.data5[value].changeDeviceNum;
-      //            break;
-      //
-      //          case 2:
-      //            //单位首次申请
-      //            this.$router.push({
-      //              path: 'companyApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //                //changeDeviceNum: this.data5[value].changeDeviceNum,
-      //
-      //              }
-      //            });
-      //            break;
-      //          case 3:
-      //            //车瓶首次申请
-      //            this.$router.push({
-      //              path: 'carboxApp',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                //是保存之后的
-      //                ifold: 1,
-      //              }
-      //            });
-      //            break;
-      //          case 4:
-      //            //单位变更
-      //            this.$router.push({
-      //              path: 'appDetail',
-      //              query: {
-      //                dev_id: this.data5[value].id,
-      //                dev_name: this.data5[value].device,
-      //                orderState: this.orderState
-      //              }
-      //            });
-      //            break;
-      //          ////等等
-      //
-      //
-      //        }
-      //
-      //
-      //      },
-
-      //            appDetail(value){
-      //                // console.log(value);
-      //                this.$router.push({path:'appDetail',query: {dev_id: this.data5[value].id,dev_name:this.data5[value].device}});
-      //            }
       appDetail(value)
       {
 //    switch (this.data5[value].changeApplyNum) {

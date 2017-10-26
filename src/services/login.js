@@ -13,3 +13,7 @@ export function Regist(params) {
 export function getAccpeter(params) {
   return fetch('/map/organization?'+params, params,'get')
 }
+//获取用户基本信息
+export function GetInfo(params) {
+  return fetch('/user/inform', params,'get')
+}

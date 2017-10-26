@@ -38,7 +38,8 @@
     </div>
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
-      <Page class="page" ref="pages" :current.sync="currentPage" :total="this.num" size="small" show-elevator @on-change="initSize"
+      <Page class="page" ref="pages" :current.sync="currentPage" :total="this.num" size="small" show-elevator
+            @on-change="initSize"
             :page-size="10"></Page>
 
     </div>
@@ -154,36 +155,6 @@
           {
             title: '申请状态',
             key: 'state',
-//                        render: (h, params) => {
-//                            return h('div', [
-//                                h('Button', {
-//                                    props: {
-//                                        type: 'primary',
-//                                        size: 'small'
-//                                    },
-//                                    style: {
-//                                        marginRight: '5px'
-//                                    },
-//                                    on: {
-//                                        click: () => {
-//                                            this.show(params.index)
-//                                        }
-//                                    }
-//                                }, '查看'),
-//                                h('Button', {
-//                                    props: {
-//                                        type: 'error',
-//                                        size: 'small'
-//                                    },
-//                                    on: {
-//                                        click: () => {
-//                                            this.remove(params.index)
-//                                        }
-//                                    }
-//                                }, '删除')
-//                            ]);
-//                        }
-
           },
           {
             title: '操作',
@@ -259,7 +230,7 @@
         //申请id
         applyId: '',
         //当前页面
-        currentPage:1,
+        currentPage: 1,
 
 
       }
@@ -290,10 +261,8 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
-        this.currentPage=1;
-//       if(this.$route.query.apply_state){
-//           this.applyState=parseInt(this.$route.query.apply_state);
-//       }
+        this.currentPage = 1;
+
         this.applyState = '';
         let waitAccparams = {
           page: 0,
@@ -301,9 +270,6 @@
         }
 
         waitAccparams.states = [0, 0];
-        console.log(waitAccparams)
-
-
         this.getOrders(waitAccparams);
       },
       //获取申请列表信息
@@ -332,17 +298,7 @@
           console.log(error);
         })
       },
-      getInitOrders(page){
-        let waitAccparams = {
-          page: 0,
-          size: 10,
-        }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
 
-        }
-        this.getOrders(waitAccparams);
-      },
       exactSearch(){
         if (this.applyId) {
           this.time = ['', ''];
@@ -362,6 +318,7 @@
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
+                this.num=res.data.length;
               }
             }
           ).catch(error => {
@@ -373,46 +330,35 @@
         return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
+      makeParams(page, size, time, applyState, applyType){
+        let params = {};
+        params.page = page;
+        params.size = size;
+        if (time !== '' && time[0] !== '' && time[1] !== '') {
+          params.time = this.changeTime(time);
+          ;
+        }
+        if (applyState !== "") {
+          params.states = [parseInt(applyState), parseInt(applyState)];
+        }
+        if (applyType !== "") {
+          params.applyTypeId = parseInt(applyType);
+        }
+        return params;
+
+      },
       query(){
         this.$refs['pages'].currentPage = 1;
         console.log(this.currentPage);
         this.applyId = '';
-        let waitAccparams = {
-          page: 0,
-          size: 10,
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-        if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState, this.applyState];
-
-        }
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
+        let params = this.makeParams(0, 10, this.time, this.applyState, this.applyType);
+        params.states = [0, 0];
+        this.getOrders(params);
       },
       initSize(value){
-
-        let waitAccparams = {
-          page: value-1,
-          size: 10,
-
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-
-        waitAccparams.states = [0, 0];
-
-
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = this.applyType;
-        }
-        this.getOrders(waitAccparams);
+        let params = this.makeParams(value - 1, 10, this.time, this.applyState, this.applyType);
+        params.states = [0, 0];
+        this.getOrders(params);
 
       },
       deleteApp(value){
@@ -422,7 +368,11 @@
           onOk: () => {
             let waitAccparams = 'applyId=' + this.data5[value].id;
             orderStatusService.deleteApp(waitAccparams).then(res => {
-                this.$router.go(0);
+                if (res.status == 200) {
+                  let params = this.makeParams(0, 10, this.time, this.applyState, this.applyType);
+                  params.states = [0, 0];
+                  this.getOrders(params);
+                }
               }
             ).catch(error => {
               console.log(error);

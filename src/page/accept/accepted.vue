@@ -287,19 +287,11 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
-//       if(this.$route.query.apply_state){
-//           this.applyState=parseInt(this.$route.query.apply_state);
-//       }
-        //  this.applyState = '';
+
         let waitAccparams = {
           page: 0,
           size: 10,
         }
-
-//        waitAccparams.states = 0;
-        console.log(waitAccparams)
-
-
         this.getOrders(waitAccparams);
       },
 
@@ -352,7 +344,6 @@
           // this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
           acceptService.getDetailOrder(waitAccparams).then(res => {
-              console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
                 this.data5[0].state = res.data.status.states;
@@ -361,6 +352,8 @@
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
+                this.num=res.data.length;
+
               }
             }
           ).catch(error => {
@@ -373,45 +366,32 @@
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
 
       },
+      makeParams(page,size,time,deviceTypeId,applyType){
+        let params={};
+        params.page=page;
+        params.size=size;
+        if(time!==''&& time[0]!==''&&time[1]!==''){
+          params.time=this.changeTime(time);;
+        }
+        if(deviceTypeId!==""){
+          params.deviceTypeId=parseInt(deviceTypeId);
+        }
+        if(applyType!==""){
+          params.applyTypeId=parseInt(applyType);
+        }
+        return params;
+
+      },
+
       query(){
         this.$refs['pages'].currentPage = 1;
-        console.log(this.currentPage);
         this.applyId = '';
-        let waitAccparams = {
-          page: 0,
-          size: 10,
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-        if (this.deviceType !== '') {
-          waitAccparams.deviceTypeId = parseInt(this.deviceType[1]);
-        }
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = parseInt(this.applyType);
-        }
-        this.getOrders(waitAccparams);
+        let params=this.makeParams(0,10,this.time,this.deviceType[1],this.applyType);
+        this.getOrders(params);
       },
       initSize(value){
-        console.log(value);
-
-        let waitAccparams = {
-          page: value-1,
-          size: 10,
-
-        }
-        if (this.time[0] !== '') {
-          waitAccparams.time = this.changeTime(this.time);
-
-        }
-        if (this.deviceType !== '') {
-          waitAccparams.deviceTypeId = parseInt(this.deviceType[1]);
-        }
-        if (this.applyType !== '') {
-          waitAccparams.applyTypeId = parseInt(this.applyType);
-        }
-        this.getOrders(waitAccparams);
+        let params=this.makeParams(value-1,10,this.time,this.deviceType[1],this.applyType);
+        this.getOrders(params);
 
       },
 
