@@ -796,6 +796,9 @@
         fileId: '',
         //用户基本信息
         userDetailData:{},
+        //点击上一步的标志
+        creatOrUpdate:false,
+
 
 
       };
@@ -855,7 +858,9 @@
         this.uploadList = [
           {"url": ''}
         ];
-        this.device_type = this.$route.query.device_type;
+        this.creatOrUpdate=false;
+
+          this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
         //如果是第一次填写
@@ -989,7 +994,8 @@
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
-            this.fileId = res.data.forms.split("=")[1].split("}")[0];
+            this.fileId = res.data.forms.split(":")[1].split("}")[0];
+           // this.fileId = res.data.forms[1];
             this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
@@ -1055,6 +1061,7 @@
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
+            submitParam.id=this.$route.query.applyId;
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1118,10 +1125,11 @@
       before() {
         this.current--;
         this.active--;
+        this.creatOrUpdate=true;
       },
 
       confirmForm () {
-          if(this.$route.query.ifold==1){
+          if(this.$route.query.ifold==1||(this.creatOrUpdate===true)){
             this.$Modal.confirm({
               title: '确认登记表信息',
               content: '<p>请确认全部填写信息</p>',

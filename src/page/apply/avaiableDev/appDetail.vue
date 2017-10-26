@@ -21,6 +21,8 @@
       <div class="comp_name">
         <h2 class="detailHeadTop">一、申请单位名称：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
+
+
         <span class="comp_name_content">{{this.appComName}}</span>
       </div>
       <div class="apply_type">
@@ -115,7 +117,7 @@
         orderState: '',
         ruleForms: [],
         appComName: '',
-        registPdfUrl: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+        registPdfUrl: '',
         ruleForm: {},
         current: 0,
         applyId: '',
@@ -165,8 +167,13 @@
         this.unApprovalContent = '';
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-          this.appComName = res.data.acceptorAgencyId;
+          this.appComName = res.data.form1.useComName||res.data.form2.useComName||res.data.form3.useComName;
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
+
+
+          this.fileId = res.data.forms.split("=")[1].split("}")[0];
+          this.registPdfUrl = '/admin/file/preview?fileId='+this.fileId;
+
           if (res.data.status.states === "已受理待审批") {
             this.accStatus = true;
             this.accReason = "已受理通过";
