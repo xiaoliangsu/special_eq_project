@@ -119,6 +119,55 @@
               </Form-item>
               </Col>
             </Row>
+            <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="110"
+                  v-for="(item, index) in formDynamicPres.items"
+                  :key="item.id" inline>
+              <Row>
+                <Col span="6">
+              <FormItem
+                :key="index"
+                :label="'制造单位名称'"
+                :prop="'items.' + index + '.value'">
+                <Input type="text" v-model="item.value0" placeholder="请输入..."></Input>
+              </FormItem>
+                </Col>
+                <Col span="6">
+              <FormItem
+                :key="index"
+                :label="'制造日期'"
+                :prop="'items.' + index + '.value'">
+                <Input type="text" v-model="item.value1" placeholder="请输入..."></Input>
+              </FormItem>
+                </Col>
+                <Col span="6">
+              <FormItem
+                :key="index"
+                :label="'产品编号'"
+                :prop="'items.' + index + '.value'">
+                <Input type="text" v-model="item.value2" placeholder="请输入..."></Input>
+              </FormItem>
+                </Col>
+                <Col span="6">
+              <FormItem
+                :key="index"
+                :label="'单位内编号'"
+                :prop="'items.' + index + '.value'">
+                <Input type="text" v-model="item.value3" placeholder="请输入..."></Input>
+              </FormItem>
+                </Col>
+              </Row>
+              <FormItem>
+
+                <Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>
+              </FormItem>
+              <FormItem>
+
+                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
+              </FormItem>
+              <br>
+            </Form>
+
+
 
             <Form-item label="施工单位名称" prop="constrComName">
               <Input v-model="ruleForm.constrComName" ></Input>
@@ -180,6 +229,9 @@
             <!--qiu-->
           </div>
 
+<!--新加-->
+
+          <!--新加-->
           <!--qiu-->
           <!--<div class="base-box">-->
             <!--<h2 class="header_two">其他信息</h2>-->
@@ -465,6 +517,17 @@
   export default {
     data() {
       return {
+
+        formDynamicPres: {
+          items: [
+            {
+              value0: '',
+              value1: '',
+              value2: '',
+              value3: '',
+            }
+          ]
+        },
         pdfUrl: '',
 
         ruleForm: {
@@ -735,27 +798,34 @@
       ...mapActions(
         ['clearRegistThreeForm', 'setRegistThreeForm'],
       ),
+      handleAddPres () {
+        this.formDynamicPres.items.push({
+          value0: '',
+          value1: '',
+          value2: '',
+          value3: '',
+        });
+        console.log(this.formDynamicPres.items);
+        console.log(this.formDynamicPres.items[0]);
+        console.log(this.formDynamicPres.items[0].value0);
+
+
+      },
+      handleRemovePres (index) {
+        this.formDynamicPres.items.splice(index, 1);
+      },
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
       setUserDetailData(){
-//        this.userDetailData=this.getterUserData;
-//        this.ruleForm.useCompanyName=this.userDetailData.useComName;
-//        this.ruleForm.useCompanyAddr=this.userDetailData.useComAddr;
-//        this.ruleForm.useCompanyCode=this.userDetailData.useComCode
-//        this.ruleForm.zipcode=this.userDetailData.zipcode;
-//        //单位固定电话
-//        this.ruleForm.companyPhone= this.userDetailData.comPhone;
-//        this.ruleForm.mobilePhone=this.userDetailData.comMobilePhone;
         this.ruleForm.useCompanyName=localStorage.getItem('useComName');
         this.ruleForm.useCompanyAddr=localStorage.getItem('useComAddr');
         this.ruleForm.useCompanyCode=localStorage.getItem('useComCode');
         this.ruleForm.zipcode=localStorage.getItem('zipCode');
         this.ruleForm.companyPhone=localStorage.getItem('comPhone');
         this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
-
       },
       initData(){
        // this.deviceNum = 1;

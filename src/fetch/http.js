@@ -30,10 +30,23 @@ axios.defaults.withCredentials = true;
 //返回状态判断
 axios.interceptors.response.use((res) => {
   //if (!res.data.success) {
-    //去掉这个注释
-  if (res.status!==200) {
-    return Promise.reject(res);
+  //去掉这个注释
 
+  if (res.data.status == 401) {
+    localStorage.removeItem('loginStatus');
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('author_key')
+    localStorage.removeItem('useComName');
+    localStorage.removeItem('useComAddr');
+    localStorage.removeItem('useComCode');
+    localStorage.removeItem('zipCode');
+    localStorage.removeItem('comPhone');
+    localStorage.removeItem('mobilePhone');
+    localStorage.removeItem('propertyComName');
+    localStorage.removeItem('propertyComCode');
+  }
+  if (res.status !== 200) {
+    return Promise.reject(res);
   }
   return res;
 }, (error) => {
@@ -58,8 +71,8 @@ axios.interceptors.response.use((res) => {
 //     })
 // }
 
-export default function fetch(url, params, type){
-  if(type=='get'){
+export default function fetch(url, params, type) {
+  if (type == 'get') {
     return new Promise((resolve, reject) => {
       axios.get(url)
         .then(response => {
@@ -71,7 +84,7 @@ export default function fetch(url, params, type){
           reject(error)
         })
     })
-  }else if(type=='post'){
+  } else if (type == 'post') {
     return new Promise((resolve, reject) => {
       axios.post(url, params)
         .then(response => {

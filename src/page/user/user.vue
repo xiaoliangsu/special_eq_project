@@ -62,7 +62,15 @@
       ),
       sighOut() {
         this.setSignOut();
-        this.clearUserData();
+//        this.clearUserData();
+        localStorage.removeItem('useComName');
+        localStorage.removeItem('useComAddr');
+        localStorage.removeItem('useComCode');
+        localStorage.removeItem('zipCode');
+        localStorage.removeItem('comPhone');
+        localStorage.removeItem('mobilePhone');
+        localStorage.removeItem('propertyComName');
+        localStorage.removeItem('propertyComCode');
         this.$router.push('login');
 
 
