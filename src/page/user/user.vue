@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-    <Button type="primary" @click="sighOut" >退出</Button>
+    <!--<Button type="primary" @click="sighOut" >退出</Button>-->
 
 
   </div>
@@ -60,21 +60,19 @@
       ...mapActions(
         ['setSignOut', 'getUserInfo','clearUserData'],
       ),
-      sighOut() {
-        this.setSignOut();
-//        this.clearUserData();
-        localStorage.removeItem('useComName');
-        localStorage.removeItem('useComAddr');
-        localStorage.removeItem('useComCode');
-        localStorage.removeItem('zipCode');
-        localStorage.removeItem('comPhone');
-        localStorage.removeItem('mobilePhone');
-        localStorage.removeItem('propertyComName');
-        localStorage.removeItem('propertyComCode');
-        this.$router.push('login');
-
-
-      },
+//      sighOut() {
+//        this.setSignOut();
+////        this.clearUserData();
+//        localStorage.removeItem('useComName');
+//        localStorage.removeItem('useComAddr');
+//        localStorage.removeItem('useComCode');
+//        localStorage.removeItem('zipCode');
+//        localStorage.removeItem('comPhone');
+//        localStorage.removeItem('mobilePhone');
+//        localStorage.removeItem('propertyComName');
+//        localStorage.removeItem('propertyComCode');
+//        this.$router.push('login');
+//      },
       initData(){
         this.userName = localStorage.getItem('userInfo');
       }

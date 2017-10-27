@@ -994,7 +994,8 @@
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
-            this.fileId = res.data.forms.split(":")[1].split("}")[0];
+            this.fileId = res.data.forms.split("=")[1].split("}")[0];
+
            // this.fileId = res.data.forms[1];
             this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
@@ -1060,8 +1061,15 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+           // let submitParam=this.makeParams();
+            let submitParam={};
+            this.ruleForm.eqSpecies = this.deviceCategoryId;
+            this.ruleForm.eqCategory = this.deviceClassId;
+            this.ruleForm.eqVariety = this.deviceClassTypeId;
+            submitParam.form1 = this.ruleForm;
             submitParam.id=this.$route.query.applyId;
+            submitParam.deviceClass = this.deviceClassId;
+            submitParam.deviceKind = this.deviceClassTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {

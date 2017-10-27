@@ -91,35 +91,35 @@
             </Row>
             <!--qiu-->
 
-            <Row>     <!--qiu-->
-              <Col span="11">   <!--qiu-->
-              <Form-item label="制造单位名称" prop="manuComName">
-                <Input v-model="ruleForm.manuComName" ></Input>
-              </Form-item>
-              </Col>
+            <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
+              <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
+              <!--<Form-item label="制造单位名称" prop="manuComName">-->
+                <!--<Input v-model="ruleForm.manuComName" ></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
 
-              <Col span="11" offset="2">
-              <Form-item label="制造日期" prop="manufactureDate">
-                <DatePicker v-model="ruleForm.manufactureDate"></DatePicker>
-              </Form-item>
-              </Col>
-            </Row>
+              <!--<Col span="11" offset="2">-->
+              <!--<Form-item label="制造日期" prop="manufactureDate">-->
+                <!--<DatePicker v-model="ruleForm.manufactureDate"></DatePicker>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
 
 
-            <Row>     <!--qiu-->
-              <Col span="11">   <!--qiu-->
-              <Form-item label="产品编号" prop="productNum">
-                <Input v-model="ruleForm.productNum" ></Input>
-              </Form-item>
-              </Col>
+            <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
+              <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
+              <!--<Form-item label="产品编号" prop="productNum">-->
+                <!--<Input v-model="ruleForm.productNum" ></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
 
-              <Col span="11" offset="2">
-              <Form-item label="单位内编号" prop="companyCode">
-                <Input v-model="ruleForm.companyCode" ></Input>
-              </Form-item>
-              </Col>
-            </Row>
-            <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="110"
+              <!--<Col span="11" offset="2">-->
+              <!--<Form-item label="单位内编号" prop="companyCode">-->
+                <!--<Input v-model="ruleForm.companyCode" ></Input>-->
+              <!--</Form-item>-->
+              <!--</Col>-->
+            <!--</Row>-->
+            <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="100"
                   v-for="(item, index) in formDynamicPres.items"
                   :key="item.id" inline>
               <Row>
@@ -128,7 +128,7 @@
                 :key="index"
                 :label="'制造单位名称'"
                 :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.value0" placeholder="请输入..."></Input>
+                <Input type="text" v-model="item.manuComName" placeholder="请输入..."></Input>
               </FormItem>
                 </Col>
                 <Col span="6">
@@ -136,7 +136,7 @@
                 :key="index"
                 :label="'制造日期'"
                 :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.value1" placeholder="请输入..."></Input>
+                <Input type="text" v-model="item.manufactureDate" placeholder="请输入..."></Input>
               </FormItem>
                 </Col>
                 <Col span="6">
@@ -144,7 +144,7 @@
                 :key="index"
                 :label="'产品编号'"
                 :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.value2" placeholder="请输入..."></Input>
+                <Input type="text" v-model="item.productNum" placeholder="请输入..."></Input>
               </FormItem>
                 </Col>
                 <Col span="6">
@@ -152,7 +152,7 @@
                 :key="index"
                 :label="'单位内编号'"
                 :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.value3" placeholder="请输入..."></Input>
+                <Input type="text" v-model="item.companyCode" placeholder="请输入..."></Input>
               </FormItem>
                 </Col>
               </Row>
@@ -521,16 +521,18 @@
         formDynamicPres: {
           items: [
             {
-              value0: '',
-              value1: '',
-              value2: '',
-              value3: '',
+              manuComName: '',
+              manufactureDate: '',
+              productNum: '',
+              companyCode: '',
             }
           ]
         },
         pdfUrl: '',
 
         ruleForm: {
+          subList: [],
+          registKind: '新设备首次启用',
           eqVariety: '',
           eqVarietyCode: '',
           eqName:'',
@@ -538,10 +540,10 @@
           fillMedium: '',
           cylinderWorkPressure: '',
           cylinderVolume: '',
-          manuComName: '',
-          manufactureDate: '',
-          productNum: '',
-          companyCode: '',
+//          manuComName: '',
+//          manufactureDate: '',
+//          productNum: '',
+//          companyCode: '',
           constrComName: '',
           inspectComName: '',
           useCompanyName: '',
@@ -564,7 +566,6 @@
           // registDate: '',
           // comStampDate: '',
           // registStampDate: '',
-          registKind: '新设备首次启用',
         },
 
         //设备品种
@@ -800,19 +801,19 @@
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({
-          value0: '',
-          value1: '',
-          value2: '',
-          value3: '',
+          manuComName: '',
+          manufactureDate: '',
+          productNum: '',
+          companyCode: '',
         });
-        console.log(this.formDynamicPres.items);
-        console.log(this.formDynamicPres.items[0]);
-        console.log(this.formDynamicPres.items[0].value0);
+        this.ruleForm.subList=this.formDynamicPres.items;
+
 
 
       },
       handleRemovePres (index) {
         this.formDynamicPres.items.splice(index, 1);
+        this.ruleForm.subList=this.formDynamicPres.items;
       },
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
@@ -837,12 +838,22 @@
         ];
         this.creatOrUpdate=false;
 
+
         //   this.selected = this.getSelectedOption;
       //  this.selectedNum = this.getSelectedNum;
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
+         // this.ruleForm.subList=[];
+          this.formDynamicPres.items=[
+            {
+              manuComName: '',
+              manufactureDate: '',
+              productNum: '',
+              companyCode: '',
+            }
+          ];
           this.defaultPdfList1 = [];
           this.setUserDetailData();
         } else {
@@ -855,6 +866,7 @@
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRuleForm();
           this.ruleForm= res.data.form2;
+          this.formDynamicPres.items=this.ruleForm.subList;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -863,6 +875,7 @@
 
       clearRuleForm(){
         this.ruleForm={
+          subList:[],
           eqVariety: '',
           eqVarietyCode: '',
 
@@ -871,10 +884,10 @@
           fillMedium: '',
           cylinderWorkPressure: '',
           cylinderVolume: '',
-          manuComName: '',
-          manufactureDate: '',
-          productNum: '',
-          companyCode: '',
+//          manuComName: '',
+//          manufactureDate: '',
+//          productNum: '',
+//          companyCode: '',
           constrComName: '',
           inspectComName: '',
           useCompanyName: '',
@@ -915,6 +928,7 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.eqVariety =   this.deviceClassTypeId;
+        this.ruleForm.subList=this.formDynamicPres.items;
         submitParam.form2 = this.ruleForm;
         //受理机关名称
         submitParam.acceptorAgencyId = 1;
@@ -959,9 +973,11 @@
             this.active++;
             let form2 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+            let submitParam={};
+            this.ruleForm.eqVariety =   this.deviceClassTypeId;
+            submitParam.form2 = this.ruleForm;
             submitParam.id=this.$route.query.applyId;
-
+            submitParam.deviceKind = this.deviceClassTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {

@@ -88,6 +88,7 @@ const Approvaled = r => require.ensure([], () => r(require('../page/approval/app
 const WaitApproval = r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')), 'WaitApproval');
 
 const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
+const Message = r => require.ensure([], () => r(require('../page/message/message.vue')), 'Message');
 
 
 //const login = r => require.ensure([], () => r(require('../page/login/login')), 'Login');
@@ -123,7 +124,7 @@ const router = new VueRouter({
         },
 
         {path: "/user", component: User,
-          meta: [ '基本信息']},
+          meta: [ '个人中心']},
         {
           path: "/firstApp", component: FirstApp,
           // 添加该字段，表示进入这个路由是需要登录的
@@ -174,6 +175,9 @@ const router = new VueRouter({
         {path: "/waitApproval", component: WaitApproval,
           meta: [ '未审查、发证申请']},
         {path: "/supervision", component: Supervision},
+        {path: "/message", component: Message,
+        meta:["消息提醒"]},
+
 
 
       ]

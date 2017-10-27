@@ -1158,7 +1158,17 @@
             this.active++;
             let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+            let submitParam={};
+            if(submitParam.deviceType===9){
+              submitParam.deviceKind = this.deviceClassTypeId;
+              this.ruleForm.eqCategory = "气瓶";
+              this.ruleForm.eqVariety = this.deviceClassTypeId;
+            }else if(submitParam.deviceType===10){
+              submitParam.deviceKind = this.deviceClassTypeId;
+              this.ruleForm.eqCategory = "工业管道";
+              this.ruleForm.eqVariety = this.deviceClassTypeId;
+            }
+            submitParam.form3 = this.ruleForm;
             submitParam.id=this.$route.query.applyId;
             setAppService.updateSetInfo(submitParam).then(res => {
 

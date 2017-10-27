@@ -15,13 +15,36 @@
 
         </div>
 
+
         <div class="header-right">
-          <router-link :to="loginStatus? '/user' :'/' " class="head_login">
-            <div v-if="loginStatus" class="user_name">
-              <span>{{userName}}</span>
-            </div>
-            <span v-if="!loginStatus">登陆｜注册</span>
+
+          <!--<router-link :to="loginStatus? '/user' :'/' " class="head_login">-->
+            <!--<div v-if="loginStatus" class="user_name">-->
+              <!--<span>{{userName}}</span>-->
+              <Dropdown  class="head_login" trigger="click" @on-click="handleClickUserDropdown">
+                <a href="javascript:void(0)">
+                  <span class="main-user-name">{{ userName }}</span>
+                  <Icon type="arrow-down-b"></Icon>
+                </a>
+                <DropdownMenu slot="list">
+                  <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                  <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            <!--</div>-->
+            <!--<span v-if="!loginStatus">登陆｜注册</span>-->
+
           </router-link>
+
+
+          <div @click="showMessage" class="message-con">
+            <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'" placement="bottom">
+              <Badge :count="messageCount" dot>
+                <Icon type="ios-bell" :size="22"></Icon>
+              </Badge>
+            </Tooltip>
+          </div>
+
 
           <!--<div>-->
             <!--<button @click="showInfo">快出来</button>-->
@@ -47,6 +70,7 @@
         data() {
             return {
               userName:'',
+              messageCount: 0,
             };
         },
         props: {
@@ -77,8 +101,33 @@
           ),
           initData(){
               this.userName= localStorage.getItem('userInfo');
-              console.log(this.getDeviceTypeName)
-          }
+              console.log(this.getDeviceTypeName);
+            let messageCount = 3;
+            this.messageCount = messageCount.toString();
+          },
+          showMessage () {
+//            util.openNewPage(this, 'message_index');
+            this.$router.push('message');
+          },
+          handleClickUserDropdown (name) {
+            if (name === 'ownSpace') {
+             // util.openNewPage(this, 'ownspace_index');
+              this.$router.push("user");
+            } else if (name === 'loginout') {
+              localStorage.removeItem('loginStatus');
+              localStorage.removeItem('userInfo');
+              localStorage.removeItem('author_key');
+              localStorage.removeItem('useComName');
+              localStorage.removeItem('useComAddr');
+              localStorage.removeItem('useComCode');
+              localStorage.removeItem('zipCode');
+              localStorage.removeItem('comPhone');
+              localStorage.removeItem('mobilePhone');
+              localStorage.removeItem('propertyComName');
+              localStorage.removeItem('propertyComCode');
+              this.$router.push('login');
+            }
+          },
 
 
 
@@ -147,10 +196,8 @@
 .header-right{
   float:right;
   line-height: 60px;
-  width:5rem;
-  //padding-left:-40px;
+  width:7rem;
   margin-right:20px;
-  //background-color:rgb(72,79,95);
 }
 .header_container{
   //background-color: #EFF2F7;
@@ -165,6 +212,12 @@
   border-radius: 50%;
   margin-right: 37px;
 }
+  .head_login{
+    float:right;
+    margin-right:15px;
+
+
+  }
 
 
 

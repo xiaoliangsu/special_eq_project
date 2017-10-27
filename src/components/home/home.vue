@@ -7,33 +7,9 @@
             accordion style="font-size: 16px;"
             @on-select="routeTo" accordion>
         <div class="layout-logo-left"  style="color:white;font-size: 25px;position:fixed;z-index:100;">
-
-          <!--<img  class="header-logo" src="../../static/images/logo.png">-->
-          <span class="logo_prefix">特种设备</span><span class="logo_suffix">使用登记系统</span>
+          <span class="logo-head">特种设备使用登记系统</span>
 
         </div>
-        <!--<Submenu name="1">-->
-        <!--<template slot="title">-->
-        <!--<Icon type="ios-paper"></Icon>-->
-        <!--申请设备-->
-        <!--</template>-->
-        <!--<Submenu name="1">-->
-        <!--<template slot="title">-->
-        <!--<Icon type="stats-bars"></Icon>-->
-        <!--申请-->
-        <!--</template>-->
-
-
-        <!--</Submenu>-->
-        <!--<Menu-group title="申请" v-if="this.author_key==1">-->
-        <!--<Menu-item name="firstApp">首次申请</Menu-item>-->
-
-        <!--<Menu-item name="unSubmitOrder">未提交申请</Menu-item>-->
-        <!--<Menu-item name="orderList">全部已提交申请</Menu-item>-->
-        <!--<Menu-item name="devList">已有设备列表</Menu-item>-->
-        <!--<Menu-item name="disabled_form">停用报废表</Menu-item>-->
-        <!--<Menu-item name="disabled_form2">停用报废表2</Menu-item>-->
-        <!--<Menu-item name="changeReq_form">变更申请</Menu-item>-->
         <div v-if="this.author_key==1" class="menu-content" style="position:absolute;top:60px;width:100%;">
           <label class="menu-label" >申请类别</label>
           <Submenu name="1-1">
@@ -374,8 +350,13 @@
     padding:10px;
     padding-left:17px;
     // margin: 15px auto;
+    .logo-head{
+     font-size:1.5vw;
+      margin-left:1rem;
+    }
 
   }
+
 
 
 

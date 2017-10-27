@@ -66,7 +66,15 @@
     <div class="appro_form" v-if="this.showPrintCard==true" style="position:absolute;top:85px;">
       <div class="print_page">
         <h2>签发使用登记证</h2>
-        <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>
+        <!--<ul class="detail_ul">-->
+        <!--<li v-for="(item,key,index) in registPdfUrl" class="detail_li">-->
+          <!--{{item}}{{this.registPdfUrl}}-->
+          <!--<embed  id="iFramePdf" v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
+
+          <iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>
+        <!--</li>-->
+        <!--</ul>-->
+
         </br>
         <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
         <Button @click="instance('success')" v-if="this.active==0">完成</Button>
@@ -98,13 +106,14 @@
         dev_name: '',
         deviceSortNum: '',
         value1: '',
-        pdfUrl: {
-          锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-          水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
-          水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
-          水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
-          水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
-        },
+//        pdfUrl: {
+//          锅炉能效证明: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+//          水壶: 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf',
+//          水壶2: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/calrgb.pdf',
+//          水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
+//          水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
+//        },
+        pdfUrl:{},
         pdfNum: 0,
         accStatus: '',
         accReason: '',
@@ -165,14 +174,32 @@
         this.unAcceptedContent = '';
         this.unApprovalReason = [];
         this.unApprovalContent = '';
+        this.showPrintCard = false;
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-          this.appComName = res.data.form1.useComName||res.data.form2.useComName||res.data.form3.useComName;
+            if(res.data.form1.useComName){
+              this.appComName = res.data.form1.useComName;
+            }else if(res.data.form2.useCompanyName){
+              this.appComName = res.data.form2.useCompanyName;
+            }else{
+              this.appComName = res.data.form3.usingCompanyName;
+
+            }
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
+          if(res.data.forms["特种设备使用登记表二"]){
+            this.fileId= res.data.forms["特种设备使用登记表二"];
+          }else if(res.data.forms["特种设备使用登记表一"]){
+            this.fileId= res.data.forms["特种设备使用登记表一"];
 
-          this.fileId = res.data.forms.split("=")[1].split("}")[0];
-          this.registPdfUrl = '/admin/file/preview?fileId='+this.fileId;
+          }else{
+            this.fileId= res.data.forms["特种设备使用登记表三"];
+
+          }
+
+          this.registPdfUrl='/admin/file/preview?fileId='+this.fileId;
+
+          this.pdfUrl=res.data.forms;
 
           if (res.data.status.states === "已受理待审批") {
             this.accStatus = true;
@@ -239,7 +266,7 @@
             this.$Message.info('点击了确定');
             let params = {
               applyId: this.applyId,
-              isPass: true,
+              pass: true,
             }
             appDetailService.AccPass(params).then(res => {
               if (res.status === 200) {
@@ -322,7 +349,7 @@
             this.$Message.info('点击了确定');
             let params = {
               applyId: this.applyId,
-              isPass: false,
+              pass: false,
               comments: this.unAcceptedContent,
               rejectReasons: this.unAcceptedReason[0] + this.unAcceptedReason[1],
             }
@@ -351,21 +378,20 @@
           title: '确认信息',
           content: '<p>确认审批通过该申请订单？</p>',
           onOk: () => {
-            let params = {
-              applyId: this.applyId,
-              isPass: true,
-            }
-            appDetailService.ApprovalPass(params).then(res => {
-              if (res.status === 200) {
-                this.approvalStatus = true;
-                this.showPrintCard = true;
-                this.$router.push('waitApproval');
-              }else{
-                this.$Message.info(res.msg);
-              }
-            }).catch(error => {
-              console.log(error);
-            })
+
+            this.approvalStatus = true;
+            this.showPrintCard = true;
+//            appDetailService.ApprovalPass(params).then(res => {
+//              if (res.status === 200) {
+//                this.approvalStatus = true;
+//                this.showPrintCard = true;
+//               // this.$router.push('waitApproval');
+//              }else{
+//                this.$Message.info(res.msg);
+//              }
+//            }).catch(error => {
+//              console.log(error);
+//            })
             this.current++;
           },
           onCancel: () => {
@@ -439,7 +465,7 @@
             this.$Message.info('点击了确定');
             let params = {
               applyId: this.applyId,
-              isPass: false,
+              pass: false,
               comments: this.unApprovalContent,
               rejectReasons: this.unApprovalReason[0] + this.unApprovalReason[1],
             }
@@ -462,11 +488,14 @@
       },
 
       instance (type) {
-        let params = 'applyId=' + this.applyId;
-        setAppService.confrimApp(params).then(res => {
-          if (res) {
+        let params = {
+          applyId: this.applyId,
+          pass: true,
+        }
+        appDetailService.ApprovalPass(params).then(res => {
+          if (res.status === 200) {
             const title = '通知';
-            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+            const content = '<p>审批、发证完成</p>';
             switch (type) {
               case 'success':
                 this.$Modal.success({
@@ -476,13 +505,13 @@
                 this.current++;
                 break;
             }
-            this.$router.push('home');
+            this.$router.push('waitApproval');
+          }else{
+            this.$Message.info(res.msg);
           }
         }).catch(error => {
           console.log(error);
-
         })
-
 
       },
 

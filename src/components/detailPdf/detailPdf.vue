@@ -2,7 +2,7 @@
   <div class="detailPdf">
     <ul class="detail_ul">
       <li v-for="(item,key,index) in pdfUrl" class="detail_li">
-        <a v-bind:href='item' download="1.txt" class="detail_a">{{key}}.pdf</a>
+        <a v-bind:href="'/admin/file/preview?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
         <Button type="ghost" size="small" @click="test(index)" v-if="pdfToggle[index]==1">
           <Icon type="eye"></Icon>
           预览
@@ -12,7 +12,7 @@
           收起
         </Button>
 
-        <embed v-if="pdfToggle[index]==0" v-bind:src="item" width="100%" height="1000px"/>
+        <embed v-if="pdfToggle[index]==0" v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>
       </li>
     </ul>
   </div>
