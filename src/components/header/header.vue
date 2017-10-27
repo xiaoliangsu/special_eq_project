@@ -125,6 +125,8 @@
               localStorage.removeItem('mobilePhone');
               localStorage.removeItem('propertyComName');
               localStorage.removeItem('propertyComCode');
+              localStorage.removeItem('name');
+              localStorage.removeItem('verifyId');
               this.$router.push('login');
             }
           },

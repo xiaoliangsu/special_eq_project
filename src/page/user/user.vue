@@ -5,22 +5,50 @@
     <div class="admin_set">
       <ul>
         <li>
-          <span>用户名：</span><span>{{userInfo.username}}</span>
+          <span>用户名：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="userName" ></Input>
+          </div>
+        </li>
+        <li>
+          <span>登陆密码：</span>
+          <Button>修改密码</Button>
         </li>
         <li>
           <span>受理机关：</span><span>{{userInfo.username}}</span>
         </li>
         <li>
-          <span>本人姓名：</span><span>{{userInfo}}</span>
+          <span>本人姓名：</span><span>{{ruleForm.name}}</span>
         </li>
         <li>
-          <span>权限：</span><span>{{userInfo.username}}</span>
+          <span>身份证号：</span><span>{{ruleForm.verifyId}}</span>
+        </li>
+        <!--<li>-->
+          <!--<span>权限：</span><span>{{userInfo.username}}</span>-->
+        <!--</li>-->
+        <li>
+          <span>使用单位名称：</span><span>{{ruleForm.useComName}}</span>
         </li>
         <li>
-          <span>使用单位名称：</span><span>{{userInfo.username}}</span>
+          <span>使用单位地址：</span><span>{{ruleForm.useComAddr}}</span>
         </li>
         <li>
-          <span>使用单位地址：</span><span>{{userInfo.username}}</span>
+          <span>使用单位统一社会信用代码：</span><span>{{ruleForm.useComCode}}</span>
+        </li>
+        <li>
+          <span>邮政编码：</span><span>{{ruleForm.zipCode}}</span>
+        </li>
+        <li>
+          <span>单位固定电话：</span><span>{{ruleForm.comPhone}}</span>
+        </li>
+        <li>
+          <span>移动电话：</span><span>{{ruleForm.comMobilePhone}}</span>
+        </li>
+        <li>
+          <span>产权单位名称：</span><span>{{ruleForm.propertyComName}}</span>
+        </li>
+        <li>
+          <span>产权单位统一社会信用代码：</span><span>{{ruleForm.propertyComCode}}</span>
         </li>
       </ul>
     </div>
@@ -40,6 +68,19 @@
           option: ''
         },
         userName: '',
+        ruleForm:{
+          useComName:'',
+          useComAddr:'',
+          useComCode:'',
+          zipCode:'',
+          comPhone:'',
+          mobilePhone:'',
+          propertyComName:'',
+          propertyComCode:'',
+          name:'',
+          verifyId:'',
+
+        }
       }
     },
     computed: {
@@ -75,7 +116,21 @@
 //      },
       initData(){
         this.userName = localStorage.getItem('userInfo');
-      }
+        this.setUserDetailData();
+      },
+      setUserDetailData(){
+        this.ruleForm.useComName=localStorage.getItem('useComName');
+        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
+        this.ruleForm.useComCode=localStorage.getItem('useComCode');
+        this.ruleForm.zipCode=localStorage.getItem('zipCode');
+        this.ruleForm.comPhone=localStorage.getItem('comPhone');
+        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName=localStorage.getItem('propertyComName');
+        this.ruleForm.propertyComCode=localStorage.getItem('propertyComCode');
+        this.ruleForm.name=localStorage.getItem('name');
+        this.ruleForm.verifyId=localStorage.getItem('verifyId');
+
+      },
 
     },
     mounted(){
@@ -100,7 +155,7 @@
     margin: 20px auto 0;
     border-radius: 10px;
     ul > li {
-      padding: 20px;
+      padding: 10px;
       span {
         color: #666;
       }

@@ -109,7 +109,7 @@
           </FormItem>
           </Col>
           <Col span="11" offset="2">
-          <FormItem label="单位固定电话">
+          <FormItem label="移动电话">
             <Input v-model="registInfo.comMobilePhone" placeholder="请输入"></Input>
           </FormItem>
           </Col>

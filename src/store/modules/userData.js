@@ -32,6 +32,10 @@ const actions = {
       localStorage.setItem('mobilePhone', res.data.comMobilePhone);
       localStorage.setItem('propertyComName', res.data.propertyComName);
       localStorage.setItem('propertyComCode', res.data.propertyComCode);
+      localStorage.setItem('name', res.data.name);
+      localStorage.setItem('verifyId', res.data.verifyId);
+
+
 
     }).catch(error => {
       console.log(error)
