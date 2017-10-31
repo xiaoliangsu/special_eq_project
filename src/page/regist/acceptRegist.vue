@@ -1,6 +1,6 @@
 <template>
-  <div class="regist">
-    <div class="head">使用单位注册使用账号</div>
+  <div class="AcceptRegist">
+    <div class="head">登记机关注册使用账号</div>
     <div class="body">
       <Form :model="registInfo" :label-width="120">
         <div style="margin-left:180px;">
@@ -254,14 +254,14 @@
         this.areaId=value;
         let params = 'code=' + value;
 
-          loginService.getAccpeter(params).then(res => {
-              this.acceptComList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
+        loginService.getAccpeter(params).then(res => {
+          this.acceptComList=[];
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+        })
 
 
       },
@@ -282,7 +282,7 @@
         params.password = this.registInfo.password;
         let temp = {
           "name": this.registInfo.name,
-         // "address": '',
+          // "address": '',
           "approveAgency": this.propertyComName,
           "approveAgencyId": this.propertyComCode,
           "registInfo": this.registInfo.registInfo,
@@ -300,12 +300,12 @@
 
 //        params=qs.stringify(params);
         loginService.Regist(params).then(res => {
-            if(res.status===200){
-              this.$Message.info('注册成功，请登录');
-              this.$router.push('login');
-            }else if(res.status===500){
-              this.$Message.info(res.msg);
-            }
+          if(res.status===200){
+            this.$Message.info('注册成功，请登录');
+            this.$router.push('login');
+          }else if(res.status===500){
+            this.$Message.info(res.msg);
+          }
 
         }).catch(error => {
           // console.log(2);

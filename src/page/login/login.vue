@@ -49,7 +49,9 @@
           <Form-item>
             <Button type="primary" @click="_login()" long style="font-size:16px;font-weight:bold;">登录</Button>
           </Form-item>
-          <Button type="text" class="regist" @click="regist()">立即注册</Button>
+          <Button type="text" class="regist" @click="AcceptRegist()">登记机关注册</Button>
+          <Button type="text" class="regist" @click="UserRegist()">使用单位注册</Button>
+
         </Form>
 
       </section>
@@ -374,8 +376,11 @@
         this.author_key=value;
         // alert(this.author_key);
       },
-      regist(){
+      UserRegist(){
         this.$router.push('regist');
+      },
+      AcceptRegist(){
+        this.$router.push('AcceptRegist');
       }
 
 

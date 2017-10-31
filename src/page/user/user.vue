@@ -2,7 +2,8 @@
   <div class="user">
     <header class="admin_title">基本信息</header>
     <!--<span>{{userName}}</span>-->
-    <div class="admin_set">
+    <!--申请用户-->
+    <div class="admin_set" v-if="this.author_key=='1'">
       <ul>
         <li>
           <span>用户名：</span>
@@ -52,7 +53,57 @@
         </li>
       </ul>
     </div>
-    <!--<Button type="primary" @click="sighOut" >退出</Button>-->
+    <!--受理审批-->
+    <div class="admin_set" v-if="this.author_key=='2'||'3'">
+      <ul>
+        <li>
+          <span>用户名2：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="userName" ></Input>
+          </div>
+        </li>
+        <li>
+          <span>登陆密码：</span>
+          <Button>修改密码</Button>
+        </li>
+        <li>
+          <span>受理机关：</span><span>{{userInfo.username}}</span>
+        </li>
+        <li>
+          <span>本人姓名：</span><span>{{ruleForm.name}}</span>
+        </li>
+        <li>
+          <span>身份证号：</span><span>{{ruleForm.verifyId}}</span>
+        </li>
+        <!--<li>-->
+        <!--<span>权限：</span><span>{{userInfo.username}}</span>-->
+        <!--</li>-->
+        <li>
+          <span>使用单位名称：</span><span>{{ruleForm.useComName}}</span>
+        </li>
+        <li>
+          <span>使用单位地址：</span><span>{{ruleForm.useComAddr}}</span>
+        </li>
+        <li>
+          <span>使用单位统一社会信用代码：</span><span>{{ruleForm.useComCode}}</span>
+        </li>
+        <li>
+          <span>邮政编码：</span><span>{{ruleForm.zipCode}}</span>
+        </li>
+        <li>
+          <span>单位固定电话：</span><span>{{ruleForm.comPhone}}</span>
+        </li>
+        <li>
+          <span>移动电话：</span><span>{{ruleForm.comMobilePhone}}</span>
+        </li>
+        <li>
+          <span>产权单位名称：</span><span>{{ruleForm.propertyComName}}</span>
+        </li>
+        <li>
+          <span>产权单位统一社会信用代码：</span><span>{{ruleForm.propertyComCode}}</span>
+        </li>
+      </ul>
+    </div>
 
 
   </div>
@@ -117,6 +168,7 @@
       initData(){
         this.userName = localStorage.getItem('userInfo');
         this.setUserDetailData();
+        this.author_key = localStorage.getItem('author_key');
       },
       setUserDetailData(){
         this.ruleForm.useComName=localStorage.getItem('useComName');

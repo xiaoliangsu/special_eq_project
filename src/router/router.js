@@ -16,6 +16,7 @@ const Home = r => require.ensure([], () => r(require('../components/home/home.vu
 //import Login from "../page/login/login.vue"
 const Login = r => require.ensure([], () => r(require('../page/login/login.vue')), 'Login');
 const Regist = r => require.ensure([], () => r(require('../page/regist/regist.vue')), 'Regist');
+const AcceptRegist = r => require.ensure([], () => r(require('../page/regist/acceptRegist.vue')), 'AcceptRegist');
 
 //import Test from "../page/test/test.vue"
 const Test = r => require.ensure([], () => r(require('../page/test/test.vue')), 'Test');
@@ -33,7 +34,7 @@ const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLa
 
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
-const DisableApp = r => require.ensure([], () => r(require('../page/apply/disableApp/disableApp.vue')), 'DisableApp');
+const StopUseApp = r => require.ensure([], () => r(require('../page/apply/stopUseApp/stopUseApp.vue')), 'StopUseApp');
 
 // const WaitAcceptList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitAcceptList.vue')), 'WaitAcceptList');
 // const WaitCheckList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitCheckList.vue')), 'WaitCheckList');
@@ -97,6 +98,7 @@ const router = new VueRouter({
     {path: "/", component: Login},
     {path: "/login", component: Login},
     {path: "/regist", component: Regist},
+    {path: "/acceptRegist", component:AcceptRegist},
     //{path: "/home", component: Home},
 
     {path: '/sidebar', component: Sidebar},
@@ -137,7 +139,7 @@ const router = new VueRouter({
         {path: "/companyApp", component: CompanyApp},
         {path: "/carboxApp", component: CarboxApp,
           meta: [  '申请类别','首次申请']},
-        {path: "/disableApp", component: DisableApp,
+        {path: "/stopUseApp", component: StopUseApp,
           meta: [ '申请类别','停用申请']},
 
 

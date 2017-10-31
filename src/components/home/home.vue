@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <Row type="flex">
-      <Col span="5" class="layout-menu-left">
+      <Col span="4" class="layout-menu-left">
 
       <Menu theme="dark" class="sideMenu"  width="auto"  :open-names="['1']"
             accordion style="font-size: 16px;"
@@ -129,7 +129,7 @@
       </Menu>
 
       </Col>
-      <Col span="19">
+      <Col span="20">
       <div class="layout-header">
         <v-header v-show="headShow" signinUp="true"></v-header>
       </div>
@@ -343,7 +343,7 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
-    width: 20.6%;
+    width: 16.6%;
     height: 60px;
     background: #464c5b;
     border-radius: 3px;
@@ -351,8 +351,8 @@
     padding-left:17px;
     // margin: 15px auto;
     .logo-head{
-     font-size:1.5vw;
-      margin-left:1rem;
+     font-size:1.4vw;
+      margin-left:0.2rem;
     }
 
   }

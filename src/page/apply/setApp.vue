@@ -29,7 +29,7 @@
             <!--wang-->
             <Form-item label="登记类别" prop="registKind">
               <!--<Select v-model="ruleForm.registKind">-->
-                <!--<Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+              <!--<Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
               <!--</Select>-->
               <Select v-model="ruleForm.registKind">
                 <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
@@ -539,7 +539,7 @@
         ruleForm: {
           registKind: '新设备首次启用',
           eqSpecies: '',
-          eqSpeciesCode:'',
+          eqSpeciesCode: '',
           eqCategory: '',
           eqCategoryCode: '',
           eqVariety: '',
@@ -795,10 +795,9 @@
 
         fileId: '',
         //用户基本信息
-        userDetailData:{},
+        userDetailData: {},
         //点击上一步的标志
-        creatOrUpdate:false,
-
+        creatOrUpdate: false,
 
 
       };
@@ -831,7 +830,7 @@
 
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm','getUserData'],
+        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData'],
       ),
 
       printTrigger(elementId) {
@@ -841,14 +840,14 @@
       },
 
       setUserDetailData(){
-        this.ruleForm.useComName=localStorage.getItem('useComName');
-        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
-        this.ruleForm.useComCode=localStorage.getItem('useComCode');
-        this.ruleForm.zipCode=localStorage.getItem('zipCode');
-        this.ruleForm.comPhone=localStorage.getItem('comPhone');
-        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
-        this.ruleForm.propertyComName=localStorage.getItem('propertyComName');
-        this.ruleForm.propertyComCode=localStorage.getItem('propertyComCode');
+        this.ruleForm.useComName = localStorage.getItem('useComName');
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        this.ruleForm.useComCode = localStorage.getItem('useComCode');
+        this.ruleForm.zipCode = localStorage.getItem('zipCode');
+        this.ruleForm.comPhone = localStorage.getItem('comPhone');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
+        this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
       },
 
       initData(){
@@ -858,22 +857,22 @@
         this.uploadList = [
           {"url": ''}
         ];
-        this.creatOrUpdate=false;
+        this.creatOrUpdate = false;
 
-          this.device_type = this.$route.query.device_type;
+        this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
-          this.deviceClassList=[];
-          this.deviceTypeList=[];
+          this.deviceClassList = [];
+          this.deviceTypeList = [];
           this.setUserDetailData();
-          if(this.$route.query.device_type<3){
-            this.ruleForm.eqSpeciesCode=this.deviceCategoryList[parseInt(this.device_type)-1].value+"";
-          }else if(2<this.$route.query.device_type<7){
-            this.ruleForm.eqSpeciesCode=this.deviceCategoryList[parseInt(this.device_type)+1].value+"";
+          if (this.$route.query.device_type < 3) {
+            this.ruleForm.eqSpeciesCode = this.deviceCategoryList[parseInt(this.device_type) - 1].value + "";
+          } else if (2 < this.$route.query.device_type < 7) {
+            this.ruleForm.eqSpeciesCode = this.deviceCategoryList[parseInt(this.device_type) + 1].value + "";
 
           }
           let params = 'code=' + this.ruleForm.eqSpeciesCode;
@@ -900,7 +899,7 @@
           this.clearRuleForm();
           //this.defaultPdfList1 = res.pdfUrlDefault;
 //          this.setUserDetailData();
-          this.ruleForm= res.data.form1;
+          this.ruleForm = res.data.form1;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -996,8 +995,8 @@
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
-           // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+            // this.fileId = res.data.forms[1];
+            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1016,7 +1015,7 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+            let submitParam = this.makeParams();
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1024,8 +1023,6 @@
             return false;
           }
         });
-
-
       },
       makeParams(){
         let submitParam = {};
@@ -1061,13 +1058,13 @@
             this.active++;
             let form1 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-           // let submitParam=this.makeParams();
-            let submitParam={};
+            // let submitParam=this.makeParams();
+            let submitParam = {};
             this.ruleForm.eqSpecies = this.deviceCategoryId;
             this.ruleForm.eqCategory = this.deviceClassId;
             this.ruleForm.eqVariety = this.deviceClassTypeId;
             submitParam.form1 = this.ruleForm;
-            submitParam.id=this.$route.query.applyId;
+            submitParam.id = this.$route.query.applyId;
             submitParam.deviceClass = this.deviceClassId;
             submitParam.deviceKind = this.deviceClassTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -1075,7 +1072,7 @@
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1097,7 +1094,7 @@
 
         let form1 = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam=this.makeParams();
+        let submitParam = this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
@@ -1133,38 +1130,38 @@
       before() {
         this.current--;
         this.active--;
-        this.creatOrUpdate=true;
+        this.creatOrUpdate = true;
       },
 
       confirmForm () {
-          if(this.$route.query.ifold==1||(this.creatOrUpdate===true)){
-            this.$Modal.confirm({
-              title: '确认登记表信息',
-              content: '<p>请确认全部填写信息</p>',
-              onOk: () => {
+        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+          this.$Modal.confirm({
+            title: '确认登记表信息',
+            content: '<p>请确认全部填写信息</p>',
+            onOk: () => {
 
-                this.updateContent('ruleForm');
+              this.updateContent('ruleForm');
 
-              },
-              onCancel: () => {
-                this.$Message.info('点击了取消');
-              }
-            });
+            },
+            onCancel: () => {
+              this.$Message.info('点击了取消');
+            }
+          });
 
-          }else{
-            this.$Modal.confirm({
-              title: '确认登记表信息',
-              content: '<p>请确认全部填写信息</p>',
-              onOk: () => {
+        } else {
+          this.$Modal.confirm({
+            title: '确认登记表信息',
+            content: '<p>请确认全部填写信息</p>',
+            onOk: () => {
 
-                this.submitContent('ruleForm');
+              this.submitContent('ruleForm');
 
-              },
-              onCancel: () => {
-                this.$Message.info('点击了取消');
-              }
-            });
-          }
+            },
+            onCancel: () => {
+              this.$Message.info('点击了取消');
+            }
+          });
+        }
 
       },
 

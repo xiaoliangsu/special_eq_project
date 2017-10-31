@@ -174,7 +174,7 @@
                         // this.appDetail(params.index)
                         //  console.log(params.index)
                         this.$router.push({
-                          path: 'disableApp',
+                          path: 'stopUseApp',
                           query: {
                             applyId: this.data5[params.index].id,
                             dev_name: this.data5[params.index].device,
