@@ -7,7 +7,7 @@ import * as _ from '../util/tool'
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 //去掉这个注释
-axios.defaults.baseURL = '/admin';
+axios.defaults.baseURL = '';
 // 这个注释
 //axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.withCredentials = true;
