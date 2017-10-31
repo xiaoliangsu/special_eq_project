@@ -1,6 +1,6 @@
 <template>
   <!--按套申请的使用登记表-->
-  <div class="stopUseApp">
+  <div class="disableApp">
 
     <div class="setApp_topbar">
       <!--<div class="bread">-->
@@ -11,7 +11,8 @@
           <!--<Step title="步骤1" content="填写基本信息"></Step>-->
           <Step title="步骤1" content="填写《特种设备停用报废注销登记表》"></Step>
           <Step title="步骤2" content="预览《特种设备停用报废注销登记表》"></Step>
-          <Step title="步骤3" content="完成申请"></Step>
+          <Step title="步骤3" content="提交相关证件"></Step>
+          <Step title="步骤4" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
@@ -148,9 +149,62 @@
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
 
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
+          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
 
+        </div>
+        <div class="pdfInfo" v-if="this.active==3">
+          <h2>相关证明</h2>
+          <!--这个接口是尝试过成功的-->
+          <Row style="width:1000px;">
+            <Col span="10">
+            <Form-item label="社会信用代码证明" :label-width="200">
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
+              </Upload>
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="个人身份证明" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
+            </Form-item>
+            </Col>
+          </Row>
+
+          <h5>上传文件缩略图</h5>
+          <div class="demo-upload-list" v-for="(item,index) in uploadList">
+            <img :src="item.url">
+            <div class="demo-upload-list-cover">
+              <Icon type="ios-eye-outline" @click.native="handleView(index)"></Icon>
+            </div>
+
+          </div>
+          <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
+          <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
+
+          <Modal title="查看图片" v-model="visible">
+            <iframe id="iFramePdf" v-bind:src=this.pdf style="width:100%;height:1000px;" v-if="visible"></iframe>
+
+          </Modal>
+
+          <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
+          <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
 
 
@@ -160,6 +214,7 @@
           <!--<Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>-->
           <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
+          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
 
         </div>
 
@@ -223,6 +278,12 @@
         rules: {},
         //点击上一步的标志
         creatOrUpdate: false,
+        defaultPdfList1: [],
+        uploadList: [
+          {"url": ''}
+        ],
+        visible: false,
+        applyId: '',
 
 
       }
@@ -279,8 +340,11 @@
         this.active = 1;
         this.current = 0;
         this.creatOrUpdate = false;
+        this.defaultPdfList1 = [];
         this.device_type = this.$route.query.device_type;
-
+        this.uploadList = [
+          {"url": ''}
+        ];
         //如果是第一次填写
         this.clearRuleForm();
         this.formDynamicPres.items = [
@@ -356,8 +420,8 @@
         } else {
           submitParam.deviceType = parseInt(this.$route.query.device_type);
         }
-        //停用申请
-        submitParam.applyType = 2;
+        //报废申请
+        submitParam.applyType = 3;
         //提交设备类别等
         submitParam.deviceCategory = this.deviceCategoryId;
         submitParam.deviceClass = this.deviceClassId;
@@ -406,7 +470,7 @@
 
       },
       next() {
-        if (this.current == 3) {
+        if (this.current == 4) {
           this.current = 0;
         } else {
           this.current += 1;
@@ -451,6 +515,44 @@
 
       },
 
+      handleSuccess (res, file) {
+        //需要沟通一下，成功给我返回什么然后判断
+
+        // this.uploadList = this.$refs.upload.fileList;
+        //this.uploadList[0].name="缩略图";
+        if (this.uploadList[0].url === '') {
+          this.uploadList[0].url = "/admin" + res.data.thumbnail;
+          this.pdfList.push("/admin" + res.data.preview)
+        } else {
+          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
+          this.pdfList.push("/admin" + res.data.preview)
+
+        }
+
+      },
+      handleRemove(res, file) {
+        //res是移除的 file剩下的
+        console.log(res);
+        console.log(file);
+        this.uploadList.pop();
+        console.log(this.uploadList);
+
+      },
+      handleBeforeUpload () {
+        const check = this.uploadList.length < 2;
+        if (!check) {
+          this.$Notice.warning({
+            title: '最多只能上传 2 张图片。'
+          });
+        }
+        return check;
+      },
+      handleView(index){
+        console.log(index);
+        this.visible = true;
+        this.pdf = this.pdfList[index];
+      },
+
     }
 
   }
@@ -469,6 +571,11 @@
     }
   }
 
+  .setApp {
+    color: #495060;
+    position: relative;
+  }
+
   .setApp_topbar {
     position: fixed;
     width: 100%;
@@ -480,7 +587,7 @@
   }
 
   .base-box {
-    margin-left: 0px;
+    margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -493,6 +600,7 @@
     padding-right: 100px;
     box-sizing: border-box;
     background-color: white;
+
   }
 
   .header_one {
@@ -508,9 +616,104 @@
     font-size: 19px;
   }
 
+  .ivu-form .ivu-form-item-label {
+    font-size: 18px;
+    background-color: red;
+    display: inline-block;
+
+  }
+
+  .bread {
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+
   .setApp_button {
     margin: 10px;
   }
 
+  .city_select_app {
+
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+
+  }
+
+  .city_select_app_exit {
+    width: 700px;
+    display: block;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    .city_select_content {
+      border-bottom: 1px solid #dddee1;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+    }
+  }
+
+  .pdfInfo {
+    margin: 15px;
+  }
+
+  /*.ivu-form-item {*/
+  /*margin-bottom: 10px;*/
+  /*}*/
+  .demo-upload-list {
+    display: inline-block;
+    width: 150px;
+    height: 200px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    margin-right: 4px;
+  }
+
+  .demo-upload-list img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .demo-upload-list-cover {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .6);
+  }
+
+  .demo-upload-list:hover .demo-upload-list-cover {
+    display: block;
+  }
+
+  .demo-upload-list-cover i {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 2px;
+  }
 
 </style>

@@ -35,6 +35,7 @@ const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLa
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
 const StopUseApp = r => require.ensure([], () => r(require('../page/apply/stopUseApp/stopUseApp.vue')), 'StopUseApp');
+const DisabledApp = r => require.ensure([], () => r(require('../page/apply/disabledApp/disabledApp.vue')), 'DisabledApp');
 
 // const WaitAcceptList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitAcceptList.vue')), 'WaitAcceptList');
 // const WaitCheckList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitCheckList.vue')), 'WaitCheckList');
@@ -51,6 +52,7 @@ const ChangeReq = r => require.ensure([], () => r(require('../page/apply/avaiabl
 
 //import AppDetail from "../page/apply/avaiableDev/appDetail.vue"
 const AppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/appDetail.vue')), 'AppDetail');
+const DeviceDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/deviceDetail.vue')), 'DeviceDetail');
 
 const ComAppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/comAppDetail.vue')), 'ComAppDetail');
 const CarboxAppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/carboxAppDetail.vue')), 'CarboxAppDetail');
@@ -141,6 +143,8 @@ const router = new VueRouter({
           meta: [  '申请类别','首次申请']},
         {path: "/stopUseApp", component: StopUseApp,
           meta: [ '申请类别','停用申请']},
+        {path: "/disabledApp", component: DisabledApp,
+          meta: [ '申请类别','报废申请']},
 
 
         // {path: "/waitAcceptList", component: WaitAcceptList},
@@ -155,7 +159,10 @@ const router = new VueRouter({
         {path: "/devList", component: DevList,
           meta: [ '已有设备列表']},
         {path: "/changeReq", component: ChangeReq},
-        {path: "/appDetail", component: AppDetail},
+        {path: "/appDetail", component: AppDetail,
+          meta: ['申请详情']},
+        {path: "/deviceDetail", component: DeviceDetail,
+          meta: ['设备详情']},
         {path: "/comAppDetail", component: ComAppDetail},
         {path: "/carboxAppDetail", component: CarboxAppDetail},
 

@@ -127,6 +127,7 @@
               localStorage.removeItem('propertyComCode');
               localStorage.removeItem('name');
               localStorage.removeItem('verifyId');
+              this.setSignOut();
               this.$router.push('login');
             }
           },
