@@ -218,4 +218,13 @@ router.afterEach((to, from, next) => {
   iView.LoadingBar.finish();
 });
 export default router;
+// export default new router({
+//
+//   mode :'history',
+//
+//   base:'/ttms/',
+//
+// };
+
+
 
