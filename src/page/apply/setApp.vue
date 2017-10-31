@@ -45,7 +45,7 @@
               <Form-item label="设备品种" prop="eqVariety">
                 <!--<Input v-model="ruleForm.eqVariety" ></Input>-->
                 <Poptip trigger="focus" >
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;font-size:10px;">
                     <p>按照《特种设备目录》填写。没有品种的划“—”</p>
                   </div>
                   <i-input v-model="ruleForm.eqVariety" ></i-input>

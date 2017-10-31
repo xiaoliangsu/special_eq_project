@@ -40,6 +40,7 @@
             <template slot="title" style="font-size: 16px;">
               首次申请
             </template>
+
             <div style="overflow: scroll">
               <MenuGroup title="按台(套)申请">
                 <!--<MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>-->
@@ -57,12 +58,14 @@
                 <MenuItem name="newOrLast-6">大型游乐设施</MenuItem>
                 <MenuItem name="newOrLast-7">场 (厂)内专用机动车辆</MenuItem>
               </MenuGroup>
+
               <MenuGroup title="按单位申请">
                 <!--<MenuItem name="newOrLast-two-cylinders">气瓶(车用气瓶除外)</MenuItem>-->
                 <!--<MenuItem name="newOrLast-two-pipeline">工业管道</MenuItem>-->
                 <MenuItem name="newOrLast-9">气瓶(车用气瓶除外)</MenuItem>
                 <MenuItem name="newOrLast-10">工业管道</MenuItem>
               </MenuGroup>
+
               <MenuGroup title="车用气瓶">
                 <!--<MenuItem name="newOrLast-one-carbox">车用气瓶</MenuItem>-->
                 <MenuItem name="newOrLast-8">车用气瓶</MenuItem>
@@ -70,15 +73,13 @@
               </MenuGroup>
             </div>
           </Submenu>
+
           <Submenu name="2-1">
             <template slot="title">
               变更申请
             </template>
-              <MenuItem name="transformChange">改造变更</MenuItem>
-            <MenuGroup title="移装变更">
-              <MenuItem name="areaInChange">登记机关行政区域内移装变更</MenuItem>
-              <MenuItem name="areaAcrossChange">跨登记机关行政区域移装变更</MenuItem>
-            </MenuGroup>
+              <MenuItem name="selectOp1">改造变更</MenuItem>
+              <MenuItem name="selectOp2">移装变更</MenuItem>
               <MenuItem name="companyChange">单位变更</MenuItem>
               <MenuItem name="nameChange">更名变更</MenuItem>
               <MenuItem name="yearsChange">达到设计使用年限变更</MenuItem>

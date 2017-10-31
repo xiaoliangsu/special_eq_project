@@ -66,8 +66,12 @@ const Pressure_Form = r => require.ensure([], () => r(require('../page/print/pre
 const ChangeReq_Form = r => require.ensure([], () => r(require('../page/print/changeReq_form.vue')), 'ChangeReq_Form');
 
 
+const SelectOp1 = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/selectOp1.vue')), 'SelectOp1');
+const SelectOp2 = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/selectOp2.vue')), 'SelectOp2');
+const SelectOp3 = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/selectOp3.vue')), 'SelectOp3');
+
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
-const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
+const  TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
 const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
 const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
@@ -144,6 +148,9 @@ const router = new VueRouter({
 
         {path: "/devList", component: DevList,
           meta: [ '已有设备列表']},
+        {path: "/selectOp1", component: SelectOp1},          
+        {path: "/selectOp2", component: SelectOp2},          
+        {path: "/selectOp3", component: SelectOp3},          
         {path: "/changeReq", component: ChangeReq},
         {path: "/appDetail", component: AppDetail},
         {path: "/comAppDetail", component: ComAppDetail},
