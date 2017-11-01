@@ -203,7 +203,7 @@
             key: 'acceptorAgencyName',
           },
           {
-            title: '受理状态',
+            title: '设备状态',
             key: 'deviceStates',
           },
           {
