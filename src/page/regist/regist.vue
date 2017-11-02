@@ -112,6 +112,21 @@
             <Input v-model="registInfo.comMobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
           </FormItem>
         </Row>
+        <Row>
+        <FormItem label="邮政编码" prop="zipCode">
+          <Input v-model="registInfo.zipCode" placeholder="请输入"></Input>
+        </FormItem>
+        </Row>
+
+        <FormItem label="单位固定电话" prop="comPhone">
+          <Input v-model="registInfo.comPhone" placeholder="请输入"></Input>
+        </FormItem>
+        <FormItem label="产权单位名称" prop="propertyComName">
+          <Input v-model="registInfo.propertyComName" placeholder="请输入"></Input>
+        </FormItem>
+        <FormItem label="产权单位统一社会信用代码" prop="propertyComCode">
+          <Input v-model="registInfo.propertyComCode" placeholder="请输入"></Input>
+        </FormItem>
 
 
         <Button type="primary" @click="regist" long style="font-size:16px;font-weight:bold;">立即注册</Button>
@@ -149,6 +164,10 @@
           email: '',
           comMobilePhone: '',
           address: '',
+          zipCode:'',
+          comPhone:'',
+          propertyComName:'',
+          propertyComCode:'',
         },
         password2: '',
         province: '',
@@ -165,41 +184,54 @@
         verifyId: '',
         propertyComCode:'',
 
-        rules: {
-          username: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          password: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          password2: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          useComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          street: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          useComCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          securityAdministrator: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          verifyId: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          email: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          comMobilePhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          address: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-        },
+//        rules: {
+//          username: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          password: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          password2: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          useComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          street: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          useComCode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          securityAdministrator: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          verifyId: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          email: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          comMobilePhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          address: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          zipCode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          comPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          propertyComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          propertyComCode: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//
+//        },
 
       }
     },
@@ -272,34 +304,34 @@
             console.log(error);
           })
 
-          loginService.getAccpeter(params2).then(res => {
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
+//          loginService.getAccpeter(params2).then(res => {
+//            for (let i = 0, len = res.length; i < len; i++) {
+//              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+//            }
+//          }).catch(error => {
+//            console.log(error);
+//          })
         }
       },
       chosenArea(value){
         this.areaId=value;
         let params = 'code=' + value;
 
-        loginService.getAccpeter(params).then(res => {
-          this.acceptComList=[];
-          for (let i = 0, len = res.length; i < len; i++) {
-            this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
-          }
-        }).catch(error => {
-          console.log(error);
-        })
+//        loginService.getAccpeter(params).then(res => {
+//          this.acceptComList=[];
+//          for (let i = 0, len = res.length; i < len; i++) {
+//            this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+//          }
+//        }).catch(error => {
+//          console.log(error);
+//        })
 
 
       },
-      chosenAccept(value){
-        this.propertyComCode=value;
-        this.propertyComName=this.acceptCom;
-      },
+//      chosenAccept(value){
+//        this.propertyComCode=value;
+//        this.propertyComName=this.acceptCom;
+//      },
       regist(){
         this.$refs['registInfo'].validate((valid) => {
           if (valid) {
@@ -316,13 +348,13 @@
             let temp = {
               "name": this.registInfo.name,
               // "address": '',
-              "approveAgency": this.propertyComName,
-              "approveAgencyId": this.propertyComCode,
-              "registInfo": this.registInfo.registInfo,
               "comMobilePhone": this.registInfo.comMobilePhone,
               "verifyId": this.registInfo.verifyId,
+
               "isCompany": this.registInfo.isCompany,
+
               "useComAddr": this.registInfo.useComAddr,
+
               "useComName": this.registInfo.useComName,
               "useComCode": this.registInfo.useComCode,
               "zipcode": this.registInfo.zipcode,
@@ -366,7 +398,7 @@
     width:60%;
     margin:0 auto;
     padding-bottom:10px;
-    height:98%;
+    height:auto;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
