@@ -190,6 +190,11 @@
             width: 120,
           },
           {
+            title: '申请类别',
+            key: 'applyType',
+            width: 120,
+          },
+          {
             title: '登记类别',
             key: 'registKind',
             width: 120,

@@ -96,8 +96,8 @@
           </Row>
 
           <Row>
-            <FormItem prop="securityAdministrator" label="使用单位安全管理员">
-              <Input v-model="registInfo.securityAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+            <FormItem prop="safeAdministrator" label="使用单位安全管理员">
+              <Input v-model="registInfo.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
             </FormItem>
           </Row>
 
@@ -224,8 +224,8 @@
 
 
           <Row>
-            <FormItem prop="securityAdministrator" label="个人姓名">
-              <Input v-model="registPerInfo.securityAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+            <FormItem prop="name" label="个人姓名">
+              <Input v-model="registPerInfo.name" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
             </FormItem>
           </Row>
 
@@ -282,7 +282,7 @@
           city:'',
           area:'',
           street:'',
-          securityAdministrator:'',
+          name:'',
           verifyId:'',
           email:'',
           comMobilePhone:'',
@@ -299,7 +299,7 @@
           area: '',
           street: '',
           useComCode: '',
-          securityAdministrator: '',
+          safeAdministrator: '',
           verifyId: '',
           email: '',
           comMobilePhone: '',
@@ -348,7 +348,7 @@
           useComCode: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          securityAdministrator: [
+          safeAdministrator: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           verifyId: [
@@ -390,7 +390,7 @@
 //          street: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
-//          securityAdministrator: [
+//          name: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
 //          verifyId: [
@@ -541,7 +541,7 @@
             params.username = this.registPerInfo.username;
             params.password = this.registPerInfo.password;
             let temp = {
-              "name": this.registPerInfo.securityAdministrator,
+              "name": this.registPerInfo.name,
               // "address": '',
               "comMobilePhone": this.registPerInfo.comMobilePhone,
               "verifyId": this.registPerInfo.verifyId,
@@ -603,7 +603,7 @@
               "email":this.registInfo.email,
               "address":addressDetail,
               "addressCode":[this.cityId,this.areaId],
-              "securityAdministrator":this.registInfo.securityAdministrator,
+              "safeAdministrator":this.registInfo.safeAdministrator,
               "comPhone":this.registInfo.comPhone,
             }
 

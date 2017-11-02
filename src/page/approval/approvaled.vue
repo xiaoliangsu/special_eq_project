@@ -202,6 +202,11 @@
 
           },
           {
+            title: '申请类别',
+            key: 'applyType',
+            width: 120,
+          },
+          {
             title: '登记类别',
             key: 'registKind',
             width: 120,
@@ -209,7 +214,7 @@
           },
           {
             title: '申请接受日期',
-            key: 'appAcceptDate',
+            key: 'applyAcceptDate',
             width: 115,
 
           },

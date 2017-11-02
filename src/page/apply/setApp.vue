@@ -19,6 +19,14 @@
     <div class="setApp_content" style="position:absolute;top:85px;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
+          <div class="chooseAccept" >
+            <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
+            <FormItem label="受理机关">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept">
+                <Option v-for="item in acceptComList" :value="item.label" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </FormItem>
+          </div>
           <!--<h2>选择设备种类</h2>-->
           <!--<Select v-model="deviceType" style="width:200px">-->
           <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
@@ -681,6 +689,8 @@
   export default {
     data() {
       return {
+        acceptCom: '',
+        acceptComList: [],
         //等调的时候再拼接口
         pdfUrl: '',
         pdfList: [],
@@ -1073,7 +1083,6 @@
             this.ruleForm.eqSpeciesCode = this.deviceCategoryList[parseInt(this.device_type) - 1].value + "";
           } else if (2 < this.$route.query.device_type < 7) {
             this.ruleForm.eqSpeciesCode = this.deviceCategoryList[parseInt(this.device_type) + 1].value + "";
-
           }
           let params = 'code=' + this.ruleForm.eqSpeciesCode;
           if (this.deviceClassList !== '' && this.ruleForm.eqSpeciesCode) {
@@ -1081,6 +1090,15 @@
               this.deviceClassList = [];
               for (let i = 0, len = res.length; i < len; i++) {
                 this.deviceClassList.push({value: res[i].code, label: res[i].name});
+              }
+            }).catch(error => {
+              console.log(error);
+            })
+             params='addressCode=' + this.ruleForm.eqSpeciesCode;
+            setAppService.getAccpeter(params).then(res => {
+              this.acceptComList=[];
+              for (let i = 0, len = res.length; i < len; i++) {
+                this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
               }
             }).catch(error => {
               console.log(error);
@@ -1146,6 +1164,10 @@
       },
       chosenDeviceType(value){
         this.deviceClassTypeId = value.label;
+      },
+      chosenAccept(value){
+        this.propertyComCode=value;
+        this.propertyComName=this.acceptCom;
       },
 
       clearRuleForm(){
@@ -1469,7 +1491,8 @@
     background-color: white;
   }
 
-  .base-box {
+  .base-box,
+  .chooseAccept{
     margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
@@ -1597,6 +1620,10 @@
     font-size: 20px;
     cursor: pointer;
     margin: 0 2px;
+  }
+  .chooseAccept{
+    padding-bottom:10px;
+    margin-bottom:10px;
   }
 
 </style>

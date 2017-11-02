@@ -89,3 +89,7 @@ export function confrimApp(param) {
   return fetch('/apply/confirm?'+param,param,'get')
 }
 
+
+export function getAccpeter(params) {
+  return fetch('/map/organization?'+params, params,'get')
+}
