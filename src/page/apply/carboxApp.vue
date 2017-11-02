@@ -17,34 +17,34 @@
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
       <!--<div class="city_select_app" v-if="this.active==1">-->
-        <!--<h2 class="header_one">基本信息</h2>-->
+      <!--<h2 class="header_one">基本信息</h2>-->
 
-        <!--<label>选择城市：</label>-->
-        <!--<Row>-->
-          <!--<Col span="8" style="padding-right:10px">-->
-          <!--<Select v-model="province" filterable @on-change="chosenPro">-->
-            <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-          <!--<Col span="8" style="padding-right:10px">-->
-          <!--<Select v-model="city" filterable @on-change="chosenCity">-->
-            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-          <!--<Col span="8">-->
-          <!--<Select v-model="area" filterable>-->
-            <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
-          <!--</Col>-->
-        <!--</Row>-->
-        <!--<label>选择受理机关：</label>-->
-        <!--<Select v-model="acceptCom" filterable>-->
-          <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-        <!--</Select>-->
-        <!--<label>选择审批机关：</label>-->
-        <!--<Select v-model="checkCom" filterable>-->
-          <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-        <!--</Select>-->
+      <!--<label>选择城市：</label>-->
+      <!--<Row>-->
+      <!--<Col span="8" style="padding-right:10px">-->
+      <!--<Select v-model="province" filterable @on-change="chosenPro">-->
+      <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+      <!--</Select>-->
+      <!--</Col>-->
+      <!--<Col span="8" style="padding-right:10px">-->
+      <!--<Select v-model="city" filterable @on-change="chosenCity">-->
+      <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+      <!--</Select>-->
+      <!--</Col>-->
+      <!--<Col span="8">-->
+      <!--<Select v-model="area" filterable>-->
+      <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+      <!--</Select>-->
+      <!--</Col>-->
+      <!--</Row>-->
+      <!--<label>选择受理机关：</label>-->
+      <!--<Select v-model="acceptCom" filterable>-->
+      <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+      <!--</Select>-->
+      <!--<label>选择审批机关：</label>-->
+      <!--<Select v-model="checkCom" filterable>-->
+      <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+      <!--</Select>-->
       <!--</div>-->
 
 
@@ -70,7 +70,15 @@
                 </Select>
               </Form-item>
               <Form-item label="气瓶数量" prop="cylinderNum">
-                <Input v-model="ruleForm.cylinderNum" ></Input>
+                <!--<Input v-model="ruleForm.cylinderNum" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      气瓶填写本次登记时的数量(单位为“只”)。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.cylinderNum" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               <Form-item label="气瓶公称工作压力" prop="cylinderWorkPressure">
                 <Input v-model="ruleForm.cylinderWorkPressure" ></Input>
@@ -79,10 +87,18 @@
               <!--qiu-->
               <Col span="11" offset="2">
               <Form-item label="产品名称" prop="eqName">
-                <Input v-model="ruleForm.eqName" ></Input>
+                <!--<Input v-model="ruleForm.eqName" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.eqName" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               <Form-item label="充装介质" prop="fillMedium">
-                <Input v-model="ruleForm.fillMedium" ></Input>
+                <Input v-model="ruleForm.fillMedium"></Input>
               </Form-item>
               <Form-item label="气瓶容积" prop="cylinderVolume">
                 <Input v-model="ruleForm.cylinderVolume" ></Input>
@@ -92,89 +108,128 @@
             <!--qiu-->
 
             <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
-              <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
-              <!--<Form-item label="制造单位名称" prop="manuComName">-->
-                <!--<Input v-model="ruleForm.manuComName" ></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
+            <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
+            <!--<Form-item label="制造单位名称" prop="manuComName">-->
+            <!--<Input v-model="ruleForm.manuComName" ></Input>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
 
-              <!--<Col span="11" offset="2">-->
-              <!--<Form-item label="制造日期" prop="manufactureDate">-->
-                <!--<DatePicker v-model="ruleForm.manufactureDate"></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
+            <!--<Col span="11" offset="2">-->
+            <!--<Form-item label="制造日期" prop="manufactureDate">-->
+            <!--<DatePicker v-model="ruleForm.manufactureDate"></DatePicker>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
             <!--</Row>-->
 
 
             <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
-              <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
-              <!--<Form-item label="产品编号" prop="productNum">-->
-                <!--<Input v-model="ruleForm.productNum" ></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
+            <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
+            <!--<Form-item label="产品编号" prop="productNum">-->
+            <!--<Input v-model="ruleForm.productNum" ></Input>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
 
-              <!--<Col span="11" offset="2">-->
-              <!--<Form-item label="单位内编号" prop="companyCode">-->
-                <!--<Input v-model="ruleForm.companyCode" ></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
+            <!--<Col span="11" offset="2">-->
+            <!--<Form-item label="单位内编号" prop="companyCode">-->
+            <!--<Input v-model="ruleForm.companyCode" ></Input>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
             <!--</Row>-->
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="100"
                   v-for="(item, index) in formDynamicPres.items"
                   :key="item.id" inline>
               <Row>
-                <Col span="6">
-              <FormItem
-                :key="index"
-                :label="'制造单位名称'"
-                :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.manuComName" placeholder="请输入..."></Input>
-              </FormItem>
+                <Col span="11">
+                <FormItem
+                  :key="index"
+                  :label="'制造单位名称'"
+                  :prop="'items.' + index + '.value'">
+                  <Poptip trigger="focus">
+                    <div slot="content" style="white-space: normal;font-size:2px;">
+                      <p>
+                        填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致。
+                      </p>
+                    </div>
+                    <i-input type="text" v-model="item.manuComName"></i-input>
+                  </Poptip>
+                  <!--<Input type="text" v-model="item.manuComName" placeholder="请输入..."></Input>-->
+                </FormItem>
                 </Col>
-                <Col span="6">
-              <FormItem
-                :key="index"
-                :label="'制造日期'"
-                :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.manufactureDate" placeholder="请输入..."></Input>
-              </FormItem>
+                <Col span="11" offset="2">
+                <FormItem
+                  :key="index"
+                  :label="'制造日期'"
+                  :prop="'items.' + index + '.value'">
+                  <Input type="text" v-model="item.manufactureDate"></Input>
+                </FormItem>
                 </Col>
-                <Col span="6">
-              <FormItem
-                :key="index"
-                :label="'产品编号'"
-                :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.productNum" placeholder="请输入..."></Input>
-              </FormItem>
+              </Row>
+              <Row>
+                <Col span="11">
+                <FormItem
+                  :key="index"
+                  :label="'产品编号'"
+                  :prop="'items.' + index + '.value'">
+                  <Input type="text" v-model="item.productNum"></Input>
+                </FormItem>
                 </Col>
-                <Col span="6">
-              <FormItem
-                :key="index"
-                :label="'单位内编号'"
-                :prop="'items.' + index + '.value'">
-                <Input type="text" v-model="item.companyCode" placeholder="请输入..."></Input>
-              </FormItem>
+                <Col span="11" offset="2">
+                <FormItem
+                  :key="index"
+                  :label="'单位内编号'"
+                  :prop="'items.' + index + '.value'">
+                  <Poptip trigger="focus">
+                    <div slot="content" style="white-space: normal;font-size:2px;">
+                      <p>
+                        填写使用单位对设备进行管理自行编制的设备内部编号。
+                      </p>
+                    </div>
+                    <i-input type="text" v-model="item.companyCode"></i-input>
+                  </Poptip>
+                  <!--<Input type="text" v-model="item.companyCode" placeholder="请输入..."></Input>-->
+                </FormItem>
                 </Col>
               </Row>
               <FormItem>
-
                 <Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>
               </FormItem>
               <FormItem>
 
-                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
+                <Button type="ghost"  @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
 
 
 
-            <Form-item label="施工单位名称" prop="constrComName">
-              <Input v-model="ruleForm.constrComName" ></Input>
-            </Form-item>
-            <Form-item label="监督检验机构名称" prop="inspectComName">
-              <Input v-model="ruleForm.inspectComName" ></Input>
-            </Form-item>
+            <Row>
+              <Col span="11">
+              <Form-item label="施工单位名称" prop="constrComName">
+                <!--<Input v-model="ruleForm.constrComName" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写登记时最近一次从事安装或者改造、修理的施工单位的名称。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.constrComName" style="width:118.11%"></i-input>
+                </Poptip>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="监督检验机构名称" prop="inspectComName">
+                <!--<Input v-model="ruleForm.inspectComName" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写负责该设备制造、安装、改造、重大修理监督检验(以下简称监检)的特种设备检验机构名称，没有实施监检的设备，注明“不实施监检”，如该设备登记前进行了不同阶段的监检(如制造监检，安装、改造监检等)，则填写最近一次监检的特种设备检验机构名称，并且与设备检验情况要求相协调(除制造监检外，优先满足设备检验情况填写要求)。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.inspectComName" style="width:118.11%"></i-input>
+                </Poptip>
+              </Form-item>
+              </Col>
+            </Row>
           </div>
           <!--</div>-->
           <!--<div class="useInfo" v-if="this.active==2">-->
@@ -190,13 +245,29 @@
             <Row>     <!--qiu-->
               <Col span="11">   <!--qiu-->
               <Form-item label="使用单位统一社会信用代码" prop="useCompanyCode">
-                <Input v-model="ruleForm.useCompanyCode" ></Input>
+                <!--<Input v-model="ruleForm.useCompanyCode" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.useCompanyCode" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
               <Form-item label="邮政编码" prop="zipcode">
-                <Input v-model="ruleForm.zipcode" ></Input>
+                <!--<Input v-model="ruleForm.zipcode" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位所在地的邮政编码。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
@@ -204,13 +275,29 @@
             <Row>     <!--qiu-->
               <Col span="11">   <!--qiu-->
               <Form-item label="车牌号" prop="license">
-                <Input v-model="ruleForm.license" ></Input>
+                <Input v-model="ruleForm.license"></Input>
               </Form-item>
               <Form-item label="投入使用日期" prop="beginToUseDate">
-                <DatePicker v-model="ruleForm.beginToUseDate" ></DatePicker>
+                <!--<DatePicker v-model="ruleForm.beginToUseDate" ></DatePicker>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写办理登记的设备正式投入使用的开始日期(包括年、月、日)。
+                    </p>
+                  </div>
+                  <DatePicker v-model="ruleForm.beginToUseDate" style="width:118.11%"></DatePicker>
+                </Poptip>
               </Form-item>
               <Form-item label="安全管理员" prop="safeAdministrator">
-                <Input v-model="ruleForm.safeAdministrator" ></Input>
+                <!--<Input v-model="ruleForm.safeAdministrator" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
@@ -219,83 +306,117 @@
                 <Input v-model="ruleForm.vin" ></Input>
               </Form-item>
               <Form-item label="单位固定电话" prop="companyPhone">
-                <Input v-model="ruleForm.companyPhone" ></Input>
+                <!--<Input v-model="ruleForm.companyPhone" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.companyPhone" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               <Form-item label="移动电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone" ></Input>
+                <!--<Input v-model="ruleForm.mobilePhone" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
             <!--qiu-->
           </div>
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <Row><!--wang-->
+              <Col span="11">
+              <Form-item label="使用单位填表人员" prop="comTablePerson">
+                <!--wang-->
+                <Input v-model="ruleForm.comTablePerson"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="日期" prop="comPersonDate">
+                <!--wang-->
+                <!--<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>-->
+                <DatePicker v-model="ruleForm.comPersonDate"></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
+          </div>
 
-<!--新加-->
+          <!--新加-->
 
           <!--新加-->
           <!--qiu-->
           <!--<div class="base-box">-->
-            <!--<h2 class="header_two">其他信息</h2>-->
-            <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特-->
-              <!--种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
-            <!--</p>-->
+          <!--<h2 class="header_two">其他信息</h2>-->
+          <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特-->
+          <!--种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
+          <!--</p>-->
 
-            <!--<Row>-->
-              <!--<Col span="11">-->
-              <!--<Form-item label="使用单位填表人员" prop="comTablePerson">-->
-                <!--<Input v-model="ruleForm.comTablePerson" ></Input>-->
-              <!--</Form-item>-->
+          <!--<Row>-->
+          <!--<Col span="11">-->
+          <!--<Form-item label="使用单位填表人员" prop="comTablePerson">-->
+          <!--<Input v-model="ruleForm.comTablePerson" ></Input>-->
+          <!--</Form-item>-->
 
-              <!--<Form-item label="使用单位安全管理人员" prop="comSafePerson">-->
-                <!--<Input v-model="ruleForm.comSafePerson" ></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-              <!--<Col span="11" offset="2">-->
-              <!--<Form-item label="使用单位填表人员日期" prop="comPersonDate">-->
-                <!--<DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>-->
-              <!--</Form-item>-->
-              <!--<Form-item label="安全管理人员填表日期" prop="safePersonDate">-->
-                <!--<DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-            <!--</Row>-->
-            <!--<Row>-->
-              <!--<Col span="11" offset="13">-->
-              <!--<Form-item label="加盖使用单位公章日期" prop="comStampDate">-->
-                <!--<DatePicker v-model="ruleForm.comStampDate" ></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-            <!--</Row>-->
+          <!--<Form-item label="使用单位安全管理人员" prop="comSafePerson">-->
+          <!--<Input v-model="ruleForm.comSafePerson" ></Input>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--<Col span="11" offset="2">-->
+          <!--<Form-item label="使用单位填表人员日期" prop="comPersonDate">-->
+          <!--<DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>-->
+          <!--</Form-item>-->
+          <!--<Form-item label="安全管理人员填表日期" prop="safePersonDate">-->
+          <!--<DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--</Row>-->
+          <!--<Row>-->
+          <!--<Col span="11" offset="13">-->
+          <!--<Form-item label="加盖使用单位公章日期" prop="comStampDate">-->
+          <!--<DatePicker v-model="ruleForm.comStampDate" ></DatePicker>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--</Row>-->
           <!--</div>-->
 
           <!--<div class="base-box">-->
-            <!--<h2 class="header_two">其他信息</h2>-->
-            <!--<Form-item label="说明" prop="explanation">-->
-              <!--<Input v-model="ruleForm.explanation" ></Input>-->
-            <!--</Form-item>-->
+          <!--<h2 class="header_two">其他信息</h2>-->
+          <!--<Form-item label="说明" prop="explanation">-->
+          <!--<Input v-model="ruleForm.explanation" ></Input>-->
+          <!--</Form-item>-->
 
-            <!--<Row>-->
-              <!--<Col span="11">-->
-              <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
-                <!--<Input v-model="ruleForm.registPerson" ></Input>-->
-              <!--</Form-item>-->
+          <!--<Row>-->
+          <!--<Col span="11">-->
+          <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
+          <!--<Input v-model="ruleForm.registPerson" ></Input>-->
+          <!--</Form-item>-->
 
-              <!--<Form-item label="使用登记证编号" prop="registCode">-->
-                <!--<Input v-model="ruleForm.registCode" ></Input>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-              <!--<Col span="11" offset="2">-->
-              <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
-                <!--<DatePicker v-model="ruleForm.registDate" ></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-            <!--</Row>-->
-            <!--<Row>-->
-              <!--<Col span="11" offset="13">-->
-              <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
-                <!--<DatePicker v-model="ruleForm.registStampDate" ></DatePicker>-->
-              <!--</Form-item>-->
-              <!--</Col>-->
-            <!--</Row>-->
+          <!--<Form-item label="使用登记证编号" prop="registCode">-->
+          <!--<Input v-model="ruleForm.registCode" ></Input>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--<Col span="11" offset="2">-->
+          <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
+          <!--<DatePicker v-model="ruleForm.registDate" ></DatePicker>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--</Row>-->
+          <!--<Row>-->
+          <!--<Col span="11" offset="13">-->
+          <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
+          <!--<DatePicker v-model="ruleForm.registStampDate" ></DatePicker>-->
+          <!--</Form-item>-->
+          <!--</Col>-->
+          <!--</Row>-->
           <!--</div>-->
         </div>
 
@@ -556,6 +677,8 @@
           companyPhone: '',
           safeAdministrator: '',
           mobilePhone: '',
+          comTablePerson:'',
+          comPersonDate:'',
           // comTablePerson: '',
           // comPersonDate: '',
           // comSafePerson: '',
@@ -630,9 +753,9 @@
         //设备品种名称
         deviceClassTypeId:'',
         rules: {
-          registKind: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          registKind: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
 //          eqVarietyCode: [
 //            {required: false, message: '', trigger: 'blur'}
 //          ],
@@ -734,11 +857,11 @@
         },
         //ifNext: true,
         active: 1,
-      //  selected: '',
-       // imgName: '',
+        //  selected: '',
+        // imgName: '',
         visible: false,
         uploadList: [],
-       // modal1: false,
+        // modal1: false,
         author_key: '',
 //        pdfUrl: {
 //          锅炉能效证明: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
@@ -748,10 +871,10 @@
 //          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
 //        },
         defaultPdfList1: [],
-      //  selectedNum: '',
-       // deviceNum: 1,
-       // ruleForms: '',
-       // value1: '',
+        //  selectedNum: '',
+        // deviceNum: 1,
+        // ruleForms: '',
+        // value1: '',
         current: 0,
         device_type:'',
         ifold:0,
@@ -829,7 +952,7 @@
         this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
       },
       initData(){
-       // this.deviceNum = 1;
+        // this.deviceNum = 1;
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
@@ -840,12 +963,12 @@
 
 
         //   this.selected = this.getSelectedOption;
-      //  this.selectedNum = this.getSelectedNum;
+        //  this.selectedNum = this.getSelectedNum;
         this.device_type=this.$route.query.device_type;
         this.ifold=this.$route.query.ifold;
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
-         // this.ruleForm.subList=[];
+          // this.ruleForm.subList=[];
           this.formDynamicPres.items=[
             {
               manuComName: '',
@@ -901,6 +1024,8 @@
           safeAdministrator: '',
           mobilePhone: '',
           registKind: '新设备首次启用',
+          comTablePerson:'',
+          comPersonDate:'',
         }
       },
       //选择的设备品种
@@ -1167,7 +1292,7 @@
   }
 
   .base-box {
-    margin-left:0px;
+    margin-left:140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;

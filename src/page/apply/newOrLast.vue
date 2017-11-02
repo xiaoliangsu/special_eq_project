@@ -130,7 +130,8 @@
                     size: 'small'
                   },
                   style: {
-                    marginRight: '5px'
+                    marginRight: '5px',
+                    fontSize:'10px'
                   },
                   on: {
                     click: () => {
@@ -144,14 +145,16 @@
                     size: 'small'
                   },
                   style: {
-                    marginRight: '5px'
+                    marginRight: '5px',
+                    marginTop:'4px',
+                    fontSize:'10px'
                   },
                   on: {
                     click: () => {
                       this.deleteApp(params.index)
                     }
                   }
-                }, '删除'),
+                }, '删除申请'),
 
               ]);
             }

@@ -46,7 +46,7 @@
               <Form-item label="设备品种" prop="eqCategoryCode">
                 <!--<Input v-model="ruleForm.equipmentVariety"></Input>-->
                 <Select v-model="ruleForm.eqCategoryCode" filterable @on-change="chosenDeviceType"
-                       :label-in-value=true>
+                        :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -57,12 +57,28 @@
             <Row>
               <Col span="11">
               <Form-item label="产品名称" prop="eqName">
-                <Input v-model="ruleForm.eqName"></Input>
+                <!--<Input v-model="ruleForm.eqName"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.eqName" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备数量" prop="equipmentNum">
-                <Input v-model="ruleForm.equipmentNum"></Input>
+                <!--<Input v-model="ruleForm.equipmentNum"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      压力管道填写本次登记时的压力管道长度(单位为“米”)，气瓶填写本次登记时的数量(单位为“只”)。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.equipmentNum" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
@@ -72,21 +88,37 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="usingCompanyName">
-              <Input v-model="ruleForm.usingCompanyName" placeholder="请输入使用单位名称"></Input>
+              <Input v-model="ruleForm.usingCompanyName"></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="usingCompanyAddr">
-              <Input v-model="ruleForm.usingCompanyAddr" placeholder="请输入使用单位地址"></Input>
+              <Input v-model="ruleForm.usingCompanyAddr"></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="设备使用地点" prop="eqUseLoc">
-                <Input v-model="ruleForm.eqUseLoc"></Input>
+                <!--<Input v-model="ruleForm.eqUseLoc"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写设备安装在单位内的固定地点，如某某车间、某某场地等。移动式(流动式) 特种设备，填写“移动”或者“流动”。设备使用地点不在使用单位内的，应当按照所在省(自治区)、市(地、州)、区(县)、街道(镇、乡)、小区(村)、门牌号等填写设备使用地的详细地址。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.eqUseLoc" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
               <Form-item label="单位固定电话" prop="comPhone">
-                <Input v-model="ruleForm.comPhone"></Input>
+                <!--<Input v-model="ruleForm.comPhone"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.comPhone" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
@@ -94,13 +126,29 @@
             <Row>
               <Col span="11">
               <Form-item label="使用单位统一社会信用代码" prop="usingCompanyCode">
-                <Input v-model="ruleForm.usingCompanyCode"></Input>
+                <!--<Input v-model="ruleForm.usingCompanyCode"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.usingCompanyCode" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
               <Form-item label="邮政编码" prop="zipCode">
-                <Input v-model="ruleForm.zipCode"></Input>
+                <!--<Input v-model="ruleForm.zipCode"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位所在地的邮政编码。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.zipCode" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
@@ -108,17 +156,52 @@
             <Row>
               <Col span="11">
               <Form-item label="安全管理员" prop="safetyAdministrator">
-                <Input v-model="ruleForm.safetyAdministrator"></Input>
+                <!--<Input v-model="ruleForm.safetyAdministrator"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.safetyAdministrator" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <Form-item label="移动电话" prop="mobilNumber">
-                <Input v-model="ruleForm.mobileNumber"></Input>
+              <Form-item label="移动电话" prop="mobileNumber">
+                <!--<Input v-model="ruleForm.mobileNumber"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.mobileNumber" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
             </Row>
 
+          </div>
+
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <Row><!--wang-->
+              <Col span="11">
+              <Form-item label="使用单位填表人员" prop="comTablePerson">
+                <!--wang-->
+                <Input v-model="ruleForm.comTablePerson"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="日期" prop="comPersonDate">
+                <!--wang-->
+                <!--<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>-->
+                <DatePicker v-model="ruleForm.comPersonDate"></DatePicker>
+              </Form-item>
+              </Col>
+            </Row>
           </div>
 
           <!--<div class="base-box">-->
@@ -566,76 +649,76 @@
 
       </div>
       <!--<div v-if="this.active==3">-->
-        <!--<h2>压力管道基本信息汇总</h2>-->
-        <!--<div class="base-box">-->
-          <!--<h2 class="header_one">压力管道基本信息汇总</h2>-->
-          <!--<Form ref="formDynamicPres" :model="formDynamicPres" :label-width="80"-->
-                <!--v-for="(item, index) in formDynamicPres.items"-->
-                <!--:key="item.id" inline>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'设备品种'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value0" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'产品编号'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value1" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'充装介质'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value2" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'制造单位'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value3" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'公称工作压力'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value4" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
-            <!--<FormItem-->
-              <!--:key="index"-->
-              <!--:label="'容积'"-->
-              <!--:prop="'items.' + index + '.value'"-->
-              <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
-              <!--<Input type="text" v-model="item.value5" placeholder="请输入..."></Input>-->
-            <!--</FormItem>-->
+      <!--<h2>压力管道基本信息汇总</h2>-->
+      <!--<div class="base-box">-->
+      <!--<h2 class="header_one">压力管道基本信息汇总</h2>-->
+      <!--<Form ref="formDynamicPres" :model="formDynamicPres" :label-width="80"-->
+      <!--v-for="(item, index) in formDynamicPres.items"-->
+      <!--:key="item.id" inline>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'设备品种'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value0" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'产品编号'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value1" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'充装介质'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value2" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'制造单位'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value3" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'公称工作压力'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value4" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
+      <!--<FormItem-->
+      <!--:key="index"-->
+      <!--:label="'容积'"-->
+      <!--:prop="'items.' + index + '.value'"-->
+      <!--:rules="{required: true, message: '项目' + (index + 1) +'不能为空', trigger: 'blur'}">-->
+      <!--<Input type="text" v-model="item.value5" placeholder="请输入..."></Input>-->
+      <!--</FormItem>-->
 
-            <!--<FormItem>-->
+      <!--<FormItem>-->
 
-              <!--<Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>-->
-            <!--</FormItem>-->
-            <!--<FormItem>-->
+      <!--<Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>-->
+      <!--</FormItem>-->
+      <!--<FormItem>-->
 
-              <!--<Button type="ghost" @click="handleRemovePres(index)">删除</Button>-->
-            <!--</FormItem>-->
-            <!--<br>-->
+      <!--<Button type="ghost" @click="handleRemovePres(index)">删除</Button>-->
+      <!--</FormItem>-->
+      <!--<br>-->
 
-            <!--&lt;!&ndash;<FormItem>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Button type="primary" @click="handleSubmit('formDynamic')">提交</Button>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>&ndash;&gt;-->
-            <!--&lt;!&ndash;</FormItem>&ndash;&gt;-->
-          <!--</Form>-->
-        <!--</div>-->
-        <!--<div class="setTable" v-if="this.active==3">-->
+      <!--&lt;!&ndash;<FormItem>&ndash;&gt;-->
+      <!--&lt;!&ndash;<Button type="primary" @click="handleSubmit('formDynamic')">提交</Button>&ndash;&gt;-->
+      <!--&lt;!&ndash;<Button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</FormItem>&ndash;&gt;-->
+      <!--</Form>-->
+      <!--</div>-->
+      <!--<div class="setTable" v-if="this.active==3">-->
 
 
-        <!--</div>-->
-        <!--<Button type="primary" @click="handleSubmitPres('formDynamicPres')">下一步</Button>-->
+      <!--</div>-->
+      <!--<Button type="primary" @click="handleSubmitPres('formDynamicPres')">下一步</Button>-->
 
 
       <!--</div>-->
@@ -693,6 +776,8 @@
           zipCode: '',
           safetyAdministrator: '',
           mobileNumber: '',
+          comTablePerson:'',
+          comPersonDate:'',
         },
         formDynamicGas: {
           items: [
@@ -934,8 +1019,8 @@
       //提交气瓶
       handleSubmitGas (name) {
 
-      this.active++;
-      this.current++;
+        this.active++;
+        this.current++;
       },
 
       handleAddPres () {
@@ -1051,6 +1136,8 @@
           zipCode: '',
           safetyAdministrator: '',
           mobileNumber: '',
+          comTablePerson:'',
+          comPersonDate:'',
         }
       },
       chosenDeviceClass(value){
@@ -1132,8 +1219,8 @@
           if (valid) {
             this.current++;
             this.active++;
-           // console.log(valid);
-           // console.log(this.active);
+            // console.log(valid);
+            // console.log(this.active);
             let form3 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
@@ -1223,7 +1310,7 @@
       },
       //重置
       resetForm(formName) {
-      //  console.log(this.$refs[formName]);
+        //  console.log(this.$refs[formName]);
         this.$refs[formName].resetFields();
       },
       //下一步
@@ -1452,7 +1539,7 @@
   }
 
   .first_upload {
-   display: block;
+    display: block;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -1470,7 +1557,7 @@
     box-sizing: border-box;
     padding:10px;
     //background-color: red;
-   // margin-left:300px;
+    // margin-left:300px;
   }
   .second_upload {
     float:right;
@@ -1492,7 +1579,7 @@
     box-sizing: border-box;
     padding:10px;
     //background-color: red;
-   // margin-left:300px;
+    // margin-left:300px;
   }
 
 

@@ -1,9 +1,11 @@
 <template>
   <div class="layout">
     <Row type="flex">
+
+
       <Col span="4" class="layout-menu-left">
 
-      <Menu theme="dark" class="sideMenu"  width="auto"  :open-names="['1']"
+      <Menu theme="dark" class="sideMenu "  width="auto"  :open-names="['1']"
             accordion style="font-size: 16px;"
             @on-select="routeTo" accordion>
         <div class="layout-logo-left"  style="color:white;font-size: 25px;position:fixed;z-index:100;">
@@ -16,15 +18,8 @@
             <template slot="title" style="font-size: 16px;">
               首次申请
             </template>
-            <div style="overflow: scroll">
+            <div style="overflow: hidden">
               <MenuGroup title="按台(套)申请">
-                <!--<MenuItem name="newOrLast-one-boiler">锅炉</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-pressure">压力容器（气瓶除外）</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-elevator">电梯</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-hoisting">起重机械</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-cableway">客运索道</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-play">大型游乐设施</MenuItem>-->
-                <!--<MenuItem name="newOrLast-one-factorycar">场 (厂)内专用机动车辆</MenuItem>-->
                 <MenuItem name="newOrLast-1">锅炉</MenuItem>
                 <MenuItem name="newOrLast-2">压力容器（气瓶除外）</MenuItem>
                 <MenuItem name="newOrLast-3">电梯</MenuItem>
@@ -71,8 +66,9 @@
 
           <!--<Menu-item name="waitAcceptList">待受理申请</Menu-item>-->
           <Menu-item name="unSubmitOrder">未提交申请</Menu-item>
-          <Menu-item name="applyerList">受理中申请</Menu-item>
-          <Menu-item name="finishList">已受理申请</Menu-item>
+          <Menu-item name="applyerList">已提交申请办理情况</Menu-item>
+
+          <!--<Menu-item name="finishList">已受理申请</Menu-item>-->
 
 
           <!--<Menu-item name="waitCheckList">待审批申请</Menu-item>-->
@@ -80,7 +76,7 @@
           <label class="menu-label">已有设备</label>
 
           <Menu-item name="devList">已有设备列表</Menu-item>
-          <Menu-item name="devList">打印登记表</Menu-item>
+          <!--<Menu-item name="devList">打印登记表</Menu-item>-->
         </div>
 
 
@@ -129,6 +125,7 @@
       </Menu>
 
       </Col>
+
       <Col span="20">
       <div class="layout-header">
         <v-header v-show="headShow" signinUp="true"></v-header>
@@ -336,6 +333,7 @@
     height:100%;
     overflow: scroll;
 
+
   }
   .layout-header{
     height: 60px;
@@ -343,7 +341,7 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
-    width: 16.6%;
+    width: 16.6666%;
     height: 60px;
     background: #464c5b;
     border-radius: 3px;
@@ -395,6 +393,9 @@
     padding-left:43px;
     padding-top: 5px;
     padding-bottom:5px;
+  }
+  .menu-content::-webkit-scrollbar {
+    display:none;
   }
 
 

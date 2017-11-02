@@ -3,7 +3,7 @@
     <div class="filter-box">
       <Row>
         <Col span="9">
-        <label>订单时间</label>
+        <label>申请时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
@@ -37,11 +37,12 @@
       </div>
     </div>
     <div class="list-box">
-      <Table border :columns="columns5" :data="data5"></Table>
+      <Table border :columns="columns5" :data="data5" width="800px"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
             :page-size="10"></Page>
 
     </div>
+
 
   </div>
 </template>
@@ -64,14 +65,18 @@
             value: '2',
             label: '受理通过未审批'
           },
-//          {
-//            value: '3',
-//            label: '审批通过'
-//          },
-//          {
-//            value: '4',
-//            label: '驳回'
-//          },
+          {
+            value: '3',
+            label: '审批通过'
+          },
+          {
+            value: '4',
+            label: '受理驳回'
+          },
+          {
+            value: '5',
+            label: '审批驳回'
+          },
 
         ],
         sort: [
@@ -113,50 +118,93 @@
         applyType: '',
         columns5: [
           {
-            title: '设备代码',
-            key: 'id'
-          },
-          {
-            title: '产品名称',
-            key: 'deviceName'
-          },
-          {
-            title: '提交日期',
-            key: 'createTime',
-            sortable: true
+            type: 'index',
+            key: 'id',
+            width: 60,
+            fixed: 'left'
           },
           {
             title: '设备种类',
             key: 'deviceCategory',
+            width: 120,
+            fixed: 'left',
+            className: 'demo-table-info-column'
+          },
+          {
+            title: '设备代码',
+            key: 'eqCode',
+            width: 120,
 
           },
           {
-            title: '设备类别',
-            key: 'deviceClass',
-
+            title: '单位内编号',
+            key: 'comCode',
+            width: 120,
           },
           {
-            title: '设备品种',
-            key: 'deviceKind',
-
+            title: '登记类别',
+            key: 'registKind',
+            width: 120,
           },
           {
-            title: '申请类别',
-            key: 'applyType',
-
+            title: '申请日期',
+            key: 'appliDate',
+            width: 120,
           },
-
           {
             title: '登记机关',
             key: 'acceptorAgencyName',
+            width: 120,
+          },
+
+
+          {
+            title: '受理通过告知日期',
+            key: 'acceptTellDate',
+            width: 110,
+
           },
           {
-            title: '受理状态',
-            key: 'state',
+            title: '不予受理告知日期',
+            key: 'unAcceptTellDate',
+            width: 115,
           },
+
+
+          {
+            title: '不予受理原因',
+            key: 'unAcceptedReason',
+            width: 140,
+          },
+
+          {
+            title: '登记发证日期',
+            key: 'approvalDate',
+            width: 115,
+          },
+          {
+            title: '不予登记告知日期',
+            key: 'unApprovalDate',
+            width: 115,
+          },
+
+
+          {
+            title: '不予登记告知原因',
+            key: 'unApprovalReason',
+            width: 140,
+          },
+          {
+            title: '使用登记证编号',
+            key: 'registCode',
+            width: 150,
+          },
+
           {
             title: '操作',
             key: 'opera',
+            fixed: 'right',
+            width: 120,
             render: (h, params) => {
               if (params.row.state == '已提交待受理') {
                 return h('div', [
@@ -288,7 +336,7 @@
           page: 0,
           size: 10,
         }
-        waitAccparams.states = [1, 2];
+        waitAccparams.states = [1, 2,3,4,5];
         this.getOrders(waitAccparams);
       },
       //获取申请列表信息
@@ -334,7 +382,7 @@
                 let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
-                this.num=res.data.length;
+                this.num = res.data.length;
               }
             }
           ).catch(error => {
@@ -347,33 +395,34 @@
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
 
-      makeParams(page,size,time,applyState,applyType){
-          let params={};
-          params.page=page;
-          params.size=size;
-          if(time!==''&& time[0]!==''&&time[1]!==''){
-            params.time=this.changeTime(time);;
-          }
-          if(applyState!==""){
-            params.states=[parseInt(applyState),parseInt(applyState)];
-          }
-          if(applyType!==""){
-            params.applyTypeId=parseInt(applyType);
-          }
-          return params;
+      makeParams(page, size, time, applyState, applyType){
+        let params = {};
+        params.page = page;
+        params.size = size;
+        if (time !== '' && time[0] !== '' && time[1] !== '') {
+          params.time = this.changeTime(time);
+          ;
+        }
+        if (applyState !== "") {
+          params.states = [parseInt(applyState), parseInt(applyState)];
+        }
+        if (applyType !== "") {
+          params.applyTypeId = parseInt(applyType);
+        }
+        return params;
 
       },
       query(){
         this.$refs['pages'].currentPage = 1;
 //        console.log(this.currentPage);
-      //  this.applyId = '';
-        let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
+        //  this.applyId = '';
+        let params = this.makeParams(0, 10, this.time, this.applyState, this.applyType);
 
         this.getOrders(params);
       },
       initSize(value){
-       let params=this.makeParams(value-1,10,this.time,this.applyState,this.applyType);
-        params.states = [1, 2];
+        let params = this.makeParams(value - 1, 10, this.time, this.applyState, this.applyType);
+        params.states = [1, 2,3,4,5];
         this.getOrders(params);
 
       },
@@ -386,10 +435,10 @@
           onOk: () => {
             let waitAccparams = 'applyId=' + this.data5[value].id;
             orderStatusService.deleteApp(waitAccparams).then(res => {
-                if(res.status==200){
+                if (res.status == 200) {
 
-                  let params=this.makeParams(0,10,this.time,this.applyState,this.applyType);
-                  params.states=[1,2];
+                  let params = this.makeParams(0, 10, this.time, this.applyState, this.applyType);
+                  params.states = [1, 2,3,4,5];
                   this.getOrders(params);
                 }
 
@@ -520,6 +569,10 @@
       float: right;
       margin: 10px;
     }
+  }
+  .ivu-table td.demo-table-info-column{
+    background-color: #2db7f5;
+    color: #fff;
   }
 
 

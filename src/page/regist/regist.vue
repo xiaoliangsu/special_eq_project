@@ -2,8 +2,10 @@
   <div class="regist">
     <div class="head">使用单位注册使用账号</div>
     <div class="body">
-      <Form :model="registInfo" :label-width="120">
-        <div style="margin-left:180px;">
+      <Form :model="registInfo" ref="registInfo" :rules="rules" :label-width="120">
+
+        <Row>
+
           <FormItem prop="username" label="用户名">
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;font-size:2px;">
@@ -13,9 +15,13 @@
             </Poptip>
 
           </FormItem>
-          <!--<label class="label">本人姓名：</label>-->
 
-          <!--<label class="label">密码：</label>-->
+        </Row>
+        <!--<label class="label">本人姓名：</label>-->
+
+        <!--<label class="label">密码：</label>-->
+        <Row>
+
           <FormItem prop="password" label="密码">
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;font-size:2px;">
@@ -25,109 +31,90 @@
             </Poptip>
 
           </FormItem>
-          <!--<label class="label" style="fint-size:16px;">确认密码:</label>-->
+
+        </Row>
+        <!--<label class="label" style="fint-size:16px;">确认密码:</label>-->
+        <Row>
+
           <FormItem prop="password2" label="确认密码">
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;font-size:2px;">
                 <p>确认两次密码填写相等</p>
               </div>
-              <Input type="password" v-model="password2" placeholder="确认密码"></Input>
+              <Input type="password" v-model="registInfo.password2" placeholder="确认密码"></Input>
             </Poptip>
 
           </FormItem>
 
-        </div>
-
-        <h2>基本信息</h2>
-        <label class="label" style="margin-bottom:10px;padding-left:10px;">选择所在城市：</label>
-        <Row>
-          <Col span="6" style="padding-right:10px;">
-          <Select v-model="province" filterable @on-change="chosenPro">
-            <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="6" style="padding-right:10px;">
-          <Select v-model="city" filterable @on-change="chosenCity">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
-          <Col span="6">
-          <Select v-model="area" filterable @on-change="chosenArea">
-            <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
         </Row>
 
-        <FormItem label="选择受理机关">
-          <Select v-model="acceptCom" filterable @on-change="chosenAccept">
-            <Option v-for="item in acceptComList" :value="item.label" :key="item.value">{{ item.label }}</Option>
-          </Select>
-        </FormItem>
-        <Row>
-          <Col span="11">
-          <FormItem prop="name" label="本人姓名">
-            <Input v-model="registInfo.name" placeholder="本人姓名"></Input>
-          </FormItem>
-          </Col>
-          <Col span="11" offset="2">
-          <FormItem prop="name" label="身份证号">
-            <Input v-model="registInfo.verifyId" placeholder="本人姓名"></Input>
-          </FormItem>
 
-          </Col>
+        <h2>基本信息</h2></br>
+        <Row>
+          <FormItem prop="useComName" label="使用单位名称" >
+            <Input v-model="registInfo.useComName" placeholder="应当与工商营业执照或者其他法人证书的名称完全一致"></Input>
+          </FormItem>
         </Row>
 
         <Row>
-          <Col span="11">
-          <FormItem label="使用单位名称">
-            <Input v-model="registInfo.useComName" placeholder="请输入"></Input>
+          <FormItem prop="address" label="选择所在城市："  style="margin-bottom:10px;">
+            <Col span="6" style="padding-right:10px;" >
+            <Select  v-model="registInfo.province" filterable @on-change="chosenPro">
+              <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+            </Col>
+            <Col span="6" style="padding-right:10px;">
+            <Select v-model="registInfo.city" filterable @on-change="chosenCity">
+              <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+            </Col>
+            <Col span="6">
+            <Select v-model="registInfo.area" filterable @on-change="chosenArea">
+              <Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+            </Col>
           </FormItem>
-          </Col>
-          <Col span="11" offset="2">
-          <FormItem label="使用单位地址">
-            <Input v-model="registInfo.useComAddr" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="11">
-          <FormItem label="使用单位统一社会信用代码">
-            <Input v-model="registInfo.useComCode" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
-          <Col span="11" offset="2">
-          <FormItem label="邮政编码">
-            <Input v-model="registInfo.zipCode" placeholder="请输入"></Input>
-          </FormItem>
-
-          </Col>
-        </Row>
-        <Row>
-          <Col span="11">
-          <FormItem label="单位固定电话">
-            <Input v-model="registInfo.comPhone" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
-          <Col span="11" offset="2">
-          <FormItem label="移动电话">
-            <Input v-model="registInfo.comMobilePhone" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="11">
-          <FormItem label="产权单位名称">
-            <Input v-model="registInfo.propertyComName" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
-          <Col span="11" offset="2">
-          <FormItem label="产权单位统一社会信用代码">
-            <Input v-model="registInfo.propertyComCode" placeholder="请输入"></Input>
-          </FormItem>
-          </Col>
         </Row>
 
-        <Button type="primary" @click="regist()" long style="font-size:16px;font-weight:bold;">立即注册</Button>
+
+        <Row>
+          <FormItem prop="street" label="" >
+            <Input v-model="registInfo.street" placeholder="填写乡、镇、街道、村、路、社区、楼层、号等"></Input>
+          </FormItem>
+        </Row>
+
+        <Row>
+          <FormItem prop="useComCode" label="使用单位统一社会信用代码">
+            <Input v-model="registInfo.useComCode" placeholder="应当与工商营业执照或者其他法人证书上的一致"></Input>
+          </FormItem>
+        </Row>
+
+        <Row>
+          <FormItem prop="securityAdministrator" label="安全管理员">
+            <Input v-model="registInfo.securityAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+          </FormItem>
+        </Row>
+
+        <Row>
+          <FormItem prop="verifyId" label="身份证号">
+            <Input v-model="registInfo.verifyId" placeholder="请填入安全管理员的公民身份证号码"></Input>
+          </FormItem>
+        </Row>
+
+        <Row>
+          <FormItem prop="email" label="电子信箱">
+            <Input v-model="registInfo.email" placeholder="请填入安全管理员的电子邮箱"></Input>
+          </FormItem>
+        </Row>
+
+        <Row>
+          <FormItem prop="comMobilePhone" label="移动电话号码">
+            <Input v-model="registInfo.comMobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+          </FormItem>
+        </Row>
+
+
+        <Button type="primary" @click="regist" long style="font-size:16px;font-weight:bold;">立即注册</Button>
 
 
       </Form>
@@ -148,16 +135,20 @@
       return {
         registInfo: {
           username: '',
-          name: '',
+          //name: '',
           password: '',
-          address: '',
+          password2: '',
           useComName: '',
-          useComAddr: '',
+          province: '',
+          city: '',
+          area: '',
+          street: '',
           useComCode: '',
-          zipCode: '',
-          comPhone: '',
+          securityAdministrator: '',
+          verifyId: '',
+          email: '',
           comMobilePhone: '',
-          propertyComName: '',
+          address: '',
         },
         password2: '',
         province: '',
@@ -174,9 +165,47 @@
         verifyId: '',
         propertyComCode:'',
 
+        rules: {
+          username: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          password2: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          street: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          securityAdministrator: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          verifyId: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          email: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comMobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          address: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+        },
 
       }
     },
+
+
+
     computed: {
       defaultActive: function () {
         return this.$route.path.replace('/', '');
@@ -198,6 +227,8 @@
 //      const _this = this;
 //      _this.initData();
 //    },
+
+
     components: {},
     methods: {
       initData(){
@@ -254,14 +285,14 @@
         this.areaId=value;
         let params = 'code=' + value;
 
-          loginService.getAccpeter(params).then(res => {
-              this.acceptComList=[];
-            for (let i = 0, len = res.length; i < len; i++) {
-              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
-            }
-          }).catch(error => {
-            console.log(error);
-          })
+        loginService.getAccpeter(params).then(res => {
+          this.acceptComList=[];
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+        })
 
 
       },
@@ -270,47 +301,60 @@
         this.propertyComName=this.acceptCom;
       },
       regist(){
-        if (this.registInfo.password !== this.password2) {
-          this.$Notice.error({
-            title: '这是通知标题',
-            desc: '两次密码填写不相同'
-          });
-          return
-        }
-        let params = {};
-        params.username = this.registInfo.username;
-        params.password = this.registInfo.password;
-        let temp = {
-          "name": this.registInfo.name,
-         // "address": '',
-          "approveAgency": this.propertyComName,
-          "approveAgencyId": this.propertyComCode,
-          "registInfo": this.registInfo.registInfo,
-          "comMobilePhone": this.registInfo.comMobilePhone,
-          "verifyId": this.registInfo.verifyId,
-          "isCompany": this.registInfo.isCompany,
-          "useComAddr": this.registInfo.useComAddr,
-          "useComName": this.registInfo.useComName,
-          "useComCode": this.registInfo.useComCode,
-          "zipcode": this.registInfo.zipcode,
-          "propertyComName": this.registInfo.propertyComName,
-          "propertyComCode": this.registInfo.propertyComCode,
-        }
-        params.userData = temp;
+        this.$refs['registInfo'].validate((valid) => {
+          if (valid) {
+            if (this.registInfo.password !== this.registInfo.password2) {
+              this.$Notice.error({
+                title: '这是通知标题',
+                desc: '两次密码填写不相同'
+              });
+              return
+            }
+            let params = {};
+            params.username = this.registInfo.username;
+            params.password = this.registInfo.password;
+            let temp = {
+              "name": this.registInfo.name,
+              // "address": '',
+              "approveAgency": this.propertyComName,
+              "approveAgencyId": this.propertyComCode,
+              "registInfo": this.registInfo.registInfo,
+              "comMobilePhone": this.registInfo.comMobilePhone,
+              "verifyId": this.registInfo.verifyId,
+              "isCompany": this.registInfo.isCompany,
+              "useComAddr": this.registInfo.useComAddr,
+              "useComName": this.registInfo.useComName,
+              "useComCode": this.registInfo.useComCode,
+              "zipcode": this.registInfo.zipcode,
+              "propertyComName": this.registInfo.propertyComName,
+              "propertyComCode": this.registInfo.propertyComCode,
+            }
+            params.userData = temp;
+
+
 
 //        params=qs.stringify(params);
-        loginService.Regist(params).then(res => {
-            if(res.status===200){
-              this.$Message.info('注册成功，请登录');
-              this.$router.push('login');
-            }else if(res.status===500){
-              this.$Message.info(res.msg);
-            }
+            loginService.Regist(params).then(res => {
+              if(res.status===200){
+                this.$Message.info('注册成功，请登录');
+                this.$router.push('login');
+              }else if(res.status===500){
+                this.$Message.info(res.msg);
+              }
 
-        }).catch(error => {
-          // console.log(2);
-          console.log(error)
-        })
+            }).catch(error => {
+              // console.log(2);
+              console.log(error)
+            })
+
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
+
+
       }
     }
   }

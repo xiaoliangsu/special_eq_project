@@ -154,61 +154,93 @@
 
         columns5: [
           {
-            title: '设备代码',
-            key: 'id'
+            type: 'index',
+            key: 'id',
+            width: 60,
+            fixed: 'left'
           },
-          {
-            title: '产品名称',
-            key: 'deviceName'
-          },
-
           {
             title: '设备种类',
             key: 'deviceCategory',
-
-          },
-          {
-            title: '设备类别',
-            key: 'deviceClass',
-
-          },
-          {
-            title: '设备品种',
-            key: 'deviceKind',
-
+            width: 120,
+            fixed: 'left',
+            className: 'demo-table-info-column'
           },
           {
             title: '设备代码',
-            key: 'deviceCode',
+            key: 'eqCode',
+            width: 120,
 
           },
-//          {
-//            title: '申请类别',
-//            key: 'applyType',
-//
-//          },
           {
-            title: '发证日期',
-            key: 'createAt',
-            sortable: true
+            title: '单位内编号',
+            key: 'comCode',
+            width: 120,
           },
           {
-            title: '更新日期',
-            key: 'updateAt',
-            sortable: true
+            title: '登记类别',
+            key: 'registKind',
+            width: 120,
           },
-
+          {
+            title: '申请日期',
+            key: 'appliDate',
+            width: 120,
+          },
           {
             title: '登记机关',
             key: 'acceptorAgencyName',
+            width: 120,
+          },
+
+
+          {
+            title: '受理通过告知日期',
+            key: 'acceptTellDate',
+            width: 110,
+
           },
           {
-            title: '设备状态',
-            key: 'deviceStates',
+            title: '不予受理告知日期',
+            key: 'unAcceptTellDate',
+            width: 115,
           },
+
+
+          {
+            title: '不予受理原因',
+            key: 'unAcceptedReason',
+            width: 140,
+          },
+
+          {
+            title: '登记发证日期',
+            key: 'approvalDate',
+            width: 115,
+          },
+          {
+            title: '不予登记告知日期',
+            key: 'unApprovalDate',
+            width: 115,
+          },
+
+
+          {
+            title: '不予登记告知原因',
+            key: 'unApprovalReason',
+            width: 140,
+          },
+          {
+            title: '使用登记证编号',
+            key: 'registCode',
+            width: 150,
+          },
+
           {
             title: '操作',
             key: 'opera',
+            fixed: 'right',
+            width: 120,
             render: (h, params) => {
               if (this.$route.query.apply_state == 2) {
                 return h('div', [

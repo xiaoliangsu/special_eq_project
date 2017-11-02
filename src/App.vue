@@ -62,7 +62,9 @@
       background-repeat: no-repeat;
       background-image:url('assets/demo-1-bg.jpg');
 height:100%;
+
   }
+
 
 
 </style>
