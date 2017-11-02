@@ -548,7 +548,6 @@
               "isCompany": false,
               "zipcode": this.registPerInfo.zipcode,
               "email":this.registPerInfo.email,
-              "comMobilePhone":this.registPerInfo.comMobilePhone,
               "address":addressDetail,
               "addressCode":[this.cityId,this.areaId],
             }
@@ -593,10 +592,9 @@
             params.username = this.registInfo.username;
             params.password = this.registInfo.password;
             let temp = {
-              "name": this.registInfo.name,
+              "isCompany": true,
               "comMobilePhone": this.registInfo.comMobilePhone,
               "verifyId": this.registInfo.verifyId,
-              "isCompany": this.registInfo.isCompany,
               "useComName": this.registInfo.useComName,
               "useComCode": this.registInfo.useComCode,
               "zipcode": this.registInfo.zipcode,
