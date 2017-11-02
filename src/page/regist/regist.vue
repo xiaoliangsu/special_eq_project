@@ -57,7 +57,7 @@
         </Row>
 
         <Row>
-          <FormItem prop="address" label="选择所在城市："  style="margin-bottom:10px;">
+          <FormItem prop="address" label="选择所在城市"  style="margin-bottom:10px;">
             <Col span="6" style="padding-right:10px;" >
             <Select  v-model="registInfo.province" filterable @on-change="chosenPro">
               <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -362,6 +362,17 @@
 
 </script>
 <style lang="scss" scoped>
+  .regist{
+    width:60%;
+    margin:0 auto;
+    padding-bottom:10px;
+    height:98%;
+    border: 2px solid #dddee1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
   .head {
     height: 60px;
     display: -webkit-flex;
@@ -372,7 +383,8 @@
     justify-content: center;
     font-weight: bold;
     font: #464c5b;
-    font-size: 20px;
+    font-size: 30px;
+    margin:10px;
   }
 
   .body {
