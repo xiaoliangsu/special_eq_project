@@ -89,6 +89,7 @@ const CarboxApp = r => require.ensure([], () => r(require('../page/apply/carboxA
 
 const Approvaled = r => require.ensure([], () => r(require('../page/approval/approvaled.vue')), 'Approvaled');
 const WaitApproval = r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')), 'WaitApproval');
+const AppRegistDetail = r => require.ensure([], () => r(require('../page/approval/appRegistDetail.vue')), 'AppRegistDetail');
 
 const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
 const Message = r => require.ensure([], () => r(require('../page/message/message.vue')), 'Message');
@@ -183,6 +184,8 @@ const router = new VueRouter({
           meta: [ '已审查、发证申请']},
         {path: "/waitApproval", component: WaitApproval,
           meta: [ '未审查、发证申请']},
+        {path: "/appRegistDetail", component: AppRegistDetail,
+          meta: [ '特种设备使用登记明细']},
         {path: "/supervision", component: Supervision},
         {path: "/message", component: Message,
         meta:["消息提醒"]},

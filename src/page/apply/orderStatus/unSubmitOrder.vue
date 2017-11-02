@@ -114,8 +114,14 @@
         applyType: '',
         columns5: [
           {
+            type: 'index',
+            key: 'id',
+            width: 60,
+            fixed: 'left'
+          },
+          {
             title: '设备代码',
-            key: 'id'
+            key: 'eqCode'
           },
           {
             title: '产品名称',
@@ -124,7 +130,8 @@
           {
             title: '提交日期',
             key: 'createTime',
-            sortable: true
+            sortable: true,
+            width:120
           },
           {
             title: '设备种类',

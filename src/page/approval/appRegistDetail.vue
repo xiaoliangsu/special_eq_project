@@ -1,12 +1,14 @@
 <template>
-  <div class="waitAccepter">
+  <div class="Approver">
     <div class="filter-box">
       <Row>
         <Col :xs="8" :sm="8" :md="8" :lg="8">
-        <label>申请时间</label>
+
+        <label>订单时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
+        <Col :xs="8" :sm="8" :md="8" :lg="8">
         <label>设备类别</label>
         <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
         <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
@@ -14,6 +16,7 @@
         <Cascader :data="options" v-model="deviceType" trigger="hover"
                   style="width:200px;display:inline-block;"></Cascader>
         </Col>
+
 
         <Col :xs="8" :sm="8" :md="8" :lg="8">
         <label>申请类别</label>
@@ -54,7 +57,7 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as orderStatusService from '../../services/orderStatus'
-  import * as acceptService from '../../services/accept'
+  import * as approvalService from '../../services/approval'
 
   export default {
     data() {
@@ -169,54 +172,93 @@
           {
             type: 'index',
             key: 'id',
-            width:60
-
+            width: 60,
+            fixed:'left',
 
           },
           {
             title: '使用单位名称',
             key: 'useComName',
-
+            fixed:'left',
+            width: 135,
 
           },
           {
             title: '设备种类',
             key: 'deviceCategory',
-
+            width: 120,
           },
           {
             title: '设备类别',
             key: 'deviceClass',
+            width: 120,
 
 
           },
           {
             title: '设备品种',
             key: 'deviceKind',
+            width: 120,
 
 
           },
           {
             title: '设备代码',
             key: 'eqCode',
+            width: 120,
 
 
           },
-          {
-            title: '单位内编号',
-            key: 'comCode',
 
-          },
           {
             title: '登记类别',
             key: 'registKind',
+            width: 120,
 
           },
+          {
+            title: '停用开始日期',
+            key: 'noUseDate',
+            width: 115,
+          },
+          {
+            title: '停用结束日期',
+            key: 'noUseEndDate',
+            width: 115,
+          },
+          {
+            title: '注销日期',
+            key: 'disableDate',
+            width: 120,
+          },
+          {
+            title: '登记机关登记人员',
+            key: 'registPerson',
+            width: 115,
+          },
+          {
+            title: '申请日期',
+            key: 'appliDate',
+            width: 120,
+          },
+          {
+            title: '发证日期',
+            key: 'issueDate',
+            width: 120,
+          },
+
+          {
+            title: '使用登记证编号',
+            key: 'registCode',
+            width: 150,
+          },
+
 
           {
             title: '操作',
             key: 'state',
-
+            fixed: 'right',
+            width: 120,
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -233,7 +275,7 @@
                       this.appDetail(params.index)
                     }
                   }
-                }, '受理'),
+                }, '详情'),
 
               ]);
 
@@ -295,15 +337,17 @@
           page: 0,
           size: 10,
         }
+
         this.getOrders(waitAccparams);
       },
 
       //获取申请列表信息
 
       getOrders(waitAccparams){
-        acceptService.GetUnAcceptedOrders(waitAccparams).then(res => {
+        approvalService.GetApprovedOrders(waitAccparams).then(res => {
+            console.log("getorders");
+            //this.data5.device = res.data.content[0].id;
             if (res.status === 200) {
-              //this.data5.device = res.data.content[0].id;
               this.data5 = res.data.content;
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
@@ -315,8 +359,8 @@
                 let D = newDate.getDate() + ' ';
                 this.data5[i].createTime = Y + M + D;
               }
-            } else {
-              this.data5 = [];
+            }else{
+              this.data5=[];
             }
           }
         ).catch(error => {
@@ -339,9 +383,12 @@
           this.applyType = '';
           this.deviceType = [];
           this.deviceTypeId = '';
-
+//       if(this.$route.query.apply_state){
+//           this.applyState=parseInt(this.$route.query.apply_state);
+//       }
+          // this.applyState = '';
           let waitAccparams = 'applyId=' + this.applyId;
-          acceptService.getDetailOrder(waitAccparams).then(res => {
+          approvalService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
@@ -352,6 +399,7 @@
                 let D = newDate.getDate() + ' ';
                 this.data5[0].createTime = Y + M + D;
                 this.num=res.data.length;
+
               }
             }
           ).catch(error => {
@@ -390,7 +438,6 @@
       initSize(value){
         let params=this.makeParams(value-1,10,this.time,this.deviceType[1],this.applyType);
         this.getOrders(params);
-
       },
 
       appDetail(value){
@@ -403,7 +450,7 @@
               path: 'appDetail',
               query: {
                 applyId: this.data5[value].id,
-                orderState:'waitAccept'
+                orderState:'approvaled'
               }
             });
             break;

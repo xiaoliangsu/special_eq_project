@@ -170,50 +170,90 @@
         applyType: '',
         columns5: [
           {
-            title: '设备代码',
-            key: 'id'
+            type: 'index',
+            key: 'id',
+            width: 60,
+            fixed:'left',
+
           },
           {
-            title: '产品名称',
-            key: 'deviceName'
-          },
-          {
-            title: '提交日期',
-            key: 'createTime',
-            sortable: true
+            title: '使用单位名称',
+            key: 'useComName',
+            fixed:'left',
+            width: 135,
+
           },
           {
             title: '设备种类',
             key: 'deviceCategory',
+            width: 120,
+          },
+          {
+            title: '设备代码',
+            key: 'eqCode',
+            width: 120,
+
 
           },
           {
-            title: '设备类别',
-            key: 'deviceClass',
+            title: '单位内编号',
+            key: 'comCode',
+            width: 120,
 
           },
           {
-            title: '设备品种',
-            key: 'deviceKind',
+            title: '登记类别',
+            key: 'registKind',
+            width: 120,
 
           },
           {
-            title: '申请类别',
-            key: 'applyType',
+            title: '申请接受日期',
+            key: 'appAcceptDate',
+            width: 115,
 
           },
 
           {
-            title: '受理人',
-            key: 'acceptorAgencyName',
+            title: '受理通过告知日期',
+            key: 'acceptTellDate',
+            width: 120,
+
+
+          },
+
+          {
+            title: '登记发证日期',
+            key: 'approvalDate',
+            width: 115,
+
+
           },
           {
-            title: '受理状态',
-            key: 'state',
+            title: '不予登记告知日期',
+            key: 'unApprovalDate',
+            width: 115,
+
+
           },
+
+
+          {
+            title: '不予登记告知原因',
+            key: 'unApprovalReason',
+            width: 140,
+          },
+          {
+            title: '使用登记证编号',
+            key: 'registCode',
+            width: 150,
+          },
+
           {
             title: '操作',
             key: 'state',
+            fixed: 'right',
+            width: 120,
             render: (h, params) => {
               return h('div', [
                 h('Button', {

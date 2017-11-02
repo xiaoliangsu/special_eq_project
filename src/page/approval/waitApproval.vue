@@ -170,47 +170,60 @@
         applyType: '',
         columns5: [
           {
-            title: '设备代码',
-            key: 'id'
+            type: 'index',
+            key: 'id',
+            width: 60,
+
           },
           {
-            title: '产品名称',
-            key: 'deviceName'
-          },
-          {
-            title: '提交日期',
-            key: 'createTime',
-            sortable: true
+            title: '使用单位名称',
+            key: 'useComName',
+            width:135
+
           },
           {
             title: '设备种类',
             key: 'deviceCategory',
-
           },
           {
             title: '设备类别',
             key: 'deviceClass',
+
 
           },
           {
             title: '设备品种',
             key: 'deviceKind',
 
+
           },
           {
-            title: '申请类别',
-            key: 'applyType',
+            title: '设备代码',
+            key: 'eqCode',
+
+
+          },
+          {
+            title: '单位内编号',
+            key: 'comCode',
+          },
+          {
+            title: '登记类别',
+            key: 'registKind',
+          },
+          {
+            title: '申请接受日期',
+            key: 'appAcceptDate',
+            width:115,
+          },
+
+          {
+            title: '受理通过告知日期',
+            key: 'acceptTellDate',
+            width:115,
 
           },
 
-          {
-            title: '受理人',
-            key: 'acceptorAgencyName',
-          },
-          {
-            title: '受理状态',
-            key: 'state',
-          },
           {
             title: '操作',
             key: 'state',
@@ -230,7 +243,7 @@
                       this.appDetail(params.index)
                     }
                   }
-                }, '详情'),
+                }, '审查'),
 
               ]);
 

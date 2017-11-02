@@ -128,7 +128,7 @@
             key: 'deviceCategory',
             width: 120,
             fixed: 'left',
-            className: 'demo-table-info-column'
+
           },
           {
             title: '设备代码',

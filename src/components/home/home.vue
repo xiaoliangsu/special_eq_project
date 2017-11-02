@@ -86,11 +86,14 @@
         <Menu-group title="受理机关" v-if="this.author_key==2">
           <Menu-item name="waitAccept">未受理申请</Menu-item>
           <Menu-item name="accepted">已受理申请</Menu-item>
+
+
         </Menu-group>
 
         <Menu-group title="审批机关" v-if="this.author_key==3">
           <Menu-item name="waitApproval">未审批、发证申请</Menu-item>
           <Menu-item name="approvaled">已审批、发证申请</Menu-item>
+          <Menu-item name="appRegistDetail">特种设备使用登记明细表</Menu-item>
         </Menu-group>
 
         <Menu-group title="监管机关" v-if="this.author_key==4">

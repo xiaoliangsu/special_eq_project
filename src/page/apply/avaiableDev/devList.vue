@@ -3,7 +3,7 @@
     <div class="filter-box">
       <Row>
         <Col span="9">
-        <label>订单时间</label>
+        <label>申请时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
@@ -167,6 +167,18 @@
             className: 'demo-table-info-column'
           },
           {
+            title: '设备类别',
+            key: 'deviceClass',
+            width: 120,
+
+          },
+          {
+            title: '设备品种',
+            key: 'deviceKind',
+            width: 120,
+
+          },
+          {
             title: '设备代码',
             key: 'eqCode',
             width: 120,
@@ -183,53 +195,42 @@
             width: 120,
           },
           {
-            title: '申请日期',
-            key: 'appliDate',
+            title: '停用开始日期',
+            key: 'noUseDate',
+            width: 115,
+          },
+          {
+            title: '停用结束日期',
+            key: 'noUseEndDate',
+            width: 115,
+          },
+          {
+            title: '注销日期',
+            key: 'disableDate',
             width: 120,
           },
+          {
+            title: '使用单位填表人员',
+            key: 'comTablePerson',
+            width: 115,
+          },
+
           {
             title: '登记机关',
             key: 'acceptorAgencyName',
             width: 120,
           },
-
-
           {
-            title: '受理通过告知日期',
-            key: 'acceptTellDate',
-            width: 110,
-
+            title: '申请日期',
+            key: 'appliDate',
+            width: 120,
           },
           {
-            title: '不予受理告知日期',
-            key: 'unAcceptTellDate',
-            width: 115,
+            title: '发证日期',
+            key: 'issueDate',
+            width: 120,
           },
 
-
-          {
-            title: '不予受理原因',
-            key: 'unAcceptedReason',
-            width: 140,
-          },
-
-          {
-            title: '登记发证日期',
-            key: 'approvalDate',
-            width: 115,
-          },
-          {
-            title: '不予登记告知日期',
-            key: 'unApprovalDate',
-            width: 115,
-          },
-
-
-          {
-            title: '不予登记告知原因',
-            key: 'unApprovalReason',
-            width: 140,
-          },
           {
             title: '使用登记证编号',
             key: 'registCode',
