@@ -309,19 +309,15 @@
             this.loginInfo.username=this.loginForm.username;
             this.setUserInfo(this.loginInfo);
             //获取用户基本信息
-            this.getUserData();
-//            let userDetailData=this.getterUserData;
-//            console.log(userDetailData.useComAddr);
-//            localStorage.setItem('useComName', userDetailData.useComName);
-//            localStorage.setItem('useComAddr', userDetailData.useComAddr);
-//            localStorage.setItem('useComCode', userDetailData.useComCode);
-//            localStorage.setItem('zipCode', userDetailData.zipcode);
-//            localStorage.setItem('comPhone', userDetailData.comPhone);
-//            localStorage.setItem('mobilePhone', userDetailData.comMobilePhone);
-//            localStorage.setItem('propertyComName', userDetailData.propertyComName);
-//            localStorage.setItem('propertyComCode', userDetailData.propertyComCode);
+            if(res.data.role==1){
+              this.getUserData();
+            }else if(res.data.role==2||res.data.role==3){
+              localStorage.setItem('name', res.data.name);
+              localStorage.setItem('mobilePhone', res.data.comMobilePhone);
+              localStorage.setItem('verifyId', res.data.verifyId);
+              localStorage.setItem('approveAgencyId', res.data.approveAgencyId);
+            }
 
-            //  this.setUserInfo(this.loginInfo);
 
             this.$router.push('home');
             switch (this.loginInfo.author_key) {

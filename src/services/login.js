@@ -10,6 +10,15 @@ export function Logout(params) {
 export function Regist(params) {
   return fetch('/register/user', params,'post')
 }
+
+export function RegistApprover(params) {
+  return fetch('/register/approver', params,'post')
+}
+export function RegistAcceptor(params) {
+  return fetch('/register/acceptor', params,'post')
+}
+
+
 export function getAccpeter(params) {
   return fetch('/map/organization?'+params, params,'get')
 }

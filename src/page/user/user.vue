@@ -171,16 +171,22 @@
         this.author_key = localStorage.getItem('author_key');
       },
       setUserDetailData(){
-        this.ruleForm.useComName=localStorage.getItem('useComName');
-        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
-        this.ruleForm.useComCode=localStorage.getItem('useComCode');
-        this.ruleForm.zipCode=localStorage.getItem('zipCode');
-        this.ruleForm.comPhone=localStorage.getItem('comPhone');
-        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
-        this.ruleForm.propertyComName=localStorage.getItem('propertyComName');
-        this.ruleForm.propertyComCode=localStorage.getItem('propertyComCode');
-        this.ruleForm.name=localStorage.getItem('name');
-        this.ruleForm.verifyId=localStorage.getItem('verifyId');
+        this.ruleForm.useComName = localStorage.getItem('useComName');
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        this.ruleForm.zipCode = localStorage.getItem('zipCode');
+        this.ruleForm.comPhone = localStorage.getItem('comPhone');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
+        this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
+
+        if(localStorage.getItem('company')=='true'){
+          this.ruleForm.safeAdmin = localStorage.getItem('safeAdministrator');
+          this.ruleForm.useComCode = localStorage.getItem('useComCode');
+        }else {
+          this.ruleForm.safeAdmin = localStorage.getItem('name');
+          this.ruleForm.useComCode = localStorage.getItem('verifyId');
+
+        }
 
       },
 

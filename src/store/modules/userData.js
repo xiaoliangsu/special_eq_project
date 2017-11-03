@@ -24,16 +24,35 @@ const actions = {
   getUserData({commit}, res) {
     loginService.GetInfo().then(res => {
       state.userData = res.data;
-      localStorage.setItem('useComName', res.data.useComName);
-      localStorage.setItem('useComAddr', res.data.useComAddr);
-      localStorage.setItem('useComCode', res.data.useComCode);
-      localStorage.setItem('zipCode', res.data.zipcode);
-      localStorage.setItem('comPhone', res.data.comPhone);
-      localStorage.setItem('mobilePhone', res.data.comMobilePhone);
-      localStorage.setItem('propertyComName', res.data.propertyComName);
-      localStorage.setItem('propertyComCode', res.data.propertyComCode);
-      localStorage.setItem('name', res.data.name);
-      localStorage.setItem('verifyId', res.data.verifyId);
+      console.log(res.data.company);
+      if(res.data.company===true){
+        localStorage.setItem('company', res.data.company);
+        localStorage.setItem('useComName', res.data.useComName);
+        localStorage.setItem('useComAddr', res.data.address);
+        localStorage.setItem('useComCode', res.data.useComCode);
+        localStorage.setItem('zipCode', res.data.zipcode);
+        localStorage.setItem('comPhone', res.data.comPhone);
+        localStorage.setItem('mobilePhone', res.data.comMobilePhone);
+        localStorage.setItem('propertyComName', res.data.propertyComName);
+        localStorage.setItem('propertyComCode', res.data.propertyComCode);
+      //  localStorage.setItem('name', res.data.name);
+        localStorage.setItem('verifyId', res.data.verifyId);
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('addressCode', res.data.addressCode);
+        localStorage.setItem('safeAdministrator', res.data.safeAdministrator);
+      }else{
+        localStorage.setItem('company', false);
+        localStorage.setItem('name', res.data.name);
+        localStorage.setItem('mobilePhone', res.data.comMobilePhone);
+        localStorage.setItem('verifyId', res.data.verifyId);
+        localStorage.setItem('zipCode', res.data.zipcode);
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('addressCode', res.data.addressCode);
+        localStorage.setItem('useComAddr', res.data.address);
+
+      }
+
+
 
 
 

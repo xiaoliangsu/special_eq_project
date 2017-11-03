@@ -127,6 +127,10 @@
               localStorage.removeItem('propertyComCode');
               localStorage.removeItem('name');
               localStorage.removeItem('verifyId');
+              localStorage.removeItem('safeAdministrator');
+
+              localStorage.removeItem('approveAgencyId');
+
               this.setSignOut();
               this.$router.push('login');
             }

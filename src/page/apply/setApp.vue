@@ -21,9 +21,9 @@
         <div class="statusInfo" v-if="this.active==1">
           <div class="chooseAccept" >
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
-            <FormItem label="受理机关">
-              <Select v-model="acceptCom" filterable @on-change="chosenAccept">
-                <Option v-for="item in acceptComList" :value="item.label" :key="item.value">{{ item.label }}</Option>
+            <FormItem label="登记机关">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept"  :label-in-value="true">
+                <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
             </FormItem>
           </div>
@@ -435,47 +435,14 @@
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="日期" prop="comPersonDate">
-                <!--wang-->
-                <!--<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>-->
-                <DatePicker v-model="ruleForm.comPersonDate"></DatePicker>
-              </Form-item>
+              <!--<Form-item label="日期" prop="comPersonDate">-->
+                <!--&lt;!&ndash;wang&ndash;&gt;-->
+                <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>&ndash;&gt;-->
+                <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
+              <!--</Form-item>-->
               </Col>
             </Row>
           </div>
-          <!--<div class="base-box">-->
-          <!--<h2 class="header_two">其他信息</h2>-->
-          <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
-          <!--</p>-->
-          <!--&lt;!&ndash;wang&ndash;&gt;-->
-          <!--<p>附产品数据表</p>-->
-          <!---->
-          <!--</div>-->
-          <!--wang-->
-          <!--<div class="base-box">-->
-          <!--<h2 class="header_two">说明</h2>-->
-          <!--<Row>-->
-          <!--<Col span="11">-->
-          <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
-          <!--<Input v-model="ruleForm.registPerson"></Input>-->
-          <!--</Form-item>-->
-
-          <!--<Form-item label="使用登记证编号" prop="registCode">-->
-          <!--<Input v-model="ruleForm.registCode"></Input>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--<Col span="11" offset="2">-->
-          <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
-          <!--<DatePicker v-model="ruleForm.registDate"></DatePicker>-->
-          <!--</Form-item>-->
-
-          <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
-          <!--<DatePicker v-model="ruleForm.registStampDate"></DatePicker>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--</Row>-->
-          <!--</div>-->
-
         </div>
 
 
@@ -695,6 +662,7 @@
         pdfUrl: '',
         pdfList: [],
         pdf: '',
+        addressCode:'',
         //设备种类
         deviceCategoryList: [
           {
@@ -1052,12 +1020,22 @@
       setUserDetailData(){
         this.ruleForm.useComName = localStorage.getItem('useComName');
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-        this.ruleForm.useComCode = localStorage.getItem('useComCode');
         this.ruleForm.zipCode = localStorage.getItem('zipCode');
         this.ruleForm.comPhone = localStorage.getItem('comPhone');
         this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
         this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
+
+        if(localStorage.getItem('company')=='true'){
+          this.ruleForm.safeAdmin = localStorage.getItem('safeAdministrator');
+          this.ruleForm.useComCode = localStorage.getItem('useComCode');
+        }else {
+          this.ruleForm.safeAdmin = localStorage.getItem('name');
+          this.ruleForm.useComCode = localStorage.getItem('verifyId');
+
+        }
+        this.addressCode = localStorage.getItem('addressCode');
+
       },
 
       initData(){
@@ -1094,7 +1072,7 @@
             }).catch(error => {
               console.log(error);
             })
-             params='addressCode=' + this.ruleForm.eqSpeciesCode;
+             params='addressCode=' + this.addressCode;
             setAppService.getAccpeter(params).then(res => {
               this.acceptComList=[];
               for (let i = 0, len = res.length; i < len; i++) {
@@ -1117,7 +1095,7 @@
           this.clearRuleForm();
           //this.defaultPdfList1 = res.pdfUrlDefault;
 //          this.setUserDetailData();
-          this.ruleForm = res.data.form1;
+          this.ruleForm = res.data.formList;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -1162,14 +1140,17 @@
         }
 
       },
+      //
       chosenDeviceType(value){
         this.deviceClassTypeId = value.label;
       },
+      //选择受理机关
       chosenAccept(value){
-        this.propertyComCode=value;
-        this.propertyComName=this.acceptCom;
+        this.propertyComCode=value.value;
+        this.propertyComName=value.label;
       },
 
+      //清空表单
       clearRuleForm(){
         this.ruleForm = {
           registKind: '新设备首次启用',
@@ -1208,7 +1189,6 @@
           checkConclusion: '',
           nextCheckDate: '',
           comTablePerson:'',
-          comPersonDate:'',
         }
       },
 
@@ -1237,7 +1217,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form1 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
             this.submit(submitParam);
@@ -1254,10 +1234,12 @@
         this.ruleForm.eqSpecies = this.deviceCategoryId;
         this.ruleForm.eqCategory = this.deviceClassId;
         this.ruleForm.eqVariety = this.deviceClassTypeId;
+        submitParam.formList=[];
+        submitParam.formList.push(this.ruleForm);
 
-        submitParam.form1 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 1;
+        submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+        submitParam.formList[0].formType = 1;
         //设备类别
         if (this.device_type) {
           submitParam.deviceType = parseInt(this.device_type);
@@ -1266,12 +1248,14 @@
         }
         //首次申请
         submitParam.applyType = 1;
+        submitParam.comCode = this.ruleForm.comCode;
+       //登记证编号
+        submitParam.registCode ='';
         //提交设备类别等
         submitParam.deviceCategory = this.deviceCategoryId;
         submitParam.deviceClass = this.deviceClassId;
         submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.eqCode;
-        submitParam.deivceName = this.ruleForm.eqName;
+        submitParam.eqCode = this.ruleForm.eqCode;
         return submitParam;
       },
       //更新表单
@@ -1280,17 +1264,26 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form1 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
             let submitParam = {};
             this.ruleForm.eqSpecies = this.deviceCategoryId;
             this.ruleForm.eqCategory = this.deviceClassId;
             this.ruleForm.eqVariety = this.deviceClassTypeId;
-            submitParam.form1 = this.ruleForm;
+            submitParam.formList=[];
+            submitParam.formList.push(this.ruleForm);
+
+            submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+            submitParam.formList[0].formType = 1;
             submitParam.id = this.$route.query.applyId;
-            submitParam.deviceClass = this.deviceClassId;
-            submitParam.deviceKind = this.deviceClassTypeId;
+//
+//            submitParam.deviceClass = this.deviceClassId;
+//            submitParam.deviceKind = this.deviceClassTypeId;
+//            submitParam.comCode = this.ruleForm.comCode;
+//            submitParam.eqCode = this.ruleForm.eqCode;
+
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1316,7 +1309,7 @@
       },
       saveForm(formName){
 
-        let form1 = Object.assign({}, this.ruleForm);
+        let formList = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam = this.makeParams();
         this.$Modal.confirm({

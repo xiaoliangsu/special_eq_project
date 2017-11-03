@@ -119,8 +119,8 @@
             </FormItem>
           </Row>
           <Row>
-            <FormItem label="邮政编码" prop="zipCode">
-              <Input v-model="registInfo.zipCode" placeholder="请输入邮政编码"></Input>
+            <FormItem label="邮政编码" prop="zipcode">
+              <Input v-model="registInfo.zipcode" placeholder="请输入邮政编码"></Input>
             </FormItem>
           </Row>
 
@@ -247,8 +247,8 @@
             </FormItem>
           </Row>
           <Row>
-            <FormItem label="邮政编码" prop="zipCode">
-              <Input v-model="registPerInfo.zipCode" placeholder="请输入邮政编码"></Input>
+            <FormItem label="邮政编码" prop="zipcode">
+              <Input v-model="registPerInfo.zipcode" placeholder="请输入邮政编码"></Input>
             </FormItem>
           </Row>
 
@@ -286,6 +286,7 @@
           verifyId:'',
           email:'',
           comMobilePhone:'',
+          zipcode:'',
 
         },
         registInfo: {
@@ -304,11 +305,10 @@
           email: '',
           comMobilePhone: '',
           address: '',
-          zipCode:'',
           comPhone:'',
           propertyComName:'',
           propertyComCode:'',
-          zipCode:'',
+          zipcode:'',
         },
         province: '',
         provinceId:'',
@@ -360,10 +360,10 @@
           comMobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          address: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          zipCode: [
+//          address: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+          zipcode: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           comPhone: [
@@ -377,33 +377,36 @@
           ],
 
         },
-//        rulesPre:{
-//          username: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          password: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          password2: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          street: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          name: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          verifyId: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          email: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          comMobilePhone: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//
-//        }
+        rulesPre:{
+          username: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          password2: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          street: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          name: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          verifyId: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          email: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comMobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+        zipcode: [
+          {required: true, message: '不能为空', trigger: 'blur'}
+        ],
+
+        }
 
       }
     },
@@ -520,7 +523,7 @@
 //        this.propertyComName=this.acceptCom;
 //      },
       registPer(){
-        this.$refs['registInfo'].validate((valid) => {
+        this.$refs['registPerInfo'].validate((valid) => {
           if (valid) {
             if (this.registPerInfo.password !== this.registPerInfo.password2) {
               this.$Notice.error({
@@ -531,10 +534,16 @@
             }
             let addressDetail='';
             if(this.area!==''){
-              addressDetail=this.province+this.city+this.area+this.street;
+              addressDetail=this.province+this.city+this.area+this.registPerInfo.street;
 
             }else if(this.area==''){
-              addressDetail=this.province+this.city+this.street;
+              addressDetail=this.province+this.city+this.registPerInfo.street;
+            }
+            let addressCode='';
+            if(this.areaId!==''){
+              addressCode=this.areaId;
+            }else{
+                addressCode=this.cityId;
             }
 
             let params = {};
@@ -545,11 +554,11 @@
               // "address": '',
               "comMobilePhone": this.registPerInfo.comMobilePhone,
               "verifyId": this.registPerInfo.verifyId,
-              "isCompany": false,
+              "company": false,
               "zipcode": this.registPerInfo.zipcode,
               "email":this.registPerInfo.email,
               "address":addressDetail,
-              "addressCode":[this.cityId,this.areaId],
+              "addressCode":addressCode,
             }
             params.userData = temp;
 
@@ -588,11 +597,24 @@
               });
               return
             }
+            let addressDetail='';
+            if(this.area!==''){
+              addressDetail=this.province+this.city+this.area+this.registInfo.street;
+
+            }else if(this.area==''){
+              addressDetail=this.province+this.city+this.registInfo.street;
+            }
+            let addressCode='';
+            if(this.areaId!==''){
+              addressCode=this.areaId;
+            }else{
+              addressCode=this.cityId;
+            }
             let params = {};
             params.username = this.registInfo.username;
             params.password = this.registInfo.password;
             let temp = {
-              "isCompany": true,
+              "company": true,
               "comMobilePhone": this.registInfo.comMobilePhone,
               "verifyId": this.registInfo.verifyId,
               "useComName": this.registInfo.useComName,
@@ -602,7 +624,7 @@
               "propertyComCode": this.registInfo.propertyComCode,
               "email":this.registInfo.email,
               "address":addressDetail,
-              "addressCode":[this.cityId,this.areaId],
+              "addressCode":addressCode,
               "safeAdministrator":this.registInfo.safeAdministrator,
               "comPhone":this.registInfo.comPhone,
             }

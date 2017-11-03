@@ -16,43 +16,20 @@
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <!--<div class="city_select_app" v-if="this.active==1">-->
-      <!--<h2 class="header_one">基本信息</h2>-->
-
-      <!--<label>选择城市：</label>-->
-      <!--<Row>-->
-      <!--<Col span="8" style="padding-right:10px">-->
-      <!--<Select v-model="province" filterable @on-change="chosenPro">-->
-      <!--<Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-      <!--</Select>-->
-      <!--</Col>-->
-      <!--<Col span="8" style="padding-right:10px">-->
-      <!--<Select v-model="city" filterable @on-change="chosenCity">-->
-      <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-      <!--</Select>-->
-      <!--</Col>-->
-      <!--<Col span="8">-->
-      <!--<Select v-model="area" filterable>-->
-      <!--<Option v-for="item in areaList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-      <!--</Select>-->
-      <!--</Col>-->
-      <!--</Row>-->
-      <!--<label>选择受理机关：</label>-->
-      <!--<Select v-model="acceptCom" filterable>-->
-      <!--<Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-      <!--</Select>-->
-      <!--<label>选择审批机关：</label>-->
-      <!--<Select v-model="checkCom" filterable>-->
-      <!--<Option v-for="item in checkComList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-      <!--</Select>-->
-      <!--</div>-->
-
 
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >  <!--qiu-->
         <!--<h2>车用气瓶申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
+          <div class="chooseAccept" >
+            <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
+            <FormItem label="登记机关">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept"  :label-in-value="true">
+                <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </FormItem>
+          </div>
 
-          <div class="base-box">
+          <div class="base-box" style="margin-top:10px;">
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
             <Form-item label="登记类别" prop="registKind">
               <Select v-model="ruleForm.registKind" >
@@ -105,36 +82,7 @@
               </Form-item>
               </Col>
             </Row>
-            <!--qiu-->
 
-            <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
-            <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
-            <!--<Form-item label="制造单位名称" prop="manuComName">-->
-            <!--<Input v-model="ruleForm.manuComName" ></Input>-->
-            <!--</Form-item>-->
-            <!--</Col>-->
-
-            <!--<Col span="11" offset="2">-->
-            <!--<Form-item label="制造日期" prop="manufactureDate">-->
-            <!--<DatePicker v-model="ruleForm.manufactureDate"></DatePicker>-->
-            <!--</Form-item>-->
-            <!--</Col>-->
-            <!--</Row>-->
-
-
-            <!--<Row>     &lt;!&ndash;qiu&ndash;&gt;-->
-            <!--<Col span="11">   &lt;!&ndash;qiu&ndash;&gt;-->
-            <!--<Form-item label="产品编号" prop="productNum">-->
-            <!--<Input v-model="ruleForm.productNum" ></Input>-->
-            <!--</Form-item>-->
-            <!--</Col>-->
-
-            <!--<Col span="11" offset="2">-->
-            <!--<Form-item label="单位内编号" prop="companyCode">-->
-            <!--<Input v-model="ruleForm.companyCode" ></Input>-->
-            <!--</Form-item>-->
-            <!--</Col>-->
-            <!--</Row>-->
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="100"
                   v-for="(item, index) in formDynamicPres.items"
                   :key="item.id" inline>
@@ -341,105 +289,18 @@
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="日期" prop="comPersonDate">
-                <!--wang-->
-                <!--<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>-->
-                <DatePicker v-model="ruleForm.comPersonDate"></DatePicker>
-              </Form-item>
+
               </Col>
             </Row>
           </div>
-
-          <!--新加-->
-
-          <!--新加-->
-          <!--qiu-->
-          <!--<div class="base-box">-->
-          <!--<h2 class="header_two">其他信息</h2>-->
-          <!--<p>在此申明：所申报的内容真实；在使用过程中，将严格执行《中华人民共和国特-->
-          <!--种设备安全法》及相关规定，并且接受特种设备安全监督管理部门的监督管理。-->
-          <!--</p>-->
-
-          <!--<Row>-->
-          <!--<Col span="11">-->
-          <!--<Form-item label="使用单位填表人员" prop="comTablePerson">-->
-          <!--<Input v-model="ruleForm.comTablePerson" ></Input>-->
-          <!--</Form-item>-->
-
-          <!--<Form-item label="使用单位安全管理人员" prop="comSafePerson">-->
-          <!--<Input v-model="ruleForm.comSafePerson" ></Input>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--<Col span="11" offset="2">-->
-          <!--<Form-item label="使用单位填表人员日期" prop="comPersonDate">-->
-          <!--<DatePicker v-model="ruleForm.comPersonDate" ></DatePicker>-->
-          <!--</Form-item>-->
-          <!--<Form-item label="安全管理人员填表日期" prop="safePersonDate">-->
-          <!--<DatePicker v-model="ruleForm.safePersonDate" ></DatePicker>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--</Row>-->
-          <!--<Row>-->
-          <!--<Col span="11" offset="13">-->
-          <!--<Form-item label="加盖使用单位公章日期" prop="comStampDate">-->
-          <!--<DatePicker v-model="ruleForm.comStampDate" ></DatePicker>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--</Row>-->
-          <!--</div>-->
-
-          <!--<div class="base-box">-->
-          <!--<h2 class="header_two">其他信息</h2>-->
-          <!--<Form-item label="说明" prop="explanation">-->
-          <!--<Input v-model="ruleForm.explanation" ></Input>-->
-          <!--</Form-item>-->
-
-          <!--<Row>-->
-          <!--<Col span="11">-->
-          <!--<Form-item label="登记机关登记人员" prop="registPerson">-->
-          <!--<Input v-model="ruleForm.registPerson" ></Input>-->
-          <!--</Form-item>-->
-
-          <!--<Form-item label="使用登记证编号" prop="registCode">-->
-          <!--<Input v-model="ruleForm.registCode" ></Input>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--<Col span="11" offset="2">-->
-          <!--<Form-item label="登记机关登记人员日期" prop="registDate">-->
-          <!--<DatePicker v-model="ruleForm.registDate" ></DatePicker>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--</Row>-->
-          <!--<Row>-->
-          <!--<Col span="11" offset="13">-->
-          <!--<Form-item label="加盖登记机关公章日期" prop="registStampDate">-->
-          <!--<DatePicker v-model="ruleForm.registStampDate" ></DatePicker>-->
-          <!--</Form-item>-->
-          <!--</Col>-->
-          <!--</Row>-->
-          <!--</div>-->
         </div>
 
-        <!--让用户确认信息的表格-->
-        <!--<div class="setTable" v-if="this.active==1">-->
-        <!--<Alert closable>请确认表格信息是否全部正确</Alert>-->
-        <!--<Collapse v-model="value1">-->
-        <!--<Panel name="1">-->
-        <!--<span class="panel_content">特种设备使用登记表</span>-->
-        <!--<div slot="content">-->
-        <!--<v-regist_three :ruleForm="ruleForm"></v-regist_three>-->
-        <!--</div>-->
-        <!--</Panel>-->
-        <!--</Collapse>-->
-        <!--</div>-->
+
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
-
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
           <Button  type="warning"  @click="printTrigger('iFramePdf');" >打印</Button>
-
-
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
@@ -638,7 +499,9 @@
   export default {
     data() {
       return {
-
+        acceptCom: '',
+        acceptComList: [],
+        addressCode:'',
         formDynamicPres: {
           items: [
             {
@@ -678,17 +541,7 @@
           safeAdministrator: '',
           mobilePhone: '',
           comTablePerson:'',
-          comPersonDate:'',
-          // comTablePerson: '',
-          // comPersonDate: '',
-          // comSafePerson: '',
-          // safePersonDate: '',
-          // explanation: '',
-          // registPerson: '',
-          // registCode: '',
-          // registDate: '',
-          // comStampDate: '',
-          // registStampDate: '',
+
         },
 
         //设备品种
@@ -946,10 +799,22 @@
       setUserDetailData(){
         this.ruleForm.useCompanyName=localStorage.getItem('useComName');
         this.ruleForm.useCompanyAddr=localStorage.getItem('useComAddr');
-        this.ruleForm.useCompanyCode=localStorage.getItem('useComCode');
+      //  this.ruleForm.useCompanyCode=localStorage.getItem('useComCode');
         this.ruleForm.zipcode=localStorage.getItem('zipCode');
         this.ruleForm.companyPhone=localStorage.getItem('comPhone');
         this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+
+        if(localStorage.getItem('company')=='true'){
+          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+          this.ruleForm.useCompanyCode = localStorage.getItem('useComCode');
+        }else {
+          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+          this.ruleForm.useCompanyCode = localStorage.getItem('verifyId');
+
+        }
+        this.addressCode = localStorage.getItem('addressCode');
+
+
       },
       initData(){
         // this.deviceNum = 1;
@@ -979,6 +844,15 @@
           ];
           this.defaultPdfList1 = [];
           this.setUserDetailData();
+          let params='addressCode=' + this.addressCode;
+          setAppService.getAccpeter(params).then(res => {
+            this.acceptComList=[];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
         } else {
           // 获取已经保存的信息
           this.getOldInfo();
@@ -988,7 +862,7 @@
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRuleForm();
-          this.ruleForm= res.data.form2;
+          this.ruleForm= res.data.formList;
           this.formDynamicPres.items=this.ruleForm.subList;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
@@ -1001,16 +875,11 @@
           subList:[],
           eqVariety: '',
           eqVarietyCode: '',
-
           eqName:'',
           cylinderNum: '',
           fillMedium: '',
           cylinderWorkPressure: '',
           cylinderVolume: '',
-//          manuComName: '',
-//          manufactureDate: '',
-//          productNum: '',
-//          companyCode: '',
           constrComName: '',
           inspectComName: '',
           useCompanyName: '',
@@ -1025,13 +894,19 @@
           mobilePhone: '',
           registKind: '新设备首次启用',
           comTablePerson:'',
-          comPersonDate:'',
+          //comPersonDate:'',
         }
       },
       //选择的设备品种
       chosenDeviceType(value){
         this.deviceClassTypeId = value.label;
       },
+      //选择受理机关
+      chosenAccept(value){
+        this.propertyComCode=value.value;
+        this.propertyComName=value.label;
+      },
+
 
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
@@ -1052,11 +927,14 @@
       makeParams(){
         let submitParam = {};
         //提交表单1
-        this.ruleForm.eqVariety =   this.deviceClassTypeId;
+        this.ruleForm.eqVariety =this.deviceClassTypeId;
         this.ruleForm.subList=this.formDynamicPres.items;
-        submitParam.form2 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 1;
+        submitParam.formList=[];
+        submitParam.formList.push(this.ruleForm);
+        submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+        submitParam.formList[0].formType = 2;
+
         //设备类别
         if (this.device_type) {
           submitParam.deviceType = parseInt(this.device_type);
@@ -1065,12 +943,16 @@
         }
         //首次申请
         submitParam.applyType = 1;
+        submitParam.comCode = this.ruleForm.comCode;
+        //登记证编号
+        submitParam.registCode ='';
+
         //提交设备类别等
         submitParam.deviceCategory = "压力容器";
         submitParam.deviceClass = "移动式压力容器";
         submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.productNum;
-        submitParam.deivceName = this.ruleForm.eqName;
+        submitParam.eqCode = '';
+
         return  submitParam;
       },
       //提交表单
@@ -1079,7 +961,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form2 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam=this.makeParams();
             this.submit(submitParam);
@@ -1096,13 +978,17 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form2 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam={};
-            this.ruleForm.eqVariety =   this.deviceClassTypeId;
-            submitParam.form2 = this.ruleForm;
+            this.ruleForm.eqVariety = this.deviceClassTypeId;
+            submitParam.formList=[];
+            submitParam.formList.push(this.ruleForm);
+            submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+            submitParam.formList[0].formType = 2;
             submitParam.id=this.$route.query.applyId;
-            submitParam.deviceKind = this.deviceClassTypeId;
+           // submitParam.deviceKind = this.deviceClassTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1127,7 +1013,7 @@
 
       },
       saveForm(formName){
-        let form2 = Object.assign({}, this.ruleForm);
+        let formList = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam=this.makeParams();
         this.$Modal.confirm({
@@ -1291,7 +1177,8 @@
     background-color: white;
   }
 
-  .base-box {
+  .base-box ,
+  .chooseAccept{
     margin-left:140px;
     display: block;
     border: 2px solid #dddee1;

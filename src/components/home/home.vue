@@ -65,7 +65,7 @@
           <label class="menu-label">受理审查发证情况</label>
 
           <!--<Menu-item name="waitAcceptList">待受理申请</Menu-item>-->
-          <Menu-item name="unSubmitOrder">未提交申请</Menu-item>
+          <!--<Menu-item name="unSubmitOrder">未提交申请</Menu-item>-->
           <Menu-item name="applyerList">已提交申请办理情况</Menu-item>
 
           <!--<Menu-item name="finishList">已受理申请</Menu-item>-->
@@ -84,6 +84,8 @@
 
 
         <Menu-group title="受理机关" v-if="this.author_key==2">
+          <label class="menu-label" style="display:block;padding-top:10px;">受理机关</label>
+
           <Menu-item name="waitAccept">未受理申请</Menu-item>
           <Menu-item name="accepted">已受理申请</Menu-item>
 
@@ -91,6 +93,8 @@
         </Menu-group>
 
         <Menu-group title="审批机关" v-if="this.author_key==3">
+          <label class="menu-label" style="display:block;padding-top:10px;">审批机关</label>
+
           <Menu-item name="waitApproval">未审批、发证申请</Menu-item>
           <Menu-item name="approvaled">已审批、发证申请</Menu-item>
           <Menu-item name="appRegistDetail">特种设备使用登记明细表</Menu-item>
@@ -344,9 +348,9 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
-    width: 16.6666%;
+    width: 16.7%;
     height: 60px;
-    background: #464c5b;
+    background: #fff;
     border-radius: 3px;
     padding:10px;
     padding-left:17px;
@@ -354,6 +358,8 @@
     .logo-head{
      font-size:1.4vw;
       margin-left:0.2rem;
+      color:#464c5b;
+
     }
 
   }
