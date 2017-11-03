@@ -3,63 +3,110 @@
     <header class="admin_title">基本信息</header>
     <!--<span>{{userName}}</span>-->
     <!--申请用户-->
-    <div class="admin_set" v-if="this.author_key=='1'">
+    <div class="admin_set" v-if="this.author_key==1">
       <ul>
         <li>
           <span>用户名：</span>
           <div style="display:inline-block;width:300px;">
-            <Input v-model="userName" ></Input>
+            <Input v-model="ruleForm.userName" ></Input>
           </div>
         </li>
         <li>
           <span>登陆密码：</span>
-          <Button>修改密码</Button>
+          <div style="display:inline-block;width:300px;" v-if="this.codeBox">
+            <Input v-model="ruleForm.useComAddr" ></Input>
+          </div>
+          <Button  @click="saveCode()" v-if="this.codeBox">保存密码</Button>
+
+          <Button  @click="changeCode()" v-if="!this.codeBox">修改密码</Button>
         </li>
         <li>
-          <span>受理机关：</span><span>{{userInfo.username}}</span>
+          <span>安全管理员：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.safeAdmin" ></Input>
+          </div>
+
         </li>
-        <li>
-          <span>本人姓名：</span><span>{{ruleForm.name}}</span>
-        </li>
-        <li>
-          <span>身份证号：</span><span>{{ruleForm.verifyId}}</span>
+        <li v-if="this.role==='0'">
+          <!--<span >身份证号：</span><span>{{ruleForm.verifyId}}</span>-->
+          <span>身份证号：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.useComCode" ></Input>
+          </div>
         </li>
         <!--<li>-->
           <!--<span>权限：</span><span>{{userInfo.username}}</span>-->
         <!--</li>-->
-        <li>
-          <span>使用单位名称：</span><span>{{ruleForm.useComName}}</span>
+        <li v-if="this.role==='1'">
+          <span>使用单位名称：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.useComName" ></Input>
+          </div>
+        </li>
+        <li >
+          <span v-if="this.role==='0'">个人地址：</span>
+          <div style="display:inline-block;width:300px;" v-if="this.role==='0'">
+            <Input v-model="ruleForm.useComAddr" ></Input>
+          </div>
+          <span v-if="this.role==='1'">使用单位地址：</span>
+          <div style="display:inline-block;width:300px;" v-if="this.role==='1'">
+            <Input v-model="ruleForm.useComAddr" ></Input>
+          </div>
+
+        </li>
+        <li v-if="this.role==='1'">
+
+          <span>使用单位统一社会信用代码：</span>
+          <div style="display:inline-block;width:300px;" v-if="this.role==='1'">
+            <Input v-model="ruleForm.useComCode" ></Input>
+          </div>
+
         </li>
         <li>
-          <span>使用单位地址：</span><span>{{ruleForm.useComAddr}}</span>
+          <span>邮政编码：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.zipCode" ></Input>
+          </div>
         </li>
         <li>
-          <span>使用单位统一社会信用代码：</span><span>{{ruleForm.useComCode}}</span>
+          <span>电子信箱：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.email" ></Input>
+          </div>
+        </li>
+        <li v-if="this.role==='1'">
+          <span>单位固定电话：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.comPhone" ></Input>
+          </div>
         </li>
         <li>
-          <span>邮政编码：</span><span>{{ruleForm.zipCode}}</span>
+          <span>移动电话：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.mobilePhone" ></Input>
+          </div>
         </li>
-        <li>
-          <span>单位固定电话：</span><span>{{ruleForm.comPhone}}</span>
+        <li v-if="this.role==='1'">
+          <span>产权单位名称：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.propertyComName" ></Input>
+          </div>
         </li>
-        <li>
-          <span>移动电话：</span><span>{{ruleForm.comMobilePhone}}</span>
-        </li>
-        <li>
-          <span>产权单位名称：</span><span>{{ruleForm.propertyComName}}</span>
-        </li>
-        <li>
-          <span>产权单位统一社会信用代码：</span><span>{{ruleForm.propertyComCode}}</span>
+        <li v-if="this.role==='1'">
+          <span>产权单位统一社会信用代码：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.propertyComCode" ></Input>
+          </div>
         </li>
       </ul>
     </div>
     <!--受理审批-->
-    <div class="admin_set" v-if="this.author_key=='2'||'3'">
+    <div class="admin_set" v-if="this.author_key==2||this.author_key==3">
       <ul>
         <li>
-          <span>用户名2：</span>
+          <span>用户名：</span>
           <div style="display:inline-block;width:300px;">
-            <Input v-model="userName" ></Input>
+            <Input v-model="ruleForm.userName" ></Input>
           </div>
         </li>
         <li>
@@ -67,43 +114,34 @@
           <Button>修改密码</Button>
         </li>
         <li>
-          <span>受理机关：</span><span>{{userInfo.username}}</span>
+          <span>登记机关名称：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.approveAgencyId" ></Input>
+          </div>
         </li>
         <li>
-          <span>本人姓名：</span><span>{{ruleForm.name}}</span>
+          <span>登记人员：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.name" ></Input>
+          </div>
         </li>
         <li>
-          <span>身份证号：</span><span>{{ruleForm.verifyId}}</span>
+          <span>身份证号：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.verifyId" ></Input>
+          </div>
         </li>
-        <!--<li>-->
-        <!--<span>权限：</span><span>{{userInfo.username}}</span>-->
-        <!--</li>-->
+
         <li>
-          <span>使用单位名称：</span><span>{{ruleForm.useComName}}</span>
+          <span>移动电话号码：</span>
+          <div style="display:inline-block;width:300px;">
+            <Input v-model="ruleForm.mobilePhone" ></Input>
+          </div>
         </li>
-        <li>
-          <span>使用单位地址：</span><span>{{ruleForm.useComAddr}}</span>
-        </li>
-        <li>
-          <span>使用单位统一社会信用代码：</span><span>{{ruleForm.useComCode}}</span>
-        </li>
-        <li>
-          <span>邮政编码：</span><span>{{ruleForm.zipCode}}</span>
-        </li>
-        <li>
-          <span>单位固定电话：</span><span>{{ruleForm.comPhone}}</span>
-        </li>
-        <li>
-          <span>移动电话：</span><span>{{ruleForm.comMobilePhone}}</span>
-        </li>
-        <li>
-          <span>产权单位名称：</span><span>{{ruleForm.propertyComName}}</span>
-        </li>
-        <li>
-          <span>产权单位统一社会信用代码：</span><span>{{ruleForm.propertyComCode}}</span>
-        </li>
+
       </ul>
     </div>
+    <Button type="primary" @click="saveRuleForm()" style="font-size:16px;font-weight:bold;margin-left:600px;">保存</Button>
 
 
   </div>
@@ -113,13 +151,17 @@
   export default {
     data() {
       return {
+        author_key:localStorage.getItem('author_key'),
+        role:'',
         formInline: {
           user: '',
           region: '',
           option: ''
         },
+        codeBox:false,
         userName: '',
         ruleForm:{
+          userName:'',
           useComName:'',
           useComAddr:'',
           useComCode:'',
@@ -130,7 +172,7 @@
           propertyComCode:'',
           name:'',
           verifyId:'',
-
+          approveAgencyId:'',
         }
       }
     },
@@ -152,43 +194,62 @@
       ...mapActions(
         ['setSignOut', 'getUserInfo','clearUserData'],
       ),
-//      sighOut() {
-//        this.setSignOut();
-////        this.clearUserData();
-//        localStorage.removeItem('useComName');
-//        localStorage.removeItem('useComAddr');
-//        localStorage.removeItem('useComCode');
-//        localStorage.removeItem('zipCode');
-//        localStorage.removeItem('comPhone');
-//        localStorage.removeItem('mobilePhone');
-//        localStorage.removeItem('propertyComName');
-//        localStorage.removeItem('propertyComCode');
-//        this.$router.push('login');
-//      },
+
       initData(){
-        this.userName = localStorage.getItem('userInfo');
+        this.ruleForm.userName = localStorage.getItem('userInfo');
         this.setUserDetailData();
         this.author_key = localStorage.getItem('author_key');
+        this.codeBox=false;
       },
       setUserDetailData(){
-        this.ruleForm.useComName = localStorage.getItem('useComName');
-        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-        this.ruleForm.zipCode = localStorage.getItem('zipCode');
-        this.ruleForm.comPhone = localStorage.getItem('comPhone');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
-        this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
-        this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
 
-        if(localStorage.getItem('company')=='true'){
-          this.ruleForm.safeAdmin = localStorage.getItem('safeAdministrator');
-          this.ruleForm.useComCode = localStorage.getItem('useComCode');
-        }else {
-          this.ruleForm.safeAdmin = localStorage.getItem('name');
-          this.ruleForm.useComCode = localStorage.getItem('verifyId');
+          if(this.author_key==1){
 
+            this.ruleForm.useComName = localStorage.getItem('useComName');
+            this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+            this.ruleForm.zipCode = localStorage.getItem('zipCode');
+
+            this.ruleForm.comPhone = localStorage.getItem('comPhone');
+            this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+            this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
+            this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
+            this.ruleForm.email = localStorage.getItem('email');
+
+            if(localStorage.getItem('company')=='true'){
+              this.ruleForm.safeAdmin = localStorage.getItem('safeAdministrator');
+              this.ruleForm.useComCode = localStorage.getItem('useComCode');
+              //公司
+              this.role="1"
+            }else {
+              console.log(111)
+              this.ruleForm.safeAdmin = localStorage.getItem('name');
+              this.ruleForm.useComCode = localStorage.getItem('verifyId');
+              console.log( this.ruleForm.useComCode )
+              //个人
+              this.role='0';
+
+            }
+
+          }
+        if(this.author_key==2||this.author_key==3){
+          this.ruleForm.approveAgencyId = localStorage.getItem('approveAgencyId');
+          this.ruleForm.name = localStorage.getItem('name');
+          this.ruleForm.verifyId = localStorage.getItem('verifyId');
+          this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         }
 
+
+
       },
+      saveRuleForm(){
+          console.log(1);
+      },
+      changeCode(){
+          this.codeBox=true;
+      },
+      saveCode(){
+        this.codeBox=false;
+      }
 
     },
     mounted(){
@@ -214,6 +275,7 @@
     border-radius: 10px;
     ul > li {
       padding: 10px;
+      padding-left:20%;
       span {
         color: #666;
       }

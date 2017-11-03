@@ -303,6 +303,9 @@
           if(res.status==200){
             //获取权限点
             this.loginInfo.author_key=res.data.role;
+         //   localStorage.setItem('author_key', res.data.role);
+
+
             //登陆状态
             this.loginInfo.state=true;
             //设置localstorage
@@ -312,10 +315,16 @@
             if(res.data.role==1){
               this.getUserData();
             }else if(res.data.role==2||res.data.role==3){
-              localStorage.setItem('name', res.data.name);
-              localStorage.setItem('mobilePhone', res.data.comMobilePhone);
-              localStorage.setItem('verifyId', res.data.verifyId);
-              localStorage.setItem('approveAgencyId', res.data.approveAgencyId);
+              loginService.GetInfo().then(res => {
+                localStorage.setItem('name', res.data.name);
+                localStorage.setItem('mobilePhone', res.data.comMobilePhone);
+                localStorage.setItem('verifyId', res.data.verifyId);
+                localStorage.setItem('approveAgencyId', res.data.approveAgencyId);
+
+              }).catch(error => {
+                console.log(error)
+              })
+
             }
 
 
