@@ -153,7 +153,7 @@
           },
           {
             title: '申请日期',
-            key: 'appliDate',
+            key: 'applyDate',
             width: 120,
           },
           {

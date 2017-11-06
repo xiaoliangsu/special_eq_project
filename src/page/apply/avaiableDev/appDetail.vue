@@ -19,20 +19,45 @@
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.showPrintCard==false">
       <div class="comp_name">
-        <h2 class="detailHeadTop">一、申请单位名称：</h2>
+        <h2 class="detailHeadTop">一、基本信息：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
+        <Row style="width:100%;">
+          <Col span="12">
+          <p class="deviceContentHead">使用单位名称 :<span class="content">{{this.useComName}}</span></p>
+          <p class="deviceContentHead">设备种类 :<span class="content">{{this.deviceCategory}}</span></p>
 
 
-        <span class="comp_name_content">{{this.appComName}}</span>
+          </Col>
+          <Col span="11">
+          <p class="deviceContentHead">设备代码 :<span class="content">{{this.eqCode}}</span></p>
+          <p class="deviceContentHead">单位内编号 :<span class="content">{{this.eqComCode}}</span></p>
+
+          </Col>
+
+        </Row>
       </div>
       <div class="apply_type">
-        <h2 class="detailHeadTop">二、申请类别：</h2>
+        <h2 class="detailHeadTop">二、申请信息：</h2>
+        <Row style="width:100%;">
+          <Col span="12">
+          <p class="deviceContentHead">申请类别 :<span class="content">{{this.applyType}}</span></p>
+          <p class="deviceContentHead">登记类别 :<span class="content">{{this.registKind}}</span></p>
+
+
+          </Col>
+          <Col span="11">
+          <p class="deviceContentHead">申请日期 :<span class="content">{{this.applyDate}}</span></p>
+          <p class="deviceContentHead">登记记关 :<span class="content">{{this.acceptorAgencyName}}</span></p>
+
+          </Col>
+
+        </Row>
         <!--<span class="content"> {{this.dev_id}}</span>-->
-        <span class="comp_name_content">{{this.applyType}}</span>
+        <!--<span class="comp_name_content">{{this.applyType}}</span>-->
       </div>
 
       <div class="setTable">
-        <h2 class="detailHead">三、特种设备使用登记表(按套申请)：</h2>
+        <h2 class="detailHead">三、特种设备使用登记表：</h2>
         <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>
       </div>
       <div class="pdfdownload">
@@ -56,7 +81,7 @@
         <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'">
-        <h2 class="detailHead">五、审批结果：</h2>
+        <h2 class="detailHead">五、登记发证结果：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
         <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
       </div>
@@ -125,7 +150,7 @@
         approvalReason: '',
         orderState: '',
         ruleForms: [],
-        appComName: '',
+        useComName: '',
         registPdfUrl: '',
         ruleForm: {},
         current: 0,
@@ -141,6 +166,11 @@
         //申请类别
         applyType: '',
         active: 0,
+        deviceCategory:'',
+        eqCode:'',
+        eqComCode:'',
+        registKind:'',
+        applyDate:'',
 
       }
     },
@@ -177,14 +207,17 @@
         this.showPrintCard = false;
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-            if(res.data.form1.useComName){
-              this.appComName = res.data.form1.useComName;
-            }else if(res.data.form2.useCompanyName){
-              this.appComName = res.data.form2.useCompanyName;
-            }else{
-              this.appComName = res.data.form3.usingCompanyName;
-
+            if(res.data.formList[0].useComName){
+              this.useComName = res.data.formList[0].useComName;
             }
+          this.deviceCategory = res.data.formList[0].deviceCategory;
+          this.eqCode = res.data.formList[0].eqCode;
+          this.eqComCode = res.data.formList[0].eqComCode;
+          this.registKind = res.data.formList[0].registKind;
+          this.applyDate = res.data.formList[0].applyDate;
+          this.acceptorAgencyName = res.data.formList[0].acceptorAgencyName;
+
+
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
           if(res.data.forms["特种设备使用登记表二"]){

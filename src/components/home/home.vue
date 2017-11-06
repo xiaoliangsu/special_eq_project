@@ -303,7 +303,7 @@
     padding: 10px 15px 0;
   }
   .layout-content{
-    min-height: 800px;
+    min-height: 200px;
     margin: 10px;
     overflow: scroll;
     background: #fff;

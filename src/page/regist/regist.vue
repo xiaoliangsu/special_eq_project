@@ -63,7 +63,7 @@
           </Row>
 
           <Row>
-            <FormItem prop="address" label="使用单位地址"  style="margin-bottom:10px;">
+            <FormItem prop="useComAddr" label="使用单位地址"  style="margin-bottom:10px;">
               <Col span="6" style="padding-right:10px;" >
               <Select  v-model="registInfo.province" filterable @on-change="chosenPro" :label-in-value="true">
                 <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -114,8 +114,8 @@
           </Row>
 
           <Row>
-            <FormItem prop="comMobilePhone" label="移动电话号码">
-              <Input v-model="registInfo.comMobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+            <FormItem prop="mobilePhone" label="移动电话号码">
+              <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
             </FormItem>
           </Row>
           <Row>
@@ -124,8 +124,8 @@
             </FormItem>
           </Row>
 
-          <FormItem label="单位固定电话" prop="comPhone">
-            <Input v-model="registInfo.comPhone" placeholder="请输入单位固定电话"></Input>
+          <FormItem label="单位固定电话" prop="staticPhone">
+            <Input v-model="registInfo.staticPhone" placeholder="请输入单位固定电话"></Input>
           </FormItem>
           <FormItem label="产权单位名称" prop="propertyComName">
             <Input v-model="registInfo.propertyComName" placeholder="请输入产权单位名称"></Input>
@@ -196,7 +196,7 @@
 
 
           <Row>
-            <FormItem prop="address" label="个人地址"  style="margin-bottom:10px;">
+            <FormItem prop="useComAddr" label="个人地址"  style="margin-bottom:10px;">
               <Col span="6" style="padding-right:10px;" >
               <Select  v-model="registPerInfo.province" filterable @on-change="chosenPro" :label-in-value="true">
                 <Option v-for="item in provinceList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -242,8 +242,8 @@
           </Row>
 
           <Row>
-            <FormItem prop="comMobilePhone" label="移动电话号码">
-              <Input v-model="registPerInfo.comMobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+            <FormItem prop="mobilePhone" label="移动电话号码">
+              <Input v-model="registPerInfo.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
             </FormItem>
           </Row>
           <Row>
@@ -285,7 +285,7 @@
           name:'',
           verifyId:'',
           email:'',
-          comMobilePhone:'',
+          mobilePhone:'',
           zipcode:'',
 
         },
@@ -303,9 +303,9 @@
           safeAdministrator: '',
           verifyId: '',
           email: '',
-          comMobilePhone: '',
-          address: '',
-          comPhone:'',
+          mobilePhone: '',
+          useComAddr: '',
+          staticPhone:'',
           propertyComName:'',
           propertyComCode:'',
           zipcode:'',
@@ -357,16 +357,16 @@
           email: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          comMobilePhone: [
+          mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-//          address: [
+//          useComAddr: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
           zipcode: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          comPhone: [
+          staticPhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           propertyComName: [
@@ -399,7 +399,7 @@
           email: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          comMobilePhone: [
+          mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
         zipcode: [
@@ -552,12 +552,12 @@
             let temp = {
               "name": this.registPerInfo.name,
               // "address": '',
-              "comMobilePhone": this.registPerInfo.comMobilePhone,
+              "mobilePhone": this.registPerInfo.mobilePhone,
               "verifyId": this.registPerInfo.verifyId,
               "company": false,
               "zipcode": this.registPerInfo.zipcode,
               "email":this.registPerInfo.email,
-              "address":addressDetail,
+              "useComAddr":addressDetail,
               "addressCode":addressCode,
             }
             params.userData = temp;
@@ -615,7 +615,7 @@
             params.password = this.registInfo.password;
             let temp = {
               "company": true,
-              "comMobilePhone": this.registInfo.comMobilePhone,
+              "mobilePhone": this.registInfo.mobilePhone,
               "verifyId": this.registInfo.verifyId,
               "useComName": this.registInfo.useComName,
               "useComCode": this.registInfo.useComCode,
@@ -623,10 +623,10 @@
               "propertyComName": this.registInfo.propertyComName,
               "propertyComCode": this.registInfo.propertyComCode,
               "email":this.registInfo.email,
-              "address":addressDetail,
+              "useComAddr":addressDetail,
               "addressCode":addressCode,
               "safeAdministrator":this.registInfo.safeAdministrator,
-              "comPhone":this.registInfo.comPhone,
+              "staticPhone":this.registInfo.staticPhone,
             }
 
             params.userData = temp;

@@ -45,19 +45,19 @@
             </Form-item>
             <Row>
               <Col span="11">
-              <Form-item label="安全管理员" prop="safeAdmin">
-                <Input v-model="ruleForm.safeAdmin"></Input>
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <Input v-model="ruleForm.safeAdministrator"></Input>
               </Form-item>
               <Form-item label="产权单位名称" prop="propertyComName">
                 <Input v-model="ruleForm.propertyComName"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="安全管理员联系电话" prop="safeAdminTelephone">
-                <Input v-model="ruleForm.safeAdminTelephone"></Input>
+              <Form-item label="安全管理员联系电话" prop="mobilePhone">
+                <Input v-model="ruleForm.mobilePhone"></Input>
               </Form-item>
-              <Form-item label="产权单位联系电话" prop="propertyComTelephone">
-                <Input v-model="ruleForm.propertyComTelephone"></Input>
+              <Form-item label="产权单位联系电话" prop="propertyComPhone">
+                <Input v-model="ruleForm.propertyComPhone"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -70,7 +70,7 @@
                   :key="index"
                   :label="'序号' + (index + 1)+'  '+'设备品种（名称）'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqVariety" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.deviceKind" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -98,7 +98,7 @@
                   :key="index"
                   :label="'设备使用地点'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqUseLocation" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -106,7 +106,7 @@
                   :key="index"
                   :label="'产品编号'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.productNum" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.productCode" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -114,7 +114,7 @@
                   :key="index"
                   :label="'停用注销报废原因'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.noUseReason" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.reasons" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
               </Row>
@@ -187,20 +187,21 @@
           noUseNum: '',
           useComName: '',
           useComAddr: '',
-          safeAdmin: '',
-          propertyComTelephone: '',
+          safeAdministrator: '',
+          propertyComPhone: '',
           subList: [],
+          mobilePhone:'',
 
         },
         formDynamicPres: {
           items: [
             {
-              eqVariety: '',
+              deviceKind: '',
               registCode: '',
               eqCode: '',
-              eqUseLocation: '',
-              productNum: '',
-              noUseReason: '',
+              eqUseAddr: '',
+              productCode: '',
+              reasons: '',
             }
           ]
         },
@@ -251,12 +252,12 @@
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({
-          eqVariety: '',
+          deviceKind: '',
           registCode: '',
           eqCode: '',
-          eqUseLocation: '',
-          productNum: '',
-          noUseReason: '',
+          eqUseAddr: '',
+          productCode: '',
+          reasons: '',
         });
         this.ruleForm.subList = this.formDynamicPres.items;
 
@@ -285,12 +286,12 @@
         this.clearRuleForm();
         this.formDynamicPres.items = [
           {
-            eqVariety: '',
+            deviceKind: '',
             registCode: '',
             eqCode: '',
-            eqUseLocation: '',
-            productNum: '',
-            noUseReason: '',
+            eqUseAddr: '',
+            productCode: '',
+            reasons: '',
           }
         ];
         this.setUserDetailData();
@@ -301,8 +302,8 @@
           noUseNum: '',
           useComName: '',
           useComAddr: '',
-          safeAdmin: '',
-          propertyComTelephone: '',
+          safeAdministrator: '',
+          propertyComPhone: '',
           subList: [],
         }
       },
@@ -345,7 +346,7 @@
         //提交表单1
         this.ruleForm.eqSpecies = this.deviceCategoryId;
         this.ruleForm.eqCategory = this.deviceClassId;
-        this.ruleForm.eqVariety = this.deviceClassTypeId;
+        this.ruleForm.deviceKind = this.deviceClassTypeId;
 
         submitParam.form5 = this.ruleForm;
         //受理机关名称
@@ -377,7 +378,7 @@
             let submitParam = {};
             this.ruleForm.eqSpecies = this.deviceCategoryId;
             this.ruleForm.eqCategory = this.deviceClassId;
-            this.ruleForm.eqVariety = this.deviceClassTypeId;
+            this.ruleForm.deviceKind = this.deviceClassTypeId;
             submitParam.form5 = this.ruleForm;
             submitParam.id = this.$route.query.applyId;
             submitParam.deviceClass = this.deviceClassId;

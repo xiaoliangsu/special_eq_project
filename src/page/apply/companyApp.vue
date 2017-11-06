@@ -40,9 +40,9 @@
             <h2 class="header_two">设备基本情况</h2>
             <Row>
               <Col span="11">
-              <Form-item label="设备类别" prop="eqVarietyCode">
+              <Form-item label="设备类别" prop="deviceClassCode">
                 <!--<Input v-model="ruleForm.equipmentCategory"></Input>-->
-                <Select v-model="ruleForm.eqVarietyCode" filterable @on-change="chosenDeviceClass"
+                <Select v-model="ruleForm.deviceClassCode" filterable @on-change="chosenDeviceClass"
                         :label-in-value=true>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -51,9 +51,9 @@
 
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="设备品种" prop="eqCategoryCode">
+              <Form-item label="设备品种" prop="deviceKindCode">
                 <!--<Input v-model="ruleForm.equipmentVariety"></Input>-->
-                <Select v-model="ruleForm.eqCategoryCode" filterable @on-change="chosenDeviceType"
+                <Select v-model="ruleForm.deviceKindCode" filterable @on-change="chosenDeviceType"
                         :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -64,28 +64,28 @@
 
             <Row>
               <Col span="11">
-              <Form-item label="产品名称" prop="eqName">
-                <!--<Input v-model="ruleForm.eqName"></Input>-->
+              <Form-item label="产品名称" prop="deviceName">
+                <!--<Input v-model="ruleForm.deviceName"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.eqName" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.deviceName" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="设备数量" prop="equipmentNum">
-                <!--<Input v-model="ruleForm.equipmentNum"></Input>-->
+              <Form-item label="设备数量" prop="deviceNum">
+                <!--<Input v-model="ruleForm.deviceNum"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       压力管道填写本次登记时的压力管道长度(单位为“米”)，气瓶填写本次登记时的数量(单位为“只”)。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.equipmentNum" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.deviceNum" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -95,37 +95,37 @@
           <!--<div class="useInfo" v-if="this.active==2">-->
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
-            <Form-item label="使用单位名称" prop="usingCompanyName">
-              <Input v-model="ruleForm.usingCompanyName"></Input>
+            <Form-item label="使用单位名称" prop="useComName">
+              <Input v-model="ruleForm.useComName"></Input>
             </Form-item>
-            <Form-item label="使用单位地址" prop="usingCompanyAddr">
-              <Input v-model="ruleForm.usingCompanyAddr"></Input>
+            <Form-item label="使用单位地址" prop="useComAddr">
+              <Input v-model="ruleForm.useComAddr"></Input>
             </Form-item>
             <Row>
               <Col span="11">
-              <Form-item label="设备使用地点" prop="eqUseLoc">
-                <!--<Input v-model="ruleForm.eqUseLoc"></Input>-->
+              <Form-item label="设备使用地点" prop="eqUseAddr">
+                <!--<Input v-model="ruleForm.eqUseAddr"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写设备安装在单位内的固定地点，如某某车间、某某场地等。移动式(流动式) 特种设备，填写“移动”或者“流动”。设备使用地点不在使用单位内的，应当按照所在省(自治区)、市(地、州)、区(县)、街道(镇、乡)、小区(村)、门牌号等填写设备使用地的详细地址。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.eqUseLoc" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.eqUseAddr" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <Form-item label="单位固定电话" prop="comPhone">
-                <!--<Input v-model="ruleForm.comPhone"></Input>-->
+              <Form-item label="单位固定电话" prop="staticPhone">
+                <!--<Input v-model="ruleForm.staticPhone"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.comPhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -133,29 +133,29 @@
 
             <Row>
               <Col span="11">
-              <Form-item label="使用单位统一社会信用代码" prop="usingCompanyCode">
-                <!--<Input v-model="ruleForm.usingCompanyCode"></Input>-->
+              <Form-item label="使用单位统一社会信用代码" prop="useComCode">
+                <!--<Input v-model="ruleForm.useComCode"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.usingCompanyCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <Form-item label="邮政编码" prop="zipCode">
-                <!--<Input v-model="ruleForm.zipCode"></Input>-->
+              <Form-item label="邮政编码" prop="zipcode">
+                <!--<Input v-model="ruleForm.zipcode"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写使用单位所在地的邮政编码。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.zipCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -163,29 +163,29 @@
 
             <Row>
               <Col span="11">
-              <Form-item label="安全管理员" prop="safetyAdministrator">
-                <!--<Input v-model="ruleForm.safetyAdministrator"></Input>-->
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safetyAdministrator" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <Form-item label="移动电话" prop="mobileNumber">
-                <!--<Input v-model="ruleForm.mobileNumber"></Input>-->
+              <Form-item label="移动电话" prop="mobilePhone">
+                <!--<Input v-model="ruleForm.mobilePhone"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobileNumber" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -234,8 +234,8 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :before-upload="handleBeforeUpload1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.file1NameNum"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -257,8 +257,8 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
-                  :before-upload="handleBeforeUpload"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file2NameNum"
+                  :before-upload="handleBeforeUpload2"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -273,8 +273,8 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
-                  :before-upload="handleBeforeUpload"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file3NameNum"
+                  :before-upload="handleBeforeUpload3"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -295,8 +295,8 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
-                  :before-upload="handleBeforeUpload"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file4NameNum"
+                  :before-upload="handleBeforeUpload4"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -311,8 +311,8 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
-                  :before-upload="handleBeforeUpload"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file5NameNum"
+                  :before-upload="handleBeforeUpload5"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -526,6 +526,12 @@
   export default {
     data() {
       return {
+        file1NameNum:0,
+        file2NameNum:0,
+        file3NameNum:0,
+        file4NameNum:0,
+        file5NameNum:0,
+
         acceptCom: '',
         acceptComList: [],
         addressCode:'',
@@ -548,21 +554,20 @@
 
         ruleForm: {
           registKind: '新设备首次启用',
-          eqVariety: '',
-          eqVarietyCode: '',
-          eqCategory: '',
-          eqCategoryCode: '',
-          eqName: '',
-          equipmentNum: '',
-          usingCompanyName: '',
-          usingCompanyAddr: '',
-          eqUseLoc: '',
-          comPhone: '',
-          zipCode: '',
-          usingCompanyCode: '',
-          zipCode: '',
-          safetyAdministrator: '',
-          mobileNumber: '',
+          deviceClass: '',
+          deviceClassCode: '',
+          deviceKind: '',
+          deviceKindCode: '',
+          deviceName: '',
+          deviceNum: '',
+          useComName: '',
+          useComAddr: '',
+          eqUseAddr: '',
+          staticPhone: '',
+          zipcode: '',
+          useComCode: '',
+          safeAdministrator: '',
+          mobilePhone: '',
           comTablePerson:'',
           //comPersonDate:'',
         },
@@ -745,8 +750,9 @@
         ifold: 0,
         device_type:9,
         creatOrUpdate:false,
-
-
+        pdfUrl: '',
+        pdfList: [],
+        pdf: '',
 
       };
     },
@@ -812,19 +818,19 @@
 
       //初始化数据
       setUserDetailData(){
-        this.ruleForm.usingCompanyName=localStorage.getItem('useComName');
-        this.ruleForm.usingCompanyAddr=localStorage.getItem('useComAddr');
-        this.ruleForm.zipCode=localStorage.getItem('zipCode');
-        this.ruleForm.comPhone=localStorage.getItem('comPhone');
-        this.ruleForm.mobileNumber=localStorage.getItem('mobilePhone');
+        this.ruleForm.useComName=localStorage.getItem('useComName');
+        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
+        this.ruleForm.zipcode=localStorage.getItem('zipcode');
+        this.ruleForm.staticPhone=localStorage.getItem('staticPhone');
+        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
 
 
         if(localStorage.getItem('company')=='true'){
-          this.ruleForm.safetyAdministrator = localStorage.getItem('safeAdministrator');
-          this.ruleForm.usingCompanyCode = localStorage.getItem('useComCode');
+          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+          this.ruleForm.useComCode = localStorage.getItem('useComCode');
         }else {
-          this.ruleForm.safetyAdministrator = localStorage.getItem('name');
-          this.ruleForm.usingCompanyCode = localStorage.getItem('verifyId');
+          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+          this.ruleForm.useComCode = localStorage.getItem('verifyId');
 
         }
         this.addressCode = localStorage.getItem('addressCode');
@@ -838,7 +844,11 @@
           {"url": ''}
         ];
         this.creatOrUpdate=false;
-
+        this.file1NameNum=0;
+        this.file2NameNum=0;
+        this.file3NameNum=0;
+        this.file4NameNum=0;
+        this.file5NameNum=0;
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
@@ -851,12 +861,12 @@
 
 
           if(this.$route.query.device_type==9){
-            this.ruleForm.eqVarietyCode="2300";
+            this.ruleForm.deviceClassCode="2300";
           }else if(this.$route.query.device_type==10){
-            this.ruleForm.eqVarietyCode="8300";
+            this.ruleForm.deviceClassCode="8300";
           }
-          let params = 'code=' + this.ruleForm.eqVarietyCode;
-          if (this.deviceTypeList !== '' && this.ruleForm.eqVarietyCode) {
+          let params = 'code=' + this.ruleForm.deviceClassCode;
+          if (this.deviceTypeList !== '' && this.ruleForm.deviceClassCode) {
             setAppService.getDeviceType(params).then(res => {
               this.deviceTypeList = [];
               for (let i = 0, len = res.length; i < len; i++) {
@@ -894,21 +904,20 @@
       clearRuleForm(){
         this.ruleForm={
           registKind: '新设备首次启用',
-          eqVariety: '',
-          eqVarietyCode: '',
-          eqCategory: '',
-          eqCategoryCode: '',
-          eqName: '',
-          equipmentNum: '',
-          usingCompanyName: '',
-          usingCompanyAddr: '',
-          eqUseLoc: '',
-          comPhone: '',
-          zipCode: '',
-          usingCompanyCode: '',
-          zipCode: '',
-          safetyAdministrator: '',
-          mobileNumber: '',
+          deviceClass: '',
+          deviceClassCode: '',
+          deviceKind: '',
+          deviceKindCode: '',
+          deviceName: '',
+          deviceNum: '',
+          useComName: '',
+          useComAddr: '',
+          eqUseAddr: '',
+          staticPhone: '',
+          zipcode: '',
+          useComCode: '',
+          safeAdministrator: '',
+          mobilePhone: '',
           comTablePerson:'',
           //comPersonDate:'',
         }
@@ -979,14 +988,14 @@
           submitParam.deviceCategory = "压力容器";
           submitParam.deviceClass = "气瓶";
           submitParam.deviceKind = this.deviceClassTypeId;
-          this.ruleForm.eqCategory = "气瓶";
-          this.ruleForm.eqVariety = this.deviceClassTypeId;
+          this.ruleForm.deviceKind = "气瓶";
+          this.ruleForm.deviceClass = this.deviceClassTypeId;
         }else if(submitParam.deviceType===10){
           submitParam.deviceCategory = "压力管道";
           submitParam.deviceClass = "工业管道";
           submitParam.deviceKind = this.deviceClassTypeId;
-          this.ruleForm.eqCategory = "工业管道";
-          this.ruleForm.eqVariety = this.deviceClassTypeId;
+          this.ruleForm.deviceKind = "工业管道";
+          this.ruleForm.deviceClass = this.deviceClassTypeId;
         }
         submitParam.formList=[];
         submitParam.formList.push(this.ruleForm);
@@ -1031,12 +1040,12 @@
             let submitParam={};
             if(submitParam.deviceType===9){
 //              submitParam.deviceKind = this.deviceClassTypeId;
-              this.ruleForm.eqCategory = "气瓶";
-              this.ruleForm.eqVariety = this.deviceClassTypeId;
+              this.ruleForm.deviceKind = "气瓶";
+              this.ruleForm.deviceClass = this.deviceClassTypeId;
             }else if(submitParam.deviceType===10){
 //              submitParam.deviceKind = this.deviceClassTypeId;
-              this.ruleForm.eqCategory = "工业管道";
-              this.ruleForm.eqVariety = this.deviceClassTypeId;
+              this.ruleForm.deviceKind = "工业管道";
+              this.ruleForm.deviceClass= this.deviceClassTypeId;
             }
             submitParam.formList=[];
             submitParam.formList.push(this.ruleForm);
@@ -1201,13 +1210,22 @@
 
       },
       handleBeforeUpload () {
-        const check = this.uploadList.length < 2;
-        if (!check) {
-          this.$Notice.warning({
-            title: '最多只能上传 2 张图片。'
-          });
-        }
-        return check;
+
+      },
+      handleBeforeUpload1 () {
+        this.file1NameNum++;
+      },
+      handleBeforeUpload2 () {
+        this.file2NameNum++;
+      },
+      handleBeforeUpload3 () {
+        this.file3NameNum++;
+      },
+      handleBeforeUpload4 () {
+        this.file4NameNum++;
+      },
+      handleBeforeUpload5 () {
+        this.file5NameNum++;
       },
       handleView(index){
         console.log(index);

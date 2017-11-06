@@ -23,7 +23,7 @@
         <li>
           <span>安全管理员：</span>
           <div style="display:inline-block;width:300px;">
-            <Input v-model="ruleForm.safeAdmin" ></Input>
+            <Input v-model="ruleForm.safeAdministrator" ></Input>
           </div>
 
         </li>
@@ -65,7 +65,7 @@
         <li>
           <span>邮政编码：</span>
           <div style="display:inline-block;width:300px;">
-            <Input v-model="ruleForm.zipCode" ></Input>
+            <Input v-model="ruleForm.zipcode" ></Input>
           </div>
         </li>
         <li>
@@ -77,7 +77,7 @@
         <li v-if="this.role==='1'">
           <span>单位固定电话：</span>
           <div style="display:inline-block;width:300px;">
-            <Input v-model="ruleForm.comPhone" ></Input>
+            <Input v-model="ruleForm.staticPhone" ></Input>
           </div>
         </li>
         <li>
@@ -165,8 +165,8 @@
           useComName:'',
           useComAddr:'',
           useComCode:'',
-          zipCode:'',
-          comPhone:'',
+          zipcode:'',
+          staticPhone:'',
           mobilePhone:'',
           propertyComName:'',
           propertyComCode:'',
@@ -207,22 +207,21 @@
 
             this.ruleForm.useComName = localStorage.getItem('useComName');
             this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-            this.ruleForm.zipCode = localStorage.getItem('zipCode');
+            this.ruleForm.zipcode = localStorage.getItem('zipcode');
 
-            this.ruleForm.comPhone = localStorage.getItem('comPhone');
+            this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
             this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
             this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
             this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
             this.ruleForm.email = localStorage.getItem('email');
 
             if(localStorage.getItem('company')=='true'){
-              this.ruleForm.safeAdmin = localStorage.getItem('safeAdministrator');
+              this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
               this.ruleForm.useComCode = localStorage.getItem('useComCode');
               //公司
               this.role="1"
             }else {
-              console.log(111)
-              this.ruleForm.safeAdmin = localStorage.getItem('name');
+              this.ruleForm.safeAdministrator = localStorage.getItem('name');
               this.ruleForm.useComCode = localStorage.getItem('verifyId');
               console.log( this.ruleForm.useComCode )
               //个人

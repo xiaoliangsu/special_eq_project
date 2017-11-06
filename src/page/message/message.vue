@@ -11,9 +11,9 @@
       <div>
         <Button @click="setCurrentMesType('hasread')"  long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'hasread'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">已读消息</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="hasreadCount"></Badge></Button>
       </div>
-      <div>
-        <Button @click="setCurrentMesType('recyclebin')" long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'recyclebin'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">回收站</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="recyclebinCount"></Badge></Button>
-      </div>
+      <!--<div>-->
+        <!--<Button @click="setCurrentMesType('recyclebin')" long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'recyclebin'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">回收站</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="recyclebinCount"></Badge></Button>-->
+      <!--</div>-->
     </div>
     <div class="message-content-con">
       <transition name="view-message">

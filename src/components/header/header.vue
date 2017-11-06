@@ -120,8 +120,8 @@
               localStorage.removeItem('useComName');
               localStorage.removeItem('useComAddr');
               localStorage.removeItem('useComCode');
-              localStorage.removeItem('zipCode');
-              localStorage.removeItem('comPhone');
+              localStorage.removeItem('zipcode');
+              localStorage.removeItem('staticPhone');
               localStorage.removeItem('mobilePhone');
               localStorage.removeItem('propertyComName');
               localStorage.removeItem('propertyComCode');

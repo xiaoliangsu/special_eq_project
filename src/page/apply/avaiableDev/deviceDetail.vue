@@ -12,15 +12,15 @@
         <!--<span class="content"> {{this.dev_id}}</span>-->
         <Row style="width:100%;">
           <Col span="12">
-          <p class="deviceContentHead">设备种类 :<span class="content">种类种类种类种类种类</span></p>
-          <p class="deviceContentHead">设备品种 :<span class="content">种类</span></p>
-          <p class="deviceContentHead">设备代码 :<span class="content">种类</span></p>
+          <p class="deviceContentHead">设备种类 :<span class="content">{{this.deviceCategory}}</span></p>
+          <p class="deviceContentHead">设备品种 :<span class="content">{{this.deviceKind}}</span></p>
+          <p class="deviceContentHead">设备代码 :<span class="content">{{this.eqCode}}</span></p>
 
           </Col>
           <Col span="11">
-          <p class="deviceContentHead">设备类别 :<span class="content">种类</span></p>
-          <p class="deviceContentHead">单位内编号 :<span class="content">种类</span></p>
-          <p class="deviceContentHead">使用登记证编号 :<span class="content">种类</span></p>
+          <p class="deviceContentHead">设备类别 :<span class="content">{{this.deviceClass}}</span></p>
+          <p class="deviceContentHead">单位内编号 :<span class="content">{{this.eqComCode}}</span></p>
+          <p class="deviceContentHead">使用登记证编号 :<span class="content">{{this.registCode}}</span></p>
 
           </Col>
 
@@ -84,6 +84,11 @@
         //申请类别
         applyType: '',
         active: 0,
+        deviceCategory:'',
+        deviceClass:'',
+        deviceKind:'',
+        eqCode:'',
+        eqComCode:'',
 
       }
     },
@@ -108,14 +113,16 @@
 
         let params = 'deviceCode=' + this.$route.query.deviceCode;
         avaivbleService.getDetailOrder(params).then(res => {
-          if(res.data.form1.useComName){
-            this.appComName = res.data.form1.useComName;
-          }else if(res.data.form2.useCompanyName){
-            this.appComName = res.data.form2.useCompanyName;
-          }else{
-            this.appComName = res.data.form3.usingCompanyName;
-
+          if(res.data.formList[0].useComName){
+            this.useComName = res.data.formList[0].useComName;
           }
+          this.deviceCategory = res.data.formList[0].deviceCategory;
+          this.deviceClass = res.data.formList[0].deviceClass;
+          this.deviceKind = res.data.formList[0].deviceKind;
+          this.eqCode = res.data.formList[0].eqCode;
+          this.eqComCode = res.data.formList[0].eqComCode;
+          this.registCode = res.data.formList[0].registCode;
+
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
           if(res.data.forms["特种设备使用登记表二"]){
