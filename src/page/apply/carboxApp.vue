@@ -927,7 +927,7 @@
           setAppService.getAccpeter(params).then(res => {
             this.acceptComList = [];
             for (let i = 0, len = res.length; i < len; i++) {
-              this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
+              this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
           }).catch(error => {
             console.log(error);

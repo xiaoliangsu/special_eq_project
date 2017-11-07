@@ -47,7 +47,7 @@
           </Col>
           <Col span="11">
           <p class="deviceContentHead">申请日期 :<span class="content">{{this.applyDate}}</span></p>
-          <p class="deviceContentHead">登记记关 :<span class="content">{{this.acceptorAgencyName}}</span></p>
+          <!--<p class="deviceContentHead">登记记关 :<span class="content">{{this.acceptorAgencyName}}</span></p>-->
 
           </Col>
 
@@ -70,7 +70,7 @@
       </div>
 
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'">
-        <h2 class="detailHead">五、受理结果：</h2>
+        <h2 class="detailHead">五、受理决定：</h2>
         <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
         <span class="content" v-if="this.accStatus==false">{{this.accReason}}</span>
       </div>
@@ -81,7 +81,7 @@
         <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'">
-        <h2 class="detailHead">五、登记发证结果：</h2>
+        <h2 class="detailHead">五、登记发证决定：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
         <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
       </div>
@@ -207,21 +207,6 @@
         this.showPrintCard = false;
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-          if (res.data.formList[0].useComName) {
-            this.useComName = res.data.formList[0].useComName;
-          }
-          this.deviceCategory = res.data.deviceCategory;
-          this.eqCode = res.data.formList[0].eqCode;
-          this.eqComCode = res.data.formList[0].eqComCode;
-          this.registKind = res.data.registKind;
-          let newDate = new Date(res.data.createTime);
-          let Y = newDate.getFullYear() + '-';
-          let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-          let D = newDate.getDate() + ' ';
-          this.applyDate = Y + M + D;
-
-          this.acceptorAgencyName = res.data.acceptorAgencyName;
-
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
@@ -238,7 +223,7 @@
 
           this.pdfUrl = res.data.files;
 
-          if (res.data.status.states === "已受理待审批") {
+          if (res.data.status.states == "已受理待审批") {
             this.accStatus = true;
             this.accReason = "已受理通过";
           } else if (res.data.status.states === "受理驳回") {
@@ -256,6 +241,21 @@
             this.accStatus = true;
             this.accReason = "已受理通过";
           }
+
+          if (res.data.formList[0].useComName) {
+            this.useComName = res.data.formList[0].useComName;
+          }
+          this.deviceCategory = res.data.deviceCategory;
+          this.eqCode = res.data.formList[0].eqCode;
+          this.eqComCode = res.data.formList[0].eqComCode;
+          this.registKind = res.data.registKind;
+          let newDate = new Date(res.data.createTime);
+          let Y = newDate.getFullYear() + '-';
+          let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+          let D = newDate.getDate() + ' ';
+          this.applyDate = Y + M + D;
+
+          this.acceptorAgencyName = res.data.acceptorAgencyName;
 
         }).catch(error => {
           console.log(error)
