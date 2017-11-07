@@ -47,7 +47,7 @@
           </Col>
           <Col span="11">
           <p class="deviceContentHead">申请日期 :<span class="content">{{this.applyDate}}</span></p>
-          <!--<p class="deviceContentHead">登记记关 :<span class="content">{{this.acceptorAgencyName}}</span></p>-->
+          <p class="deviceContentHead">登记记关 :<span class="content">{{this.acceptorAgencyName}}</span></p>
 
           </Col>
 
@@ -69,7 +69,7 @@
         <Button @click="accRej" v-if="orderState=='waitAccept'">受理驳回</Button>
       </div>
 
-      <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'">
+      <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'||this.accStatus!==''">
         <h2 class="detailHead">五、受理决定：</h2>
         <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
         <span class="content" v-if="this.accStatus==false">{{this.accReason}}</span>
@@ -80,7 +80,7 @@
         </Button>
         <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
       </div>
-      <div class="acceptReason" v-if="orderState=='approvaled'">
+      <div class="acceptReason" v-if="orderState=='approvaled'||this.approvalStatus!==''">
         <h2 class="detailHead">五、登记发证决定：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
         <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
@@ -255,7 +255,7 @@
           let D = newDate.getDate() + ' ';
           this.applyDate = Y + M + D;
 
-          this.acceptorAgencyName = res.data.acceptorAgencyName;
+         this.acceptorAgencyName = res.data.acceptorAgencyName;
 
         }).catch(error => {
           console.log(error)

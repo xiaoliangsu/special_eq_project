@@ -85,7 +85,7 @@
 
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="100"
                   v-for="(item, index) in formDynamicPres.items"
-                  :key="item.id" inline>
+                  :key="item.id" inline class="formDynamicPres">
               <Row>
                 <Col span="11">
                 <FormItem
@@ -138,15 +138,14 @@
                 </FormItem>
                 </Col>
               </Row>
-              <FormItem>
-                <Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>
-              </FormItem>
+
               <FormItem>
 
-                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
+                <Button type="warning" @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
+            <Button type="primary" long @click="handleAddPres" icon="plus-round" style="margin:5px;">新增</Button>
 
 
             <Row>
@@ -1412,5 +1411,8 @@
     font-size: 20px;
     cursor: pointer;
     margin: 0 2px;
+  }
+  .formDynamicPres{
+    border:1px solid rgba(0, 0, 0, .2);
   }
 </style>

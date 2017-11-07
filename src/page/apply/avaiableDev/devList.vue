@@ -21,6 +21,8 @@
           <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
         <!--</Select>-->
         </Col>
+        <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
+
         <Button type="primary" class="query" @click="query">查询</Button>
       </Row>
       <div class="innerBox">
@@ -393,8 +395,7 @@
         mapActions(
           ['selectedDeviceOption', 'setApplyType'],
         ),
-      initData()
-      {
+      initData(){
         this.time = ['', ''];
         this.setApplyType(this.$route.query.apply_state);
         console.log(this.getApplyTypeName);
@@ -416,6 +417,10 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
        // this.applyState = '';
+
+      },
+      clear(){
+        this.initData();
 
       },
       //获取申请列表信息

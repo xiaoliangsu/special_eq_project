@@ -7,6 +7,7 @@
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
+        <Col :xs="8" :sm="8" :md="8" :lg="8">
         <label>设备类别</label>
         <!--<Select v-model="model1" style="width:200px" placeholder="请选择" @on-change="changeState">-->
         <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
@@ -29,6 +30,8 @@
         <!--&lt;!&ndash;<label>申请id</label>&ndash;&gt;-->
         <!--&lt;!&ndash;<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>&ndash;&gt;-->
         <!--</Col>-->
+        <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
+
         <Button type="primary" class="query" @click="query">查询</Button>
       </Row>
       <div class="innerBox">
@@ -135,31 +138,19 @@
           },
           {
             value: '1',
-            label: '改造变更'
+            label: '变更申请'
           },
           {
-            value: '1',
-            label: '移装变更'
-          },
-          {
-            value: '1',
-            label: '单位变更'
-          },
-          {
-            value: '1',
-            label: '更名变更'
-          },
-          {
-            value: '1',
-            label: '达到设计年限变更'
-          },
-          {
-            value: '3',
+            value: '2',
             label: '停用申请'
           },
           {
-            value: '4',
+            value: '3',
             label: '报废申请'
+          },
+          {
+            value: '4',
+            label: '停用后启用申请'
           },
         ],
         //申请状态
@@ -296,12 +287,18 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
+        this.deviceType=[];
         let waitAccparams = {
           page: 0,
           size: 10,
         }
         this.getOrders(waitAccparams);
       },
+      clear(){
+        this.initData();
+
+      },
+
 
       //获取申请列表信息
 

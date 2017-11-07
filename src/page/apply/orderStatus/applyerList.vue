@@ -23,7 +23,10 @@
         <!--<label>申请id</label>-->
         <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
         </Col>
+        <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
+
         <Button type="primary" class="query" @click="query">查询</Button>
+
       </Row>
       <div class="innerBox">
         <Row>
@@ -343,6 +346,10 @@
         }
         waitAccparams.states = [1, 2,3,4,5];
         this.getOrders(waitAccparams);
+      },
+      clear(){
+        this.initData();
+
       },
       //获取申请列表信息
 

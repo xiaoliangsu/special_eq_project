@@ -4,7 +4,7 @@
       <Row>
         <Col :xs="8" :sm="8" :md="8" :lg="8">
 
-        <label>订单时间</label>
+        <label>申请时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
@@ -32,6 +32,8 @@
         <!--&lt;!&ndash;<label>申请id</label>&ndash;&gt;-->
         <!--&lt;!&ndash;<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>&ndash;&gt;-->
         <!--</Col>-->
+        <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
+
         <Button type="primary" class="query" @click="query">查询</Button>
       </Row>
       <div class="innerBox">
@@ -46,7 +48,7 @@
       </div>
     </div>
     <div class="list-box">
-      <Table border :columns="columns5" :data="data5"></Table>
+      <Table border :columns="columns5" :data="data5" :current="currentPage"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
             :page-size="10"></Page>
 
@@ -138,31 +140,19 @@
           },
           {
             value: '1',
-            label: '改造变更'
+            label: '变更申请'
           },
           {
-            value: '1',
-            label: '移装变更'
-          },
-          {
-            value: '1',
-            label: '单位变更'
-          },
-          {
-            value: '1',
-            label: '更名变更'
-          },
-          {
-            value: '1',
-            label: '达到设计年限变更'
-          },
-          {
-            value: '3',
+            value: '2',
             label: '停用申请'
           },
           {
-            value: '4',
+            value: '3',
             label: '报废申请'
+          },
+          {
+            value: '4',
+            label: '停用后启用申请'
           },
         ],
         //申请状态
@@ -271,6 +261,8 @@
         currentPage: 1,
         //申请id
         applyId: '',
+        //当前页数
+        currentPage:1,
         deviceType: [],
 
 
@@ -302,12 +294,19 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
+        this.deviceType=[];
+        this.currentPage=1;
         let waitAccparams = {
           page: 0,
           size: 10,
         }
 
         this.getOrders(waitAccparams);
+      },
+      //获取申请列表信息
+      clear(){
+        this.initData();
+
       },
 
       //获取申请列表信息

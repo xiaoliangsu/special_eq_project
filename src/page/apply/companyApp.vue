@@ -355,60 +355,68 @@
       </Form>
       <div v-if="this.active==3">
         <div v-if="this.device_type==9">
-          <Row>
-            <Col span="12">
-            <div class="first_upload">
-              <div>
-                <h2 class="firstHead">首次提交气瓶基本信息</h2>
-                <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-                <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
-                   class="detail_a">标准气瓶基本信息汇总表</a>
-                <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
-                <Upload
-                  ref="upload1"
-                  :on-success="handleSuccess"
-                  :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
-                  :before-upload="handleBeforeUpload"
-                  :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
-                  with-credentials>
-                  <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+          <div class="first_upload">
+            <div style="width:150%;padding-left:100px;">
+              <h2 class="firstHead">首次提交气瓶基本信息</h2>
+              <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
+              <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                 class="detail_a">标准气瓶基本信息汇总表</a>
+              <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
 
-                </Upload>
-              </div>
             </div>
-            </Col>
-            <Col span="12">
-            <div class="second_upload">
-              <div class="second_content">
-                <div class="add-gas">
+            <Steps :current="2" direction="vertical">
+              <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
+            </Steps>
 
-                  <h2 class="firstHead">新增气瓶基本信息</h2>
-                  <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-                  <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
-                     class="detail_a">标准气瓶基本信息汇总表</a>
-                  <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
-                  <Upload
-                    ref="upload1"
-                    :on-success="handleSuccess"
-                    :on-remove="handleRemove"
-                    :default-file-list="defaultPdfList1"
-                    :before-upload="handleBeforeUpload"
-                    :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
-                    with-credentials>
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-                  </Upload>
-                </div>
+          </div>
+          <div class="first_upload">
+            <div style="width:150%;padding-left:100px;">
 
 
-              </div>
+              <h2 class="firstHead" style="margin-left:45%;">新增压力管道基本信息(非首次)</h2>
+              <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
+              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                 class="detail_a">标准压力管道基本信息汇总表</a>
+              <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
             </div>
-            </Col>
-          </Row>
+            <Steps :current="2" direction="vertical">
+              <Step title="步骤1" content="下载标准压力管道基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传压力管道基本信息汇总表"></Step>
+            </Steps>
+          </div>
           <div class="changeGas">
-            <h2>停用、注销、报废</h2>
-            <div class="innerBox">
+
+            <Steps :current="current" style="margin-left:15%;">
+              <Step title="步骤1" content="按id搜索压力管道信息"></Step>
+              <Step title="步骤2" content="点击相应停用、注销、报废按钮对已有压力管道进行操作"></Step>
+
+            </Steps>
+            <h2 style="margin-left:30%;">停用、注销、报废已有压力管道（非首次）</h2>
+
+            <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
                 <label>申请id精准搜索</label>
@@ -417,6 +425,8 @@
                 <Input placeholder="请输入申请id" style="width: 180px"></Input>
 
                 <Button type="primary" class="query">搜索</Button>
+                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                                          class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
               </Row>
@@ -432,60 +442,68 @@
           <Button type="primary" @click="handleSubmitGas('formDynamicGas')">下一步</Button>
         </div>
         <div v-if="this.device_type==10">
-          <Row>
-            <Col span="12">
-            <div class="first_upload">
-              <div>
-                <h2 class="firstHead">首次提交压力管道基本信息</h2>
-                <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-                <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
-                   class="detail_a">标准气瓶基本信息汇总表</a>
-                <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
-                <Upload
-                  ref="upload1"
-                  :on-success="handleSuccess"
-                  :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
-                  :before-upload="handleBeforeUpload"
-                  :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
-                  with-credentials>
-                  <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+          <div class="first_upload">
+            <div style="width:150%;padding-left:100px;">
+              <h2 class="firstHead">首次提交压力管道基本信息</h2>
+              <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
+              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                 class="detail_a">标准压力管道基本信息汇总表</a>
+              <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
 
-                </Upload>
-              </div>
             </div>
-            </Col>
-            <Col span="12">
-            <div class="second_upload">
-              <div class="second_content">
+            <Steps :current="2" direction="vertical">
+              <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
+            </Steps>
 
-                <div class="add-gas">
-
-                  <h2 class="firstHead">新增压力管道基本信息</h2>
-                  <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-                  <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt" class="detail_a">标准气瓶基本信息汇总表</a>
-                  <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
-                  <Upload
-                    ref="upload1"
-                    :on-success="handleSuccess"
-                    :on-remove="handleRemove"
-                    :default-file-list="defaultPdfList1"
-                    :before-upload="handleBeforeUpload"
-                    :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
-                    with-credentials>
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-                  </Upload>
-                </div>
+          </div>
+          <div class="first_upload">
+            <div style="width:150%;padding-left:100px;">
 
 
-              </div>
+              <h2 class="firstHead" style="margin-left:40%;">新增压力管道基本信息(非首次)</h2>
+              <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
+              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                 class="detail_a">标准压力管道基本信息汇总表</a>
+              <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
+              <Upload
+                ref="upload1"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
             </div>
-            </Col>
-          </Row>
+            <Steps :current="2" direction="vertical">
+              <Step title="步骤1" content="下载标准压力管道基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传压力管道基本信息汇总表"></Step>
+            </Steps>
+          </div>
           <div class="changeGas">
-            <h2>停用、注销、报废</h2>
-            <div class="innerBox">
+
+            <Steps :current="current" style="margin-left:15%;">
+              <Step title="步骤1" content="按id搜索压力管道信息"></Step>
+              <Step title="步骤2" content="点击相应停用、注销、报废按钮对已有压力管道进行操作"></Step>
+
+            </Steps>
+            <h2 style="margin-left:30%;">停用、注销、报废已有压力管道（非首次）</h2>
+
+            <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
                 <label>申请id精准搜索</label>
@@ -494,6 +512,8 @@
                 <Input placeholder="请输入申请id" style="width: 180px"></Input>
 
                 <Button type="primary" class="query">搜索</Button>
+                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                                          class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
               </Row>
@@ -506,7 +526,8 @@
             </div>
 
           </div>
-          <Button type="primary" @click="handleSubmitGas('formDynamicGas')">下一步</Button>
+          <Button type="primary" @click="handleSubmitGas('formDynamicGas')" style="margin-left:10%;margin-top:10px;margin-bottom:10px;">下一步</Button>
+
         </div>
 
 
@@ -1358,7 +1379,7 @@
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    width: 100%;
+    width: 80%;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -1366,6 +1387,7 @@
     border-bottom-left-radius: 3px;
     border-color: #dddee1;
     margin-top: 10px;
+    margin-left: 10%;
     box-sizing: border-box;
     padding: 10px;
     //background-color: red;
@@ -1397,6 +1419,7 @@
 
   .firstHead {
     margin: 10px;
+    margin-left: 50%;
   }
 
   .firstHead2 {
@@ -1428,7 +1451,7 @@
   }
 
   .changeGas {
-    float: right;
+
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -1438,6 +1461,8 @@
     margin-top: 10px;
     box-sizing: border-box;
     padding: 10px;
+    width: 80%;
+    margin-left: 10%;
 
   }
 

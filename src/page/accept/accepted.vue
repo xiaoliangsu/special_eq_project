@@ -31,6 +31,8 @@
         <!--&lt;!&ndash;<label>申请id</label>&ndash;&gt;-->
         <!--&lt;!&ndash;<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>&ndash;&gt;-->
         <!--</Col>-->
+        <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
+
         <Button type="primary" class="query" @click="query">查询</Button>
       </Row>
       <div class="innerBox">
@@ -47,7 +49,7 @@
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-            :page-size="10"></Page>
+            :page-size="10"  :current="currentPage" ></Page>
 
     </div>
 
@@ -137,31 +139,19 @@
           },
           {
             value: '1',
-            label: '改造变更'
+            label: '变更申请'
           },
           {
-            value: '1',
-            label: '移装变更'
-          },
-          {
-            value: '1',
-            label: '单位变更'
-          },
-          {
-            value: '1',
-            label: '更名变更'
-          },
-          {
-            value: '1',
-            label: '达到设计年限变更'
-          },
-          {
-            value: '3',
+            value: '2',
             label: '停用申请'
           },
           {
-            value: '4',
+            value: '3',
             label: '报废申请'
+          },
+          {
+            value: '4',
+            label: '停用后启用申请'
           },
         ],
         //申请状态
@@ -279,11 +269,12 @@
         deviceType: [],
 
 
+
       }
     },
 //    mounted(){
 //      this.initData();
-//      console.log(111);
+//
 //    },
 //    watch: {
 //      '$route': 'initData'
@@ -292,7 +283,7 @@
 //      // 如果路由有变化，会再次执行该方法
 //      '$route.query':function(){
 //       // console.log(this.$route.path);
-//        if(this.$route.path=='/applyerList'){
+//        if(this.$route.path=='/accepted'){
 //          this.initData();
 //        }
 //      }
@@ -305,14 +296,19 @@
     methods: {
       ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
       initData(){
+        this.currentPage=1;
         this.time = ['', ''];
         this.applyType = '';
-
+        this.deviceType=[];
         let waitAccparams = {
           page: 0,
           size: 10,
         }
         this.getOrders(waitAccparams);
+      },
+      clear(){
+        this.initData();
+
       },
 
       //获取申请列表信息
