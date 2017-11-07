@@ -17,13 +17,13 @@
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
 
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >  <!--qiu-->
+      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">  <!--qiu-->
         <!--<h2>车用气瓶申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
-          <div class="chooseAccept" >
+          <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
             <FormItem label="登记机关">
-              <Select v-model="acceptCom" filterable @on-change="chosenAccept"  :label-in-value="true">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
             </FormItem>
@@ -32,7 +32,7 @@
           <div class="base-box" style="margin-top:10px;">
             <h2 class="header_one">特种设备使用登记表(车用气瓶)</h2>
             <Form-item label="登记类别" prop="registKind">
-              <Select v-model="ruleForm.registKind" >
+              <Select v-model="ruleForm.registKind" :disabled="true">
                 <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
             </Form-item>
@@ -58,7 +58,7 @@
                 </Poptip>
               </Form-item>
               <Form-item label="气瓶公称工作压力" prop="workPressureMPa">
-                <Input v-model="ruleForm.workPressureMPa" ></Input>
+                <Input v-model="ruleForm.workPressureMPa"></Input>
               </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
@@ -78,7 +78,7 @@
                 <Input v-model="ruleForm.fillMedium"></Input>
               </Form-item>
               <Form-item label="气瓶容积" prop="model">
-                <Input v-model="ruleForm.model" ></Input>
+                <Input v-model="ruleForm.model"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -143,11 +143,10 @@
               </FormItem>
               <FormItem>
 
-                <Button type="ghost"  @click="handleRemovePres(index)">删除</Button>
+                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
-
 
 
             <Row>
@@ -184,10 +183,10 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName" ></Input>
+              <Input v-model="ruleForm.useComName" disabled></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="ruleForm.useComAddr" disabled></Input>
             </Form-item>
 
             <Row>     <!--qiu-->
@@ -200,7 +199,7 @@
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -214,7 +213,7 @@
                       填写使用单位所在地的邮政编码。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -244,14 +243,14 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
               <Col span="11" offset="2">
               <Form-item label="车辆VIN码" prop="carVin">
-                <Input v-model="ruleForm.carVin" ></Input>
+                <Input v-model="ruleForm.carVin"></Input>
               </Form-item>
               <Form-item label="单位固定电话" prop="staticPhone">
                 <!--<Input v-model="ruleForm.staticPhone" ></Input>-->
@@ -261,7 +260,7 @@
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               <Form-item label="移动电话" prop="mobilePhone">
@@ -272,7 +271,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -300,13 +299,14 @@
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
-          <Button  type="warning"  @click="printTrigger('iFramePdf');" >打印</Button>
+          <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
           <!--<input type="submit"  value="Print"-->
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+
 
 
         </div>
@@ -332,7 +332,7 @@
               </Upload>
             </Form-item>
             </Col>
-            <Col span="10" >
+            <Col span="10">
             <Form-item label="个人身份证明" :label-width="200" v-if="this.isCompany==false">
               <Upload
                 ref="upload2"
@@ -555,22 +555,22 @@
   export default {
     data() {
       return {
-        file3NameNum:0,
-        file4NameNum:0,
-        file5NameNum:0,
-        file6NameNum:0,
-        file7NameNum:0,
-        file8NameNum:0,
-        file9NameNum:0,
-        file10NameNum:0,
-        file11NameNum:0,
-        isCompany:false,
+        file3NameNum: 1,
+        file4NameNum: 1,
+        file5NameNum: 1,
+        file6NameNum: 1,
+        file7NameNum: 1,
+        file8NameNum: 1,
+        file9NameNum: 1,
+        file10NameNum: 1,
+        file11NameNum: 1,
+        isCompany: false,
         pdfUrl: '',
         pdfList: [],
         pdf: '',
         acceptCom: '',
         acceptComList: [],
-        addressCode:'',
+        addressCode: '',
         formDynamicPres: {
           items: [
             {
@@ -588,7 +588,7 @@
           registKind: '新设备首次启用',
           deviceKind: '',
           deviceKindCode: '',
-          deviceName:'',
+          deviceName: '',
           deviceNum: '',
           fillMedium: '',
           workPressureMPa: '',
@@ -609,12 +609,12 @@
           staticPhone: '',
           safeAdministrator: '',
           mobilePhone: '',
-          comTablePerson:'',
+          comTablePerson: '',
 
         },
 
         //设备品种
-        deviceTypeList:[
+        deviceTypeList: [
           {
             value: "2210",
             label: "铁路罐车"
@@ -638,42 +638,42 @@
         ],
 
         //登记类别
-        registKindList:[
+        registKindList: [
           {
-            value:'新设备首次启用',
-            label:'新设备首次启用'
+            value: '新设备首次启用',
+            label: '新设备首次启用'
           },
           {
-            value:'停用后启用',
-            label:'停用后启用'
+            value: '停用后启用',
+            label: '停用后启用'
           },
           {
-            value:'改造',
-            label:'改造'
+            value: '改造',
+            label: '改造'
           },
           {
-            value:'使用单位更名',
-            label:'使用单位更名'
+            value: '使用单位更名',
+            label: '使用单位更名'
           },
           {
-            value:'使用地址变更',
-            label:'使用地址变更'
+            value: '使用地址变更',
+            label: '使用地址变更'
           },
           {
-            value:'过户',
-            label:'过户'
+            value: '过户',
+            label: '过户'
           },
           {
-            value:'移装',
-            label:'移装'
+            value: '移装',
+            label: '移装'
           },
           {
-            value:'达到设计使用年限',
-            label:'达到设计使用年限'
+            value: '达到设计使用年限',
+            label: '达到设计使用年限'
           },
         ],
         //设备品种名称
-        deviceKindTypeId:'',
+        deviceKindTypeId: '',
         rules: {
 //          registKind: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
@@ -798,14 +798,14 @@
         // ruleForms: '',
         // value1: '',
         current: 0,
-        device_type:'',
-        ifold:0,
+        device_type: '',
+        ifold: 0,
         uploadList: [
           {"url": ''}
         ],
         visible: false,
         applyId: '',
-        creatOrUpdate:false,
+        creatOrUpdate: false,
 
       };
     },
@@ -821,8 +821,8 @@
 //    },
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route.query':function(){
-        if(this.$route.path=='/carboxApp'){
+      '$route.query': function () {
+        if (this.$route.path == '/carboxApp') {
           this.initData();
         }
       }
@@ -851,14 +851,13 @@
           productCode: '',
           eqComCode: '',
         });
-        this.ruleForm.subList=this.formDynamicPres.items;
-
+        this.ruleForm.subList = this.formDynamicPres.items;
 
 
       },
       handleRemovePres (index) {
         this.formDynamicPres.items.splice(index, 1);
-        this.ruleForm.subList=this.formDynamicPres.items;
+        this.ruleForm.subList = this.formDynamicPres.items;
       },
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
@@ -866,21 +865,21 @@
         getMyFrame.contentWindow.print();
       },
       setUserDetailData(){
-        this.ruleForm.useComName=localStorage.getItem('useComName');
-        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
-      //  this.ruleForm.useComCode=localStorage.getItem('useComCode');
-        this.ruleForm.zipcode=localStorage.getItem('zipcode');
-        this.ruleForm.staticPhone=localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+        this.ruleForm.useComName = localStorage.getItem('useComName');
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        //  this.ruleForm.useComCode=localStorage.getItem('useComCode');
+        this.ruleForm.zipcode = localStorage.getItem('zipcode');
+        this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
 
-        if(localStorage.getItem('company')=='true'){
+        if (localStorage.getItem('company') == 'true') {
           this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
-          this.isCompany=true;
-        }else {
+          this.isCompany = true;
+        } else {
           this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
-          this.isCompany=false;
+          this.isCompany = false;
 
         }
         this.addressCode = localStorage.getItem('addressCode');
@@ -895,26 +894,26 @@
         this.uploadList = [
           {"url": ''}
         ];
-        this.creatOrUpdate=false;
-        this.file3NameNum=0;
-        this.file4NameNum=0;
-        this.file5NameNum=0;
-        this.file6NameNum=0;
-        this.file7NameNum=0;
-        this.file8NameNum=0;
-        this.file9NameNum=0;
-        this.file10NameNum=0;
-        this.file11NameNum=0;
+        this.creatOrUpdate = false;
+        this.file3NameNum = 1;
+        this.file4NameNum = 1;
+        this.file5NameNum = 1;
+        this.file6NameNum = 1;
+        this.file7NameNum = 1;
+        this.file8NameNum = 1;
+        this.file9NameNum = 1;
+        this.file10NameNum = 1;
+        this.file11NameNum = 1;
 
 
         //   this.selected = this.getSelectedOption;
         //  this.selectedNum = this.getSelectedNum;
-        this.device_type=this.$route.query.device_type;
-        this.ifold=this.$route.query.ifold;
+        this.device_type = this.$route.query.device_type;
+        this.ifold = this.$route.query.ifold;
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           // this.ruleForm.subList=[];
-          this.formDynamicPres.items=[
+          this.formDynamicPres.items = [
             {
               manufactureComName: '',
               eqCreateDate: '',
@@ -924,9 +923,9 @@
           ];
           this.defaultPdfList1 = [];
           this.setUserDetailData();
-          let params='addressCode=' + this.addressCode;
+          let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
-            this.acceptComList=[];
+            this.acceptComList = [];
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
             }
@@ -942,8 +941,8 @@
         let params = 'applyId=' + this.$route.query.applyId;
         setAppService.getUnsubmitApp(params).then(res => {
           this.clearRuleForm();
-          this.ruleForm= res.data.formList;
-          this.formDynamicPres.items=this.ruleForm.subList;
+          this.ruleForm = res.data.formList[0];
+          this.formDynamicPres.items = this.ruleForm.subList;
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -951,11 +950,11 @@
       },
 
       clearRuleForm(){
-        this.ruleForm={
-          subList:[],
+        this.ruleForm = {
+          subList: [],
           deviceKind: '',
           deviceKindCode: '',
-          deviceName:'',
+          deviceName: '',
           deviceNum: '',
           fillMedium: '',
           workPressureMPa: '',
@@ -973,7 +972,7 @@
           safeAdministrator: '',
           mobilePhone: '',
           registKind: '新设备首次启用',
-          comTablePerson:'',
+          comTablePerson: '',
           //comPersonDate:'',
         }
       },
@@ -983,8 +982,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode=value.value;
-        this.propertyComName=value.label;
+        this.propertyComCode = value.value;
+        this.propertyComName = value.label;
       },
 
 
@@ -994,7 +993,7 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1007,12 +1006,12 @@
       makeParams(){
         let submitParam = {};
         //提交表单1
-        this.ruleForm.deviceKind =this.deviceKindTypeId;
-        this.ruleForm.subList=this.formDynamicPres.items;
-        submitParam.formList=[];
+        this.ruleForm.deviceKind = this.deviceKindTypeId;
+        this.ruleForm.subList = this.formDynamicPres.items;
+        submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
         submitParam.formList[0].formType = 2;
 
         //设备类别
@@ -1025,7 +1024,7 @@
         submitParam.applyType = 1;
         submitParam.comCode = this.ruleForm.comCode;
         //登记证编号
-        submitParam.registCode ='';
+        submitParam.registCode = '';
 
         //提交设备类别等
         submitParam.deviceCategory = "压力容器";
@@ -1033,7 +1032,7 @@
         submitParam.deviceKind = this.deviceKindTypeId;
         submitParam.eqCode = '';
 
-        return  submitParam;
+        return submitParam;
       },
       //提交表单
       submitContent(formName) {
@@ -1043,7 +1042,7 @@
             this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+            let submitParam = this.makeParams();
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1060,21 +1059,21 @@
             this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam={};
+            let submitParam = {};
             this.ruleForm.deviceKind = this.deviceKindTypeId;
-            submitParam.formList=[];
+            submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 2;
-            submitParam.id=this.$route.query.applyId;
-           // submitParam.deviceKind = this.deviceKindTypeId;
+            submitParam.id = this.$route.query.applyId;
+            // submitParam.deviceKind = this.deviceKindTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1095,7 +1094,7 @@
       saveForm(formName){
         let formList = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam=this.makeParams();
+        let submitParam = this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
@@ -1104,7 +1103,7 @@
               this.$Message.info('您已保存信息');
               this.modalCertain = false;
               console.log(this.modalCertain);
-              if(res.status==true){
+              if (res.status == true) {
               }
             }).catch(error => {
               console.log(error);
@@ -1133,10 +1132,10 @@
       before() {
         this.current--;
         this.active--;
-        this.creatOrUpdate=true;
+        this.creatOrUpdate = true;
       },
       confirmForm () {
-        if(this.$route.query.ifold==1||(this.creatOrUpdate===true)){
+        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
           this.$Modal.confirm({
             title: '确认登记表信息',
             content: '<p>请确认全部填写信息</p>',
@@ -1150,7 +1149,7 @@
             }
           });
 
-        }else{
+        } else {
           this.$Modal.confirm({
             title: '确认登记表信息',
             content: '<p>请确认全部填写信息</p>',
@@ -1192,8 +1191,8 @@
 
       },
       handleRemove(res, file) {
-        for(let i=0;i<this.uploadList.length;i++){
-          if(this.uploadList[i].url=="/admin"+res.response.data.thumbnail){
+        for (let i = 0; i < this.uploadList.length; i++) {
+          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
@@ -1238,7 +1237,7 @@
       instance (type) {
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
-          if(res){
+          if (res) {
             const title = '通知';
             const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
             switch (type) {
@@ -1291,9 +1290,9 @@
     background-color: white;
   }
 
-  .base-box ,
-  .chooseAccept{
-    margin-left:140px;
+  .base-box,
+  .chooseAccept {
+    margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -1311,7 +1310,7 @@
 
   .header_one {
     text-align: center;
-    margin-left: -50px;  /*qiu*/
+    margin-left: -50px; /*qiu*/
     margin-top: 20px;
     font-size: 25px;
   }
@@ -1354,8 +1353,9 @@
     margin-bottom: 10px;
 
   }
-  .city_select_app_exit{
-    width:700px;
+
+  .city_select_app_exit {
+    width: 700px;
     display: block;
     padding: 10px;
     background-color: white;
@@ -1366,12 +1366,13 @@
     border-bottom-left-radius: 3px;
     margin-left: 200px;
     margin-bottom: 10px;
-    .city_select_content{
-      border-bottom:1px solid #dddee1;
-      margin-bottom:5px;
-      padding-bottom:5px;
+    .city_select_content {
+      border-bottom: 1px solid #dddee1;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
     }
   }
+
   .demo-upload-list {
     display: inline-block;
     width: 150px;

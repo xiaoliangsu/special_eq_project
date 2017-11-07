@@ -19,10 +19,10 @@
     <div class="setApp_content" style="position:absolute;top:85px;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
-          <div class="chooseAccept" >
+          <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
             <FormItem label="登记机关">
-              <Select v-model="acceptCom" filterable @on-change="chosenAccept"  :label-in-value="true">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
             </FormItem>
@@ -39,7 +39,7 @@
               <!--<Select v-model="ruleForm.registKind">-->
               <!--<Option v-for="item in registKindList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
               <!--</Select>-->
-              <Select v-model="ruleForm.registKind">
+              <Select v-model="ruleForm.registKind" :disabled="true">
                 <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
 
@@ -47,16 +47,16 @@
             <Row>
               <Col span="11"><!--wang-->
               <!--<label class="form_label_left">设备种类</label>-->
-              <Form-item label="设备种类" prop="deviceCategoryCode" class="fontsize">
+              <Form-item label="设备种类" prop="deviceCategoryCode" class="fontsize" >
                 <Select v-model="ruleForm.deviceCategoryCode" filterable @on-change="chosenDeviceCategory"
-                        :label-in-value=true>
+                        :label-in-value=true :disabled="true">
                   <Option v-for="item in deviceCategoryList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
                 <!--<Input v-model="ruleForm.deviceKind" ></Input>-->
-                <Select v-model="ruleForm.deviceKindCode"  filterable @on-change="chosenDeviceType"
+                <Select v-model="ruleForm.deviceKindCode" filterable @on-change="chosenDeviceType"
                         :disabled=this.ifDisabled :label-in-value=true>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
@@ -190,10 +190,10 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName"></Input>
+              <Input v-model="ruleForm.useComName" :disabled="true"></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="ruleForm.useComAddr" :disabled="true"></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -205,7 +205,7 @@
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -218,7 +218,7 @@
                       填写使用单位所在地的邮政编码。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -233,7 +233,7 @@
                       填写使用单位对设备进行管理自行编制的设备内部编号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -274,7 +274,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -287,7 +287,7 @@
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
 
               </Form-item>
@@ -299,14 +299,14 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" :disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
             </Row>
 
             <Form-item label="产权单位名称" prop="propertyComName">
-              <Input v-model="ruleForm.propertyComName"></Input>
+              <Input v-model="ruleForm.propertyComName" :disabled="true"></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -318,7 +318,7 @@
                       填写产权单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。如果和使用单位为同一单位，则在此栏中划“—”。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%;" disabled ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -436,9 +436,9 @@
               </Col>
               <Col span="11" offset="2">
               <!--<Form-item label="日期" prop="comPersonDate">-->
-                <!--&lt;!&ndash;wang&ndash;&gt;-->
-                <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextTestDate"></DatePicker>&ndash;&gt;-->
-                <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
+              <!--&lt;!&ndash;wang&ndash;&gt;-->
+              <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextTestDate"></DatePicker>&ndash;&gt;-->
+              <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
               <!--</Form-item>-->
               </Col>
             </Row>
@@ -485,7 +485,7 @@
               </Upload>
             </Form-item>
             </Col>
-            <Col span="10" >
+            <Col span="10">
             <Form-item label="个人身份证明" :label-width="200" v-if="this.isCompany==false">
               <Upload
                 ref="upload2"
@@ -698,14 +698,14 @@
   export default {
     data() {
       return {
-        file3NameNum:0,
-        file4NameNum:0,
-        file5NameNum:0,
-        file6NameNum:0,
-        file7NameNum:0,
-        file8NameNum:0,
-        file9NameNum:0,
-        file10NameNum:0,
+        file3NameNum: 1,
+        file4NameNum: 1,
+        file5NameNum: 1,
+        file6NameNum: 1,
+        file7NameNum: 1,
+        file8NameNum: 1,
+        file9NameNum: 1,
+        file10NameNum: 1,
 
         acceptCom: '',
         acceptComList: [],
@@ -713,7 +713,7 @@
         pdfUrl: '',
         pdfList: [],
         pdf: '',
-        addressCode:'',
+        addressCode: '',
         //设备种类
         deviceCategoryList: [
           {
@@ -799,8 +799,8 @@
           testDate: '',
           testResult: '',
           nextTestDate: '',
-          comTablePerson:'',
-          comPersonDate:'',
+          comTablePerson: '',
+          comPersonDate: '',
 
         },
         //wang
@@ -1027,7 +1027,7 @@
         userDetailData: {},
         //点击上一步的标志
         creatOrUpdate: false,
-        isCompany:false,
+        isCompany: false,
 
 
       };
@@ -1078,14 +1078,14 @@
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
         this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
 
-        if(localStorage.getItem('company')=='true'){
+        if (localStorage.getItem('company') == 'true') {
           this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
-          this.isCompany=true;
-        }else {
+          this.isCompany = true;
+        } else {
           this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
-          this.isCompany=false;
+          this.isCompany = false;
 
         }
         this.addressCode = localStorage.getItem('addressCode');
@@ -1103,14 +1103,15 @@
 
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
-        this.file3NameNum=0;
-          this.file4NameNum=0;
-        this.file5NameNum=0;
-        this.file6NameNum=0;
-        this.file7NameNum=0;
-        this.file8NameNum=0;
-        this.file9NameNum=0;
-        this.file10NameNum=0;
+        this.file3NameNum = 1;
+        this.file4NameNum = 1;
+        this.file5NameNum = 1;
+        this.file6NameNum = 1;
+        this.file7NameNum = 1;
+        this.file8NameNum = 1;
+        this.file9NameNum = 1;
+        this.file10NameNum = 1;
+        this.ifDisabled=false;
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
@@ -1133,9 +1134,9 @@
             }).catch(error => {
               console.log(error);
             })
-             params='addressCode=' + this.addressCode;
+            params = 'addressCode=' + this.addressCode;
             setAppService.getAccpeter(params).then(res => {
-              this.acceptComList=[];
+              this.acceptComList = [];
               for (let i = 0, len = res.length; i < len; i++) {
                 this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
               }
@@ -1156,7 +1157,7 @@
           this.clearRuleForm();
           //this.defaultPdfList1 = res.pdfUrlDefault;
 //          this.setUserDetailData();
-          this.ruleForm = res.data.formList;
+          this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
@@ -1207,8 +1208,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode=value.value;
-        this.propertyComName=value.label;
+        this.propertyComCode = value.value;
+        this.propertyComName = value.label;
       },
 
       //清空表单
@@ -1249,7 +1250,7 @@
           testDate: '',
           testResult: '',
           nextTestDate: '',
-          comTablePerson:'',
+          comTablePerson: '',
         }
       },
 
@@ -1295,10 +1296,10 @@
         this.ruleForm.deviceCategory = this.deviceCategoryId;
         this.ruleForm.deviceClass = this.deviceClassId;
         this.ruleForm.deviceKind = this.deviceClassTypeId;
-        submitParam.formList=[];
+        submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
         submitParam.formList[0].formType = 1;
         //设备类别
         if (this.device_type) {
@@ -1309,8 +1310,8 @@
         //首次申请
         submitParam.applyType = 1;
         submitParam.eqComCode = this.ruleForm.eqComCode;
-       //登记证编号
-        submitParam.registCode ='';
+        //登记证编号
+        submitParam.registCode = '';
         //提交设备类别等
         submitParam.deviceCategory = this.deviceCategoryId;
         submitParam.deviceClass = this.deviceClassId;
@@ -1331,11 +1332,11 @@
             this.ruleForm.deviceCategory = this.deviceCategoryId;
             this.ruleForm.deviceClass = this.deviceClassId;
             this.ruleForm.deviceKind = this.deviceClassTypeId;
-            submitParam.formList=[];
+            submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
 
-            submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 1;
             submitParam.id = this.$route.query.applyId;
 //
@@ -1458,10 +1459,10 @@
 
       },
       handleRemove(res, file) {
-        for(let i=0;i<this.uploadList.length;i++){
-            if(this.uploadList[i].url=="/admin"+res.response.data.thumbnail){
-              this.uploadList.splice(i, 1);
-            }
+        for (let i = 0; i < this.uploadList.length; i++) {
+          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+            this.uploadList.splice(i, 1);
+          }
         }
         console.log(this.uploadList)
 
@@ -1470,28 +1471,28 @@
 
       },
       handleBeforeUpload3 () {
-         this.file3NameNum++;
+        this.file3NameNum++;
       },
       handleBeforeUpload4 () {
-          this.file4NameNum++;
+        this.file4NameNum++;
       },
       handleBeforeUpload5 () {
-          this.file5NameNum++;
+        this.file5NameNum++;
       },
       handleBeforeUpload6 () {
-          this.file6NameNum++;
+        this.file6NameNum++;
       },
       handleBeforeUpload7 () {
-          this.file7NameNum++;
+        this.file7NameNum++;
       },
       handleBeforeUpload8 () {
-          this.file8NameNum++;
+        this.file8NameNum++;
       },
       handleBeforeUpload9 () {
-          this.file9NameNum++;
+        this.file9NameNum++;
       },
       handleBeforeUpload10 () {
-          this.file10NameNum++;
+        this.file10NameNum++;
       },
 
       handleView(index){
@@ -1565,7 +1566,7 @@
   }
 
   .base-box,
-  .chooseAccept{
+  .chooseAccept {
     margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
@@ -1694,9 +1695,11 @@
     cursor: pointer;
     margin: 0 2px;
   }
-  .chooseAccept{
-    padding-bottom:10px;
-    margin-bottom:10px;
+
+  .chooseAccept {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
+
 
 </style>

@@ -34,7 +34,7 @@
             <!--</div>-->
             <!--<span v-if="!loginStatus">登陆｜注册</span>-->
 
-          </router-link>
+          <!--</router-link>-->
 
 
           <div @click="showMessage" class="message-con">
@@ -203,7 +203,7 @@
 .header-right{
   float:right;
   line-height: 60px;
-  width:7rem;
+  width:auto;
   margin-right:20px;
 }
 .header_container{
@@ -219,13 +219,18 @@
   border-radius: 50%;
   margin-right: 37px;
 }
+
   .head_login{
-    float:right;
     margin-right:15px;
 
 
   }
 
+  .message-con{
+    display:inline-block;
+    float:right;
+    margin-right:15px;
+  }
 
 
 </style>

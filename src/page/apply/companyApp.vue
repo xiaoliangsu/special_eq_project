@@ -20,10 +20,10 @@
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <!--<h2>按单位申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
-          <div class="chooseAccept" >
+          <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
             <FormItem label="登记机关">
-              <Select v-model="acceptCom" filterable @on-change="chosenAccept"  :label-in-value="true">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
             </FormItem>
@@ -32,7 +32,7 @@
             <h2 class="header_one">特种设备使用登记表(按单位申请)</h2>
 
             <Form-item label="登记类别" prop="registKind">
-              <Select v-model="ruleForm.registKind">
+              <Select v-model="ruleForm.registKind" disabled>
                 <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
             </Form-item>
@@ -43,7 +43,7 @@
               <Form-item label="设备类别" prop="deviceClassCode">
                 <!--<Input v-model="ruleForm.equipmentCategory"></Input>-->
                 <Select v-model="ruleForm.deviceClassCode" filterable @on-change="chosenDeviceClass"
-                        :label-in-value=true>
+                        :label-in-value=true disabled>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -96,10 +96,10 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName"></Input>
+              <Input v-model="ruleForm.useComName" disabled></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr"></Input>
+              <Input v-model="ruleForm.useComAddr" disabled></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -125,7 +125,7 @@
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -141,7 +141,7 @@
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -155,7 +155,7 @@
                       填写使用单位所在地的邮政编码。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -171,7 +171,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -185,7 +185,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -204,9 +204,9 @@
               </Col>
               <Col span="11" offset="2">
               <!--<Form-item label="日期" prop="comPersonDate">-->
-                <!--&lt;!&ndash;wang&ndash;&gt;-->
-                <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>&ndash;&gt;-->
-                <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
+              <!--&lt;!&ndash;wang&ndash;&gt;-->
+              <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>&ndash;&gt;-->
+              <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
               <!--</Form-item>-->
               </Col>
             </Row>
@@ -218,8 +218,9 @@
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+
         </div>
 
         <!--提交pdf 可能需要调一下格式，以后再说吧-->
@@ -344,7 +345,7 @@
           <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
         <!--<Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>-->
-        <Button type="primary" @click="confirmForm"  v-if="this.active==1">下一步</Button>
+        <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
         <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
         <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
         <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
@@ -360,7 +361,8 @@
               <div>
                 <h2 class="firstHead">首次提交气瓶基本信息</h2>
                 <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-                <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt" class="detail_a">标准气瓶基本信息汇总表</a>
+                <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                   class="detail_a">标准气瓶基本信息汇总表</a>
                 <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
                 <Upload
                   ref="upload1"
@@ -376,14 +378,15 @@
               </div>
             </div>
             </Col>
-            <Col span="12" >
+            <Col span="12">
             <div class="second_upload">
               <div class="second_content">
                 <div class="add-gas">
 
                   <h2 class="firstHead">新增气瓶基本信息</h2>
                   <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-                  <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt" class="detail_a">标准气瓶基本信息汇总表</a>
+                  <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                     class="detail_a">标准气瓶基本信息汇总表</a>
                   <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
                   <Upload
                     ref="upload1"
@@ -403,7 +406,7 @@
             </div>
             </Col>
           </Row>
-          <div class="changeGas" >
+          <div class="changeGas">
             <h2>停用、注销、报废</h2>
             <div class="innerBox">
               <Row>
@@ -411,7 +414,7 @@
                 <label>申请id精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
-                <Input  placeholder="请输入申请id" style="width: 180px"></Input>
+                <Input placeholder="请输入申请id" style="width: 180px"></Input>
 
                 <Button type="primary" class="query">搜索</Button>
 
@@ -435,7 +438,8 @@
               <div>
                 <h2 class="firstHead">首次提交压力管道基本信息</h2>
                 <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-                <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt" class="detail_a">标准气瓶基本信息汇总表</a>
+                <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                   class="detail_a">标准气瓶基本信息汇总表</a>
                 <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
                 <Upload
                   ref="upload1"
@@ -451,7 +455,7 @@
               </div>
             </div>
             </Col>
-            <Col span="12" >
+            <Col span="12">
             <div class="second_upload">
               <div class="second_content">
 
@@ -479,7 +483,7 @@
             </div>
             </Col>
           </Row>
-          <div class="changeGas" >
+          <div class="changeGas">
             <h2>停用、注销、报废</h2>
             <div class="innerBox">
               <Row>
@@ -487,7 +491,7 @@
                 <label>申请id精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
-                <Input  placeholder="请输入申请id" style="width: 180px"></Input>
+                <Input placeholder="请输入申请id" style="width: 180px"></Input>
 
                 <Button type="primary" class="query">搜索</Button>
 
@@ -526,15 +530,15 @@
   export default {
     data() {
       return {
-        file1NameNum:0,
-        file2NameNum:0,
-        file3NameNum:0,
-        file4NameNum:0,
-        file5NameNum:0,
+        file1NameNum: 1,
+        file2NameNum: 1,
+        file3NameNum: 1,
+        file4NameNum: 1,
+        file5NameNum: 1,
 
         acceptCom: '',
         acceptComList: [],
-        addressCode:'',
+        addressCode: '',
         //设备类别
         deviceClassList: [
           {
@@ -547,10 +551,10 @@
           },
 
         ],
-        deviceClassId:'',
+        deviceClassId: '',
         //设备品种列表
         deviceTypeList: [],
-        deviceClassTypeId:'',
+        deviceClassTypeId: '',
 
         ruleForm: {
           registKind: '新设备首次启用',
@@ -568,7 +572,7 @@
           useComCode: '',
           safeAdministrator: '',
           mobilePhone: '',
-          comTablePerson:'',
+          comTablePerson: '',
           //comPersonDate:'',
         },
         formDynamicGas: {
@@ -629,7 +633,7 @@
             }
           ]
         },
-        num:10,
+        num: 10,
         rules: {
 //                    kind1: [
 //                        {required: true, message: '不能为空', trigger: 'blur'}
@@ -748,8 +752,8 @@
           {"url": ''}
         ],
         ifold: 0,
-        device_type:9,
-        creatOrUpdate:false,
+        device_type: 9,
+        creatOrUpdate: false,
         pdfUrl: '',
         pdfList: [],
         pdf: '',
@@ -818,17 +822,17 @@
 
       //初始化数据
       setUserDetailData(){
-        this.ruleForm.useComName=localStorage.getItem('useComName');
-        this.ruleForm.useComAddr=localStorage.getItem('useComAddr');
-        this.ruleForm.zipcode=localStorage.getItem('zipcode');
-        this.ruleForm.staticPhone=localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone=localStorage.getItem('mobilePhone');
+        this.ruleForm.useComName = localStorage.getItem('useComName');
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        this.ruleForm.zipcode = localStorage.getItem('zipcode');
+        this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
 
 
-        if(localStorage.getItem('company')=='true'){
+        if (localStorage.getItem('company') == 'true') {
           this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
-        }else {
+        } else {
           this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
 
@@ -840,15 +844,15 @@
         this.active = 1;
         this.current = 0;
         this.resetForm('ruleForm');
-        this.uploadList=[
+        this.uploadList = [
           {"url": ''}
         ];
-        this.creatOrUpdate=false;
-        this.file1NameNum=0;
-        this.file2NameNum=0;
-        this.file3NameNum=0;
-        this.file4NameNum=0;
-        this.file5NameNum=0;
+        this.creatOrUpdate = false;
+        this.file1NameNum = 1;
+        this.file2NameNum = 1;
+        this.file3NameNum = 1;
+        this.file4NameNum = 1;
+        this.file5NameNum = 1;
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
 
@@ -856,14 +860,14 @@
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
           this.defaultPdfList1 = [];
-          this.deviceTypeList=[];
+          this.deviceTypeList = [];
           this.setUserDetailData();
 
 
-          if(this.$route.query.device_type==9){
-            this.ruleForm.deviceClassCode="2300";
-          }else if(this.$route.query.device_type==10){
-            this.ruleForm.deviceClassCode="8300";
+          if (this.$route.query.device_type == 9) {
+            this.ruleForm.deviceClassCode = "2300";
+          } else if (this.$route.query.device_type == 10) {
+            this.ruleForm.deviceClassCode = "8300";
           }
           let params = 'code=' + this.ruleForm.deviceClassCode;
           if (this.deviceTypeList !== '' && this.ruleForm.deviceClassCode) {
@@ -875,9 +879,9 @@
             }).catch(error => {
               console.log(error);
             })
-             params='addressCode=' + this.addressCode;
+            params = 'addressCode=' + this.addressCode;
             setAppService.getAccpeter(params).then(res => {
-              this.acceptComList=[];
+              this.acceptComList = [];
               for (let i = 0, len = res.length; i < len; i++) {
                 this.acceptComList.push({value: res[i].districtCode, label: res[i].name});
               }
@@ -895,14 +899,14 @@
         setAppService.getUnsubmitApp(params).then(res => {
           //this.acceptCom = res.data.acceptorAgencyId;
           this.clearRuleForm();
-          this.ruleForm= res.data.formList;
+          this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
         }).catch(error => {
           console.log(error)
         })
       },
       clearRuleForm(){
-        this.ruleForm={
+        this.ruleForm = {
           registKind: '新设备首次启用',
           deviceClass: '',
           deviceClassCode: '',
@@ -918,7 +922,7 @@
           useComCode: '',
           safeAdministrator: '',
           mobilePhone: '',
-          comTablePerson:'',
+          comTablePerson: '',
           //comPersonDate:'',
         }
       },
@@ -948,8 +952,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode=value.value;
-        this.propertyComName=value.label;
+        this.propertyComCode = value.value;
+        this.propertyComName = value.label;
       },
 
 
@@ -959,7 +963,7 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -981,26 +985,26 @@
         submitParam.applyType = 1;
         submitParam.comCode = this.ruleForm.comCode;
         //登记证编号
-        submitParam.registCode ='';
+        submitParam.registCode = '';
         submitParam.eqCode = '';
         //提交设备类别等
-        if(submitParam.deviceType===9){
+        if (submitParam.deviceType === 9) {
           submitParam.deviceCategory = "压力容器";
           submitParam.deviceClass = "气瓶";
           submitParam.deviceKind = this.deviceClassTypeId;
           this.ruleForm.deviceKind = "气瓶";
           this.ruleForm.deviceClass = this.deviceClassTypeId;
-        }else if(submitParam.deviceType===10){
+        } else if (submitParam.deviceType === 10) {
           submitParam.deviceCategory = "压力管道";
           submitParam.deviceClass = "工业管道";
           submitParam.deviceKind = this.deviceClassTypeId;
           this.ruleForm.deviceKind = "工业管道";
           this.ruleForm.deviceClass = this.deviceClassTypeId;
         }
-        submitParam.formList=[];
+        submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
         submitParam.formList[0].formType = 3;
 
         return submitParam;
@@ -1015,7 +1019,7 @@
             // console.log(this.active);
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam=this.makeParams();
+            let submitParam = this.makeParams();
 
             //submitParam.deivceCode = this.ruleForm.eqCode;
             this.submit(submitParam);
@@ -1037,23 +1041,22 @@
             this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
-            let submitParam={};
-            if(submitParam.deviceType===9){
+            let submitParam = {};
+            if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceKind = "气瓶";
               this.ruleForm.deviceClass = this.deviceClassTypeId;
-            }else if(submitParam.deviceType===10){
+            } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceKind = "工业管道";
-              this.ruleForm.deviceClass= this.deviceClassTypeId;
+              this.ruleForm.deviceClass = this.deviceClassTypeId;
             }
-            submitParam.formList=[];
+            submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId =  this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName =  this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 3;
-            submitParam.id=this.$route.query.applyId;
-
+            submitParam.id = this.$route.query.applyId;
 
 
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -1061,7 +1064,7 @@
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId='+this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1085,7 +1088,7 @@
 
         let formList = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
-        let submitParam=this.makeParams();
+        let submitParam = this.makeParams();
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
@@ -1126,11 +1129,11 @@
       before() {
         this.current--;
         this.active--;
-        this.creatOrUpdate=true;
+        this.creatOrUpdate = true;
       },
 
       confirmForm () {
-        if(this.$route.query.ifold==1||(this.creatOrUpdate===true)){
+        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
           this.$Modal.confirm({
             title: '确认登记表信息',
             content: '<p>请确认全部填写信息</p>',
@@ -1144,7 +1147,7 @@
             }
           });
 
-        }else{
+        } else {
           this.$Modal.confirm({
             title: '确认登记表信息',
             content: '<p>请确认全部填写信息</p>',
@@ -1176,7 +1179,7 @@
           waitAccparams.time = this.time;
         }
         if (this.applyState !== '') {
-          waitAccparams.states = [this.applyState,this.applyState];
+          waitAccparams.states = [this.applyState, this.applyState];
 
         }
         if (this.applyType !== '') {
@@ -1290,7 +1293,7 @@
   }
 
   .base-box,
-  .chooseAccept{
+  .chooseAccept {
     margin-left: 140px;
     display: block;
     border: 1px solid #dddee1;
@@ -1364,12 +1367,13 @@
     border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
-    padding:10px;
+    padding: 10px;
     //background-color: red;
     // margin-left:300px;
   }
+
   .second_upload {
-    float:right;
+    float: right;
     display: block;
     display: -webkit-flex;
     display: flex;
@@ -1386,13 +1390,10 @@
     border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
-    padding:10px;
+    padding: 10px;
     //background-color: red;
     // margin-left:300px;
   }
-
-
-
 
   .firstHead {
     margin: 10px;
@@ -1401,6 +1402,7 @@
   .firstHead2 {
     margin: 10px;
   }
+
   .list-box {
     display: block;
     height: auto;
@@ -1418,13 +1420,15 @@
       margin: 10px;
     }
   }
+
   .innerBox {
     border-top: 1px solid rgb(229, 229, 229);
     padding-top: 10px;
     margin-top: 10px;
   }
-  .changeGas{
-    float:right;
+
+  .changeGas {
+    float: right;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -1433,9 +1437,10 @@
     border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
-    padding:10px;
+    padding: 10px;
 
   }
+
   .demo-upload-list {
     display: inline-block;
     width: 150px;
@@ -1476,7 +1481,6 @@
     cursor: pointer;
     margin: 0 2px;
   }
-
 
 
 </style>

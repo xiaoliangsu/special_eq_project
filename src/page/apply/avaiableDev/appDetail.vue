@@ -93,10 +93,10 @@
         <h2>签发使用登记证</h2>
         <!--<ul class="detail_ul">-->
         <!--<li v-for="(item,key,index) in registPdfUrl" class="detail_li">-->
-          <!--{{item}}{{this.registPdfUrl}}-->
-          <!--<embed  id="iFramePdf" v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
+        <!--{{item}}{{this.registPdfUrl}}-->
+        <!--<embed  id="iFramePdf" v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
 
-          <iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>
+        <iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>
         <!--</li>-->
         <!--</ul>-->
 
@@ -138,15 +138,15 @@
 //          水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
 //          水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
 //        },
-        pdfUrl:{},
+        pdfUrl: {},
         pdfNum: 0,
         accStatus: '',
         accReason: '',
 
         approvalStatus: '',
-       showPrintCard :false,
+        showPrintCard: false,
 
-      approvalRejValue: '',
+        approvalRejValue: '',
         approvalReason: '',
         orderState: '',
         ruleForms: [],
@@ -166,11 +166,11 @@
         //申请类别
         applyType: '',
         active: 0,
-        deviceCategory:'',
-        eqCode:'',
-        eqComCode:'',
-        registKind:'',
-        applyDate:'',
+        deviceCategory: '',
+        eqCode: '',
+        eqComCode: '',
+        registKind: '',
+        applyDate: '',
 
       }
     },
@@ -207,32 +207,36 @@
         this.showPrintCard = false;
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
-            if(res.data.formList[0].useComName){
-              this.useComName = res.data.formList[0].useComName;
-            }
-          this.deviceCategory = res.data.formList[0].deviceCategory;
+          if (res.data.formList[0].useComName) {
+            this.useComName = res.data.formList[0].useComName;
+          }
+          this.deviceCategory = res.data.deviceCategory;
           this.eqCode = res.data.formList[0].eqCode;
           this.eqComCode = res.data.formList[0].eqComCode;
-          this.registKind = res.data.formList[0].registKind;
-          this.applyDate = res.data.formList[0].applyDate;
-          this.acceptorAgencyName = res.data.formList[0].acceptorAgencyName;
+          this.registKind = res.data.registKind;
+          let newDate = new Date(res.data.createTime);
+          let Y = newDate.getFullYear() + '-';
+          let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+          let D = newDate.getDate() + ' ';
+          this.applyDate = Y + M + D;
+
+          this.acceptorAgencyName = res.data.acceptorAgencyName;
 
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
-          if(res.data.forms["特种设备使用登记表二"]){
-            this.fileId= res.data.forms["特种设备使用登记表二"];
-          }else if(res.data.forms["特种设备使用登记表一"]){
-            this.fileId= res.data.forms["特种设备使用登记表一"];
+          if (res.data.forms["特种设备使用登记表二"]) {
+            this.fileId = res.data.forms["特种设备使用登记表二"];
+          } else if (res.data.forms["特种设备使用登记表一"]) {
+            this.fileId = res.data.forms["特种设备使用登记表一"];
 
-          }else{
-            this.fileId= res.data.forms["特种设备使用登记表三"];
-
+          } else if (res.data.forms["特种设备使用登记表三"]) {
+            this.fileId = res.data.forms["特种设备使用登记表三"];
           }
 
-          this.registPdfUrl='/admin/file/preview?fileId='+this.fileId;
+          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
 
-          this.pdfUrl=res.data.forms;
+          this.pdfUrl = res.data.files;
 
           if (res.data.status.states === "已受理待审批") {
             this.accStatus = true;
@@ -304,7 +308,7 @@
             appDetailService.AccPass(params).then(res => {
               if (res.status === 200) {
                 this.$router.push('waitAccept');
-              }else{
+              } else {
                 this.$Message.info(res.msg);
               }
             }).catch(error => {
@@ -390,7 +394,7 @@
               console.log(res);
               if (res.status === 200) {
                 this.$router.push('waitAccept');
-              }else{
+              } else {
                 this.$Message.info(res.msg);
               }
             }).catch(error => {
@@ -505,7 +509,7 @@
             appDetailService.ApprovalRej(params).then(res => {
               if (res.status === 200) {
                 this.$router.push('waitApproval');
-              }else{
+              } else {
                 this.$Message.info(res.msg);
               }
             }).catch(error => {
@@ -539,7 +543,7 @@
                 break;
             }
             this.$router.push('waitApproval');
-          }else{
+          } else {
             this.$Message.info(res.msg);
           }
         }).catch(error => {
