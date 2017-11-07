@@ -94,6 +94,9 @@ const AppRegistDetail = r => require.ensure([], () => r(require('../page/approva
 const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
 const Message = r => require.ensure([], () => r(require('../page/message/message.vue')), 'Message');
 
+const UserPower = r => require.ensure([], () => r(require('../page/superAdmin/userPower.vue')), 'UserPower');
+const NewUser = r => require.ensure([], () => r(require('../page/superAdmin/newUser.vue')), 'NewUser');
+
 
 //const login = r => require.ensure([], () => r(require('../page/login/login')), 'Login');
 const router = new VueRouter({
@@ -190,6 +193,10 @@ const router = new VueRouter({
         {path: "/supervision", component: Supervision},
         {path: "/message", component: Message,
         meta:["消息提醒"]},
+        {path: "/userPower", component: UserPower,
+          meta:["超级管理员","用户权限管理"]},
+        {path: "/newUser", component: NewUser,
+          meta:["超级管理员","添加新用户"]},
 
 
 
