@@ -18,7 +18,7 @@
         <Col span="7">
         <!--<label>申请状态</label>-->
         <!--<Select v-model="applyState" style="width:180px" placeholder="请选择">-->
-          <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
+        <!--<Option v-for="item in List" :value="item.value" :key="item.value"> {{ item.label }}</Option>-->
         <!--</Select>-->
         </Col>
         <Button type="ghost" class="query" @click="clear()">清空筛选</Button>
@@ -28,7 +28,7 @@
       <div class="innerBox">
         <Row>
           <Col>
-          <label>申请id精准搜索</label>
+          <label>设备代码精准搜索</label>
           <Input v-model="deviceCode" placeholder="请输入申请id" style="width: 180px"></Input>
           <Button type="primary" class="query" @click="exactSearch">搜索</Button>
 
@@ -152,7 +152,7 @@
           },
         ],
         //申请状态
-       // applyState: '',
+        // applyState: '',
 
         columns5: [
           {
@@ -275,7 +275,7 @@
                     }
                   }, '停用申请'),
                 ]);
-              } else if(this.$route.query.apply_state == 3){
+              } else if (this.$route.query.apply_state == 3) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -301,7 +301,7 @@
                   }, '报废申请'),
                 ]);
 
-              }else if(this.$route.query.apply_state == 4){
+              } else if (this.$route.query.apply_state == 4) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -326,7 +326,7 @@
                     }
                   }, '停用后启用申请'),
                 ]);
-              }else if(!this.$route.query.apply_state){
+              } else if (!this.$route.query.apply_state) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -393,36 +393,44 @@
     methods: {
       ...
         mapActions(
-          ['selectedDeviceOption', 'setApplyType'],
+          ['selectedDeviceOption', 'setApplyType','changeBackTime'],
         ),
       initData(){
         this.time = ['', ''];
         this.setApplyType(this.$route.query.apply_state);
-        console.log(this.getApplyTypeName);
-        this.apply_state=this.$route.query.apply_state;
-        if(!this.apply_state){
-          let waitAccparams = {
+        this.apply_state = this.$route.query.apply_state;
+        this.deviceType=[];
+        let params = '';
+        if (!this.apply_state) {
+          params = {
             page: 0,
             size: 10,
           }
-          this.getOrders(waitAccparams);
-        }else if(this.apply_state==="2"||this.apply_state==="3"){
-          let params=this.makeParams(0,10, this.time,'',false,'');
-          this.getOrders(params);
-        }else if(this.apply_state==="4"){
-          let params=this.makeParams(0,10, this.time,'','','1');
-          this.getOrders(params);
+          //停用
+        } else if (this.apply_state === "2") {
+          params = this.makeParams(0, 10, this.time, '', false, '0');
+        } else if (this.apply_state === "4") {
+          //停用后启用
+          params = this.makeParams(0, 10, this.time, '', false, '1');
+        } else if (this.apply_state === "3") {
+          //报废
+          params = this.makeParams(0, 10, this.time, '', false, '');
+          params.states = [0, 1];
         }
+        this.getOrders(params);
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
-       // this.applyState = '';
+        // this.applyState = '';
 
       },
       clear(){
         this.initData();
 
       },
+
+
+
       //获取申请列表信息
 
       getOrders(waitAccparams){
@@ -433,19 +441,16 @@
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
-               // this.data5[i].state = res.data.content[i].status.states;
-                let newDate = new Date(res.data.content[i].createAt);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[i].createAt = Y + M + D;
-                if(res.data.content[i].updateAt!==0){
-                  let newUpDate = new Date(res.data.content[i].upateAt);
-                  let UY = newUpDate.getFullYear() + '-';
-                  let UM = (newUpDate.getMonth() + 1 < 10 ? '0' + (newUpDate.getMonth() + 1) : newUpDate.getMonth() + 1) + '-';
-                  let UD = newUpDate.getDate() + ' ';
-                  this.data5[i].updateAt = UY + UM + UD;
-                }
+                this.changeBackTime(res.data.content[i].noUseDate);
+                this.data5[i].noUseDate=this.getBackTime;
+                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate=this.getBackTime;
+                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate=this.getBackTime;
+                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate=this.getBackTime;
               }
 
             } else {
@@ -466,26 +471,25 @@
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
-        //  this.applyState = '';
+          //  this.applyState = '';
           let waitAccparams = 'deviceCode=' + this.deviceCode;
           avaivbleService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
-               // this.data5[0].state = res.data.status.states;
-                let newDate = new Date(res.data.createAt);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[0].createAt = Y + M + D;
-                if(res.data.content[i].updateAt!==0) {
-                  let newUpDate = new Date(res.data.content[i].updateAt);
-                  let UY = newUpDate.getFullYear() + '-';
-                  let UM = (newUpDate.getMonth() + 1 < 10 ? '0' + (newUpDate.getMonth() + 1) : newUpDate.getMonth() + 1) + '-';
-                  let UD = newUpDate.getDate() + ' ';
-                  this.data5[i].updateAt = UY + UM + UD;
-                }
-                this.num=res.data.length;
+                // this.data5[0].state = res.data.status.states;
+                this.changeBackTime(res.data.content[i].noUseDate);
+                this.data5[i].noUseDate=this.getBackTime;
+                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate=this.getBackTime;
+                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate=this.getBackTime;
+                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate=this.getBackTime;
+
+                this.num = res.data.length;
 
               }
             }
@@ -500,22 +504,23 @@
           time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
       },
 
-      makeParams(page,size,time,deviceTypeId,processing,states){
-        let params={};
-        params.page=page;
-        params.size=size;
-        if(time!==''&& time[0]!==''&&time[1]!==''){
-          params.time=this.changeTime(time);;
+      makeParams(page, size, time, deviceTypeId, processing, states){
+        let params = {};
+        params.page = page;
+        params.size = size;
+        if (time !== '' && time[0] !== '' && time[1] !== '') {
+          params.time = this.changeTime(time);
+          ;
         }
-       // console.log(deviceTypeId)
-        if(deviceTypeId!==''){
-          params.deviceTypeId=parseInt(deviceTypeId);
+        // console.log(deviceTypeId)
+        if (deviceTypeId !== '') {
+          params.deviceTypeId = parseInt(deviceTypeId);
         }
-        if(processing!==""){
-          params.processing=processing;
+        if (processing !== "") {
+          params.processing = processing;
         }
-        if(states!==""){
-          params.states=parseInt(states);
+        if (states !== "") {
+          params.states = [parseInt(states), parseInt(states)];
         }
 
         return params;
@@ -525,18 +530,19 @@
       query()
       {
         this.$refs['pages'].currentPage = 1;
-        console.log(this.currentPage);
         this.deviceCode = '';
-        if(!this.apply_state){
-          let params=this.makeParams(0,10,this.time,this.deviceType[1],'','');
-          this.getOrders(params);
-        }else if(this.apply_state==="2"||this.apply_state==="3"){
-          let params=this.makeParams(0,10,this.time,this.deviceType[1],false,'');
-          this.getOrders(params);
-        }else if(this.apply_state==="4"){
-          let params=this.makeParams(0,10,this.time,this.deviceType[1],'','1');
-          this.getOrders(params);
+        let params = '';
+        if (!this.apply_state) {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], '', '');
+        } else if (this.apply_state === "2") {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], false, '0');
+        } else if (this.apply_state === "4") {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], '', '1');
+        } else if (this.apply_state === "3") {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], false, '');
+          params.states=[0,1];
         }
+        this.getOrders(params);
 
       }
       ,
@@ -545,14 +551,14 @@
 //        console.log(value);
 //        let params=this.makeParams(value-1,10,this.time,this.deviceType[1]);
 //        this.getOrders(params);
-        if(!this.apply_state){
-          let params=this.makeParams(value-1,10,this.time,this.deviceType[1],'','');
+        if (!this.apply_state) {
+          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '');
           this.getOrders(params);
-        }else if(this.apply_state==="2"||this.apply_state==="3"){
-          let params=this.makeParams(value-1,10,this.time,this.deviceType[1],false,'');
+        } else if (this.apply_state === "2" || this.apply_state === "3") {
+          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], false, '');
           this.getOrders(params);
-        }else if(this.apply_state==="4"){
-          let params=this.makeParams(value-1,10,this.time,this.deviceType[1],'','1');
+        } else if (this.apply_state === "4") {
+          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '1');
           this.getOrders(params);
         }
 
@@ -580,7 +586,8 @@
       ...
         mapGetters([
           "getSelectedOption",
-          "getApplyTypeName"
+          "getApplyTypeName",
+          "getBackTime"
         ]),
     }
     ,

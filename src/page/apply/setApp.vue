@@ -143,15 +143,15 @@
                   <i-input v-model="ruleForm.manufactureComName" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
-              <Form-item label="监督检验机构名称" prop="testComName">
-                <!--<Input v-model="ruleForm.testComName"></Input>-->
+              <Form-item label="监督检验机构名称" prop="superviseComName">
+                <!--<Input v-model="ruleForm.superviseComName"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写负责该设备制造、安装、改造、重大修理监督检验(以下简称监检)的特种设备检验机构名称，没有实施监检的设备，注明“不实施监检”，如该设备登记前进行了不同阶段的监检(如制造监检，安装、改造监检等)，则填写最近一次监检的特种设备检验机构名称，并且与设备检验情况要求相协调(除制造监检外，优先满足设备检验情况填写要求)。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.testComName" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.superviseComName" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -233,7 +233,7 @@
                       填写使用单位对设备进行管理自行编制的设备内部编号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.eqComCode" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -778,7 +778,7 @@
           designComName: '',
           manufactureComName: '',
           constructComName: '',
-          testComName: '',
+          superviseComName: '',
           modelTestComName: '',
           useComName: '',
           useComAddr: '',
@@ -882,7 +882,7 @@
 //          manufactureComName: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
-//          testComName: [
+//          superviseComName: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
 //          deviceClass: [
@@ -1229,7 +1229,7 @@
           designComName: '',
           manufactureComName: '',
           constructComName: '',
-          testComName: '',
+          superviseComName: '',
           modelTestComName: '',
           useComName: '',
           useComAddr: '',

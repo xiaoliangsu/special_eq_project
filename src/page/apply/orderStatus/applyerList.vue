@@ -31,8 +31,8 @@
       <div class="innerBox">
         <Row>
           <Col>
-          <label>申请id精准搜索</label>
-          <Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>
+          <label>设备代码精准搜索</label>
+          <Input v-model="eqCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary" class="query" @click="exactSearch">搜索</Button>
 
           </Col>
@@ -306,6 +306,7 @@
         currentPage: 1,
         //申请id
         applyId: '',
+        eqCode:'',
 
 
       }
@@ -332,7 +333,9 @@
     },
 
     methods: {
-      ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
+      ...mapActions(
+        ['selectedDeviceOption', 'changeBackTime'],
+      ),
       initData(){
         this.time = ['', ''];
         this.applyType = '';
@@ -361,12 +364,17 @@
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
-                this.data5[i].state = res.data.content[i].status.states;
-                let newDate = new Date(res.data.content[i].createTime);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[i].createTime = Y + M + D;
+                this.changeBackTime(res.data.content[i].status.applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.acceptTellDate);
+                this.data5[i].acceptTellDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.unAcceptTellDate);
+                this.data5[i].unAcceptTellDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.approvalDate);
+                this.data5[i].approvalDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.unApprovalDate);
+                this.data5[i].unApprovalDate=this.getBackTime;
+
               }
 
             } else {
@@ -379,21 +387,26 @@
       },
 
       exactSearch(){
-        if (this.applyId) {
+        if (this.eqCode) {
           this.time = ['', ''];
           this.applyType = '';
           this.applyState = '';
-          let waitAccparams = 'applyId=' + this.applyId;
+          let waitAccparams = 'eqCode=' + this.eqCode;
           orderStatusService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
                 this.data5[0].state = res.data.status.states;
-                let newDate = new Date(res.data.createTime);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[0].createTime = Y + M + D;
+                this.changeBackTime(res.data.content[i].status.applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.acceptTellDate);
+                this.data5[i].acceptTellDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.unAcceptTellDate);
+                this.data5[i].unAcceptTellDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.approvalDate);
+                this.data5[i].approvalDate=this.getBackTime;
+                this.changeBackTime(res.data.content[i].status.unApprovalDate);
+                this.data5[i].unApprovalDate=this.getBackTime;
                 this.num = res.data.length;
               }
             }
@@ -531,6 +544,7 @@
       ...
         mapGetters([
           "getSelectedOption",
+          "getBackTime"
         ]),
     }
     ,
