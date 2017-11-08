@@ -1226,12 +1226,16 @@
 
       },
       handleRemove(res, file) {
-        //res是移除的 file剩下的
-        console.log(res);
-        console.log(file);
-        this.uploadList.pop();
-        console.log(this.uploadList);
-
+        for (let i = 0; i < this.uploadList.length; i++) {
+          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+            this.uploadList.splice(i, 1);
+          }
+        }
+        if(this.uploadList.length==''){
+          this.uploadList = [
+            {"url": ''}
+          ];
+        }
       },
       handleBeforeUpload () {
 
@@ -1273,7 +1277,7 @@
                 this.current++;
                 break;
             }
-            this.$router.push('home');
+            this.$router.push('applyerList');
           }
         }).catch(error => {
           console.log(error);

@@ -250,7 +250,7 @@
             fixed: 'right',
             width: 120,
             render: (h, params) => {
-              if (this.$route.query.apply_state == 2) {
+              if (this.$route.query.apply_state == 3) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -269,13 +269,16 @@
                           path: 'stopUseApp',
                           query: {
                             deviceCode: this.data5[params.index].id,
+                            registCode: this.data5[params.index].registCode || '',
+                            deviceType: this.data5[params.index].deviceTypeId,
+
                           }
                         });
                       }
                     }
                   }, '停用申请'),
                 ]);
-              } else if (this.$route.query.apply_state == 3) {
+              } else if (this.$route.query.apply_state == 4) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -294,6 +297,8 @@
                           path: 'disabledApp',
                           query: {
                             deviceCode: this.data5[params.index].id,
+                            registCode: this.data5[params.index].registCode || '',
+                            deviceType: this.data5[params.index].deviceTypeId,
                           }
                         });
                       }
@@ -301,7 +306,7 @@
                   }, '报废申请'),
                 ]);
 
-              } else if (this.$route.query.apply_state == 4) {
+              } else if (this.$route.query.apply_state == 5) {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -393,13 +398,13 @@
     methods: {
       ...
         mapActions(
-          ['selectedDeviceOption', 'setApplyType','changeBackTime'],
+          ['selectedDeviceOption', 'setApplyType', 'changeBackTime'],
         ),
       initData(){
         this.time = ['', ''];
         this.setApplyType(this.$route.query.apply_state);
         this.apply_state = this.$route.query.apply_state;
-        this.deviceType=[];
+        this.deviceType = [];
         let params = '';
         if (!this.apply_state) {
           params = {
@@ -407,12 +412,12 @@
             size: 10,
           }
           //停用
-        } else if (this.apply_state === "2") {
+        } else if (this.apply_state === "3") {
           params = this.makeParams(0, 10, this.time, '', false, '0');
-        } else if (this.apply_state === "4") {
+        } else if (this.apply_state === "5") {
           //停用后启用
           params = this.makeParams(0, 10, this.time, '', false, '1');
-        } else if (this.apply_state === "3") {
+        } else if (this.apply_state === "4") {
           //报废
           params = this.makeParams(0, 10, this.time, '', false, '');
           params.states = [0, 1];
@@ -430,7 +435,6 @@
       },
 
 
-
       //获取申请列表信息
 
       getOrders(waitAccparams){
@@ -442,15 +446,15 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate=this.getBackTime;
-                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate=this.getBackTime;
-                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate=this.getBackTime;
-                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate=this.getBackTime;
+                this.data5[i].noUseDate = this.getBackTime;
+                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate = this.getBackTime;
+                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate = this.getBackTime;
+                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate = this.getBackTime;
+                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate = this.getBackTime;
               }
 
             } else {
@@ -479,15 +483,15 @@
                 this.data5 = [res.data];
                 // this.data5[0].state = res.data.status.states;
                 this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate=this.getBackTime;
-                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate=this.getBackTime;
-                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate=this.getBackTime;
-                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate=this.getBackTime;
+                this.data5[i].noUseDate = this.getBackTime;
+                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate = this.getBackTime;
+                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate = this.getBackTime;
+                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate = this.getBackTime;
+                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate = this.getBackTime;
 
                 this.num = res.data.length;
 
@@ -520,7 +524,7 @@
           params.processing = processing;
         }
         if (states !== "") {
-          params.states = [parseInt(states), parseInt(states)];
+          params.states = [parseInt(states)];
         }
 
         return params;
@@ -534,13 +538,13 @@
         let params = '';
         if (!this.apply_state) {
           params = this.makeParams(0, 10, this.time, this.deviceType[1], '', '');
-        } else if (this.apply_state === "2") {
-          params = this.makeParams(0, 10, this.time, this.deviceType[1], false, '0');
-        } else if (this.apply_state === "4") {
-          params = this.makeParams(0, 10, this.time, this.deviceType[1], '', '1');
         } else if (this.apply_state === "3") {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], false, '0');
+        } else if (this.apply_state === "5") {
+          params = this.makeParams(0, 10, this.time, this.deviceType[1], '', '1');
+        } else if (this.apply_state === "4") {
           params = this.makeParams(0, 10, this.time, this.deviceType[1], false, '');
-          params.states=[0,1];
+          params.states = [0, 1];
         }
         this.getOrders(params);
 
@@ -551,16 +555,18 @@
 //        console.log(value);
 //        let params=this.makeParams(value-1,10,this.time,this.deviceType[1]);
 //        this.getOrders(params);
+        let params = '';
         if (!this.apply_state) {
-          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '');
-          this.getOrders(params);
-        } else if (this.apply_state === "2" || this.apply_state === "3") {
-          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], false, '');
-          this.getOrders(params);
+          params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '');
+        } else if (this.apply_state === "3") {
+          params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], false, '0');
+        } else if (this.apply_state === "5") {
+          params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '1');
         } else if (this.apply_state === "4") {
-          let params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], '', '1');
-          this.getOrders(params);
+          params = this.makeParams(value - 1, 10, this.time, this.deviceType[1], false, '');
+          params.states = [0, 1];
         }
+        this.getOrders(params);
 
       },
 

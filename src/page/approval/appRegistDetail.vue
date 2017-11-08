@@ -4,7 +4,7 @@
       <Row>
         <Col :xs="8" :sm="8" :md="8" :lg="8">
 
-        <label>订单时间</label>
+        <label>申请时间</label>
         <Date-picker type="daterange" placeholder="选择日期"
                      format="yyyy/MM/dd" style="width: 220px;display:inline-block;" v-model="time"></Date-picker>
         </Col>
@@ -37,8 +37,8 @@
       <div class="innerBox">
         <Row>
           <Col>
-          <label>申请id精准搜索</label>
-          <Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>
+          <label>设备代码精准搜索</label>
+          <Input v-model="eqCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary" class="query" @click="exactSearch">搜索</Button>
 
           </Col>
@@ -302,6 +302,7 @@
         currentPage: 1,
         //申请id
         applyId: '',
+        eqCode:'',
         deviceType: [],
 
 
@@ -329,7 +330,8 @@
     },
 
     methods: {
-      ...mapActions({selectedDeviceOption: 'selectedDeviceOption'}),
+      ...mapActions(['selectedDeviceOption', 'changeBackTime'],),
+
       initData(){
         this.time = ['', ''];
         this.applyType = '';
@@ -353,11 +355,15 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
-                let newDate = new Date(res.data.content[i].createTime);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[i].createTime = Y + M + D;
+                this.data5[i].noUseDate=this.getBackTime;
+                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate=this.getBackTime;
+                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate=this.getBackTime;
+                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate=this.getBackTime;
               }
             }else{
               this.data5=[];
@@ -378,7 +384,7 @@
 //        this.getOrders(waitAccparams);
 //      },
       exactSearch(){
-        if (this.applyId) {
+        if (this.eqCode) {
           this.time = ['', ''];
           this.applyType = '';
           this.deviceType = [];
@@ -387,17 +393,21 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           // this.applyState = '';
-          let waitAccparams = 'applyId=' + this.applyId;
+          let waitAccparams = 'eqCode=' + this.eqCode;
           approvalService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
                 this.data5[0].state = res.data.status.states;
-                let newDate = new Date(res.data.createTime);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[0].createTime = Y + M + D;
+                this.data5[i].noUseDate=this.getBackTime;
+                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
+                this.data5[i].noUseEndDate=this.getBackTime;
+                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
+                this.data5[i].disableDate=this.getBackTime;
+                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
+                this.data5[i].applyDate=this.getBackTime;
+                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
+                this.data5[i].issueDate=this.getBackTime;
                 this.num=res.data.length;
 
               }
@@ -431,7 +441,7 @@
 
       query(){
         this.$refs['pages'].currentPage = 1;
-        this.applyId = '';
+        this.eqCode = '';
         let params=this.makeParams(0,10,this.time,this.deviceType[1],this.applyType);
         this.getOrders(params);
       },
@@ -503,6 +513,7 @@
       ...
         mapGetters([
           "getSelectedOption",
+          "getBackTime"
         ]),
     }
     ,

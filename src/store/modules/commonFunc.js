@@ -1,11 +1,13 @@
 
 import {
   CHANGE_BACK_TIME,
+  CHANGE_INPUT_TIME,
 } from '../../constants/commonFunc.js'
 
 const state = {
 
   time: '',
+  inputTime:'',
 
 }
 
@@ -17,6 +19,10 @@ const actions = {
 
     commit(CHANGE_BACK_TIME, res)
   },
+  changeInputTime({commit}, res) {
+
+    commit(CHANGE_INPUT_TIME, res)
+  },
 
 
 
@@ -26,6 +32,7 @@ const actions = {
 }
 const getters = {
   getBackTime: state => state.time,
+  getInputTime: state => state.inputTime,
 }
 
 const mutations = {
@@ -41,6 +48,12 @@ const mutations = {
       res='';
     }
     state.time = res
+  },
+  [CHANGE_INPUT_TIME](state, res) {
+    let newTime=new Date(res)
+
+    state.inputTime = newTime.getFullYear() + "年" + (parseInt(newTime.getMonth()) + 1) + "月" + newTime.getDate()+"日"
+
   },
 
 

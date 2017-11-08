@@ -207,6 +207,11 @@
             key: 'registCode',
             width: 150,
           },
+          {
+            title: '使用登记证编号',
+            key: 'state',
+            width: 0,
+          },
 
           {
             title: '操作',
@@ -263,7 +268,7 @@
                   }, '修改'),
 
                 ]);
-              } else if (params.row.state == '已受理待审批') {
+              } else {
                 return h('div', [
                   h('Button', {
                     props: {
@@ -364,6 +369,7 @@
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
+                this.data5[i].state = res.data.content[i].status.states;
                 this.changeBackTime(res.data.content[i].status.applyDate);
                 this.data5[i].applyDate=this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.acceptTellDate);

@@ -54,10 +54,10 @@
               <MenuItem name="nameChange">更名变更</MenuItem>
               <MenuItem name="yearsChange">达到设计使用年限变更</MenuItem>
           </Submenu>
-          <Menu-item name="devList-2">停用申请</Menu-item>
-          <Menu-item name="devList-4">停用后启用申请</Menu-item>
+          <Menu-item name="devList-3">停用申请</Menu-item>
+          <Menu-item name="devList-5">停用后启用申请</Menu-item>
 
-          <Menu-item name="devList-3">报废申请</Menu-item>
+          <Menu-item name="devList-4">报废申请</Menu-item>
 
           <!--</Menu-group>-->
 

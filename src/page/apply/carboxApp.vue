@@ -833,6 +833,7 @@
         "getRegistThree",
         "getSelectedNum",
         "getterUserData",
+        "getInputTime"
       ]),
     },
     mounted(){
@@ -841,7 +842,7 @@
     },
     methods: {
       ...mapActions(
-        ['clearRegistThreeForm', 'setRegistThreeForm'],
+        ['clearRegistThreeForm', 'setRegistThreeForm','changeInputTime'],
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({
@@ -1007,6 +1008,8 @@
         //提交表单1
         this.ruleForm.deviceKind = this.deviceKindTypeId;
         this.ruleForm.subList = this.formDynamicPres.items;
+        this.changeInputTime(this.ruleForm.eqUseDate);
+        this.ruleForm.eqUseDate = this.getInputTime;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
@@ -1060,6 +1063,8 @@
             //把选择的哪一项带进去
             let submitParam = {};
             this.ruleForm.deviceKind = this.deviceKindTypeId;
+            this.changeInputTime(this.ruleForm.eqUseDate);
+            this.ruleForm.eqUseDate = this.getInputTime;
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
@@ -1181,21 +1186,19 @@
         }
 
       },
-      handleRemove(res, file) {
-        //res是移除的 file剩下的
-        console.log(res);
-        console.log(file);
-        this.uploadList.pop();
-        console.log(this.uploadList);
 
-      },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
           if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
-        console.log(this.uploadList)
+        if(this.uploadList.length==''){
+          this.uploadList = [
+            {"url": ''}
+          ];
+        }
+
 
       },
       handleBeforeUpload () {
@@ -1248,7 +1251,7 @@
                 this.current++;
                 break;
             }
-            this.$router.push('home');
+            this.$router.push('applyerList');
           }
         }).catch(error => {
           console.log(error);

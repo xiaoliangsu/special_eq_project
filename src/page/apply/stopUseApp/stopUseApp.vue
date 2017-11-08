@@ -18,22 +18,30 @@
     <div class="setApp_content" style="position:absolute;top:85px;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
+          <div class="chooseAccept">
+            <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
+            <FormItem label="登记机关">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
+                <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </FormItem>
+          </div>
           <div class="base-box">
             <h2 class="header_one">特种设备停用报废注销登记表</h2>
             <h2 class="header_two">设备基本情况</h2>
             <!--wang-->
             <Row>
               <Col span="11">
-              <Form-item label="申报种类" prop="declarationType">
-                <Select v-model="ruleForm.declarationType">
+              <Form-item label="申报种类" prop="registKind">
+                <Select v-model="ruleForm.registKind">
                   <Option v-for="item in declarationTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="台数" prop="noUseNum">
-                <Input v-model="ruleForm.noUseNum"></Input>
+              <Form-item label="台数" prop="deviceNum">
+                <Input v-model="ruleForm.deviceNum"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -181,10 +189,18 @@
   export default {
     data() {
       return {
+
+        addressCode: '',
+        registCode:'',
+        deviceType:'',
+        acceptCom: '',
+        acceptComList: [],
         current: 0,
+        //设备id
+        deviceCode:'',
         ruleForm: {
-          declarationType: '',
-          noUseNum: '',
+          registKind: '',
+          deviceNum: '',
           useComName: '',
           useComAddr: '',
           safeAdministrator: '',
@@ -224,6 +240,7 @@
         rules: {},
         //点击上一步的标志
         creatOrUpdate: false,
+        isCompany: false,
 
 
       }
@@ -237,6 +254,9 @@
         "getSelectedNum",
         "getterUserData",
       ]),
+    },
+    mounted(){
+      this.initData();
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
@@ -271,17 +291,35 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
+      chosenAccept(value){
+        this.propertyComCode = value.value;
+        this.propertyComName = value.label;
+      },
       setUserDetailData(){
+        this.addressCode = localStorage.getItem('addressCode');
         this.ruleForm.useComName = localStorage.getItem('useComName');
-        this.ruleForm.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-        console.log(this.ruleForm.useComName);
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
+
+        if (localStorage.getItem('company') == 'true') {
+          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+          this.isCompany = true;
+          console.log( this.ruleForm.safeAdministrator)
+        } else {
+          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+          this.isCompany = false;
+        }
+
+
       },
       initData(){
         this.active = 1;
         this.current = 0;
         this.creatOrUpdate = false;
-        this.device_type = this.$route.query.device_type;
-
+        this.deviceCode=this.$route.query.deviceCode;
+        this.registCode=this.$route.query.registCode;
+        this.deviceType=this.$route.query.deviceType;
         //如果是第一次填写
         this.clearRuleForm();
         this.formDynamicPres.items = [
@@ -295,11 +333,21 @@
           }
         ];
         this.setUserDetailData();
+        let params = 'addressCode=' + this.addressCode;
+        setAppService.getAccpeter(params).then(res => {
+          this.acceptComList = [];
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.acceptComList.push({value: res[i].id, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+        })
+
       },
       clearRuleForm(){
         this.ruleForm = {
-          declarationType: '',
-          noUseNum: '',
+          registKind: '',
+          deviceNum: '',
           useComName: '',
           useComAddr: '',
           safeAdministrator: '',
@@ -313,7 +361,6 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-
             // this.fileId = res.data.forms[1];
             this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
@@ -330,7 +377,7 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form5 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
             this.submit(submitParam);
@@ -343,28 +390,20 @@
       },
       makeParams(){
         let submitParam = {};
-        //提交表单1
-        this.ruleForm.eqSpecies = this.deviceCategoryId;
-        this.ruleForm.eqCategory = this.deviceClassId;
-        this.ruleForm.deviceKind = this.deviceClassTypeId;
+        submitParam.formList = [];
+        submitParam.formList.push(this.ruleForm);
+        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].formType = 7;
+        submitParam.deviceId=parseInt(this.deviceCode);
+        submitParam.registCode=this.registCode;
+        submitParam.deviceType=parseInt(this.deviceType);
 
-        submitParam.form5 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 1;
-        //设备类别
-        if (this.device_type) {
-          submitParam.deviceType = parseInt(this.device_type);
-        } else {
-          submitParam.deviceType = parseInt(this.$route.query.device_type);
-        }
         //停用申请
-        submitParam.applyType = 2;
+        submitParam.applyType = 3;
+        //登记证编号
+        submitParam.registCode = '';
         //提交设备类别等
-        submitParam.deviceCategory = this.deviceCategoryId;
-        submitParam.deviceClass = this.deviceClassId;
-        submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.eqCode;
-        submitParam.deivceName = this.ruleForm.eqName;
         return submitParam;
       },
       updateContent(formName) {
@@ -372,19 +411,20 @@
           if (valid) {
             this.current++;
             this.active++;
-            let form5 = Object.assign({}, this.ruleForm);
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
             let submitParam = {};
-            this.ruleForm.eqSpecies = this.deviceCategoryId;
-            this.ruleForm.eqCategory = this.deviceClassId;
-            this.ruleForm.deviceKind = this.deviceClassTypeId;
-            submitParam.form5 = this.ruleForm;
-            submitParam.id = this.$route.query.applyId;
-            submitParam.deviceClass = this.deviceClassId;
-            submitParam.deviceKind = this.deviceClassTypeId;
+            submitParam.formList = [];
+            submitParam.formList.push(this.ruleForm);
+            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].formType = 7;
+            submitParam.applyType = 3;
+            submitParam.registCode=this.registCode;
+            submitParam.deviceType=parseInt(this.deviceType);
+            submitParam.deviceId=parseInt(this.deviceCode);
             setAppService.updateSetInfo(submitParam).then(res => {
-
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
@@ -392,7 +432,6 @@
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
-
             }).catch(error => {
               console.log(error);
 
@@ -451,6 +490,28 @@
         }
 
       },
+      instance (type) {
+        let params = 'applyId=' + this.applyId;
+        setAppService.confrimApp(params).then(res => {
+          if (res) {
+            const title = '通知';
+            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+            switch (type) {
+              case 'success':
+                this.$Modal.success({
+                  title: title,
+                  content: content
+                });
+                this.current++;
+                break;
+            }
+            this.$router.push('applyerList');
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+      },
 
     }
 
@@ -480,7 +541,8 @@
     background-color: white;
   }
 
-  .base-box {
+  .base-box ,
+  .chooseAccept {
     margin-left: 0px;
     display: block;
     border: 2px solid #dddee1;
@@ -512,6 +574,11 @@
   .setApp_button {
     margin: 10px;
   }
+  .chooseAccept {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
 
 
 </style>

@@ -19,22 +19,30 @@
     <div class="setApp_content" style="position:absolute;top:85px;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1">
+          <div class="chooseAccept">
+            <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
+            <FormItem label="登记机关">
+              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
+                <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </FormItem>
+          </div>
           <div class="base-box">
             <h2 class="header_one">特种设备停用报废注销登记表</h2>
             <h2 class="header_two">设备基本情况</h2>
             <!--wang-->
             <Row>
               <Col span="11">
-              <Form-item label="申报种类" prop="declarationType">
-                <Select v-model="ruleForm.declarationType">
+              <Form-item label="申报种类" prop="registKind">
+                <Select v-model="ruleForm.registKind">
                   <Option v-for="item in declarationTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="台数" prop="noUseNum">
-                <Input v-model="ruleForm.noUseNum"></Input>
+              <Form-item label="台数" prop="deviceNum">
+                <Input v-model="ruleForm.deviceNum"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -46,19 +54,19 @@
             </Form-item>
             <Row>
               <Col span="11">
-              <Form-item label="安全管理员" prop="safeAdmin">
-                <Input v-model="ruleForm.safeAdmin"></Input>
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <Input v-model="ruleForm.safeAdministrator"></Input>
               </Form-item>
               <Form-item label="产权单位名称" prop="propertyComName">
                 <Input v-model="ruleForm.propertyComName"></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="安全管理员联系电话" prop="safeAdminTelephone">
-                <Input v-model="ruleForm.safeAdminTelephone"></Input>
+              <Form-item label="安全管理员联系电话" prop="mobilePhone">
+                <Input v-model="ruleForm.mobilePhone"></Input>
               </Form-item>
-              <Form-item label="产权单位联系电话" prop="propertyComTelephone">
-                <Input v-model="ruleForm.propertyComTelephone"></Input>
+              <Form-item label="产权单位联系电话" prop="propertyComPhone">
+                <Input v-model="ruleForm.propertyComPhone"></Input>
               </Form-item>
               </Col>
             </Row>
@@ -71,7 +79,7 @@
                   :key="index"
                   :label="'序号' + (index + 1)+'  '+'设备品种（名称）'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqVariety" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.deviceKind" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -99,7 +107,7 @@
                   :key="index"
                   :label="'设备使用地点'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqUseLocation" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -107,7 +115,7 @@
                   :key="index"
                   :label="'产品编号'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.productNum" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.productCode" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
                 <Col span="8">
@@ -115,7 +123,7 @@
                   :key="index"
                   :label="'停用注销报废原因'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.noUseReason" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.reasons" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
               </Row>
@@ -157,14 +165,14 @@
           <!--这个接口是尝试过成功的-->
           <Row style="width:1000px;">
             <Col span="10">
-            <Form-item label="社会信用代码证明" :label-width="200">
+            <Form-item label="产权单位的书面委托" :label-width="200">
               <Upload
                 ref="upload1"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -172,13 +180,13 @@
             </Form-item>
             </Col>
             <Col span="10" offset="4">
-            <Form-item label="个人身份证明" :label-width="200">
+            <Form-item label="产权单位的授权文件" :label-width="200">
               <Upload
                 ref="upload2"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileTypeId=1'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'"
                 :before-upload="handleBeforeUpload"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -236,26 +244,34 @@
   export default {
     data() {
       return {
+        pdfUrl: '',
+        pdfList: [],
+        pdf: '',
+        addressCode: '',
+        registCode:'',
+        deviceType:'',
+        acceptCom: '',
+        acceptComList: [],
         current: 0,
         ruleForm: {
-          declarationType: '',
-          noUseNum: '',
+          registKind: '',
+          deviceNum: '',
           useComName: '',
           useComAddr: '',
-          safeAdmin: '',
-          propertyComTelephone: '',
+          safeAdministrator: '',
+          propertyComPhone: '',
           subList: [],
-
+          mobilePhone:'',
         },
         formDynamicPres: {
           items: [
             {
-              eqVariety: '',
+              deviceKind: '',
               registCode: '',
               eqCode: '',
-              eqUseLocation: '',
-              productNum: '',
-              noUseReason: '',
+              eqUseAddr: '',
+              productCode: '',
+              reasons: '',
             }
           ]
         },
@@ -298,10 +314,13 @@
         "getterUserData",
       ]),
     },
+    mounted(){
+      this.initData();
+    },
     watch: {
       // 如果路由有变化，会再次执行该方法
       '$route.query': function () {
-        if (this.$route.path == '/stopUseApp') {
+        if (this.$route.path == '/disabledApp') {
           this.initData();
         }
       }
@@ -312,12 +331,12 @@
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({
-          eqVariety: '',
+          deviceKind: '',
           registCode: '',
           eqCode: '',
-          eqUseLocation: '',
-          productNum: '',
-          noUseReason: '',
+          eqUseAddr: '',
+          productCode: '',
+          reasons: '',
         });
         this.ruleForm.subList = this.formDynamicPres.items;
 
@@ -331,17 +350,35 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
+      chosenAccept(value){
+        this.propertyComCode = value.value;
+        this.propertyComName = value.label;
+      },
       setUserDetailData(){
+        this.addressCode = localStorage.getItem('addressCode');
         this.ruleForm.useComName = localStorage.getItem('useComName');
-        this.ruleForm.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-        console.log(this.ruleForm.useComName);
+        this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
+        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+        this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
+
+        if (localStorage.getItem('company') == 'true') {
+          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+          this.isCompany = true;
+          console.log( this.ruleForm.safeAdministrator)
+        } else {
+          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+          this.isCompany = false;
+        }
+
       },
       initData(){
         this.active = 1;
         this.current = 0;
         this.creatOrUpdate = false;
         this.defaultPdfList1 = [];
-        this.device_type = this.$route.query.device_type;
+        this.deviceCode=this.$route.query.deviceCode;
+        this.registCode=this.$route.query.registCode;
+        this.deviceType=this.$route.query.deviceType;
         this.uploadList = [
           {"url": ''}
         ];
@@ -349,25 +386,36 @@
         this.clearRuleForm();
         this.formDynamicPres.items = [
           {
-            eqVariety: '',
+            deviceKind: '',
             registCode: '',
             eqCode: '',
-            eqUseLocation: '',
-            productNum: '',
-            noUseReason: '',
+            eqUseAddr: '',
+            productCode: '',
+            reasons: '',
           }
         ];
         this.setUserDetailData();
+        let params = 'addressCode=' + this.addressCode;
+        setAppService.getAccpeter(params).then(res => {
+          this.acceptComList = [];
+          for (let i = 0, len = res.length; i < len; i++) {
+            this.acceptComList.push({value: res[i].id, label: res[i].name});
+          }
+        }).catch(error => {
+          console.log(error);
+        })
+
       },
       clearRuleForm(){
         this.ruleForm = {
-          declarationType: '',
-          noUseNum: '',
+          registKind: '',
+          deviceNum: '',
           useComName: '',
           useComAddr: '',
-          safeAdmin: '',
-          propertyComTelephone: '',
+          safeAdministrator: '',
+          propertyComPhone: '',
           subList: [],
+          mobilePhone:'',
         }
       },
       submit(submitParam){
@@ -406,28 +454,19 @@
       },
       makeParams(){
         let submitParam = {};
-        //提交表单1
-        this.ruleForm.eqSpecies = this.deviceCategoryId;
-        this.ruleForm.eqCategory = this.deviceClassId;
-        this.ruleForm.eqVariety = this.deviceClassTypeId;
-
-        submitParam.form5 = this.ruleForm;
-        //受理机关名称
-        submitParam.acceptorAgencyId = 1;
-        //设备类别
-        if (this.device_type) {
-          submitParam.deviceType = parseInt(this.device_type);
-        } else {
-          submitParam.deviceType = parseInt(this.$route.query.device_type);
-        }
+        submitParam.formList = [];
+        submitParam.formList.push(this.ruleForm);
+        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].formType = 7;
+        submitParam.deviceId=parseInt(this.deviceCode);
+        submitParam.registCode=this.registCode;
+        submitParam.deviceType=parseInt(this.deviceType);
         //报废申请
-        submitParam.applyType = 3;
+        submitParam.applyType = 4;
+        //登记证编号
+        submitParam.registCode = '';
         //提交设备类别等
-        submitParam.deviceCategory = this.deviceCategoryId;
-        submitParam.deviceClass = this.deviceClassId;
-        submitParam.deviceKind = this.deviceClassTypeId;
-        submitParam.deivceCode = this.ruleForm.eqCode;
-        submitParam.deivceName = this.ruleForm.eqName;
         return submitParam;
       },
       updateContent(formName) {
@@ -441,7 +480,7 @@
             let submitParam = {};
             this.ruleForm.eqSpecies = this.deviceCategoryId;
             this.ruleForm.eqCategory = this.deviceClassId;
-            this.ruleForm.eqVariety = this.deviceClassTypeId;
+            this.ruleForm.deviceKind = this.deviceClassTypeId;
             submitParam.form5 = this.ruleForm;
             submitParam.id = this.$route.query.applyId;
             submitParam.deviceClass = this.deviceClassId;
@@ -531,11 +570,16 @@
 
       },
       handleRemove(res, file) {
-        //res是移除的 file剩下的
-        console.log(res);
-        console.log(file);
-        this.uploadList.pop();
-        console.log(this.uploadList);
+        for (let i = 0; i < this.uploadList.length; i++) {
+          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+            this.uploadList.splice(i, 1);
+          }
+        }
+        if(this.uploadList.length==''){
+          this.uploadList = [
+            {"url": ''}
+          ];
+        }
 
       },
       handleBeforeUpload () {
@@ -551,6 +595,28 @@
         console.log(index);
         this.visible = true;
         this.pdf = this.pdfList[index];
+      },
+      instance (type) {
+        let params = 'applyId=' + this.applyId;
+        setAppService.confrimApp(params).then(res => {
+          if (res) {
+            const title = '通知';
+            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+            switch (type) {
+              case 'success':
+                this.$Modal.success({
+                  title: title,
+                  content: content
+                });
+                this.current++;
+                break;
+            }
+            this.$router.push('applyerList');
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
       },
 
     }
@@ -586,7 +652,8 @@
     background-color: white;
   }
 
-  .base-box {
+  .base-box,
+  .chooseAccept{
     margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
@@ -602,6 +669,11 @@
     background-color: white;
 
   }
+  .chooseAccept {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
 
   .header_one {
     text-align: center;

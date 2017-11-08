@@ -1,3 +1,4 @@
 
 export const CHANGE_BACK_TIME='CHANGE_BACK_TIME';
 
+export const CHANGE_INPUT_TIME='CHANGE_INPUT_TIME';

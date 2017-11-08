@@ -47,7 +47,7 @@
             <Row>
               <Col span="11"><!--wang-->
               <!--<label class="form_label_left">设备种类</label>-->
-              <Form-item label="设备种类" prop="deviceCategoryCode" class="fontsize" >
+              <Form-item label="设备种类" prop="deviceCategoryCode" class="fontsize">
                 <Select v-model="ruleForm.deviceCategoryCode" filterable @on-change="chosenDeviceCategory"
                         :label-in-value=true :disabled="true">
                   <Option v-for="item in deviceCategoryList" :value="item.value" :key="item.value">{{ item.label }}
@@ -233,7 +233,7 @@
                       填写使用单位对设备进行管理自行编制的设备内部编号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.eqComCode" style="width:118.11%" ></i-input>
+                  <i-input v-model="ruleForm.eqComCode" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -318,7 +318,7 @@
                       填写产权单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。如果和使用单位为同一单位，则在此栏中划“—”。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%;" disabled ></i-input>
+                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%;" disabled></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -1051,6 +1051,7 @@
         "getRegistOne",
         "getSelectedNum",
         "getterUserData",
+        "getInputTime"
       ]),
     },
 
@@ -1060,7 +1061,7 @@
 
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData'],
+        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData', 'changeInputTime'],
       ),
 
       printTrigger(elementId) {
@@ -1111,7 +1112,8 @@
         this.file8NameNum = 1;
         this.file9NameNum = 1;
         this.file10NameNum = 1;
-        this.ifDisabled=false;
+        this.ifDisabled = false;
+
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
@@ -1119,6 +1121,7 @@
           this.deviceClassList = [];
           this.deviceTypeList = [];
           this.setUserDetailData();
+
           if (this.$route.query.device_type < 3) {
             this.ruleForm.deviceCategoryCode = this.deviceCategoryList[parseInt(this.device_type) - 1].value + "";
           } else if (2 < this.$route.query.device_type < 7) {
@@ -1290,12 +1293,23 @@
           }
         });
       },
+      changeTime(time){
+        let newTime = new Date(time)
+        return newTime.getFullYear() + "年" + (parseInt(newTime.getMonth()) + 1) + "月" + newTime.getDate() + "日"
+
+      },
       makeParams(){
         let submitParam = {};
         //提交表单1
         this.ruleForm.deviceCategory = this.deviceCategoryId;
         this.ruleForm.deviceClass = this.deviceClassId;
         this.ruleForm.deviceKind = this.deviceClassTypeId;
+        this.changeInputTime(this.ruleForm.eqUseDate);
+        this.ruleForm.eqUseDate = this.getInputTime;
+        this.changeInputTime(this.ruleForm.testDate);
+        this.ruleForm.testDate = this.getInputTime;
+        this.changeInputTime(this.ruleForm.nextTestDate);
+        this.ruleForm.nextTestDate = this.getInputTime;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
@@ -1332,19 +1346,18 @@
             this.ruleForm.deviceCategory = this.deviceCategoryId;
             this.ruleForm.deviceClass = this.deviceClassId;
             this.ruleForm.deviceKind = this.deviceClassTypeId;
+            this.changeInputTime(this.ruleForm.eqUseDate);
+            this.ruleForm.eqUseDate = this.getInputTime;
+            this.changeInputTime(this.ruleForm.testDate);
+            this.ruleForm.testDate = this.getInputTime;
+            this.changeInputTime(this.ruleForm.nextTestDate);
+            this.ruleForm.nextTestDate = this.getInputTime;
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 1;
             submitParam.id = this.$route.query.applyId;
-//
-//            submitParam.deviceClass = this.deviceClassId;
-//            submitParam.deviceKind = this.deviceClassTypeId;
-//            submitParam.eqComCode = this.ruleForm.eqComCode;
-//            submitParam.eqCode = this.ruleForm.eqCode;
-
             setAppService.updateSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
@@ -1464,7 +1477,12 @@
             this.uploadList.splice(i, 1);
           }
         }
-        console.log(this.uploadList)
+        if(this.uploadList.length==''){
+          this.uploadList = [
+            {"url": ''}
+          ];
+        }
+
 
       },
       handleBeforeUpload () {
@@ -1519,7 +1537,7 @@
                 this.current++;
                 break;
             }
-            this.$router.push('home');
+            this.$router.push('applyerList');
           }
         }).catch(error => {
           console.log(error);
