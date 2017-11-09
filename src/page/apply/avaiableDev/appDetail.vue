@@ -58,7 +58,13 @@
 
       <div class="setTable">
         <h2 class="detailHead">三、特种设备使用登记表：</h2>
-        <iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>
+        <!--<iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>-->
+        <ul class="detail_ul">
+          <li v-for="(item,key,index) in this.registPdfUrl" class="detail_li" style="width:800px;height:1000px;">
+            <a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
+            <embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>
+          </li>
+        </ul>
       </div>
       <div class="pdfdownload">
         <h2 class="detailHead">四、提交的资料：</h2>
@@ -93,12 +99,9 @@
     <div class="appro_form" v-if="this.showPrintCard==true" style="position:absolute;top:85px;">
       <div class="print_page">
         <h2>签发使用登记证</h2>
-        <!--<ul class="detail_ul">-->
-        <!--<li v-for="(item,key,index) in registPdfUrl" class="detail_li">-->
-        <!--{{item}}{{this.registPdfUrl}}-->
-        <!--<embed  id="iFramePdf" v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
 
-        <iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>
+        <!--<iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>-->
+
         <!--</li>-->
         <!--</ul>-->
 
@@ -116,7 +119,6 @@
 <script>
 
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import regist_one from '../../../components/register/registerOne.vue'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as appDetailService from '../../../services/appDetailService'
 
@@ -191,7 +193,7 @@
       _this.initData();
     },
     methods: {
-      ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
+      ...mapActions({}),
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
@@ -220,10 +222,12 @@
 
           } else if (res.data.forms["特种设备使用登记表三"]) {
             this.fileId = res.data.forms["特种设备使用登记表三"];
+          }else if(res.data.forms["特种设备停用注销报废登记表"]){
+            this.fileId = res.data.forms["特种设备停用注销报废登记表"];
           }
 
-          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-
+//          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+          this.registPdfUrl=res.data.forms;
           this.pdfUrl = res.data.files;
 
           if (res.data.status.states == "已受理待审批") {
@@ -289,16 +293,16 @@
         }
 
       },
-      toblanck(index){
-        //this.$router.push('regist_one');
-        this.$router.push({
-          path: 'regist_one',
-          query: {
-            index: index,
-//            selectedNum: this.getSelectedNum,
-          }
-        });
-      },
+//      toblanck(index){
+//        //this.$router.push('regist_one');
+//        this.$router.push({
+//          path: 'regist_one',
+//          query: {
+//            index: index,
+////            selectedNum: this.getSelectedNum,
+//          }
+//        });
+//      },
       //受理通过
       accPass(){
         this.$Modal.confirm({
@@ -542,11 +546,10 @@
     computed: {
       ...mapState(['registOne']),
       ...mapGetters([
-        "getRegistOne",
       ]),
     },
     components: {
-      'v_regist_one': regist_one,
+//      'v_regist_one': regist_one,
       'v-detailPdf': detailPdf,
 
     },

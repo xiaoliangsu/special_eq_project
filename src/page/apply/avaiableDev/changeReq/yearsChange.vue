@@ -5,7 +5,7 @@
       <h2></h2>
       <div class="statusInfo" v-if="this.active==1">
         <h2>达到设计使用年限变更</h2>
-        <h2>设备基本情况</h2>        
+        <h2>设备基本情况</h2>
         <Form-item label="设备种类" prop="eq_species">
           <Input v-model="ruleForm.eq_species" placeholder="请输入设备种类"></Input>
         </Form-item>
@@ -130,7 +130,7 @@
       <!--提交pdf 可能需要调一下格式，以后再说吧-->
       <div class="pdfInfo" v-if="this.active==2">
         <h2>相关证明</h2>
- 
+
         <Form-item label="原使用登记证" :label-width="300">
           <Upload action="//jsonplaceholder.typicode.com/posts/"
                   :on-success="handleSuccess"
@@ -138,7 +138,7 @@
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
           </Upload>
         </Form-item>
-        
+
         <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
         <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
       </div>
@@ -151,11 +151,11 @@
       <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
       <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">重置</Button>
       <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active<2">保存</Button>
-    </Form> 
+    </Form>
   </div>
 </template>
 <script>
-  import regist_one from '../../../../components/register/registerOne.vue'
+  //import regist_one from '../../../../components/register/registerOne.vue'
   import detailPdf from '../../../../components/detailpdf/detailPdf.vue'
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../../../services/setApp'

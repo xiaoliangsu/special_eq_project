@@ -538,9 +538,6 @@
   </div>
 </template>
 <script>
-  import regist_two from '../../components/register/registerTwo.vue'
-  import cylinders_form from '../../components/register/cylindersForm.vue'
-  import pressure_form from '../../components/register/pressureForm.vue'
 
 
   import detailPdf from '../../components/detailpdf/detailPdf.vue'
@@ -782,9 +779,9 @@
       };
     },
     components: {
-      'v-regist-two': regist_two,
-      'v-cylinders-form': cylinders_form,
-      'v-pressure-form': pressure_form,
+//      'v-regist-two': regist_two,
+//      'v-cylinders-form': cylinders_form,
+//      'v-pressure-form': pressure_form,
       //'v-detailPdf': detailPdf,
 
     },
@@ -801,7 +798,6 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistTwo",
         "getterUserData",
       ]),
     },
@@ -810,7 +806,7 @@
       this.author_key = localStorage.getItem('author_key');
     },
     methods: {
-      ...mapActions({clearRegistTwoForm: 'clearRegistTwoForm'}),
+      ...mapActions({}),
 
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);

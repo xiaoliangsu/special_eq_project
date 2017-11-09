@@ -563,7 +563,7 @@
         this.$router.push({
           path: 'deviceDetail',
           query: {
-            deviceCode: this.data5[value].id,
+            deviceId: this.data5[value].id,
           }
         });
 

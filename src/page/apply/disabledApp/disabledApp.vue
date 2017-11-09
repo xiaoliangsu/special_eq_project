@@ -328,7 +328,7 @@
     },
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData'],
+        [ 'getUserData'],
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({

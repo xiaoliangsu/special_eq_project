@@ -16,7 +16,7 @@
   import footer from "./components/footer/footer.vue"
   import login from './page/login/login.vue'
   import manage from './page/manage.vue'
-  import test from './page/test/test.vue'
+//  import test from './page/test/test.vue'
   import {mapGetters, mapState, mapActions} from 'vuex'
 
 
@@ -30,7 +30,7 @@
       'v-login': login,
       'v-footer': footer,
       'v-manage': manage,
-      'v-test': test
+//      'v-test': test
     },
     data () {
       return {

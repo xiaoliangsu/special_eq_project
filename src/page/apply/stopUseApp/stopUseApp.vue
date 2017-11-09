@@ -250,7 +250,6 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistOne",
         "getSelectedNum",
         "getterUserData",
       ]),
@@ -268,7 +267,7 @@
     },
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData'],
+        ['getUserData'],
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({

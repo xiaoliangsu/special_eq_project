@@ -173,7 +173,7 @@
 <script>
   import header from '../header/header.vue'
   import footer from "../footer/footer.vue"
-  import sidebar from '../sidebar/sidebar.vue'
+//  import sidebar from '../sidebar/sidebar.vue'
   import breadCrumb from '../breadCrumb/breadCrumb.vue'
   //import login from '../../page/login/login.vue'
 
@@ -204,7 +204,7 @@
     components: {
       VLogin,
       'v-header': header,
-      'v-sidebar': sidebar,
+//      'v-sidebar': sidebar,
       'v-footer': footer,
       'v-breadCrumb':breadCrumb,
 

@@ -23,12 +23,12 @@ const Test = r => require.ensure([], () => r(require('../page/test/test.vue')), 
 //import Manage from "../page/manage.vue"
 const Manage = r => require.ensure([], () => r(require('../page/manage.vue')), 'Manage');
 //import Sidebar from "../components/sidebar/sidebar.vue"
-const Sidebar = r => require.ensure([], () => r(require('../components/sidebar/sidebar.vue')), 'Sidebar');
+// const Sidebar = r => require.ensure([], () => r(require('../components/sidebar/sidebar.vue')), 'Sidebar');
 //import User from "../page/user/user.vue"
 const User = r => require.ensure([], () => r(require('../page/user/user.vue')), 'User');
 
 //import FirstApp from "../page/apply/firstApp.vue"
-const FirstApp = r => require.ensure([], () => r(require('../page/apply/firstApp.vue')), 'FirstApp');
+// const FirstApp = r => require.ensure([], () => r(require('../page/apply/firstApp.vue')), 'FirstApp');
 
 const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLast.vue')), 'NewOrLast');
 
@@ -39,7 +39,6 @@ const DisabledApp = r => require.ensure([], () => r(require('../page/apply/disab
 
 // const WaitAcceptList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitAcceptList.vue')), 'WaitAcceptList');
 // const WaitCheckList = r => require.ensure([], () => r(require('../page/apply/orderStatus/waitCheckList.vue')), 'WaitCheckList');
-const FinishList = r => require.ensure([], () => r(require('../page/apply/orderStatus/finishList.vue')), 'FinishList');
 const ApplyerList = r => require.ensure([], () => r(require('../page/apply/orderStatus/applyerList.vue')), 'ApplyerList');
 const UnSubmitOrder = r => require.ensure([], () => r(require('../page/apply/orderStatus/unSubmitOrder.vue')), 'UnSubmitOrder');
 
@@ -54,23 +53,12 @@ const ChangeReq = r => require.ensure([], () => r(require('../page/apply/avaiabl
 const AppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/appDetail.vue')), 'AppDetail');
 const DeviceDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/deviceDetail.vue')), 'DeviceDetail');
 
-const ComAppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/comAppDetail.vue')), 'ComAppDetail');
-const CarboxAppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/carboxAppDetail.vue')), 'CarboxAppDetail');
 
 
 //import WaitAccept from "../page/accept/waitAccept.vue"
 const WaitAccept = r => require.ensure([], () => r(require('../page/accept/waitAccept.vue')), 'WaitAccept');
 
 //import Regist_One from "../page/print/regist_one.vue"
-const Regist_One = r => require.ensure([], () => r(require('../page/print/regist_one.vue')), 'Regist_One');
-const Regist_Two = r => require.ensure([], () => r(require('../page/print/regist_two.vue')), 'Regist_Two');
-const Regist_Three = r => require.ensure([], () => r(require('../page/print/regist_three.vue')), 'Regist_Three');
-const Disabled_Form = r => require.ensure([], () => r(require('../page/print/disabled_form.vue')), 'Disabled_Form');
-const Disabled_Form2 = r => require.ensure([], () => r(require('../page/print/disabled_form2.vue')), 'Disabled_Form2');
-const Cylinders_Form = r => require.ensure([], () => r(require('../page/print/cylinders_form.vue')), 'Cylinders_Form');
-const Pressure_Form = r => require.ensure([], () => r(require('../page/print/pressure_form.vue')), 'Pressure_Form');
-const ChangeReq_Form = r => require.ensure([], () => r(require('../page/print/changeReq_form.vue')), 'ChangeReq_Form');
-
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
@@ -107,18 +95,11 @@ const router = new VueRouter({
     {path: "/acceptRegist", component:AcceptRegist},
     //{path: "/home", component: Home},
 
-    {path: '/sidebar', component: Sidebar},
+    // {path: '/sidebar', component: Sidebar},
     {path: "/header", component: Header},
     {path: "/footer", component: Footer},
     {path: "/manage", component: Manage},
-    {path: "/regist_One", component: Regist_One},
-    {path: "/regist_Two", component: Regist_Two},
-    {path: "/regist_Three", component: Regist_Three},
-    {path: "/disabled_form", component: Disabled_Form},
-    {path: "/disabled_form2", component: Disabled_Form2},
-    {path: "/cylinders_Form", component: Cylinders_Form},
-    {path: "/pressure_Form", component: Pressure_Form},
-    {path: "/changeReq_Form", component: ChangeReq_Form},
+
 
 
     {
@@ -133,11 +114,11 @@ const router = new VueRouter({
 
         {path: "/user", component: User,
           meta: [ '个人中心']},
-        {
-          path: "/firstApp", component: FirstApp,
-          // 添加该字段，表示进入这个路由是需要登录的
-          // meta: {requireAuth: true},
-        },
+        // {
+        //   path: "/firstApp", component: FirstApp,
+        //   // 添加该字段，表示进入这个路由是需要登录的
+        //   // meta: {requireAuth: true},
+        // },
         {path: "/newOrLast", component: NewOrLast,
           meta: [ '申请类别','首次申请'],},
         {path: "/setApp", component: SetApp,
@@ -154,8 +135,7 @@ const router = new VueRouter({
 
         // {path: "/waitAcceptList", component: WaitAcceptList},
         // {path: "/waitCheckList", component: WaitCheckList},
-        {path: "/finishList", component: FinishList,
-          meta: ['受理申请发证情况', '已受理申请']},
+
         {path: "/applyerList", component: ApplyerList,
           meta: [ '受理申请发证情况', '受理中申请']},
         {path: "/unSubmitOrder", component: UnSubmitOrder,
@@ -168,8 +148,7 @@ const router = new VueRouter({
           meta: ['申请详情']},
         {path: "/deviceDetail", component: DeviceDetail,
           meta: ['设备详情']},
-        {path: "/comAppDetail", component: ComAppDetail},
-        {path: "/carboxAppDetail", component: CarboxAppDetail},
+
 
 
         {path: "/waitAccept", component: WaitAccept,

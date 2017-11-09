@@ -689,13 +689,12 @@
   </div>
 </template>
 <script>
-  import regist_one from '../../components/register/registerOne.vue'
   import detailPdf from '../../components/detailpdf/detailPdf.vue'
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
   import * as registService from '../../services/registService'
   //import breadCrumb from '../../components/breadCrumb/breadCrumb.vue'
-  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
+//  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
   export default {
     data() {
       return {
@@ -1034,8 +1033,8 @@
       };
     },
     components: {
-      VBreadCrumb,
-      'v-regist_one': regist_one,
+
+//      'v-regist_one': regist_one,
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
@@ -1049,7 +1048,6 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistOne",
         "getSelectedNum",
         "getterUserData",
         "getInputTime"
@@ -1062,7 +1060,7 @@
 
     methods: {
       ...mapActions(
-        ['clearRegistOneForm', 'setRegistOneForm', 'getUserData', 'changeInputTime'],
+        ['getUserData', 'changeInputTime'],
       ),
 
       printTrigger(elementId) {

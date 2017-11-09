@@ -51,7 +51,6 @@
 <script>
 
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import regist_one from '../../../components/register/registerOne.vue'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as avaivbleService from '../../../services/avaiableDev.js'
 
@@ -100,7 +99,8 @@
         acceptorAgencyName: '',
         comTablePerson: '',
         registCode: '',
-        logs:[{applyType:'首次申请',applyId:'1073'},{applyType:"变更申请",applyId:'1073'}],
+        logs:[],
+        useComName:'',
 
       }
     },
@@ -110,7 +110,7 @@
       _this.initData();
     },
     methods: {
-      ...mapActions({getRegistOneForm: 'getRegistOneForm'}),
+      ...mapActions({}),
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
@@ -123,62 +123,30 @@
         this.active = 0;
         this.approvalStatus = '';
 
-        let params = 'deviceCode=' + this.$route.query.deviceCode;
+        let params = 'deviceId=' + this.$route.query.deviceId;
         avaivbleService.getDetailOrder(params).then(res => {
-          if (res.data.formList[0].useComName) {
-            this.useComName = res.data.formList[0].useComName;
+          if (res.data.useComName) {
+            this.useComName = res.data.useComName;
           }
-          this.deviceCategory = res.data.formList[0].deviceCategory;
-          this.deviceClass = res.data.formList[0].deviceClass;
-          this.deviceKind = res.data.formList[0].deviceKind;
-          this.eqCode = res.data.formList[0].eqCode;
-          this.eqComCode = res.data.formList[0].eqComCode;
-          this.registCode = res.data.formList[0].registCode;
-          this.acceptorAgencyName = res.data.formList[0].acceptorAgencyName;
-          this.eqComCode = res.data.formList[0].eqComCode;
+          this.deviceCategory = res.data.deviceCategory;
+          console.log(this.deviceCategory)
+          this.deviceClass = res.data.deviceClass;
+          this.deviceKind = res.data.deviceKind;
+          this.eqCode = res.data.eqCode;
+          this.eqComCode = res.data.eqComCode;
+          this.registCode = res.data.registCode;
+          this.acceptorAgencyName = res.data.acceptorAgencyName;
+          this.eqComCode = res.data.eqComCode;
           this.logs=res.data.logs;
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
-          if (res.data.forms["特种设备使用登记表二"]) {
-            this.fileId = res.data.forms["特种设备使用登记表二"];
-          } else if (res.data.forms["特种设备使用登记表一"]) {
-            this.fileId = res.data.forms["特种设备使用登记表一"];
-
-          } else {
-            this.fileId = res.data.forms["特种设备使用登记表三"];
-
-          }
-
-          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-
-          this.pdfUrl = res.data.forms;
-
-          if (res.data.status.states === "已受理待审批") {
-            this.accStatus = true;
-            this.accReason = "已受理通过";
-          } else if (res.data.status.states === "受理驳回") {
-            this.accStatus = false;
-            this.accReason = res.data.status.acceptedComments || "受理驳回";
-          }
-          if (res.data.status.states === "已审批通过") {
-            this.approvalStatus = true;
-            this.approvalReason = "已审批通过";
-            this.accStatus = true;
-            this.accReason = "已受理通过";
-          } else if (res.data.status.states === "审批驳回") {
-            this.approvalStatus = false;
-            this.approvalReason = res.data.status.approveComments || "审批驳回";
-            this.accStatus = true;
-            this.accReason = "已受理通过";
-          }
 
         }).catch(error => {
           console.log(error)
         })
 
-        this.unAcceptedContent = '';
-        this.approvalRejValue = '';
+
 
       },
 
@@ -209,11 +177,10 @@
     computed: {
       ...mapState(['registOne']),
       ...mapGetters([
-        "getRegistOne",
       ]),
     },
     components: {
-      'v_regist_one': regist_one,
+//      'v_regist_one': regist_one,
       'v-detailPdf': detailPdf,
 
     },

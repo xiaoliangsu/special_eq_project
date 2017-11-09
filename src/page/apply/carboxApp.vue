@@ -545,12 +545,11 @@
   </div>
 </template>
 <script>
-  import regist_three from '../../components/register/registerThree.vue'
   import detailPdf from '../../components/detailpdf/detailPdf.vue'
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
   import * as registService from '../../services/registService'
-  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
+//  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
 
   export default {
     data() {
@@ -810,8 +809,7 @@
       };
     },
     components: {
-      VBreadCrumb,
-      'v-regist_three': regist_three,
+//      'v-regist_three': regist_three,
       //'v-detailPdf': detailPdf,
 
     },
@@ -831,7 +829,6 @@
       //...mapState(['selectedOption']),
       ...mapGetters([
         "getSelectedOption",
-        "getRegistThree",
         "getSelectedNum",
         "getterUserData",
         "getInputTime"
@@ -843,7 +840,7 @@
     },
     methods: {
       ...mapActions(
-        ['clearRegistThreeForm', 'setRegistThreeForm','changeInputTime'],
+        ['changeInputTime'],
       ),
       handleAddPres () {
         this.formDynamicPres.items.push({
