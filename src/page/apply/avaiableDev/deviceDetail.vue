@@ -110,7 +110,7 @@
       _this.initData();
     },
     methods: {
-      ...mapActions({}),
+      ...mapActions([ 'changeBackTime'],),
       printTrigger(elementId) {
         var getMyFrame = document.getElementById(elementId);
         getMyFrame.focus();
@@ -138,6 +138,14 @@
           this.acceptorAgencyName = res.data.acceptorAgencyName;
           this.eqComCode = res.data.eqComCode;
           this.logs=res.data.logs;
+          for(let i=0;i<this.logs.length;i++){
+            console.log(this.logs[i].updateTime)
+//            this.logs.updateTime=this.changeTime(this.logs.updateTime);
+            this.changeBackTime( this.logs[i].updateTime);
+            this.logs[i].updateTime=this.getBackTime;
+            console.log(this.logs[i].updateTime)
+          }
+
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
@@ -147,6 +155,11 @@
         })
 
 
+
+      },
+      changeTime(time){
+        return [time[0].getFullYear() + "-" + (parseInt(time[0].getMonth()) + 1) + "-" + time[0].getDate(),
+          time[1].getFullYear() + "-" + (parseInt(time[1].getMonth()) + 1) + "-" + time[1].getDate()]
 
       },
 
@@ -177,6 +190,7 @@
     computed: {
       ...mapState(['registOne']),
       ...mapGetters([
+        "getBackTime"
       ]),
     },
     components: {

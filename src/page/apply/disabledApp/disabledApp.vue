@@ -158,7 +158,7 @@
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
 
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
 
         </div>
         <div class="pdfInfo" v-if="this.active==3">
@@ -612,7 +612,12 @@
                 this.current++;
                 break;
             }
-            this.$router.push('applyerList');
+            this.$router.push({
+              path: 'devList',
+              query: {
+                apply_state: "4",
+              }
+            });
           }
         }).catch(error => {
           console.log(error);

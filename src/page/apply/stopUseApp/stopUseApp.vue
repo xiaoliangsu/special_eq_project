@@ -504,7 +504,13 @@
                 this.current++;
                 break;
             }
-            this.$router.push('applyerList');
+            this.$router.push({
+              path: 'devList',
+              query: {
+                apply_state: "3",
+              }
+            });
+//            this.$router.push('devList');
           }
         }).catch(error => {
           console.log(error);
