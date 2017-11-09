@@ -441,7 +441,9 @@
       font-size: 29px;
       color: #FFFFFF;
       font-weight:bold;
+      margin-left:20%;
     }
+
   }
 
   .form_contianer {

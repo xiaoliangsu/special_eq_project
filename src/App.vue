@@ -61,7 +61,7 @@
       z-index: 1;
       background-repeat: no-repeat;
       background-image:url('assets/demo-1-bg.jpg');
-height:100%;
+      height:100%;
 
   }
 

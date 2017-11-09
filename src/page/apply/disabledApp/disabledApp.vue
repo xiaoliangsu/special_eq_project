@@ -47,27 +47,27 @@
               </Col>
             </Row>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName"></Input>
+              <Input v-model="ruleForm.useComName" disabled></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr"></Input>
+              <Input v-model="ruleForm.useComAddr" disabled></Input>
             </Form-item>
             <Row><!--wang-->
               <Col span="11">
               <Form-item label="安全管理员" prop="safeAdministrator">
-                <Input v-model="ruleForm.safeAdministrator"></Input>
+                <Input v-model="ruleForm.safeAdministrator" disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="安全管理员联系电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone"></Input>
+                <Input v-model="ruleForm.mobilePhone" disabled></Input>
               </Form-item>
               </Col>
             </Row>
             <Row>
               <Col span="11">
               <Form-item label="产权单位名称" prop="propertyComName">
-                <Input v-model="ruleForm.propertyComName"></Input>
+                <Input v-model="ruleForm.propertyComName" disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
@@ -79,7 +79,7 @@
 
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="140"
                   v-for="(item, index) in formDynamicPres.items"
-                  :key="item.id" inline><!--wang-->
+                  :key="item.id" inline class="formDynamicPres"><!--wang-->
               <Row>
                 <Col span="11">
                 <FormItem
@@ -129,16 +129,15 @@
                 </FormItem>
                 </Col>
               </Row>
+
               <FormItem>
 
-                <Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>
-              </FormItem>
-              <FormItem>
-
-                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
+                <Button type="warning"  style="margin-left:500%;"  @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
+            <Button type="primary" long @click="handleAddPres" icon="plus-round" >新增</Button>
+
 
 
           </div>
@@ -656,7 +655,7 @@
   /*wang*/
   .base-box,
   .chooseAccept{
-    margin-left: 140px;
+    margin-left: 8%;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -788,6 +787,9 @@
     font-size: 20px;
     cursor: pointer;
     margin: 0 2px;
+  }
+  .formDynamicPres{
+    border:1px solid rgba(0, 0, 0, .2);
   }
 
 </style>

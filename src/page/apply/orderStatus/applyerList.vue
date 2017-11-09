@@ -84,29 +84,14 @@
         ],
         sort: [
           {
-            value: '0',
+            value: '1',
             label: '首次申请'
           },
           {
-            value: '1',
-            label: '改造变更'
+            value: '2',
+            label: '变更申请'
           },
-          {
-            value: '1',
-            label: '移装变更'
-          },
-          {
-            value: '1',
-            label: '单位变更'
-          },
-          {
-            value: '1',
-            label: '更名变更'
-          },
-          {
-            value: '1',
-            label: '达到设计年限变更'
-          },
+
           {
             value: '3',
             label: '停用申请'
@@ -114,6 +99,10 @@
           {
             value: '4',
             label: '报废申请'
+          },
+          {
+            value: '5',
+            label: '停用后启用申请'
           },
         ],
         //申请状态
@@ -141,7 +130,7 @@
           },
           {
             title: '单位内编号',
-            key: 'comCode',
+            key: 'eqComCode',
             width: 120,
           },
           {

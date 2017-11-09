@@ -670,7 +670,7 @@
           <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
 
           <!--<Button type="primary" @click="before()" v-if="this.active==1">上一步</Button>-->
-          <Button @click="instance('success')" v-if="this.active==3">确认提交</Button>
+          <Button @click="instance('success')" v-if="this.active==3" type="success">确认提交</Button>
 
 
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->

@@ -135,23 +135,24 @@
         ],
         sort: [
           {
-            value: '0',
+            value: '1',
             label: '首次申请'
           },
           {
-            value: '1',
+            value: '2',
             label: '变更申请'
           },
+
           {
-            value: '2',
+            value: '3',
             label: '停用申请'
           },
           {
-            value: '3',
+            value: '4',
             label: '报废申请'
           },
           {
-            value: '4',
+            value: '5',
             label: '停用后启用申请'
           },
         ],
@@ -191,7 +192,7 @@
           },
           {
             title: '单位内编号',
-            key: 'comCode',
+            key: 'eqComCode',
           },
           {
             title: '申请类别',
@@ -233,7 +234,7 @@
                       this.appDetail(params.index)
                     }
                   }
-                }, '审查'),
+                }, '审批'),
 
               ]);
 

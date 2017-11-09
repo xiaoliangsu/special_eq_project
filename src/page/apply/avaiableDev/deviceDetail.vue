@@ -35,7 +35,7 @@
         <ul>
         <li v-for="(item,key,index) in this.logs" style="margin-bottom:10px;">
           <p class="applyTypeHead">{{key+1}}、 {{item.applyType}}</p>
-          <p class="applyTypeContent"> 申请时间:{{item.applyType}}</p>
+          <p class="applyTypeContent"> 申请时间:{{item.updateTime}}</p>
           <Button type="primary" style="margin:10px;" @click="appDetail(item.applyId)">查看{{item.applyType}}详情</Button>
 
 
@@ -136,6 +136,7 @@
           this.registCode = res.data.formList[0].registCode;
           this.acceptorAgencyName = res.data.formList[0].acceptorAgencyName;
           this.eqComCode = res.data.formList[0].eqComCode;
+          this.logs=res.data.logs;
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 

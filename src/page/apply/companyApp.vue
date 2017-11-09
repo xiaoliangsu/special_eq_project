@@ -348,7 +348,7 @@
         <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
         <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
         <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-        <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
+        <Button @click="instance('success')" v-if="this.active==4"  type="success">确认提交</Button>
         <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
         <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
@@ -698,7 +698,7 @@
           },
           {
             title: '单位内编号',
-            key: 'createTime',
+            key: 'eqComCode',
             sortable: true
           },
           {

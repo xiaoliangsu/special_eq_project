@@ -16,8 +16,8 @@
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
-        <div class="statusInfo" v-if="this.active==1">
+      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >
+        <div class="statusInfo" v-if="this.active==1" style="margin-bottom:20px;">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
             <FormItem label="登记机关">
@@ -46,27 +46,27 @@
               </Col>
             </Row>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName"></Input>
+              <Input v-model="ruleForm.useComName"  disabled></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr"></Input>
+              <Input v-model="ruleForm.useComAddr"  disabled></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="安全管理员" prop="safeAdministrator">
-                <Input v-model="ruleForm.safeAdministrator"></Input>
+                <Input v-model="ruleForm.safeAdministrator"  disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="安全管理员联系电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone"></Input>
+                <Input v-model="ruleForm.mobilePhone"  disabled></Input>
               </Form-item>
               </Col>
             </Row>
             <Row>
               <Col span="11">
               <Form-item label="产权单位名称" prop="propertyComName">
-                <Input v-model="ruleForm.propertyComName"></Input>
+                <Input v-model="ruleForm.propertyComName"  disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
@@ -78,14 +78,14 @@
 
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="140"
                   v-for="(item, index) in formDynamicPres.items"
-                  :key="item.id" inline>
+                  :key="item.id" inline class="formDynamicPres">
               <Row>
                 <Col span="11">
                 <FormItem
                   :key="index"
                   :label="'序号' + (index + 1)+'  '+'设备品种（名称）'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.deviceKind" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.deviceKind" placeholder="请输入设备品种（名称）."></Input>
                 </FormItem>
                 </Col>
                 <Col span="11" offset="2">
@@ -94,7 +94,7 @@
                   :key="index"
                   :label="'使用登记证编号'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.registCode" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.registCode" placeholder="请输入使用登记证编号"></Input>
                 </FormItem>
                 </Col>
               </Row>
@@ -104,13 +104,13 @@
                   :key="index"
                   :label="'设备代码'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqCode" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.eqCode" placeholder="请输入设备代码"></Input>
                 </FormItem>
                 <FormItem
                   :key="index"
                   :label="'产品编号'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.productCode" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.productCode" placeholder="请输入产品编号"></Input>
                 </FormItem>
                 </Col>
                 <Col span="11" offset="2">
@@ -118,26 +118,24 @@
                   :key="index"
                   :label="'设备使用地点'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入设备使用地点"></Input>
                 </FormItem>
                 <FormItem
                   :key="index"
                   :label="'停用注销报废原因'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.reasons" placeholder="请输入..."></Input>
+                  <Input type="text" v-model="item.reasons" placeholder="请输入停用注销报废原因"></Input>
                 </FormItem>
                 </Col>
               </Row>
               <FormItem>
 
-                <Button type="dashed" long @click="handleAddPres" icon="plus-round">新增</Button>
-              </FormItem>
-              <FormItem>
-
-                <Button type="ghost" @click="handleRemovePres(index)">删除</Button>
+                <Button type="warning"  style="margin-left:500%;" @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
+            <Button type="primary" long @click="handleAddPres" icon="plus-round" style="margin-bottom:20px;">新增</Button>
+
 
 
           </div>
@@ -158,7 +156,7 @@
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
 
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button @click="instance('success')" v-if="this.active==2">确认提交</Button>
+          <Button @click="instance('success')" v-if="this.active==2" type="success">确认提交</Button>
 
 
         </div>
@@ -545,7 +543,7 @@
 
   .base-box ,
   .chooseAccept {
-    margin-left: 140px;
+    margin-left: 8%;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -579,6 +577,9 @@
   .chooseAccept {
     padding-bottom: 10px;
     margin-bottom: 10px;
+  }
+  .formDynamicPres{
+    border:1px solid rgba(0, 0, 0, .2);
   }
 
 
