@@ -457,8 +457,9 @@
           <!--name="Submit" id="printbtn"-->
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
+          <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
+
 
 
         </div>
@@ -1162,6 +1163,17 @@
 //          this.setUserDetailData();
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
+          this.setUserDetailData();
+          let params = 'addressCode=' + this.addressCode;
+          setAppService.getAccpeter(params).then(res => {
+            this.acceptComList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.acceptComList.push({value: res[i].id, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
+
         }).catch(error => {
           console.log(error)
         })

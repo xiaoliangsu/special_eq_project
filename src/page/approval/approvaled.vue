@@ -256,7 +256,6 @@
                 h('Button', {
                   props: {
                     type: 'primary',
-                    size: 'small'
                   },
                   style: {
                     marginRight: '5px',
@@ -294,7 +293,7 @@
         currentPage: 1,
         //申请id
         applyId: '',
-        eqCode:'',
+        eqCode: '',
         deviceType: [],
         currentPage: 1,
 
@@ -328,7 +327,7 @@
       initData(){
         this.time = ['', ''];
         this.applyType = '';
-        this.deviceType=[];
+        this.deviceType = [];
         this.currentPage = 1;
         let waitAccparams = {
           page: 0,
@@ -354,13 +353,13 @@
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
                 this.changeBackTime(res.data.content[i].status.applyAcceptDate);
-                this.data5[i].applyAcceptDate=this.getBackTime;
+                this.data5[i].applyAcceptDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate=this.getBackTime;
+                this.data5[i].acceptTellDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.approvalDate);
-                this.data5[i].approvalDate=this.getBackTime;
+                this.data5[i].approvalDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.unApprovalDate);
-                this.data5[i].unApprovalDate=this.getBackTime;
+                this.data5[i].unApprovalDate = this.getBackTime;
               }
             } else {
               this.data5 = [];
@@ -397,13 +396,13 @@
                 this.data5 = [res.data];
                 this.data5[0].state = res.data.status.states;
                 this.changeBackTime(res.data.content[i].status.applyAcceptDate);
-                this.data5[i].applyAcceptDate=this.getBackTime;
+                this.data5[i].applyAcceptDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate=this.getBackTime;
+                this.data5[i].acceptTellDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.approvalDate);
-                this.data5[i].approvalDate=this.getBackTime;
+                this.data5[i].approvalDate = this.getBackTime;
                 this.changeBackTime(res.data.content[i].status.unApprovalDate);
-                this.data5[i].unApprovalDate=this.getBackTime;
+                this.data5[i].unApprovalDate = this.getBackTime;
                 this.num = res.data.length;
 
               }
@@ -448,56 +447,67 @@
       },
 
       appDetail(value){
-//    switch (this.data5[value].changeApplyNum) {
-        switch (this.data5[value].applyType) {
-
-          case "首次申请":
-            //首次申请
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                applyId: this.data5[value].id,
-                orderState: 'approvaled'
-              }
-            });
-            break;
-          case 2:
-            //改造变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          case 3:
-            //移装变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          case 4:
-            //单位变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          ////等等
-
+        if (this.data5[value].applyType == "首次申请" || this.data5[value].applyType == "停用申请" || this.data5[value].applyType == "报废申请" ||
+          this.data5[value].applyType == "停用后启用") {
+          this.$router.push({
+            path: 'appDetail',
+            query: {
+              applyId: this.data5[value].id,
+              orderState: 'approvaled'
+            }
+          });
 
         }
+//    switch (this.data5[value].changeApplyNum) {
+//        switch (this.data5[value].applyType) {
+//
+//          case "首次申请":
+//            //首次申请
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                applyId: this.data5[value].id,
+//                orderState: 'approvaled'
+//              }
+//            });
+//            break;
+//          case 2:
+//            //改造变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          case "停用申请":
+//            //移装变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          case 4:
+//            //单位变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          ////等等
+//
+//
+//        }
 
 
       }

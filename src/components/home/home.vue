@@ -8,7 +8,7 @@
       <Menu theme="dark" class="sideMenu "  width="auto"  :open-names="['1']"
             accordion style="font-size: 16px;"
             @on-select="routeTo" accordion>
-        <div class="layout-logo-left"  style="color:white;font-size: 25px;position:fixed;z-index:100;">
+        <div class="layout-logo-left"  style="color:white;font-size: 25px;position:fixed;z-index:100;z-index:100;">
           <span class="logo-head">特种设备使用登记系统</span>
 
         </div>

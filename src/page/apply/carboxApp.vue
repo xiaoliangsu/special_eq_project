@@ -98,7 +98,7 @@
                         填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致。
                       </p>
                     </div>
-                    <i-input type="text" v-model="item.manufactureComName"></i-input>
+                    <i-input type="text" v-model="item.manufactureComName" style="width:122%;"></i-input>
                   </Poptip>
                   <!--<Input type="text" v-model="item.manufactureComName" placeholder="请输入..."></Input>-->
                 </FormItem>
@@ -108,7 +108,8 @@
                   :key="index"
                   :label="'制造日期'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqCreateDate"></Input>
+                  <!--<Input type="text" v-model="item.eqCreateDate"></Input>-->
+                  <DatePicker v-model="item.eqCreateDate" style="width:122%"></DatePicker>
                 </FormItem>
                 </Col>
               </Row>
@@ -118,7 +119,7 @@
                   :key="index"
                   :label="'产品编号'"
                   :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.productCode"></Input>
+                  <Input type="text" v-model="item.productCode" style="width:122%"></Input>
                 </FormItem>
                 </Col>
                 <Col span="11" offset="2">
@@ -132,7 +133,7 @@
                         填写使用单位对设备进行管理自行编制的设备内部编号。
                       </p>
                     </div>
-                    <i-input type="text" v-model="item.eqComCode"></i-input>
+                    <i-input type="text" v-model="item.eqComCode" style="width:122%"></i-input>
                   </Poptip>
                   <!--<Input type="text" v-model="item.eqComCode" placeholder="请输入..."></Input>-->
                 </FormItem>
@@ -141,7 +142,7 @@
 
               <FormItem>
 
-                <Button type="warning" @click="handleRemovePres(index)">删除</Button>
+                <Button type="warning" @click="handleRemovePres(index)" style="margin-left:430%;">删除</Button>
               </FormItem>
               <br>
             </Form>
@@ -304,7 +305,7 @@
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
 
 
 
@@ -944,6 +945,16 @@
           this.ruleForm = res.data.formList[0];
           this.formDynamicPres.items = this.ruleForm.subList;
           this.acceptCom = res.data.acceptorAgencyId;
+          this.setUserDetailData();
+          let params = 'addressCode=' + this.addressCode;
+          setAppService.getAccpeter(params).then(res => {
+            this.acceptComList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.acceptComList.push({value: res[i].id, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
         }).catch(error => {
           console.log(error)
         })
@@ -1007,6 +1018,10 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.deviceKind = this.deviceKindTypeId;
+        for(let i=0;i<this.formDynamicPres.items.length;i++){
+          this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
+          this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
+        }
         this.ruleForm.subList = this.formDynamicPres.items;
         this.changeInputTime(this.ruleForm.eqUseDate);
         this.ruleForm.eqUseDate = this.getInputTime;

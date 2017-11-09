@@ -56,24 +56,31 @@
               <Form-item label="安全管理员" prop="safeAdministrator">
                 <Input v-model="ruleForm.safeAdministrator"></Input>
               </Form-item>
-              <Form-item label="产权单位名称" prop="propertyComName">
-                <Input v-model="ruleForm.propertyComName"></Input>
-              </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="安全管理员联系电话" prop="mobilePhone">
                 <Input v-model="ruleForm.mobilePhone"></Input>
               </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11">
+              <Form-item label="产权单位名称" prop="propertyComName">
+                <Input v-model="ruleForm.propertyComName"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
               <Form-item label="产权单位联系电话" prop="propertyComPhone">
                 <Input v-model="ruleForm.propertyComPhone"></Input>
               </Form-item>
               </Col>
             </Row>
+
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="140"
                   v-for="(item, index) in formDynamicPres.items"
                   :key="item.id" inline>
               <Row>
-                <Col span="8">
+                <Col span="11">
                 <FormItem
                   :key="index"
                   :label="'序号' + (index + 1)+'  '+'设备品种（名称）'"
@@ -81,7 +88,7 @@
                   <Input type="text" v-model="item.deviceKind" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
-                <Col span="8">
+                <Col span="11" offset="2">
 
                 <FormItem
                   :key="index"
@@ -90,26 +97,15 @@
                   <Input type="text" v-model="item.registCode" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
-                <Col span="8">
+              </Row>
+              <Row>
+                <Col span="11">
                 <FormItem
                   :key="index"
                   :label="'设备代码'"
                   :prop="'items.' + index + '.value'">
                   <Input type="text" v-model="item.eqCode" placeholder="请输入..."></Input>
                 </FormItem>
-                </Col>
-
-              </Row>
-              <Row>
-                <Col span="8">
-                <FormItem
-                  :key="index"
-                  :label="'设备使用地点'"
-                  :prop="'items.' + index + '.value'">
-                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入..."></Input>
-                </FormItem>
-                </Col>
-                <Col span="8">
                 <FormItem
                   :key="index"
                   :label="'产品编号'"
@@ -117,7 +113,13 @@
                   <Input type="text" v-model="item.productCode" placeholder="请输入..."></Input>
                 </FormItem>
                 </Col>
-                <Col span="8">
+                <Col span="11" offset="2">
+                <FormItem
+                  :key="index"
+                  :label="'设备使用地点'"
+                  :prop="'items.' + index + '.value'">
+                  <Input type="text" v-model="item.eqUseAddr" placeholder="请输入..."></Input>
+                </FormItem>
                 <FormItem
                   :key="index"
                   :label="'停用注销报废原因'"
@@ -543,7 +545,7 @@
 
   .base-box ,
   .chooseAccept {
-    margin-left: 0px;
+    margin-left: 140px;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
@@ -551,7 +553,7 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     //padding: 3px;
-    width: 100%;
+    width: 83.881%;
     padding-left: 100px;
     padding-right: 100px;
     box-sizing: border-box;

@@ -255,7 +255,6 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small'
                     },
                     style: {
                       marginRight: '5px',
@@ -283,7 +282,6 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small'
                     },
                     style: {
                       marginRight: '5px',
@@ -311,7 +309,6 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small'
                     },
                     style: {
                       marginRight: '5px',
@@ -336,7 +333,7 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small'
+
                     },
                     style: {
                       marginRight: '5px',

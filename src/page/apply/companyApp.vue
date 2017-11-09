@@ -219,7 +219,7 @@
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>
+          <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
 
         </div>
 
@@ -922,6 +922,16 @@
           this.clearRuleForm();
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
+          this.setUserDetailData();
+          let params = 'addressCode=' + this.addressCode;
+          setAppService.getAccpeter(params).then(res => {
+            this.acceptComList = [];
+            for (let i = 0, len = res.length; i < len; i++) {
+              this.acceptComList.push({value: res[i].id, label: res[i].name});
+            }
+          }).catch(error => {
+            console.log(error);
+          })
         }).catch(error => {
           console.log(error)
         })

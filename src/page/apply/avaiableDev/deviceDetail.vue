@@ -3,10 +3,10 @@
   <div class="deviceDetail">
 
     <div class="appDetail_topbar">
-      <h1 style="margin:10px;" >设备详情：</h1>
+      <h1 style="margin:10px;">设备详情：</h1>
 
     </div>
-    <div class="setApp_content" style="position:absolute;top:85px;" >
+    <div class="setApp_content" style="position:absolute;top:85px;">
       <div class="comp_name" style="width:800px;">
         <h2 class="deviceDetailHead">一、设备详细信息：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
@@ -14,12 +14,14 @@
           <Col span="12">
           <p class="deviceContentHead">设备种类 :<span class="content">{{this.deviceCategory}}</span></p>
           <p class="deviceContentHead">设备品种 :<span class="content">{{this.deviceKind}}</span></p>
-          <p class="deviceContentHead">设备代码 :<span class="content">{{this.eqCode}}</span></p>
+          <p class="deviceContentHead">单位内编号 :<span class="content">{{this.eqComCode}}</span></p>
+          <p class="deviceContentHead">登记机关 :<span class="content">{{this.acceptorAgencyName}}</span></p>
 
           </Col>
           <Col span="11">
           <p class="deviceContentHead">设备类别 :<span class="content">{{this.deviceClass}}</span></p>
-          <p class="deviceContentHead">单位内编号 :<span class="content">{{this.eqComCode}}</span></p>
+          <p class="deviceContentHead">设备代码 :<span class="content">{{this.eqCode}}</span></p>
+          <p class="deviceContentHead">使用单位填表人员 :<span class="content">{{this.comTablePerson}}</span></p>
           <p class="deviceContentHead">使用登记证编号 :<span class="content">{{this.registCode}}</span></p>
 
           </Col>
@@ -28,13 +30,19 @@
 
       </div>
       <div class="apply_type">
-        <h2 class="applyDetailHead">二、申请状态详细信息：</h2>
+        <h2 class="applyDetailHead">二、已有申请详细信息：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
-        <p class="content">首次申请：时间：2017-9-12</p>
-        <Button class="primary" style="margin:10px;">查看首次申请详情</Button>
+        <ul>
+        <li v-for="(item,key,index) in this.logs" style="margin-bottom:10px;">
+          <p class="applyTypeHead">{{key+1}}、 {{item.applyType}}</p>
+          <p class="applyTypeContent"> 申请时间:{{item.applyType}}</p>
+          <Button type="primary" style="margin:10px;" @click="appDetail(item.applyId)">查看{{item.applyType}}详情</Button>
+
+
+        </li>
+        </ul>
+
       </div>
-
-
 
 
     </div>
@@ -63,7 +71,7 @@
 //          水壶3: 'https://cdn.rawgit.com/mozilla/pdf.js/c6e8ca86/test/pdfs/annotation-link-text-popup.pdf',
 //          水壶4: 'https://cdn.rawgit.com/sayanee/angularjs-pdf/68066e85/example/pdf/relativity.protected.pdf',
 //        },
-        pdfUrl:{},
+        pdfUrl: {},
         pdfNum: 0,
         accStatus: '',
         accReason: '',
@@ -84,11 +92,15 @@
         //申请类别
         applyType: '',
         active: 0,
-        deviceCategory:'',
-        deviceClass:'',
-        deviceKind:'',
-        eqCode:'',
-        eqComCode:'',
+        deviceCategory: '',
+        deviceClass: '',
+        deviceKind: '',
+        eqCode: '',
+        eqComCode: '',
+        acceptorAgencyName: '',
+        comTablePerson: '',
+        registCode: '',
+        logs:[{applyType:'首次申请',applyId:'1073'},{applyType:"变更申请",applyId:'1073'}],
 
       }
     },
@@ -113,7 +125,7 @@
 
         let params = 'deviceCode=' + this.$route.query.deviceCode;
         avaivbleService.getDetailOrder(params).then(res => {
-          if(res.data.formList[0].useComName){
+          if (res.data.formList[0].useComName) {
             this.useComName = res.data.formList[0].useComName;
           }
           this.deviceCategory = res.data.formList[0].deviceCategory;
@@ -122,22 +134,24 @@
           this.eqCode = res.data.formList[0].eqCode;
           this.eqComCode = res.data.formList[0].eqComCode;
           this.registCode = res.data.formList[0].registCode;
+          this.acceptorAgencyName = res.data.formList[0].acceptorAgencyName;
+          this.eqComCode = res.data.formList[0].eqComCode;
 
           this.applyType = res.data.applyType + "/" + res.data.deviceType;
 
-          if(res.data.forms["特种设备使用登记表二"]){
-            this.fileId= res.data.forms["特种设备使用登记表二"];
-          }else if(res.data.forms["特种设备使用登记表一"]){
-            this.fileId= res.data.forms["特种设备使用登记表一"];
+          if (res.data.forms["特种设备使用登记表二"]) {
+            this.fileId = res.data.forms["特种设备使用登记表二"];
+          } else if (res.data.forms["特种设备使用登记表一"]) {
+            this.fileId = res.data.forms["特种设备使用登记表一"];
 
-          }else{
-            this.fileId= res.data.forms["特种设备使用登记表三"];
+          } else {
+            this.fileId = res.data.forms["特种设备使用登记表三"];
 
           }
 
-          this.registPdfUrl='/admin/file/preview?fileId='+this.fileId;
+          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
 
-          this.pdfUrl=res.data.forms;
+          this.pdfUrl = res.data.forms;
 
           if (res.data.status.states === "已受理待审批") {
             this.accStatus = true;
@@ -177,10 +191,16 @@
         }
 
       },
+      appDetail(value){
 
+          this.$router.push({
+            path: 'appDetail',
+            query: {
+              applyId: value,
+            }
+          });
 
-
-
+      },
 
 
     },
@@ -210,8 +230,9 @@
       display: none;
     }
   }
-  .deviceDetail{
-    margin:15px;
+
+  .deviceDetail {
+    margin: 15px;
   }
 
   .comp_name {
@@ -227,22 +248,22 @@
     margin-bottom: 30px;
   }
 
-  .deviceDetailHead
-  {
+  .deviceDetailHead {
     margin-bottom: 15px;
     color: #1c2438;
   }
-  .deviceContentHead{
-    margin:20px;
+
+  .deviceContentHead {
+    margin: 20px;
     color: #495060;
-    font-size: 17px;
+    font-size: 19px;
 
   }
-  .applyDetailHead{
+
+  .applyDetailHead {
     margin-bottom: 15px;
     color: #1c2438;
   }
-
 
   .detailHead {
     margin: 20px 0;
@@ -295,6 +316,16 @@
     height: 60px;
     z-index: 10;
     background-color: white;
+  }
+  .applyTypeHead{
+    margin-bottom: 15px;
+    color: #1c2438;
+    font-size:23px;
+  }
+  .applyTypeContent{
+    color: #1c2438;
+    font-size:19px;
+
   }
 
 </style>

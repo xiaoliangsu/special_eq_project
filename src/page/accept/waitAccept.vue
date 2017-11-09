@@ -226,7 +226,6 @@
                 h('Button', {
                   props: {
                     type: 'primary',
-                    size: 'small'
                   },
                   style: {
                     marginRight: '5px',
@@ -399,56 +398,67 @@
       },
 
       appDetail(value){
-//    switch (this.data5[value].changeApplyNum) {
-        switch (this.data5[value].applyType) {
-
-          case "首次申请":
-            //首次申请
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                applyId: this.data5[value].id,
-                orderState:'waitAccept'
-              }
-            });
-            break;
-          case 2:
-            //改造变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          case 3:
-            //移装变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          case 4:
-            //单位变更
-            this.$router.push({
-              path: 'appDetail',
-              query: {
-                dev_id: this.data5[value].id,
-                dev_name: this.data5[value].device,
-                orderState: this.orderState
-              }
-            });
-            break;
-          ////等等
-
+        if (this.data5[value].applyType == "首次申请" || this.data5[value].applyType == "停用申请" || this.data5[value].applyType == "报废申请" ||
+          this.data5[value].applyType == "停用后启用") {
+          this.$router.push({
+            path: 'appDetail',
+            query: {
+              applyId: this.data5[value].id,
+              orderState:'waitAccept'
+            }
+          });
 
         }
+//    switch (this.data5[value].changeApplyNum) {
+//        switch (this.data5[value].applyType) {
+//
+//          case "首次申请":
+//            //首次申请
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                applyId: this.data5[value].id,
+//                orderState:'waitAccept'
+//              }
+//            });
+//            break;
+//          case 2:
+//            //改造变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          case 3:
+//            //移装变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          case 4:
+//            //单位变更
+//            this.$router.push({
+//              path: 'appDetail',
+//              query: {
+//                dev_id: this.data5[value].id,
+//                dev_name: this.data5[value].device,
+//                orderState: this.orderState
+//              }
+//            });
+//            break;
+//          ////等等
+//
+//
+//        }
 
 
       }

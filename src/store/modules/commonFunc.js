@@ -50,9 +50,15 @@ const mutations = {
     state.time = res
   },
   [CHANGE_INPUT_TIME](state, res) {
-    let newTime=new Date(res)
+    if(res){
+      let newTime=new Date(res)
 
-    state.inputTime = newTime.getFullYear() + "年" + (parseInt(newTime.getMonth()) + 1) + "月" + newTime.getDate()+"日"
+      state.inputTime = newTime.getFullYear() + "年" + (parseInt(newTime.getMonth()) + 1) + "月" + newTime.getDate()+"日";
+
+    }else{
+      state.inputTime='';
+    }
+
 
   },
 

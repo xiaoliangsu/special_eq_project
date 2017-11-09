@@ -66,7 +66,7 @@
       </div>
       <div class="accpeterControl">
         <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">受理通过</Button>
-        <Button @click="accRej" v-if="orderState=='waitAccept'">受理驳回</Button>
+        <Button @click="accRej" v-if="orderState=='waitAccept'" type="success" >受理驳回</Button>
       </div>
 
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'||this.accStatus!==''">
@@ -78,13 +78,15 @@
       <div class="approvalControl">
         <Button type="primary" @click="approvalPass" v-if="orderState=='waitApproval'&& approvalStatus==false">审批通过
         </Button>
-        <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false">审批驳回</Button>
+        <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false" type="success">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'||this.approvalStatus!==''">
         <h2 class="detailHead">五、登记发证决定：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
         <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
       </div>
+      <Button type="warning"  v-if="this.approvalStatus==true" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
+
 
 
     </div>
@@ -101,8 +103,8 @@
         <!--</ul>-->
 
         </br>
-        <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
-        <Button @click="instance('success')" v-if="this.active==0">完成</Button>
+        <Button type="warning" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
+        <Button @click="instance('success')" v-if="this.active==0">打印完成</Button>
 
 
       </div>
@@ -171,6 +173,7 @@
         eqComCode: '',
         registKind: '',
         applyDate: '',
+        acceptorAgencyName:'',
 
       }
     },
@@ -245,17 +248,19 @@
           if (res.data.formList[0].useComName) {
             this.useComName = res.data.formList[0].useComName;
           }
-          this.deviceCategory = res.data.deviceCategory;
-          this.eqCode = res.data.formList[0].eqCode;
-          this.eqComCode = res.data.formList[0].eqComCode;
-          this.registKind = res.data.registKind;
+          this.deviceCategory = res.data.deviceCategory||"无";
+          this.eqCode = res.data.formList[0].eqCode||"无";
+          this.eqComCode = res.data.formList[0].eqComCode||"无";
+          this.registKind = res.data.registKind||res.data.applyType;
           let newDate = new Date(res.data.createTime);
           let Y = newDate.getFullYear() + '-';
           let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
           let D = newDate.getDate() + ' ';
           this.applyDate = Y + M + D;
+          if( res.data.acceptorAgencyName){
+            this.acceptorAgencyName = res.data.acceptorAgencyName||"无";
+          }
 
-         this.acceptorAgencyName = res.data.acceptorAgencyName;
 
         }).catch(error => {
           console.log(error)
@@ -415,21 +420,23 @@
           title: '确认信息',
           content: '<p>确认审批通过该申请订单？</p>',
           onOk: () => {
+            let params = {
+              applyId: this.applyId,
+              pass: true,
+            }
+            appDetailService.ApprovalPass(params).then(res => {
+              if (res.status === 200) {
+                this.approvalStatus = true;
+                this.showPrintCard = true;
+                this.current++;
 
-            this.approvalStatus = true;
-            this.showPrintCard = true;
-//            appDetailService.ApprovalPass(params).then(res => {
-//              if (res.status === 200) {
-//                this.approvalStatus = true;
-//                this.showPrintCard = true;
-//               // this.$router.push('waitApproval');
-//              }else{
-//                this.$Message.info(res.msg);
-//              }
-//            }).catch(error => {
-//              console.log(error);
-//            })
-            this.current++;
+               // this.$router.push('waitApproval');
+              } else {
+                this.$Message.info(res.msg);
+              }
+            }).catch(error => {
+              console.log(error);
+            })
           },
           onCancel: () => {
             this.$Message.info('点击了取消');
@@ -525,31 +532,9 @@
       },
 
       instance (type) {
-        let params = {
-          applyId: this.applyId,
-          pass: true,
-        }
-        appDetailService.ApprovalPass(params).then(res => {
-          if (res.status === 200) {
-            const title = '通知';
-            const content = '<p>审批、发证完成</p>';
-            switch (type) {
-              case 'success':
-                this.$Modal.success({
-                  title: title,
-                  content: content
-                });
-                this.current++;
-                break;
-            }
-            this.$router.push('waitApproval');
-          } else {
-            this.$Message.info(res.msg);
-          }
-        }).catch(error => {
-          console.log(error);
-        })
-
+          this.current++;
+        this.$Message.info('您已完成审批、发证');
+        this.$router.push('waitApproval');
       },
 
     },
@@ -578,6 +563,9 @@
     .nprint {
       display: none;
     }
+  }
+  .appDetail{
+    font-size:19px;
   }
 
   .comp_name {
