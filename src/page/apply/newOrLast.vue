@@ -210,7 +210,7 @@
         ['setDeviceType'],
       ),
       initData(){
-          this.currentPage=1;
+        this.$refs['pages'].currentPage = 1;
         this.device_type = this.$route.query.device_type;
         this.setDeviceType(this.$route.query.device_type);
 //        this.$refs["pages"].current=1;

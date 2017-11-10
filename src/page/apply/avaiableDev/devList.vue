@@ -39,7 +39,7 @@
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-            :page-size="10"></Page>
+            :page-size="10" :current="currentPage" ></Page>
 
     </div>
 
@@ -388,6 +388,7 @@
         ),
       initData(){
         this.time = ['', ''];
+//        this.$refs['pages'].currentPage = 1;
         this.setApplyType(this.$route.query.apply_state);
         this.apply_state = this.$route.query.apply_state;
         this.deviceType = [];
@@ -409,7 +410,7 @@
           params.states = [0, 1];
         }
         this.getOrders(params);
-        this.$refs['pages'].currentPage = 1;
+
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }

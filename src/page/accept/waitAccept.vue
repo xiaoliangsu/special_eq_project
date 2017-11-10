@@ -48,7 +48,7 @@
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-            :page-size="10"></Page>
+            :page-size="10" :current="currentPage" ></Page>
 
     </div>
 
