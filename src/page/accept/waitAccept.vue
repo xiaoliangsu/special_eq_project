@@ -296,6 +296,7 @@
         this.time = ['', ''];
         this.applyType = '';
         this.deviceType=[];
+        this.$refs['pages'].currentPage = 1;
         let waitAccparams = {
           page: 0,
           size: 10,

@@ -409,6 +409,7 @@
           params.states = [0, 1];
         }
         this.getOrders(params);
+        this.$refs['pages'].currentPage = 1;
 //       if(this.$route.query.apply_state){
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }

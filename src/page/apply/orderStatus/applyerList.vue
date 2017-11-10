@@ -41,7 +41,7 @@
     </div>
     <div class="list-box">
       <Table border :columns="columns5" :data="data5" width="800px"></Table>
-      <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
+      <Page class="page" ref="pages" :total="this.num" size="small" show-elevator :current="this.currentPage" @on-change="initSize"
             :page-size="10"></Page>
 
     </div>
@@ -343,6 +343,7 @@
         }
         waitAccparams.states = [1, 2,3,4,5];
         this.getOrders(waitAccparams);
+        this.$refs['pages'].currentPage = 1;
       },
       clear(){
         this.initData();

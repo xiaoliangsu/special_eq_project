@@ -327,6 +327,7 @@
           page: 0,
           size: 10,
         }
+        this.$refs['pages'].currentPage = 1;
 
         this.getOrders(waitAccparams);
       },
