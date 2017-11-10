@@ -462,7 +462,7 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           //  this.applyState = '';
-          let waitAccparams = 'deviceCode=' + this.deviceCode;
+          let waitAccparams = 'deviceId=' + this.deviceCode;
           avaivbleService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
@@ -481,6 +481,11 @@
 
                 this.num = res.data.length;
 
+              }else if(res.status=== 401){
+                this.$Notice.error({
+                  title: '这是通知标题',
+                  desc: res.msg
+                });
               }
             }
           ).catch(error => {
