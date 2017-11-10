@@ -607,7 +607,7 @@
                         this.current++;
                         break;
                     }
-            this.$router.go(0);
+                    this.$router.go(-1);
                   }
                 }).catch(error => {
                   console.log(error);

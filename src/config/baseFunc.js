@@ -60,13 +60,12 @@ exports.install = function (Vue, options) {
         });
         break;
         //修改
-      case 3:
+      case "停用申请":
         //车瓶首次申请
         this.$router.push({
-          path: 'carboxApp',
+          path: 'stopUseApp',
           query: {
-            dev_id: this.data5[value].id,
-            dev_name: this.data5[value].device,
+            applyId: this.data5[value].id,
             //是保存之后的
             ifold: 1,
           }

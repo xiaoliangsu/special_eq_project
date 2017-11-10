@@ -29,8 +29,10 @@ const User = r => require.ensure([], () => r(require('../page/user/user.vue')), 
 
 //import FirstApp from "../page/apply/firstApp.vue"
 // const FirstApp = r => require.ensure([], () => r(require('../page/apply/firstApp.vue')), 'FirstApp');
+const UnSubmitStop = r => require.ensure([], () => r(require('../page/apply/stopUseApp/unSubmitStop.vue')), 'UnSubmitStop');
 
 const NewOrLast = r => require.ensure([], () => r(require('../page/apply/newOrLast.vue')), 'NewOrLast');
+// const UnSubmitStop = r => require.ensure([], () => r(require('../page/apply/stopUseApp/unSubmitStop.vue')), 'UnSubmitStop');
 
 //import SetApp from "../page/apply/setApp.vue"
 const SetApp = r => require.ensure([], () => r(require('../page/apply/setApp.vue')), 'SetApp');
@@ -121,6 +123,8 @@ const router = new VueRouter({
         // },
         {path: "/newOrLast", component: NewOrLast,
           meta: [ '申请类别','首次申请'],},
+        {path: "/unSubmitStop", component: UnSubmitStop,
+          meta: [ '申请类别','停用申请'],},
         {path: "/setApp", component: SetApp,
           meta: [ '申请类别','首次申请']},
         {path: "/companyApp", component: CompanyApp,

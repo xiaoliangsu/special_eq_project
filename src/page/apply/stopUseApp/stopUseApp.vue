@@ -9,15 +9,26 @@
       <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
           <!--<Step title="步骤1" content="填写基本信息"></Step>-->
-          <Step title="步骤1" content="填写《特种设备停用报废注销登记表》"></Step>
-          <Step title="步骤2" content="预览《特种设备停用报废注销登记表》"></Step>
-          <Step title="步骤3" content="完成申请"></Step>
+          <Step title="步骤1" content="选择要停用的设备"></Step>
+          <Step title="步骤2" content="填写《特种设备停用报废注销登记表》"></Step>
+          <Step title="步骤3" content="预览《特种设备停用报废注销登记表》"></Step>
+          <Step title="步骤4" content="完成申请"></Step>
         </Steps>
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
+      <div v-if="this.active==1"   class="statusInfo" style="margin-bottom:20px;">
+        <div class="list-box">
+        <h3 class="header_one" style="margin:10px;">选择要停用的设备</h3>
+
+        <Table border ref="selection" :columns="columnsCanStopUse" :data="canStopUseDeviceList"
+               @on-select="selectDevice" @on-select-all="selectDeviceAll" width="800px"></Table>
+        <Button type="primary" @click="next()" v-if="this.active==1" >下一步</Button>
+        </div>
+
+      </div>
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
-        <div class="statusInfo" v-if="this.active==1" style="margin-bottom:20px;">
+        <div class="statusInfo" v-if="this.active==2" style="margin-bottom:20px;">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
             <FormItem label="登记机关">
@@ -41,7 +52,7 @@
               </Col>
               <Col span="11" offset="2">
               <Form-item label="台数" prop="deviceNum">
-                <Input v-model="ruleForm.deviceNum"></Input>
+                <Input v-model="ruleForm.deviceNum" disabled></Input>
               </Form-item>
               </Col>
             </Row>
@@ -78,7 +89,7 @@
 
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="140"
                   v-for="(item, index) in formDynamicPres.items"
-                  :key="item.id" inline class="formDynamicPres">
+                  :key="item.id" inline class="formDynamicPres" >
               <Row>
                 <Col span="11">
                 <FormItem
@@ -130,19 +141,23 @@
               </Row>
               <FormItem>
 
-                <Button type="warning" style="margin-left:500%;" @click="handleRemovePres(index)">删除</Button>
+                <!--<Button type="warning" style="margin-left:500%;" @click="handleRemovePres(index)">删除</Button>-->
               </FormItem>
               <br>
             </Form>
-            <Button type="primary" long @click="handleAddPres" icon="plus-round" style="margin-bottom:20px;">新增</Button>
+            <!--<Button type="primary" long @click="handleAddPres" icon="plus-round" style="margin-bottom:20px;">新增</Button>-->
 
 
           </div>
+          <Button type="warning" @click="before" v-if="this.active==2">上一步</Button>
+          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
+
+
 
         </div>
 
 
-        <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
@@ -154,8 +169,8 @@
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
 
-          <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
-          <Button @click="instance('success')" v-if="this.active==2" type="success">确认提交</Button>
+          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
+          <Button @click="instance('success')" v-if="this.active==3" type="success">确认提交</Button>
 
 
         </div>
@@ -164,8 +179,8 @@
         <div class="setApp_button">
 
 
-          <!--<Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>-->
-          <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
+          <!--<Button type="primary" @click="next()" v-if="this.active==2">下一步</Button>-->
+          <!--<Button type="primary" @click="confirmForm" v-if="this.active==3">下一步</Button>-->
 
 
         </div>
@@ -181,6 +196,8 @@
 
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../../services/setApp'
+  import * as avaivbleService from '../../../services/avaiableDev'
+
 
 
   //import breadCrumb from '../../components/breadCrumb/breadCrumb.vue'
@@ -188,6 +205,33 @@
   export default {
     data() {
       return {
+        columnsCanStopUse: [
+          {
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          },
+          {
+            title: '设备品种',
+            key: 'deviceKind'
+          },
+          {
+            title: '使用登记证编号',
+            key: 'registCode'
+          },
+          {
+            title: '设备代码',
+            key: 'eqCode'
+          },
+          {
+            title: '设备使用地点',
+            key: 'eqUseAddr'
+          },
+          {
+            title: '产品编号',
+            key: 'productCode'
+          }
+        ],
 
         addressCode: '',
         registCode: '',
@@ -240,9 +284,9 @@
           registKind: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
-          deviceNum: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          deviceNum: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           useComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -262,6 +306,40 @@
         //点击上一步的标志
         creatOrUpdate: false,
         isCompany: false,
+        canStopUseDeviceList:[{
+          deviceKind:"设备种类",
+          registCode:"112akjgfaudgquwgdqw",
+          eqCode:"1212esdsdfsfds23231111",
+          eqUseAddr:"地址地址地址地址电话 i 电话 i",
+          productCode:"codecodecodecode",
+
+        },
+          {
+            deviceKind:"设备种类",
+            registCode:"112akjgfaudgquwgdqw",
+            eqCode:"1212esdsdfsfds23232222",
+            eqUseAddr:"地址地址地址地址电话 i 电话 i",
+            productCode:"codecodecodecode",
+
+          },
+          {
+            deviceKind:"设备种类",
+            registCode:"112akjgfaudgquwgdqw",
+            eqCode:"1212esdsdfsfds23233333",
+            eqUseAddr:"地址地址地址地址电话 i 电话 i",
+            productCode:"codecodecodecode",
+
+          },
+          {
+            deviceKind:"设备种类",
+            registCode:"112akjgfaudgquwgdqw",
+            eqCode:"1212esdsdfsfds232344444",
+            eqUseAddr:"地址地址地址地址电话 i 电话 i",
+            productCode:"codecodecodecode",
+
+          },
+          ],
+        canStopUseDevice:[],
 
 
       }
@@ -290,6 +368,29 @@
       ...mapActions(
         ['getUserData'],
       ),
+      makeParams(page, size, time, deviceTypeId, processing, states){
+        let params = {};
+        params.page = page;
+        params.size = size;
+        if (time !== '' && time[0] !== '' && time[1] !== '') {
+          params.time = this.changeTime(time);
+          ;
+        }
+        // console.log(deviceTypeId)
+        if (deviceTypeId !== '') {
+          params.deviceTypeId = parseInt(deviceTypeId);
+        }
+        if (processing !== "") {
+          params.processing = processing;
+        }
+        if (states !== "") {
+          params.states = [parseInt(states)];
+        }
+
+        return params;
+
+      },
+
       handleAddPres () {
         this.formDynamicPres.items.push({
           deviceKind: '',
@@ -352,6 +453,7 @@
             reasons: '',
           }
         ];
+
         this.setUserDetailData();
         let params = 'addressCode=' + this.addressCode;
         setAppService.getAccpeter(params).then(res => {
@@ -362,7 +464,37 @@
         }).catch(error => {
           console.log(error);
         })
+        params = {
+          size: 10,
+          processing:false,
+          states:[0],
+        }
+        this.getCanStopUseDevice(params);
 
+      },
+      getCanStopUseDevice(waitAccparams){
+        avaivbleService.GetDevOrders(waitAccparams).then(res => {
+            if (res.status === 200) {
+                for(let i=0;i<res.data.content.length;i++){
+                    let canStopUse={
+                      deviceKind:res.data.content[i].deviceKind,
+                      registCode:res.data.content[i].registCode,
+                      eqCode:res.data.content[i].eqCode,
+                      eqUseAddr:res.data.content[i].eqUseAddr,
+                      productCode:res.data.content[i].productCode,
+                    }
+                this.canStopUseDeviceList.push(canStopUse);
+
+                }
+              console.log(this.canStopUseDeviceList)
+
+            } else {
+
+            }
+          }
+        ).catch(error => {
+          console.log(error);
+        })
       },
       clearRuleForm(){
         this.ruleForm = {
@@ -393,6 +525,7 @@
         })
       },
       submitContent(formName) {
+
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.current++;
@@ -418,6 +551,10 @@
         submitParam.deviceId = parseInt(this.deviceCode);
         submitParam.registCode = this.registCode;
         submitParam.deviceType = parseInt(this.deviceType);
+        submitParam.eqCodeList=[];
+        for(let i=0;i<this.ruleForm.subList.length;i++){
+          submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
+        }
 
         //停用申请
         submitParam.applyType = 3;
@@ -443,8 +580,12 @@
             submitParam.applyType = 3;
             submitParam.registCode = this.registCode;
             submitParam.deviceType = parseInt(this.deviceType);
+            submitParam.eqCodeList=[];
+            for(let i=0;i<this.ruleForm.subList.length;i++){
+              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
+            }
             submitParam.deviceId = parseInt(this.deviceCode);
-            setAppService.submitSetInfo(submitParam).then(res => {
+            setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
@@ -466,7 +607,11 @@
 
       },
       next() {
-        if (this.current == 3) {
+          if(this.ruleForm.subList.length==0){
+            this.$Message.info('请选择要停用的设备');
+            return
+          }
+        if (this.current == 4) {
           this.current = 0;
         } else {
           this.current += 1;
@@ -477,7 +622,10 @@
       before() {
         this.current--;
         this.active--;
-        this.creatOrUpdate = true;
+        if(this.active==2){
+          this.creatOrUpdate = true;
+        }
+
       },
       confirmForm () {
         if(this.acceptCom=='' ){
@@ -494,9 +642,7 @@
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
                 onOk: () => {
-
                   this.updateContent('ruleForm');
-
                 },
                 onCancel: () => {
                   this.$Message.info('点击了取消');
@@ -508,9 +654,7 @@
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
                 onOk: () => {
-
                   this.submitContent('ruleForm');
-
                 },
                 onCancel: () => {
                   this.$Message.info('点击了取消');
@@ -527,6 +671,16 @@
 
 
 
+      },
+      selectDevice(selection,row){
+        this.formDynamicPres.items=selection;
+        this.ruleForm.subList=selection;
+        this.ruleForm.deviceNum=selection.length;
+      },
+      selectDeviceAll(selection){
+        this.formDynamicPres.items=selection;
+        this.ruleForm.subList=selection;
+        this.ruleForm.deviceNum=selection.length;
       },
       instance (type) {
         let params = 'applyId=' + this.applyId;
@@ -545,9 +699,6 @@
             }
             this.$router.push({
               path: 'devList',
-              query: {
-                apply_state: "3",
-              }
             });
 //            this.$router.push('devList');
           }
@@ -626,6 +777,20 @@
 
   .formDynamicPres {
     border: 1px solid rgba(0, 0, 0, .2);
+  }
+
+  .list-box {
+    display: block;
+    height: auto;
+    //border: 1 px solid rgb(229, 229, 229);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-color: #dddee1;
+    margin-top: 10px;
+    box-sizing: border-box;
+    margin-left:150px;
   }
 
 
