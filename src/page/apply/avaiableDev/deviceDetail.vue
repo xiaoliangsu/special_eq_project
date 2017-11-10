@@ -117,6 +117,7 @@
         getMyFrame.contentWindow.print();
       },
 
+
       initData(){
         this.transparam();
         this.current = 0;
@@ -141,9 +142,11 @@
           for(let i=0;i<this.logs.length;i++){
             console.log(this.logs[i].updateTime)
 //            this.logs.updateTime=this.changeTime(this.logs.updateTime);
-            this.changeBackTime( this.logs[i].updateTime);
-            this.logs[i].updateTime=this.getBackTime;
-            console.log(this.logs[i].updateTime)
+//            this.changeBackTime( this.logs[i].updateTime);
+//            this.logs[i].updateTime=this.getBackTime;
+//            console.log(this.logs[i].updateTime)
+
+
           }
 
 

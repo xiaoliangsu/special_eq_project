@@ -292,7 +292,29 @@
         ],
         active: 1,
         pdfUrl: '',
-        rules: {},
+        rules: {
+          registKind: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceNum: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComAddr: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          mobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComPhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+        },
         //点击上一步的标志
         creatOrUpdate: false,
         defaultPdfList1: [],
@@ -524,34 +546,51 @@
         this.creatOrUpdate = true;
       },
       confirmForm () {
-        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.updateContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
+        if(this.acceptCom=='' ){
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '请选择登记机关'
           });
-
-        } else {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.submitContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
-          });
+          return
         }
+        this.$refs["ruleForm"].validate((valid) => {
+          if (valid) {
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.updateContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+
+            } else {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.submitContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+            }
+
+
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
 
       },
 

@@ -348,8 +348,8 @@
         <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
         <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
         <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-        <Button @click="instance('success')" v-if="this.active==4"  type="success">确认提交</Button>
-        <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
+        <Button @click="instance('success')" v-if="this.active==4" type="success">确认提交</Button>
+        <!--<Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>-->
         <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
       </Form>
@@ -526,7 +526,9 @@
             </div>
 
           </div>
-          <Button type="primary" @click="handleSubmitGas('formDynamicGas')" style="margin-left:10%;margin-top:10px;margin-bottom:10px;">下一步</Button>
+          <Button type="primary" @click="handleSubmitGas('formDynamicGas')"
+                  style="margin-left:10%;margin-top:10px;margin-bottom:10px;">下一步
+          </Button>
 
         </div>
 
@@ -653,15 +655,47 @@
         },
         num: 10,
         rules: {
-//                    kind1: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-//                    use_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
-//                    check_com_name: [
-//                        {required: true, message: '不能为空', trigger: 'blur'}
-//                    ],
+          registKind: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceClassCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceNum: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComAddr: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          staticPhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          mobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          zipcode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqUseAddr: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          safeAdministrator: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comTablePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+
+
         },
         ifNext: true,
         active: 1,
@@ -1160,34 +1194,51 @@
       },
 
       confirmForm () {
-        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.updateContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
+        if(this.acceptCom=='' ){
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '请选择登记机关'
           });
-
-        } else {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.submitContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
-          });
+          return
         }
+        this.$refs["ruleForm"].validate((valid) => {
+          if (valid) {
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.updateContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+
+            } else {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.submitContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+            }
+
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
+
 
       },
       //确定
@@ -1237,7 +1288,7 @@
             this.uploadList.splice(i, 1);
           }
         }
-        if(this.uploadList.length==''){
+        if (this.uploadList.length == '') {
           this.uploadList = [
             {"url": ''}
           ];

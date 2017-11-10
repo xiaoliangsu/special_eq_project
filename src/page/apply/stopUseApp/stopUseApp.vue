@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left" >
+      <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <div class="statusInfo" v-if="this.active==1" style="margin-bottom:20px;">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
@@ -46,27 +46,27 @@
               </Col>
             </Row>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName"  disabled></Input>
+              <Input v-model="ruleForm.useComName" disabled></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr"  disabled></Input>
+              <Input v-model="ruleForm.useComAddr" disabled></Input>
             </Form-item>
             <Row>
               <Col span="11">
               <Form-item label="安全管理员" prop="safeAdministrator">
-                <Input v-model="ruleForm.safeAdministrator"  disabled></Input>
+                <Input v-model="ruleForm.safeAdministrator" disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="安全管理员联系电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone"  disabled></Input>
+                <Input v-model="ruleForm.mobilePhone" disabled></Input>
               </Form-item>
               </Col>
             </Row>
             <Row>
               <Col span="11">
               <Form-item label="产权单位名称" prop="propertyComName">
-                <Input v-model="ruleForm.propertyComName"  disabled></Input>
+                <Input v-model="ruleForm.propertyComName" disabled></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
@@ -130,12 +130,11 @@
               </Row>
               <FormItem>
 
-                <Button type="warning"  style="margin-left:500%;" @click="handleRemovePres(index)">删除</Button>
+                <Button type="warning" style="margin-left:500%;" @click="handleRemovePres(index)">删除</Button>
               </FormItem>
               <br>
             </Form>
             <Button type="primary" long @click="handleAddPres" icon="plus-round" style="margin-bottom:20px;">新增</Button>
-
 
 
           </div>
@@ -191,13 +190,13 @@
       return {
 
         addressCode: '',
-        registCode:'',
-        deviceType:'',
+        registCode: '',
+        deviceType: '',
         acceptCom: '',
         acceptComList: [],
         current: 0,
         //设备id
-        deviceCode:'',
+        deviceCode: '',
         ruleForm: {
           registKind: '',
           deviceNum: '',
@@ -206,7 +205,7 @@
           safeAdministrator: '',
           propertyComPhone: '',
           subList: [],
-          mobilePhone:'',
+          mobilePhone: '',
 
         },
         formDynamicPres: {
@@ -237,7 +236,29 @@
         ],
         active: 1,
         pdfUrl: '',
-        rules: {},
+        rules: {
+          registKind: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceNum: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComAddr: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          mobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComPhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+        },
         //点击上一步的标志
         creatOrUpdate: false,
         isCompany: false,
@@ -304,7 +325,7 @@
         if (localStorage.getItem('company') == 'true') {
           this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.isCompany = true;
-          console.log( this.ruleForm.safeAdministrator)
+          console.log(this.ruleForm.safeAdministrator)
         } else {
           this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.isCompany = false;
@@ -316,9 +337,9 @@
         this.active = 1;
         this.current = 0;
         this.creatOrUpdate = false;
-        this.deviceCode=this.$route.query.deviceCode;
-        this.registCode=this.$route.query.registCode;
-        this.deviceType=this.$route.query.deviceType;
+        this.deviceCode = this.$route.query.deviceCode;
+        this.registCode = this.$route.query.registCode;
+        this.deviceType = this.$route.query.deviceType;
         //如果是第一次填写
         this.clearRuleForm();
         this.formDynamicPres.items = [
@@ -394,9 +415,9 @@
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
         submitParam.formList[0].formType = 7;
-        submitParam.deviceId=parseInt(this.deviceCode);
-        submitParam.registCode=this.registCode;
-        submitParam.deviceType=parseInt(this.deviceType);
+        submitParam.deviceId = parseInt(this.deviceCode);
+        submitParam.registCode = this.registCode;
+        submitParam.deviceType = parseInt(this.deviceType);
 
         //停用申请
         submitParam.applyType = 3;
@@ -420,9 +441,9 @@
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 7;
             submitParam.applyType = 3;
-            submitParam.registCode=this.registCode;
-            submitParam.deviceType=parseInt(this.deviceType);
-            submitParam.deviceId=parseInt(this.deviceCode);
+            submitParam.registCode = this.registCode;
+            submitParam.deviceType = parseInt(this.deviceType);
+            submitParam.deviceId = parseInt(this.deviceCode);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
@@ -459,34 +480,52 @@
         this.creatOrUpdate = true;
       },
       confirmForm () {
-        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.updateContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
+        if(this.acceptCom=='' ){
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '请选择登记机关'
           });
-
-        } else {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.submitContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
-          });
+          return
         }
+        this.$refs["ruleForm"].validate((valid) => {
+          if (valid) {
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.updateContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+
+            } else {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.submitContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+            }
+
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
+
+
 
       },
       instance (type) {
@@ -546,7 +585,7 @@
     background-color: white;
   }
 
-  .base-box ,
+  .base-box,
   .chooseAccept {
     margin-left: 8%;
     display: block;
@@ -579,14 +618,15 @@
   .setApp_button {
     margin: 10px;
   }
+
   .chooseAccept {
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
-  .formDynamicPres{
-    border:1px solid rgba(0, 0, 0, .2);
-  }
 
+  .formDynamicPres {
+    border: 1px solid rgba(0, 0, 0, .2);
+  }
 
 
 </style>

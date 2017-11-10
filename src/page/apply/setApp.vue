@@ -403,10 +403,18 @@
               <Col span="11">
               <Form-item label="检验结论" prop="testResult">
                 <!--wang-->
-                <Select v-model="ruleForm.testResult">
-                  <Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}
-                  </Option>
-                </Select>
+                <!--<Select v-model="ruleForm.testResult">-->
+                  <!--<Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}-->
+                  <!--</Option>-->
+                <!--</Select>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;font-size:2px;">
+                    <p>
+                      按照有关检验规则的要求填写，如符合要求、基本符合要求、不符合要求，合 格、复检合格、不合格等。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.testResult" style="width:118.11%"></i-input>
+                </Poptip>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
@@ -676,7 +684,7 @@
           <!--<Button type="primary" @click="beSure('ruleForm')" v-if="this.active==2">确定</Button>-->
 
           <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
-          <Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>
+          <!--<Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>-->
           <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
         </div>
@@ -867,130 +875,130 @@
         ],
         //wang
         rules: {
-//          deviceCategoryCode: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          deviceKind: [
-//            {required:false, message: '', trigger: 'blur'}
-//          ],
-//          eqCode: [
-//            {required:false, message: '', trigger: 'blur'}
-//          ],
-//          designUseLimit: [
-//            {required:false, message: '', trigger: 'blur'}
-//          ],
-//          manufactureComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          superviseComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          deviceClass: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          deviceName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          model: [
-//            {required:false, message: '', trigger: 'blur'}
-//          ],
-//          designComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          constructComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          modelTestComName: [
-//            {required:false, message: '', trigger: 'blur'}
-//          ],
-//          useComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          useComAddr: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          useComCode: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          eqUseDate: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          safeAdministrator: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          eqComCode: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          zipcode: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          eqUseAddr: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          staticPhone: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          mobilePhone: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          propertyComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          propertyComCode: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          propertyComPhone: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          checkComName: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          testType: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          testDate: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          testReportCode: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          testResult: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          nextTestDate: [
-//            {required:true, message: '不能为空', trigger: 'blur'}
-//          ],
-//
-//          comTablePerson: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          comPersonDate: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          comSafePerson: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          safePersonDate: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          registPerson: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          registCode: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          registDate: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          comStampDate: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          registStampDate: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          registKind: [
-//            {required:true,message:'不能为空',trigger:'blur'}
-//          ],
+          deviceCategoryCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceKindCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          eqCode: [
+            {required:false, message: '', trigger: 'blur'}
+          ],
+          designUseLimit: [
+            {required:false, message: '', trigger: 'blur'}
+          ],
+          manufactureComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          superviseComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceClassCode: [
+            {required:true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          model: [
+            {required:false, message: '', trigger: 'blur'}
+          ],
+          designComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          constructComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          modelTestComName: [
+            {required:false, message: '', trigger: 'blur'}
+          ],
+          useComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComAddr: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          useComCode: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqUseDate: [
+            {required:true, message: '不能为空',  type: 'date', trigger: 'change'}
+          ],
+          safeAdministrator: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqComCode: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          zipcode: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqUseAddr: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          staticPhone: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          mobilePhone: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComCode: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          propertyComPhone: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          checkComName: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          testType: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          testDate: [
+            {required:true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+          testReportCode: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          testResult: [
+            {required:true, message: '不能为空', trigger: 'blur'}
+          ],
+          nextTestDate: [
+            {required:true, message: '不能为空',  type: 'date',trigger: 'change'}
+          ],
+
+          comTablePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comPersonDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comSafePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          safePersonDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registPerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comStampDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registStampDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registKind: [
+            {required:true,message:'不能为空',trigger:'blur'}
+          ],
 
         },
         active: 1,
@@ -1435,34 +1443,59 @@
       },
 
       confirmForm () {
-        if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.updateContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
+        if(this.acceptCom=='' ){
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '请选择登记机关'
           });
-
-        } else {
-          this.$Modal.confirm({
-            title: '确认登记表信息',
-            content: '<p>请确认全部填写信息</p>',
-            onOk: () => {
-
-              this.submitContent('ruleForm');
-
-            },
-            onCancel: () => {
-              this.$Message.info('点击了取消');
-            }
-          });
+          return
         }
+        if(this.ruleForm.deviceClassCode=='' ){
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '请选择设备类别'
+          });
+          return
+        }
+        this.$refs["ruleForm"].validate((valid) => {
+          if (valid) {
+
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.updateContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+
+            } else {
+              this.$Modal.confirm({
+                title: '确认登记表信息',
+                content: '<p>请确认全部填写信息</p>',
+                onOk: () => {
+
+                  this.submitContent('ruleForm');
+
+                },
+                onCancel: () => {
+                  this.$Message.info('点击了取消');
+                }
+              });
+            }
+
+          } else {
+            console.log('error submit!!');
+            this.$Message.info('尚有信息不符合要求，请检查');
+            return false;
+          }
+        });
+
 
       },
 
