@@ -444,7 +444,7 @@
             submitParam.registCode = this.registCode;
             submitParam.deviceType = parseInt(this.deviceType);
             submitParam.deviceId = parseInt(this.deviceCode);
-            setAppService.updateSetInfo(submitParam).then(res => {
+            setAppService.submitSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];

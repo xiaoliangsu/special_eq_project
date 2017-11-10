@@ -359,16 +359,12 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead">首次提交气瓶基本信息</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-              <a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -384,18 +380,14 @@
             <div style="width:150%;padding-left:100px;">
 
 
-              <h2 class="firstHead" style="margin-left:45%;">新增压力管道基本信息(非首次)</h2>
-              <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
-                 class="detail_a">标准压力管道基本信息汇总表</a>
-              <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
+              <h2 class="firstHead" style="margin-left:45%;">新增气瓶基本信息(非首次)</h2>
+              <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准压力管道基本信息汇总表.txt"
+                 class="detail_a">标准气瓶基本信息汇总表</a>
+              <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -403,18 +395,18 @@
 
             </div>
             <Steps :current="2" direction="vertical">
-              <Step title="步骤1" content="下载标准压力管道基本信息汇总表"></Step>
-              <Step title="步骤2" content="上传压力管道基本信息汇总表"></Step>
+              <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
             </Steps>
           </div>
           <div class="changeGas">
 
             <Steps :current="current" style="margin-left:15%;">
-              <Step title="步骤1" content="按id搜索压力管道信息"></Step>
-              <Step title="步骤2" content="点击相应停用、注销、报废按钮对已有压力管道进行操作"></Step>
+              <Step title="步骤1" content="按id搜索气瓶信息"></Step>
+              <Step title="步骤2" content="点击相应停用、注销、报废按钮对已有气瓶进行操作"></Step>
 
             </Steps>
-            <h2 style="margin-left:30%;">停用、注销、报废已有压力管道（非首次）</h2>
+            <h2 style="margin-left:30%;">停用、注销、报废已有气瓶（非首次）</h2>
 
             <div class="innerBox" style="margin-left:30%;">
               <Row>
@@ -425,8 +417,8 @@
                 <Input placeholder="请输入申请id" style="width: 180px"></Input>
 
                 <Button type="primary" class="query">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
-                                          class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
+                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                                          class="detail_a" style="color:white;">下载已提交气瓶基本信息表</a></Button>
 
                 </Col>
               </Row>
@@ -446,16 +438,13 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead">首次提交压力管道基本信息</h2>
               <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+              <a v-bind:href="'                                                    admin/static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
                  class="detail_a">标准压力管道基本信息汇总表</a>
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                :on-success="handlePipeSuccess"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -473,16 +462,13 @@
 
               <h2 class="firstHead" style="margin-left:40%;">新增压力管道基本信息(非首次)</h2>
               <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-              <a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+              <a v-bind:href="'                                                    admin/static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
                  class="detail_a">标准压力管道基本信息汇总表</a>
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+2+'&fileTypeId=1'"
+                :on-success="handlePipeSuccess"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -1343,6 +1329,10 @@
 
 
       },
+      handlePipeSuccess(res, file){
+          console.log(res);
+
+      }
     },
 
 

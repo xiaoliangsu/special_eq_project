@@ -39,7 +39,7 @@
     <div class="list-box">
       <Table border :columns="columns5" :data="data5"></Table>
       <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-            :page-size="10" :current="currentPage" ></Page>
+            :page-size="10" :current="currentPage"></Page>
 
     </div>
 
@@ -48,6 +48,8 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as avaivbleService from '../../../services/avaiableDev'
+  import * as setAppService from '../../../services/setApp'
+
 
   export default {
     data() {
@@ -305,14 +307,18 @@
                     },
                     on: {
                       click: () => {
+                        this.useAgain(this.data5[params.index].id)
                         // this.appDetail(params.index)
                         //  console.log(params.index)
-                        this.$router.push({
-                          path: 'stopUseApp',
-                          query: {
-                            deviceCode: this.data5[params.index].id,
-                          }
-                        });
+//                        setAppService.updateSetInfo(1).then(res => {
+//                          if (res.status == 200) {
+//                              alert(1);
+//
+//                          }
+//                        }).catch(error => {
+//                          console.log(error);
+//
+//                        })
                       }
                     }
                   }, '停用后启用申请'),
@@ -483,7 +489,7 @@
 
                 this.num = res.data.length;
 
-              }else if(res.status=== 401){
+              } else if (res.status === 401) {
                 this.$Notice.error({
                   title: '这是通知标题',
                   desc: res.msg
@@ -573,6 +579,56 @@
             deviceId: this.data5[value].id,
           }
         });
+
+      },
+      useAgain(value){
+        let submitParam = {};
+        submitParam.applyType = 5;
+        submitParam.deviceId = value;
+        console.log(value)
+        setAppService.submitSetInfo(submitParam).then(res => {
+          if (res.status == 200) {
+              let  useAgainApplyId=res.data.applyId;
+            this.$Modal.confirm({
+              title: '确认信息',
+              content: '<p>确认启用该设备</p>',
+              onOk: () => {
+                let params = 'applyId=' + useAgainApplyId;
+                setAppService.confrimApp(params).then(res => {
+                  if (res) {
+                    const title = '通知';
+                    const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
+                    switch (type) {
+                      case 'success':
+                        this.$Modal.success({
+                          title: title,
+                          content: content
+                        });
+                        this.current++;
+                        break;
+                    }
+            this.$router.go(0);
+                  }
+                }).catch(error => {
+                  console.log(error);
+
+                })
+
+
+
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
+            });
+
+          }
+        }).catch(error => {
+          console.log(error);
+
+        })
+
+
 
       }
 

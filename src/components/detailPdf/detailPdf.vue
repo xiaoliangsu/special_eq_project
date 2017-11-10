@@ -2,7 +2,7 @@
   <div class="detailPdf">
     <ul class="detail_ul">
       <li v-for="(item,key,index) in pdfUrl" class="detail_li">
-        <a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
+        <a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key.replace(/\d+/g,'')}}.pdf</a>
         <Button type="ghost" size="small" @click="test(index)" v-if="pdfToggle[index]==1">
           <Icon type="eye"></Icon>
           预览

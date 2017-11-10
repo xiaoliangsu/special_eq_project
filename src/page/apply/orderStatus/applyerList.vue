@@ -482,8 +482,7 @@
       },
 
       appDetail(value){
-        if (this.data5[value].applyType == "首次申请" || this.data5[value].applyType == "停用申请" || this.data5[value].applyType == "报废申请" ||
-          this.data5[value].applyType == "停用后启用") {
+
           this.$router.push({
             path: 'appDetail',
             query: {
@@ -491,7 +490,7 @@
             }
           });
 
-        }
+
 //    switch (this.data5[value].changeApplyNum) {
 //        console.log(this.data5[value].applyType);
 //        switch (this.data5[value].applyType) {

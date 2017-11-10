@@ -508,7 +508,7 @@
             submitParam.id = this.$route.query.applyId;
             submitParam.deviceClass = this.deviceClassId;
             submitParam.deviceKind = this.deviceClassTypeId;
-            setAppService.updateSetInfo(submitParam).then(res => {
+            setAppService.submitSetInfo(submitParam).then(res => {
 
               if (res.status == 200) {
                 this.applyId = res.data.applyId;

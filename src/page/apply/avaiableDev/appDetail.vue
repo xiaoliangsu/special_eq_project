@@ -57,7 +57,7 @@
       </div>
 
       <div class="setTable">
-        <h2 class="detailHead">三、特种设备使用登记表：</h2>
+        <h2 class="detailHead" style="font-size:29px;">三、特种设备使用登记表：</h2>
         <!--<iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>-->
         <ul class="detail_ul">
           <li v-for="(item,key,index) in this.registPdfUrl" class="detail_li" style="width:800px;height:1000px;">
@@ -65,6 +65,7 @@
             <embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>
           </li>
         </ul>
+
       </div>
       <div class="pdfdownload">
         <h2 class="detailHead">四、提交的资料：</h2>

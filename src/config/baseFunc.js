@@ -22,6 +22,7 @@ exports.install = function (Vue, options) {
             path: 'companyApp',
             query: {
               applyId: this.data5[value].id,
+              device_type:this.data5[value].deviceTypeId,
             //  dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,
