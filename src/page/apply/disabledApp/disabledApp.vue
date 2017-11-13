@@ -478,6 +478,7 @@
         this.uploadList = [
           {"url": ''}
         ];
+        this.canStopUseDeviceList=[];
         //如果是第一次填写
         this.clearRuleForm();
         this.formDynamicPres.items = [
@@ -584,7 +585,7 @@
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-        submitParam.formList[0].formType = 7;
+        submitParam.formList[0].formType = 5;
 //        submitParam.deviceId=parseInt(this.deviceCode);
 //        submitParam.deviceType=parseInt(this.deviceType);
 //        submitParam.eqCodeList=[];
@@ -616,7 +617,7 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 7;
+            submitParam.formList[0].formType = 5;
 //            submitParam.deviceId=parseInt(this.deviceCode);
 //            submitParam.deviceType=parseInt(this.deviceType);
 //            submitParam.eqCodeList=[];

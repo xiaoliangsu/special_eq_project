@@ -317,9 +317,9 @@
             }else if(res.data.role==2||res.data.role==3){
               loginService.GetInfo().then(res => {
                 localStorage.setItem('name', res.data.name);
-                localStorage.setItem('mobilePhone', res.data.comMobilePhone);
+                localStorage.setItem('mobilePhone', res.data.mobilePhone);
                 localStorage.setItem('verifyId', res.data.verifyId);
-                localStorage.setItem('approveAgencyId', res.data.approveAgencyId);
+                localStorage.setItem('acceptorAgencyId', res.data.acceptorAgencyId);
 
               }).catch(error => {
                 console.log(error)

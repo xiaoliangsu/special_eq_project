@@ -218,7 +218,7 @@
         let params = {
           // device_detail:this.device_detail,
           deviceTypeId: parseInt(this.device_type),
-          applyTypeId: 0,
+          applyTypeId: 1,
           states: [0, 0],
           page:0,
           size:10,
@@ -292,7 +292,7 @@
         let params = {
           // device_detail:this.device_detail,
           deviceTypeId: parseInt(this.device_type),
-          applyTypeId: 0,
+          applyTypeId: 1,
           states: [0, 0],
           page:value-1,
           size:10,
@@ -311,7 +311,7 @@
               let params = {
                 // device_detail:this.device_detail,
                 deviceTypeId: parseInt(this.device_type),
-                applyTypeId: 0,
+                applyTypeId: 1,
                 states: [0, 0],
                 page:0,
                 size:10,

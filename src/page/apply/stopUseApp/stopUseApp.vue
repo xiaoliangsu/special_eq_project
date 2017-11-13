@@ -437,6 +437,7 @@
         this.deviceCode = this.$route.query.deviceCode;
         this.registCode = this.$route.query.registCode;
         this.deviceType = this.$route.query.deviceType;
+        this.canStopUseDeviceList=[];
         //如果是第一次填写
         this.clearRuleForm();
         this.formDynamicPres.items = [
@@ -545,7 +546,7 @@
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-        submitParam.formList[0].formType = 7;
+        submitParam.formList[0].formType = 5;
         //submitParam.deviceId = parseInt(this.deviceCode);
         //登记证编号
 //        submitParam.registCode = this.registCode;
@@ -575,7 +576,7 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 7;
+            submitParam.formList[0].formType = 5;
             submitParam.applyType = 3;
 //            submitParam.registCode = this.registCode;
 //            submitParam.deviceType = parseInt(this.deviceType);

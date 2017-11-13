@@ -203,11 +203,22 @@
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <!--<Form-item label="日期" prop="comPersonDate">-->
-              <!--&lt;!&ndash;wang&ndash;&gt;-->
-              <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextCheckDate"></DatePicker>&ndash;&gt;-->
-              <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
-              <!--</Form-item>-->
+              <Form-item label="安全管理部门" prop="superviseComName">
+                <!--wang-->
+                <Input v-model="ruleForm.superviseComName"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11">
+              <Form-item label="工程(装置)名称" prop="deviceName">
+                <!--wang-->
+                <Input v-model="ruleForm.deviceName"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <Form-item label="电子邮箱" prop="email">
+                <!--wang-->
+                <Input v-model="ruleForm.email" disabled></Input>
+              </Form-item>
               </Col>
             </Row>
           </div>
@@ -349,6 +360,8 @@
         <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
         <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
         <Button @click="instance('success')" v-if="this.active==4" type="success">确认提交</Button>
+        <Button @click="save('success')"  v-if="this.active==4" type="primary">存入档案</Button>
+
         <!--<Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>-->
         <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
@@ -365,14 +378,31 @@
               <Upload
                 ref="upload1"
                 :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :on-success="handleGasFirstSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
+              <h5>文件缩略图</h5>
+              <div class="demo-upload-list" v-for="(item,index) in gasfirstUploadList">
+                <img :src="item.url">
+                <div class="demo-upload-list-cover">
+                  <Icon type="ios-eye-outline" @click.native="handleGasFirstView(index)"></Icon>
+                </div>
+
+              </div>
+              <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
+              <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
+
+              <Modal title="查看图片" v-model="gasFirstvisible">
+                <iframe id="iFramePdf" v-bind:src=this.gasFirstPdf style="width:100%;height:1000px;" v-if="gasFirstvisible"></iframe>
+
+              </Modal>
 
             </div>
             <Steps :current="2" direction="vertical">
               <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
               <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
+              <Step title="步骤3" content="预览标准气瓶基本信息汇总表"></Step>
             </Steps>
 
           </div>
@@ -388,15 +418,33 @@
               <Upload
                 ref="upload1"
                 :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :on-success="handleGasAddSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
               </Upload>
+              <h5>文件缩略图</h5>
+              <div class="demo-upload-list" v-for="(item,index) in gasAddUploadList">
+                <img :src="item.url">
+                <div class="demo-upload-list-cover">
+                  <Icon type="ios-eye-outline" @click.native="handleGasAddView(index)"></Icon>
+                </div>
+
+              </div>
+              <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
+              <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
+
+              <Modal title="查看图片" v-model="gasAddvisible">
+                <iframe id="iFramePdf" v-bind:src=this.gasAddpdf style="width:100%;height:1000px;" v-if="gasAddvisible"></iframe>
+
+              </Modal>
 
             </div>
             <Steps :current="2" direction="vertical">
-              <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
+              <Step title="步骤1" content="下载标准气瓶基本信息汇总表(excel版)"></Step>
               <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
+              <Step title="步骤3" content="预览标准气瓶基本信息汇总表"></Step>
+
             </Steps>
           </div>
           <div class="changeGas">
@@ -443,16 +491,29 @@
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handlePipeSuccess"
+                :on-success="handlePipeFirstSuccess"
                 :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
+              <h5>文件缩略图</h5>
+              <div class="demo-upload-list" v-for="(item,index) in pipeFirstUploadList">
+                <img :src="item.url">
+                <div class="demo-upload-list-cover">
+                  <Icon type="ios-eye-outline" @click.native="handlePipeFirstView(index)"></Icon>
+                </div>
+
+              </div>
+              <Modal title="查看图片" v-model="pipeFirstvisible">
+                <iframe id="iFramePdf" v-bind:src=this.pipeFirstPdf style="width:100%;height:1000px;" v-if="pipeFirstvisible"></iframe>
+
+              </Modal>
 
             </div>
-            <Steps :current="2" direction="vertical">
-              <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
-              <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
+            <Steps :current="3" direction="vertical">
+              <Step title="步骤1" content="下载标准压力管道基本信息汇总表"></Step>
+              <Step title="步骤2" content="上传压力管道基本信息汇总表"></Step>
+              <Step title="步骤3" content="预览压力管道基本信息汇总表"></Step>
             </Steps>
 
           </div>
@@ -467,17 +528,31 @@
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :on-success="handlePipeSuccess"
+                :on-success="handlePipeAddSuccess"
                 :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
               </Upload>
 
+              <h5>文件缩略图</h5>
+              <div class="demo-upload-list" v-for="(item,index) in pipeAddUploadList">
+                <img :src="item.url">
+                <div class="demo-upload-list-cover">
+                  <Icon type="ios-eye-outline" @click.native="handlePipeAddView(index)"></Icon>
+                </div>
+              </div>
+              <Modal title="查看图片" v-model="pipeAddvisible">
+                <iframe id="iFramePdf" v-bind:src=this.pipeAddPdf style="width:100%;height:1000px;" v-if="pipeAddvisible"></iframe>
+
+              </Modal>
+
             </div>
-            <Steps :current="2" direction="vertical">
+            <Steps :current="3" direction="vertical">
               <Step title="步骤1" content="下载标准压力管道基本信息汇总表"></Step>
               <Step title="步骤2" content="上传压力管道基本信息汇总表"></Step>
+              <Step title="步骤3" content="预览压力管道基本信息汇总表"></Step>
+
             </Steps>
           </div>
           <div class="changeGas">
@@ -579,6 +654,9 @@
           safeAdministrator: '',
           mobilePhone: '',
           comTablePerson: '',
+          superviseComName:'',
+          deviceName:'',
+          email:'',
           //comPersonDate:'',
         },
         formDynamicGas: {
@@ -680,7 +758,15 @@
           comTablePerson: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-
+          superviseComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceName:[
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          email:[
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
 
         },
         ifNext: true,
@@ -688,7 +774,40 @@
         selected: '',
         imgName: '',
         visible: false,
-        uploadList: [],
+
+        uploadList: [
+          {"url": ''}
+        ],
+
+        gasfirstUploadList:[
+          {"url": ''}
+        ],
+        gasFirstPdfList: [],
+        gasFirstPdf:'',
+        gasFirstvisible:false,
+
+
+        gasAddUploadList:[
+          {"url": ''}
+        ],
+        gasAddPdfList: [],
+        gasAddPdf:'',
+        gasAddvisible:false,
+
+        pipeFirstUploadList:[
+          {"url": ''}
+        ],
+        pipeFirstPdfList: [],
+        pipeFirstPdf:'',
+        pipeFirstvisible:false,
+
+        pipeAddUploadList:[
+          {"url": ''}
+        ],
+        pipeAddPdfList: [],
+        pipeAddPdf:'',
+        pipeAddvisible:false,
+
         modal1: false,
         author_key: '',
 //        pdfUrl: {
@@ -864,7 +983,7 @@
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
         this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
-
+        this.ruleForm.email = localStorage.getItem('email');
 
         if (localStorage.getItem('company') == 'true') {
           this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
@@ -970,6 +1089,10 @@
           safeAdministrator: '',
           mobilePhone: '',
           comTablePerson: '',
+          superviseComName:'',
+          deviceName:'',
+          email:'',
+
           //comPersonDate:'',
         }
       },
@@ -1129,6 +1252,39 @@
 
 
       },
+      handleGasFirstSuccess (res, file) {
+          this.gasfirstUploadList[0].url = "/admin" + res.data.thumbnail;
+          this.gasFirstPdfList.push("/admin" + res.data.preview)
+      },
+      handleGasFirstView(index){
+        this.gasFirstvisible = true;
+        this.gasFirstPdf = this.gasFirstPdfList[index];
+      },
+      handleGasAddSuccess (res, file) {
+        this.gasAddUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.gasAddPdfList.push("/admin" + res.data.preview)
+      },
+      handleGasAddView(index){
+        this.gasAddvisible = true;
+        this.gasAddPdf = this.gasAddPdfList[index];
+      },
+      handlePipeFirstSuccess (res, file) {
+        this.pipeFirstUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.pipeFirstPdfList.push("/admin" + res.data.preview)
+      },
+      handlePipeFirstView(index){
+        this.pipeFirstvisible = true;
+        this.pipeFirstPdf = this.pipeFirstPdfList[index];
+      },
+      handlePipeAddSuccess (res, file) {
+        this.pipeAddUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.pipeAddPdfList.push("/admin" + res.data.preview)
+      },
+      handlePipeAddView(index){
+        this.pipeAddvisible = true;
+        this.pipeAddPdf = this.pipeAddPdfList[index];
+      },
+
 
       //保存
       saveForm(formName){
@@ -1303,36 +1459,45 @@
         this.visible = true;
         this.pdf = this.pdfList[index];
       },
+      //存入档案
+      save(type){
+        const title = '通知';
+        const content = '<p>您已经成功将信息存入档案</p>';
+        this.$Modal.success({
+          title: title,
+          content: content
+
+        });
+        this.$router.push('applyerList');
+
+      },
+
 
       //确认全部
       instance (type) {
-        let params = 'applyId=' + 1;
-        setAppService.confrimApp(params).then(res => {
-          if (res) {
-            const title = '通知';
-            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-            switch (type) {
-              case 'success':
-                this.$Modal.success({
-                  title: title,
-                  content: content
-                });
-                this.current++;
-                break;
-            }
-            this.$router.push('applyerList');
-          }
-        }).catch(error => {
-          console.log(error);
+        this.$Modal.confirm({
+          title: 'Title',
+          content: '<p>点击确认提交年检申请</p><p>如您还未到年检日期，请点击取消，并存入档案</p>',
+          onOk: () => {
+            let params = 'applyId=' + 1;
+            setAppService.confrimApp(params).then(res => {
+              if (res) {
+                this.$router.push('applyerList');
+              }
+            }).catch(error => {
+              console.log(error);
+            })
 
-        })
+          },
+          onCancel: () => {
+            this.$Message.info('点击了取消');
+          }
+        });
+
 
 
       },
-      handlePipeSuccess(res, file){
-          console.log(res);
 
-      }
     },
 
 
@@ -1557,6 +1722,7 @@
     cursor: pointer;
     margin: 0 2px;
   }
+
 
 
 </style>

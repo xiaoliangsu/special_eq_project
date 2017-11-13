@@ -48,7 +48,7 @@ const actions = {
         localStorage.setItem('zipcode', res.data.zipcode);
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('addressCode', res.data.addressCode);
-        localStorage.setItem('useComAddr', res.data.address);
+        localStorage.setItem('useComAddr', res.data.useComAddr);
 
       }
 
