@@ -247,7 +247,7 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.file1NameNum"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.file1NameNum"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -269,7 +269,7 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file2NameNum"
+                  :action="'/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file2NameNum"
                   :before-upload="handleBeforeUpload2"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -285,7 +285,7 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file3NameNum"
+                  :action="'/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file3NameNum"
                   :before-upload="handleBeforeUpload3"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -307,7 +307,7 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file4NameNum"
+                  :action="'/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file4NameNum"
                   :before-upload="handleBeforeUpload4"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -323,7 +323,7 @@
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
-                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file5NameNum"
+                  :action="'/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file5NameNum"
                   :before-upload="handleBeforeUpload5"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -372,12 +372,12 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead">首次提交气瓶基本信息</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+              <a v-bind:href="'                                                    static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 :on-success="handleGasFirstSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -412,12 +412,12 @@
 
               <h2 class="firstHead" style="margin-left:45%;">新增气瓶基本信息(非首次)</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准压力管道基本信息汇总表.txt"
+              <a v-bind:href="'                                                    static/file/cylinder.xlsx'" download="标准压力管道基本信息汇总表.txt"
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
-                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 :on-success="handleGasAddSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -486,13 +486,13 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead">首次提交压力管道基本信息</h2>
               <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-              <a v-bind:href="'                                                    admin/static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
+              <a v-bind:href="'                                                    static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
                  class="detail_a">标准压力管道基本信息汇总表</a>
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
                 :on-success="handlePipeFirstSuccess"
-                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -523,13 +523,13 @@
 
               <h2 class="firstHead" style="margin-left:40%;">新增压力管道基本信息(非首次)</h2>
               <h3 class="firstHead2">一、下载标准压力管道基本信息汇总表</h3>
-              <a v-bind:href="'                                                    admin/static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
+              <a v-bind:href="'                                                    static/file/pipe.xlsx'" download="标准压力管道基本信息汇总表.xlsx"
                  class="detail_a">标准压力管道基本信息汇总表</a>
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
                 :on-success="handlePipeAddSuccess"
-                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+                :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -904,7 +904,7 @@
           }
         ],
         data5: [],
-        pdfUrl: '/admin/file/preview?fileId=101',
+        pdfUrl: '/file/preview?fileId=101',
         uploadList: [
           {"url": ''}
         ],
@@ -1133,7 +1133,7 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1234,7 +1234,7 @@
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1253,32 +1253,32 @@
 
       },
       handleGasFirstSuccess (res, file) {
-          this.gasfirstUploadList[0].url = "/admin" + res.data.thumbnail;
-          this.gasFirstPdfList.push("/admin" + res.data.preview)
+          this.gasfirstUploadList[0].url = res.data.thumbnail;
+          this.gasFirstPdfList.push(res.data.preview)
       },
       handleGasFirstView(index){
         this.gasFirstvisible = true;
         this.gasFirstPdf = this.gasFirstPdfList[index];
       },
       handleGasAddSuccess (res, file) {
-        this.gasAddUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.gasAddPdfList.push("/admin" + res.data.preview)
+        this.gasAddUploadList[0].url = res.data.thumbnail;
+        this.gasAddPdfList.push(res.data.preview)
       },
       handleGasAddView(index){
         this.gasAddvisible = true;
         this.gasAddPdf = this.gasAddPdfList[index];
       },
       handlePipeFirstSuccess (res, file) {
-        this.pipeFirstUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.pipeFirstPdfList.push("/admin" + res.data.preview)
+        this.pipeFirstUploadList[0].url =  res.data.thumbnail;
+        this.pipeFirstPdfList.push(res.data.preview)
       },
       handlePipeFirstView(index){
         this.pipeFirstvisible = true;
         this.pipeFirstPdf = this.pipeFirstPdfList[index];
       },
       handlePipeAddSuccess (res, file) {
-        this.pipeAddUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.pipeAddPdfList.push("/admin" + res.data.preview)
+        this.pipeAddUploadList[0].url = res.data.thumbnail;
+        this.pipeAddPdfList.push(res.data.preview)
       },
       handlePipeAddView(index){
         this.pipeAddvisible = true;
@@ -1415,18 +1415,18 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push( res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push(res.data.preview)
 
         }
 
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }

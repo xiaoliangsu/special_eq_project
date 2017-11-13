@@ -30,7 +30,7 @@
 
           <Form-item prop="verif">
             <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
-            <img src="/admin/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
+            <img src="/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
                  alt="验证码图片" v-on:click="reflushVerify"/>
           </Form-item>
           <!--这里加注释-->
@@ -376,7 +376,7 @@
       },
       //刷新验证码
       reflushVerify() {
-        this.$refs.verifyImg.src="/admin/static/captchaimage?"+Math.random();
+        this.$refs.verifyImg.src="/static/captchaimage?"+Math.random();
       },
       selectAuthorKey(value){
         this.author_key=value;

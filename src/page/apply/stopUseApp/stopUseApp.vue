@@ -513,7 +513,7 @@
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -593,7 +593,7 @@
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }

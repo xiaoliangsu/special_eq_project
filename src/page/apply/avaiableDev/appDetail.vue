@@ -61,8 +61,8 @@
         <!--<iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>-->
         <ul class="detail_ul">
           <li v-for="(item,key,index) in this.registPdfUrl" class="detail_li" style="width:800px;height:1000px;">
-            <a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
-            <embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>
+            <a v-bind:href="'/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
+            <embed  v-bind:src="'/file/preview?fileId='+item" width="100%" height="1000px"/>
           </li>
         </ul>
 
