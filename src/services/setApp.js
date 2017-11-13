@@ -10,7 +10,7 @@ export function submitStopUseInfo(params) {
   return fetch('/apply/drop', params,'post')
 }
 export function submitDisabledInfo(params) {
-  return fetch('/apply/disabled', params,'post')
+  return fetch('/apply/disable', params,'post')
 }
 
 

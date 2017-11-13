@@ -692,18 +692,20 @@
           if (res) {
             const title = '通知';
             const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-            switch (type) {
-              case 'success':
-                this.$Modal.success({
-                  title: title,
-                  content: content
-                });
-                this.current++;
-                break;
-            }
-            this.$router.push({
-              path: 'devList',
+            this.$Modal.confirm({
+              title: '通知',
+              content: '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>',
+              onOk: () => {
+                this.$router.go(0);
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
             });
+//            this.$router.push({
+//              path: 'devList',
+//            });
+
 //            this.$router.push('devList');
           }
         }).catch(error => {

@@ -349,6 +349,7 @@
           }
         if(this.author_key==2||this.author_key==3){
           this.ruleForm.acceptorAgencyId = localStorage.getItem('acceptorAgencyId');
+          this.ruleForm.acceptorAgencyName = localStorage.getItem('acceptorAgencyName');
           this.ruleForm.name = localStorage.getItem('name');
           this.ruleForm.verifyId = localStorage.getItem('verifyId');
           this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
@@ -504,24 +505,30 @@
               password:this.password
             }
             setAppService.updateUser(params).then(res => {
-              this.$Message.info('修改密码成功，请重新登陆');
-              localStorage.removeItem('loginStatus');
-              localStorage.removeItem('userInfo');
-              localStorage.removeItem('author_key');
-              localStorage.removeItem('useComName');
-              localStorage.removeItem('useComAddr');
-              localStorage.removeItem('useComCode');
-              localStorage.removeItem('zipcode');
-              localStorage.removeItem('staticPhone');
-              localStorage.removeItem('mobilePhone');
-              localStorage.removeItem('propertyComName');
-              localStorage.removeItem('propertyComCode');
-              localStorage.removeItem('name');
-              localStorage.removeItem('verifyId');
-              localStorage.removeItem('safeAdministrator');
-              localStorage.removeItem('approveAgencyId');
-              this.setSignOut();
-              this.$router.push('login');
+                if(res.status==200){
+                  this.$Message.info('修改密码成功，请重新登陆');
+                  localStorage.removeItem('loginStatus');
+                  localStorage.removeItem('userInfo');
+                  localStorage.removeItem('author_key');
+                  localStorage.removeItem('useComName');
+                  localStorage.removeItem('useComAddr');
+                  localStorage.removeItem('useComCode');
+                  localStorage.removeItem('zipcode');
+                  localStorage.removeItem('staticPhone');
+                  localStorage.removeItem('mobilePhone');
+                  localStorage.removeItem('propertyComName');
+                  localStorage.removeItem('propertyComCode');
+                  localStorage.removeItem('name');
+                  localStorage.removeItem('verifyId');
+                  localStorage.removeItem('safeAdministrator');
+                  localStorage.removeItem('approveAgencyId');
+                  this.setSignOut();
+                  this.$router.push('login');
+
+
+                }else{
+                  this.$Message.info(res.msg);
+                }
 
 
             }).catch(error => {

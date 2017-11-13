@@ -770,23 +770,19 @@
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {
-            const title = '通知';
-            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-            switch (type) {
-              case 'success':
-                this.$Modal.success({
-                  title: title,
-                  content: content
-                });
-                this.current++;
-                break;
-            }
-            this.$router.push({
-              path: 'devList',
-//              query: {
-//                apply_state: "4",
-//              }
+            this.$Modal.confirm({
+              title: '通知',
+              content: '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>',
+              onOk: () => {
+                this.$router.go(0);
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
             });
+//            this.$router.push({
+//              path: 'devList',
+//            });
           }
         }).catch(error => {
           console.log(error);
