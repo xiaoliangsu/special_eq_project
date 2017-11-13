@@ -1,7 +1,6 @@
 <template>
   <div class="user">
     <header class="admin_title">基本信息</header>
-    <!--<span>{{userName}}</span>-->
     <!--申请用户-->
     <div class="admin_set" v-if="this.author_key==1">
         <Form :model="ruleForm" ref="ruleForm" :rules="rules" :label-width="120">
@@ -13,29 +12,25 @@
                 <div slot="content" style="white-space: normal;font-size:2px;">
                   <p>登录账号，至少5个字符，要求大小写字母和数字</p>
                 </div>
-                <Input v-model="ruleForm.userName" placeholder="用户名"></Input>
+                <Input v-model="ruleForm.userName" placeholder="用户名" disabled></Input>
               </Poptip>
 
             </FormItem>
 
           </Row>
-          <!--<label class="label">本人姓名：</label>-->
-
-          <!--<label class="label">密码：</label>-->
           <Row>
 
             <FormItem prop="password" label="登陆密码">
               <div style="display:inline-block;width:300px;" v-if="this.codeBox">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="password" ></Input>
               </div>
-              <Button  @click="saveCode()" v-if="this.codeBox">保存密码</Button>
+              <Button  @click="saveCode()" v-if="this.codeBox" type="warning">保存密码</Button>
 
               <Button  @click="changeCode()" v-if="!this.codeBox">修改密码</Button>
 
             </FormItem>
 
           </Row>
-          <!--<label class="label" style="fint-size:16px;">确认密码:</label>-->
 
           <h2>基本信息</h2></br>
           <Row>
@@ -46,7 +41,7 @@
 
           <Row>
             <FormItem prop="useComAddr" label="使用单位地址"  v-if="!this.changeAdd">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="ruleForm.useComAddr" disabled></Input>
             </FormItem>
 
             <FormItem prop="useComAddr" label="使用单位地址"  style="margin-bottom:10px;" v-if="this.changeAdd">
@@ -75,8 +70,6 @@
             </FormItem>
 
           </Row>
-          <!--<Button  @click="saveCode()" v-if="this.codeBox">保存密码</Button>-->
-
           <Button  @click="changeAddress()" v-if="!this.changeAdd">修改地址</Button>
 
           <Row v-if="this.role==='1'">
@@ -137,22 +130,19 @@
               <div slot="content" style="white-space: normal;font-size:2px;">
                 <p>登录账号，至少5个字符，要求大小写字母和数字</p>
               </div>
-              <Input v-model="ruleForm.userName" placeholder="用户名"></Input>
+              <Input v-model="ruleForm.userName" placeholder="用户名" disabled></Input>
             </Poptip>
 
           </FormItem>
 
         </Row>
-        <!--<label class="label">本人姓名：</label>-->
-
-        <!--<label class="label">密码：</label>-->
         <Row>
 
           <FormItem prop="password" label="登陆密码">
             <div style="display:inline-block;width:300px;" v-if="this.codeBox">
-              <Input v-model="ruleForm.useComAddr" ></Input>
+              <Input v-model="password" ></Input>
             </div>
-            <Button  @click="saveCode()" v-if="this.codeBox">保存密码</Button>
+            <Button  @click="saveCode()" v-if="this.codeBox" type="warning">保存密码</Button>
 
             <Button  @click="changeCode()" v-if="!this.codeBox">修改密码</Button>
 
@@ -162,7 +152,7 @@
         </Row>
         <Row>
           <FormItem prop="useComAddr" label="登记机关名称"  style="margin-bottom:10px;" v-if="! this.changeRegistName">
-          <Input v-model="ruleForm.acceptorAgencyId" disabled></Input>
+          <Input v-model="ruleForm.acceptorAgencyName" disabled></Input>
           </FormItem>
         </Row>
 
@@ -173,8 +163,6 @@
 
           </FormItem>
         </Row>
-
-
         <Row>
           <FormItem prop="verifyId" label="身份证号">
 
@@ -182,8 +170,6 @@
 
           </FormItem>
         </Row>
-
-
         <FormItem prop="mobilePhone" label="移动电话号码">
           <Row>
             <Input v-model="ruleForm.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
@@ -191,44 +177,6 @@
         </FormItem>
 
       </Form>
-      <!--<ul>-->
-        <!--<li>-->
-          <!--<span>用户名：</span>-->
-          <!--<div style="display:inline-block;width:300px;">-->
-            <!--<Input v-model="ruleForm.userName" ></Input>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span>登陆密码：</span>-->
-          <!--<Button>修改密码</Button>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span>登记机关名称：</span>-->
-          <!--<div style="display:inline-block;width:300px;">-->
-            <!--<Input v-model="ruleForm.acceptorAgencyId" ></Input>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span>登记人员：</span>-->
-          <!--<div style="display:inline-block;width:300px;">-->
-            <!--<Input v-model="ruleForm.name" ></Input>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span>身份证号：</span>-->
-          <!--<div style="display:inline-block;width:300px;">-->
-            <!--<Input v-model="ruleForm.verifyId" ></Input>-->
-          <!--</div>-->
-        <!--</li>-->
-
-        <!--<li>-->
-          <!--<span>移动电话号码：</span>-->
-          <!--<div style="display:inline-block;width:300px;">-->
-            <!--<Input v-model="ruleForm.mobilePhone" ></Input>-->
-          <!--</div>-->
-        <!--</li>-->
-
-      <!--</ul>-->
     </div>
     <Button type="primary" @click="saveRuleForm()" style="font-size:16px;font-weight:bold;margin-left:600px;">保存</Button>
 
@@ -238,6 +186,8 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
+  import * as loginService from '../../services/login'
+
   export default {
     data() {
       return {
@@ -296,6 +246,21 @@
           ],
 
         },
+        registRules: {
+          useComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          name: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          verifyId: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          mobilePhone: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+
+        },
         province: '',
         provinceId:'',
         city: '',
@@ -309,6 +274,7 @@
         changeAdd:false,
         changeRegistName:false,
         userName: '',
+        password:'',
         ruleForm:{
           userName:'',
           useComName:'',
@@ -343,7 +309,7 @@
     },
     methods: {
       ...mapActions(
-        ['setSignOut', 'getUserInfo','clearUserData'],
+        ['setSignOut', 'getUserInfo','clearUserData','getUserData'],
       ),
 
       initData(){
@@ -393,12 +359,184 @@
       },
       saveRuleForm(){
           console.log(1);
+          if(this.author_key==1&&this.role==='1'){
+            let addressDetail='';
+            if(this.area!==''){
+              addressDetail=this.province+this.city+this.area+this.ruleForm.street;
+
+            }else if(this.area==''){
+              addressDetail=this.province+this.city+this.ruleForm.street;
+            }
+            this.ruleForm.useComAddr=addressDetail;
+
+            let addressCode='';
+            if(this.areaId!==''){
+              addressCode=this.areaId;
+            }else{
+              addressCode=this.cityId;
+            }
+            let params = {};
+            let temp = {
+              "company": true,
+              "mobilePhone": this.ruleForm.mobilePhone,
+              "useComName": this.ruleForm.useComName,
+              "useComCode": this.ruleForm.useComCode,
+              "zipcode": this.ruleForm.zipcode,
+              "propertyComName": this.ruleForm.propertyComName,
+              "propertyComCode": this.ruleForm.propertyComCode,
+              "email":this.ruleForm.email,
+              "useComAddr":this.ruleForm.useComAddr||addressDetail,
+              "addressCode":addressCode,
+              "safeAdministrator":this.ruleForm.safeAdministrator,
+              "staticPhone":this.ruleForm.staticPhone,
+            }
+            params.userData = temp;
+            setAppService.updateUser(params).then(res => {
+              if(res.status===200){
+                this.$Message.info('基本信息修改成功');
+                this.getUserData();
+                this.changeAdd=false;
+               // this.$router.push('login');
+              }else if(res.status===500){
+                this.$Message.info(res.msg);
+              }
+            }).catch(error => {
+              // console.log(2);
+              console.log(error)
+            })
+            //个人
+          }else if(this.author_key==1&&this.role==='0'){
+            let addressDetail='';
+            if(this.area!==''){
+              addressDetail=this.province+this.city+this.area+this.ruleForm.street;
+
+            }else if(this.area==''){
+              addressDetail=this.province+this.city+this.ruleForm.street;
+            }
+            this.ruleForm.useComAddr=addressDetail
+            let addressCode='';
+            if(this.areaId!==''){
+              addressCode=this.areaId;
+            }else{
+              addressCode=this.cityId;
+            }
+            let params = {};
+            let temp = {
+              "name": this.ruleForm.name,
+              "mobilePhone": this.ruleForm.mobilePhone,
+              "verifyId": this.ruleForm.verifyId,
+              "company": false,
+              "zipcode": this.ruleForm.zipcode,
+              "email":this.ruleForm.email,
+              "useComAddr":addressDetail,
+              "addressCode":addressCode,
+            }
+            params.userData = temp;
+            setAppService.updateUser(params).then(res => {
+              if(res.status===200){
+                this.$Message.info('基本信息修改成功');
+                this.getUserData();
+                this.changeAdd=false;
+              }else if(res.status===500){
+                this.$Message.info(res.msg);
+              }
+            }).catch(error => {
+              // console.log(2);
+              console.log(error)
+            })
+
+          } else if(this.author_key==2) {
+            let params = {};
+            let temp = {
+              "name": this.ruleForm.name,
+              "verifyId": this.ruleForm.verifyId,
+              "mobilePhone": this.ruleForm.mobilePhone,
+            }
+            params.userData = temp;
+            params.userData.role = 2;
+            setAppService.updateUser(params).then(res => {
+              if (res.status === 200) {
+                this.$Message.info('基本信息修改成功');
+                this.getUserData();
+              } else if (res.status === 500) {
+                this.$Message.info(res.msg);
+              }
+
+            }).catch(error => {
+              // console.log(2);
+              console.log(error)
+            })
+          }else if(this.author_key==3){
+            let params = {};
+            let temp = {
+              "name": this.ruleForm.name,
+              "verifyId": this.ruleForm.verifyId,
+              "mobilePhone": this.ruleForm.mobilePhone,
+            }
+            params.userData = temp;
+            params.userData.role = 3;
+            setAppService.updateUser(params).then(res => {
+              if (res.status === 200) {
+                this.$Message.info('基本信息修改成功');
+                this.getUserData();
+              } else if (res.status === 500) {
+                this.$Message.info(res.msg);
+              }
+
+            }).catch(error => {
+              // console.log(2);
+              console.log(error)
+            })
+          }
+
+
       },
       changeCode(){
           this.codeBox=true;
       },
       saveCode(){
         this.codeBox=false;
+        this.$Modal.confirm({
+          title: 'Title',
+          content: '<p>点击确认提交新密码，并重新登录</p>',
+          onOk: () => {
+            let params={
+              password:this.password
+            }
+            setAppService.updateUser(params).then(res => {
+              this.$Message.info('修改密码成功，请重新登陆');
+              localStorage.removeItem('loginStatus');
+              localStorage.removeItem('userInfo');
+              localStorage.removeItem('author_key');
+              localStorage.removeItem('useComName');
+              localStorage.removeItem('useComAddr');
+              localStorage.removeItem('useComCode');
+              localStorage.removeItem('zipcode');
+              localStorage.removeItem('staticPhone');
+              localStorage.removeItem('mobilePhone');
+              localStorage.removeItem('propertyComName');
+              localStorage.removeItem('propertyComCode');
+              localStorage.removeItem('name');
+              localStorage.removeItem('verifyId');
+              localStorage.removeItem('safeAdministrator');
+              localStorage.removeItem('approveAgencyId');
+              this.setSignOut();
+              this.$router.push('login');
+
+
+            }).catch(error => {
+              console.log(error);
+            })
+
+
+
+          },
+          onCancel: () => {
+            this.$Message.info('点击了取消');
+          }
+        });
+
+
       },
 
       changeRegist(){

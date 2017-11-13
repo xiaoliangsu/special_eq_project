@@ -596,18 +596,8 @@
                 let params = 'applyId=' + useAgainApplyId;
                 setAppService.confrimApp(params).then(res => {
                   if (res) {
-                    const title = '通知';
-                    const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-                    switch (type) {
-                      case 'success':
-                        this.$Modal.success({
-                          title: title,
-                          content: content
-                        });
-
-                        break;
-                    }
-                    this.$router.go(-1);
+                    params = this.makeParams(0, 10, this.time, '', false, '1');
+                    this.getOrders(params);
                   }
                 }).catch(error => {
                   console.log(error);

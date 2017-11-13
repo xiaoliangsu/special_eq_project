@@ -320,6 +320,7 @@
                 localStorage.setItem('mobilePhone', res.data.mobilePhone);
                 localStorage.setItem('verifyId', res.data.verifyId);
                 localStorage.setItem('acceptorAgencyId', res.data.acceptorAgencyId);
+                localStorage.setItem('acceptorAgencyName', res.data.acceptorAgencyName);
 
               }).catch(error => {
                 console.log(error)

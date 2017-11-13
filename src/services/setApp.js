@@ -14,6 +14,12 @@ export function submitDisabledInfo(params) {
 }
 
 
+//修改用户信息
+export function updateUser(params) {
+  return fetch('/user/update', params,'post')
+}
+
+
 
 export function updateSetInfo(params) {
   return fetch('/apply/update', params,'post')
