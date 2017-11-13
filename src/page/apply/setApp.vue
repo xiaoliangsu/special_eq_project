@@ -344,15 +344,15 @@
             <h2 class="header_two">设备检验情况</h2>
             <Row>
               <Col span="11">
-              <Form-item label="检验机构名称" prop="checkComName">
-                <!--<Input v-model="ruleForm.checkComName"></Input>-->
+              <Form-item label="检验机构名称" prop="testComName">
+                <!--<Input v-model="ruleForm.testComName"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
                     <p>
                       填写从事检验的检验机构名称。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.checkComName" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.testComName" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -801,7 +801,7 @@
           propertyComName: '',
           propertyComCode: '',
           propertyComPhone: '',
-          checkComName: '',
+          testComName: '',
           testType: '',
           testReportCode: '',
           testDate: '',
@@ -950,7 +950,7 @@
           propertyComPhone: [
             {required:true, message: '不能为空', trigger: 'blur'}
           ],
-          checkComName: [
+          testComName: [
             {required:true, message: '不能为空', trigger: 'blur'}
           ],
           testType: [
@@ -1265,7 +1265,7 @@
           propertyComName: '',
           propertyComCode: '',
           propertyComPhone: '',
-          checkComName: '',
+          testComName: '',
           testType: '',
           testReportCode: '',
           testDate: '',
