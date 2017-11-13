@@ -203,7 +203,7 @@
           {
             title: '申请日期',
             key: 'applyDate',
-            width:120
+            width:125
 
           },
           {

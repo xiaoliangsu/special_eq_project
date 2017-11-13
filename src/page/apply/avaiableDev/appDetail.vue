@@ -230,8 +230,9 @@
 //          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
           this.registPdfUrl=res.data.forms;
           this.pdfUrl = res.data.files;
-
-          if (res.data.status.states == "已受理待审批") {
+          if(res.data.status.states == "已提交待受理"){
+            this.accStatus='';
+          }else if(res.data.status.states == "已受理待审批") {
             this.accStatus = true;
             this.accReason = "已受理通过";
           } else if (res.data.status.states === "受理驳回") {

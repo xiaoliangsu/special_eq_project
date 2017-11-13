@@ -208,17 +208,17 @@
           {
             title: '停用开始日期',
             key: 'noUseDate',
-            width: 115,
+            width: 125,
           },
           {
             title: '停用结束日期',
             key: 'noUseEndDate',
-            width: 115,
+            width: 125,
           },
           {
             title: '注销日期',
             key: 'disableDate',
-            width: 120,
+            width: 125,
           },
           {
             title: '登记机关登记人员',
@@ -228,12 +228,12 @@
           {
             title: '申请日期',
             key: 'applyDate',
-            width: 120,
+            width: 125,
           },
           {
             title: '发证日期',
             key: 'issueDate',
-            width: 120,
+            width: 125,
           },
 
           {

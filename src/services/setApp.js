@@ -6,6 +6,14 @@ import fetch from '../fetch/http.js';
 export function submitSetInfo(params) {
     return fetch('/apply/create', params,'post')
 }
+export function submitStopUseInfo(params) {
+  return fetch('/apply/drop', params,'post')
+}
+export function submitDisabledInfo(params) {
+  return fetch('/apply/disabled', params,'post')
+}
+
+
 
 export function updateSetInfo(params) {
   return fetch('/apply/update', params,'post')

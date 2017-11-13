@@ -17,13 +17,13 @@
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div v-if="this.active==1"   class="statusInfo" style="margin-bottom:20px;">
+      <div v-if="this.active==1" class="statusInfo" style="margin-bottom:20px;">
         <div class="list-box">
-        <h3 class="header_one" style="margin:10px;">选择要停用的设备</h3>
+          <h3 class="header_one" style="margin:10px;">选择要停用的设备</h3>
 
-        <Table border ref="selection" :columns="columnsCanStopUse" :data="canStopUseDeviceList"
-               @on-select="selectDevice" @on-select-all="selectDeviceAll" width="800px"></Table>
-        <Button type="primary" @click="next()" v-if="this.active==1" >下一步</Button>
+          <Table border ref="selection" :columns="columnsCanStopUse" :data="canStopUseDeviceList"
+                 @on-select="selectDevice" @on-select-all="selectDeviceAll" width="800px"></Table>
+          <Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>
         </div>
 
       </div>
@@ -89,7 +89,7 @@
 
             <Form ref="formDynamicPres" :model="formDynamicPres" :label-width="140"
                   v-for="(item, index) in formDynamicPres.items"
-                  :key="item.id" inline class="formDynamicPres" >
+                  :key="item.id" inline class="formDynamicPres">
               <Row>
                 <Col span="11">
                 <FormItem
@@ -149,9 +149,26 @@
 
 
           </div>
+          <div class="base-box">
+            <h2 class="header_two">其他信息</h2>
+            <Row><!--wang-->
+              <Col span="11">
+              <Form-item label="使用单位填表人员" prop="comTablePerson">
+                <!--wang-->
+                <Input v-model="ruleForm.comTablePerson"></Input>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
+              <!--<Form-item label="日期" prop="comPersonDate">-->
+              <!--&lt;!&ndash;wang&ndash;&gt;-->
+              <!--&lt;!&ndash;<DatePicker v-model="ruleForm.nextTestDate"></DatePicker>&ndash;&gt;-->
+              <!--<DatePicker v-model="ruleForm.comPersonDate"></DatePicker>-->
+              <!--</Form-item>-->
+              </Col>
+            </Row>
+          </div>
           <Button type="warning" @click="before" v-if="this.active==2">上一步</Button>
           <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
-
 
 
         </div>
@@ -199,7 +216,6 @@
   import * as avaivbleService from '../../../services/avaiableDev'
 
 
-
   //import breadCrumb from '../../components/breadCrumb/breadCrumb.vue'
   //import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
   export default {
@@ -212,24 +228,32 @@
             align: 'center'
           },
           {
+            type: 'index',
+            key: 'id',
+            width: 60,
+
+          },
+          {
             title: '设备品种',
-            key: 'deviceKind'
+            key: 'deviceKind',
+            width:120,
           },
           {
             title: '使用登记证编号',
-            key: 'registCode'
+            key: 'registCode',
           },
           {
             title: '设备代码',
-            key: 'eqCode'
+            key: 'eqCode',
+
           },
           {
             title: '设备使用地点',
-            key: 'eqUseAddr'
+            key: 'eqUseAddr',
           },
           {
             title: '产品编号',
-            key: 'productCode'
+            key: 'productCode',
           }
         ],
 
@@ -250,6 +274,7 @@
           propertyComPhone: '',
           subList: [],
           mobilePhone: '',
+          comTablePerson: '',
 
         },
         formDynamicPres: {
@@ -287,6 +312,9 @@
 //          deviceNum: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
+          comTablePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
           useComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -306,40 +334,8 @@
         //点击上一步的标志
         creatOrUpdate: false,
         isCompany: false,
-        canStopUseDeviceList:[{
-          deviceKind:"设备种类",
-          registCode:"112akjgfaudgquwgdqw",
-          eqCode:"1212esdsdfsfds23231111",
-          eqUseAddr:"地址地址地址地址电话 i 电话 i",
-          productCode:"codecodecodecode",
-
-        },
-          {
-            deviceKind:"设备种类",
-            registCode:"112akjgfaudgquwgdqw",
-            eqCode:"1212esdsdfsfds23232222",
-            eqUseAddr:"地址地址地址地址电话 i 电话 i",
-            productCode:"codecodecodecode",
-
-          },
-          {
-            deviceKind:"设备种类",
-            registCode:"112akjgfaudgquwgdqw",
-            eqCode:"1212esdsdfsfds23233333",
-            eqUseAddr:"地址地址地址地址电话 i 电话 i",
-            productCode:"codecodecodecode",
-
-          },
-          {
-            deviceKind:"设备种类",
-            registCode:"112akjgfaudgquwgdqw",
-            eqCode:"1212esdsdfsfds232344444",
-            eqUseAddr:"地址地址地址地址电话 i 电话 i",
-            productCode:"codecodecodecode",
-
-          },
-          ],
-        canStopUseDevice:[],
+        canStopUseDeviceList: [],
+        canStopUseDevice: [],
 
 
       }
@@ -466,8 +462,8 @@
         })
         params = {
           size: 10,
-          processing:false,
-          states:[0],
+          processing: false,
+          states: [0],
         }
         this.getCanStopUseDevice(params);
 
@@ -475,17 +471,18 @@
       getCanStopUseDevice(waitAccparams){
         avaivbleService.GetDevOrders(waitAccparams).then(res => {
             if (res.status === 200) {
-                for(let i=0;i<res.data.content.length;i++){
-                    let canStopUse={
-                      deviceKind:res.data.content[i].deviceKind,
-                      registCode:res.data.content[i].registCode,
-                      eqCode:res.data.content[i].eqCode,
-                      eqUseAddr:res.data.content[i].eqUseAddr,
-                      productCode:res.data.content[i].productCode,
-                    }
+              for (let i = 0; i < res.data.content.length; i++) {
+                let canStopUse = {
+                  deviceKind: res.data.content[i].deviceKind,
+                  registCode: res.data.content[i].registCode,
+                  eqCode: res.data.content[i].eqCode,
+                  eqUseAddr: res.data.content[i].eqUseAddr,
+                  productCode: res.data.content[i].productCode,
+                  deviceId: res.data.content[i].id,
+                }
                 this.canStopUseDeviceList.push(canStopUse);
 
-                }
+              }
               console.log(this.canStopUseDeviceList)
 
             } else {
@@ -505,10 +502,11 @@
           safeAdministrator: '',
           propertyComPhone: '',
           subList: [],
+          comTablePerson: '',
         }
       },
       submit(submitParam){
-        setAppService.submitSetInfo(submitParam).then(res => {
+        setAppService.submitStopUseInfo(submitParam).then(res => {
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
@@ -548,18 +546,19 @@
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
         submitParam.formList[0].formType = 7;
-        submitParam.deviceId = parseInt(this.deviceCode);
-        submitParam.registCode = this.registCode;
-        submitParam.deviceType = parseInt(this.deviceType);
-        submitParam.eqCodeList=[];
-        for(let i=0;i<this.ruleForm.subList.length;i++){
-          submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
+        //submitParam.deviceId = parseInt(this.deviceCode);
+        //登记证编号
+//        submitParam.registCode = this.registCode;
+//        submitParam.deviceType = parseInt(this.deviceType);
+        submitParam.deviceId = [];
+        for (let i = 0; i < this.ruleForm.subList.length; i++) {
+          submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
         }
 
         //停用申请
         submitParam.applyType = 3;
-        //登记证编号
-        submitParam.registCode = '';
+
+//        submitParam.registCode = '';
         //提交设备类别等
         return submitParam;
       },
@@ -578,13 +577,17 @@
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 7;
             submitParam.applyType = 3;
-            submitParam.registCode = this.registCode;
-            submitParam.deviceType = parseInt(this.deviceType);
-            submitParam.eqCodeList=[];
-            for(let i=0;i<this.ruleForm.subList.length;i++){
-              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
+//            submitParam.registCode = this.registCode;
+//            submitParam.deviceType = parseInt(this.deviceType);
+//            submitParam.eqCodeList = [];
+//            for (let i = 0; i < this.ruleForm.subList.length; i++) {
+//              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
+//            }
+            submitParam.deviceId = [];
+            for (let i = 0; i < this.ruleForm.subList.length; i++) {
+              submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
             }
-            submitParam.deviceId = parseInt(this.deviceCode);
+
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.applyId = res.data.applyId;
@@ -607,10 +610,10 @@
 
       },
       next() {
-          if(this.ruleForm.subList.length==0){
-            this.$Message.info('请选择要停用的设备');
-            return
-          }
+        if (this.ruleForm.subList.length == 0) {
+          this.$Message.info('请选择要停用的设备');
+          return
+        }
         if (this.current == 4) {
           this.current = 0;
         } else {
@@ -622,13 +625,13 @@
       before() {
         this.current--;
         this.active--;
-        if(this.active==2){
+        if (this.active == 2) {
           this.creatOrUpdate = true;
         }
 
       },
       confirmForm () {
-        if(this.acceptCom=='' ){
+        if (this.acceptCom == '') {
           this.$Notice.error({
             title: '这是通知标题',
             desc: '请选择登记机关'
@@ -670,17 +673,17 @@
         });
 
 
-
       },
-      selectDevice(selection,row){
-        this.formDynamicPres.items=selection;
-        this.ruleForm.subList=selection;
-        this.ruleForm.deviceNum=selection.length;
+      selectDevice(selection, row){
+        this.formDynamicPres.items = selection;
+        this.ruleForm.subList = selection;
+        console.log(this.ruleForm.subList)
+        this.ruleForm.deviceNum = selection.length;
       },
       selectDeviceAll(selection){
-        this.formDynamicPres.items=selection;
-        this.ruleForm.subList=selection;
-        this.ruleForm.deviceNum=selection.length;
+        this.formDynamicPres.items = selection;
+        this.ruleForm.subList = selection;
+        this.ruleForm.deviceNum = selection.length;
       },
       instance (type) {
         let params = 'applyId=' + this.applyId;
@@ -777,6 +780,13 @@
 
   .formDynamicPres {
     border: 1px solid rgba(0, 0, 0, .2);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-bottom:5px;
+    padding-left:5%;
+    padding-top:3%;
   }
 
   .list-box {
@@ -790,7 +800,7 @@
     border-color: #dddee1;
     margin-top: 10px;
     box-sizing: border-box;
-    margin-left:150px;
+
   }
 
 

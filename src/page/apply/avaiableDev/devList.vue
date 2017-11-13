@@ -29,7 +29,7 @@
         <Row>
           <Col>
           <label>设备代码精准搜索</label>
-          <Input v-model="deviceCode" placeholder="请输入申请id" style="width: 180px"></Input>
+          <Input v-model="deviceCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary" class="query" @click="exactSearch">搜索</Button>
 
           </Col>
@@ -195,17 +195,17 @@
           {
             title: '停用开始日期',
             key: 'noUseDate',
-            width: 115,
+            width: 125,
           },
           {
             title: '停用结束日期',
             key: 'noUseEndDate',
-            width: 115,
+            width: 125,
           },
           {
             title: '注销日期',
             key: 'disableDate',
-            width: 120,
+            width: 125,
           },
           {
             title: '使用单位填表人员',
@@ -221,12 +221,12 @@
           {
             title: '申请日期',
             key: 'applyDate',
-            width: 120,
+            width: 125,
           },
           {
             title: '发证日期',
             key: 'issueDate',
-            width: 120,
+            width: 125,
           },
 
           {
@@ -604,7 +604,7 @@
                           title: title,
                           content: content
                         });
-                        this.current++;
+
                         break;
                     }
                     this.$router.go(-1);

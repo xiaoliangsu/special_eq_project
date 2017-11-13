@@ -146,7 +146,7 @@
           {
             title: '申请日期',
             key: 'applyDate',
-            width: 120,
+            width: 125,
           },
           {
             title: '登记机关',
@@ -158,13 +158,13 @@
           {
             title: '受理通过告知日期',
             key: 'acceptTellDate',
-            width: 110,
+            width: 125,
 
           },
           {
             title: '不予受理告知日期',
             key: 'unAcceptTellDate',
-            width: 115,
+            width: 125,
           },
 
 
@@ -177,12 +177,12 @@
           {
             title: '登记发证日期',
             key: 'approvalDate',
-            width: 115,
+            width: 125,
           },
           {
             title: '不予登记告知日期',
             key: 'unApprovalDate',
-            width: 115,
+            width: 125,
           },
 
 
@@ -343,7 +343,7 @@
         }
         waitAccparams.states = [1, 2,3,4,5];
         this.getOrders(waitAccparams);
-        this.$refs['pages'].currentPage = 1;
+        this.$refs['pages'].currentPage =1;
       },
       clear(){
         this.initData();

@@ -207,14 +207,14 @@
           {
             title: '申请接受日期',
             key: 'applyAcceptDate',
-            width: 115,
+            width: 125,
 
           },
 
           {
             title: '受理通过告知日期',
             key: 'acceptTellDate',
-            width: 120,
+            width: 125,
 
 
           },
@@ -222,14 +222,14 @@
           {
             title: '登记发证日期',
             key: 'approvalDate',
-            width: 115,
+            width: 125,
 
 
           },
           {
             title: '不予登记告知日期',
             key: 'unApprovalDate',
-            width: 115,
+            width: 125,
 
 
           },

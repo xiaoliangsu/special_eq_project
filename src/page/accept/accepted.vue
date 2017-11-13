@@ -195,19 +195,19 @@
           {
             title: '申请接受日期',
             key: 'applyAcceptDate',
-            width: 115,
+            width: 125,
           },
 
           {
             title: '受理通过告知日期',
             key: 'acceptTellDate',
-            width: 115,
+            width: 125,
 
           },
           {
             title: '不予受理告知日期',
             key: 'unAcceptTellDate',
-            width: 115,
+            width: 125,
           },
 
 

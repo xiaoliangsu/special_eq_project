@@ -70,7 +70,7 @@
         columns5: [
           {
             title: '设备代码',
-            key: 'id'
+            key: 'eqCode'
           },
           {
             title: '产品名称',
