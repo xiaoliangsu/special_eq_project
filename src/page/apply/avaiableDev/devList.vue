@@ -394,7 +394,7 @@
         ),
       initData(){
         this.time = ['', ''];
-//        this.$refs['pages'].currentPage = 1;
+        this.$refs['pages'].currentPage = 1;
         this.setApplyType(this.$route.query.apply_state);
         this.apply_state = this.$route.query.apply_state;
         this.deviceType = [];

@@ -228,6 +228,12 @@
         <!--让用户确认信息的表格-->
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
+          <!--<ul class="detail_ul">-->
+            <!--<li v-for="(item,key,index) in this.pdfUrl" class="detail_li" style="width:800px;height:1000px;">{{item}}-->
+              <!--<a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>-->
+              <!--<embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
+            <!--</li>-->
+          <!--</ul>-->
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
           <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
@@ -731,15 +737,15 @@
           deviceNum: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          useComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          useComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           useComAddr: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          staticPhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          staticPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -752,9 +758,9 @@
           eqUseAddr: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          safeAdministrator: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          safeAdministrator: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           comTablePerson: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -904,7 +910,11 @@
           }
         ],
         data5: [],
+<<<<<<< HEAD
         pdfUrl: '/file/preview?fileId=101',
+=======
+        pdfUrl: '',
+>>>>>>> lt
         uploadList: [
           {"url": ''}
         ],
@@ -1003,6 +1013,9 @@
         this.uploadList = [
           {"url": ''}
         ];
+        this.gasfirstUploadList=[
+          {"url": ''}
+        ]
         this.creatOrUpdate = false;
         this.file1NameNum = 1;
         this.file2NameNum = 1;
@@ -1133,7 +1146,13 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
+<<<<<<< HEAD
             this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+=======
+            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+//            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
+
+>>>>>>> lt
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1207,8 +1226,6 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = {};
@@ -1226,15 +1243,20 @@
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 3;
-            submitParam.id = this.$route.query.applyId;
-
-
+            submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
-
               if (res.status == 200) {
+                this.current++;
+                this.active++;
                 this.applyId = res.data.applyId;
+<<<<<<< HEAD
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
                 this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+=======
+//                this.fileId = res.data.forms;
+//                this.pdfUrl = this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
+>>>>>>> lt
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1296,16 +1318,43 @@
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
           onOk: () => {
-            setAppService.submitSetInfo(submitParam).then(res => {
-              this.$Message.info('您已保存信息');
-              this.modalCertain = false;
-              console.log(this.modalCertain);
-              if (res.status == true) {
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              let submitParam = {};
+              if (submitParam.deviceType === 9) {
+//              submitParam.deviceKind = this.deviceClassTypeId;
+                this.ruleForm.deviceKind = "气瓶";
+                this.ruleForm.deviceClass = this.deviceClassTypeId;
+              } else if (submitParam.deviceType === 10) {
+//              submitParam.deviceKind = this.deviceClassTypeId;
+                this.ruleForm.deviceKind = "工业管道";
+                this.ruleForm.deviceClass = this.deviceClassTypeId;
               }
-            }).catch(error => {
-              console.log(error);
+              submitParam.formList = [];
+              submitParam.formList.push(this.ruleForm);
+              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].formType = 3;
+              submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
+              setAppService.updateSetInfo(submitParam).then(res => {
+                if (res.status == 200) {
+                  this.$Message.info('您已保存信息');
+                  this.modalCertain = false;
+                }
+              }).catch(error => {
+                console.log(error);
+              })
+            } else {
+              setAppService.submitSetInfo(submitParam).then(res => {
+                this.$Message.info('您已保存信息');
+                this.modalCertain = false;
+                console.log(this.modalCertain);
+                if (res.status == true) {
+                }
+              }).catch(error => {
+                console.log(error);
+              })
+            }
 
-            })
           },
           onCancel: () => {
             this.$Message.info('点击了取消');
@@ -1336,7 +1385,7 @@
       },
 
       confirmForm () {
-        if(this.acceptCom=='' ){
+        if(this.acceptCom==='' ){
           this.$Notice.error({
             title: '这是通知标题',
             desc: '请选择登记机关'

@@ -288,6 +288,7 @@
           name:'',
           verifyId:'',
           acceptorAgencyId:'',
+          addressCode:'',
 
         },
 
@@ -331,6 +332,7 @@
             this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
             this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
             this.ruleForm.email = localStorage.getItem('email');
+            this.addressCode = localStorage.getItem('addressCode');
 
             if(localStorage.getItem('company')=='true'){
               this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
@@ -368,14 +370,20 @@
             }else if(this.area==''){
               addressDetail=this.province+this.city+this.ruleForm.street;
             }
-            this.ruleForm.useComAddr=addressDetail;
-
             let addressCode='';
-            if(this.areaId!==''){
-              addressCode=this.areaId;
+            if(this.changeAdd){
+              this.ruleForm.useComAddr=addressDetail;
+              if(this.areaId!==''){
+                addressCode=this.areaId;
+              }else{
+                addressCode=this.cityId;
+              }
             }else{
-              addressCode=this.cityId;
+              addressCode=this.addressCode;
+
             }
+
+
             let params = {};
             let temp = {
               "company": true,
@@ -386,7 +394,7 @@
               "propertyComName": this.ruleForm.propertyComName,
               "propertyComCode": this.ruleForm.propertyComCode,
               "email":this.ruleForm.email,
-              "useComAddr":this.ruleForm.useComAddr||addressDetail,
+              "useComAddr":this.ruleForm.useComAddr,
               "addressCode":addressCode,
               "safeAdministrator":this.ruleForm.safeAdministrator,
               "staticPhone":this.ruleForm.staticPhone,
@@ -414,13 +422,19 @@
             }else if(this.area==''){
               addressDetail=this.province+this.city+this.ruleForm.street;
             }
-            this.ruleForm.useComAddr=addressDetail
             let addressCode='';
-            if(this.areaId!==''){
-              addressCode=this.areaId;
+            if(this.changeAdd){
+              this.ruleForm.useComAddr=addressDetail;
+              if(this.areaId!==''){
+                addressCode=this.areaId;
+              }else{
+                addressCode=this.cityId;
+              }
             }else{
-              addressCode=this.cityId;
+              addressCode=this.addressCode;
             }
+
+
             let params = {};
             let temp = {
               "name": this.ruleForm.name,
