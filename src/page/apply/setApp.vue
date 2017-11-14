@@ -57,7 +57,7 @@
               <Form-item label="设备品种" prop="deviceKind">
                 <!--<Input v-model="ruleForm.deviceKind" ></Input>-->
                 <Select v-model="ruleForm.deviceKindCode" filterable @on-change="chosenDeviceType"
-                        :disabled=this.ifDisabled :label-in-value=true>
+                        :disabled=this.ifDisabled :label-in-value=true clearable>
                   <Option v-for="item in deviceTypeList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -90,7 +90,7 @@
               <Form-item label="设备类别" prop="deviceClass">
                 <!--<Input v-model="ruleForm.deviceClass"></Input>-->
                 <Select v-model="ruleForm.deviceClassCode" filterable @on-change="chosenDeviceClass"
-                        :label-in-value=true>
+                        :label-in-value=true clearable>
                   <Option v-for="item in deviceClassList" :value="item.value" :key="item.value">{{ item.label }}
                   </Option>
                 </Select>
@@ -404,8 +404,8 @@
               <Form-item label="检验结论" prop="testResult">
                 <!--wang-->
                 <!--<Select v-model="ruleForm.testResult">-->
-                  <!--<Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}-->
-                  <!--</Option>-->
+                <!--<Option v-for="item in checkConclusionList" :value="item.value" :key="item.value">{{ item.label }}-->
+                <!--</Option>-->
                 <!--</Select>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;font-size:2px;">
@@ -467,7 +467,6 @@
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
           <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
-
 
 
         </div>
@@ -702,7 +701,7 @@
   import * as setAppService from '../../services/setApp'
   import * as registService from '../../services/registService'
   //import breadCrumb from '../../components/breadCrumb/breadCrumb.vue'
-//  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
+  //  import VBreadCrumb from "../../components/breadCrumb/breadCrumb";
   export default {
     data() {
       return {
@@ -882,91 +881,91 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqCode: [
-            {required:false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'blur'}
           ],
           designUseLimit: [
-            {required:false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'blur'}
           ],
           manufactureComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           superviseComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           deviceClassCode: [
-            {required:true, message: '不能为空', trigger: 'change'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           deviceName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           model: [
-            {required:false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'blur'}
           ],
           designComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           constructComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           modelTestComName: [
-            {required:false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'blur'}
           ],
-          useComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
-          ],
+//          useComName: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
           useComAddr: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           useComCode: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           eqUseDate: [
-            {required:true, message: '不能为空',  type: 'date', trigger: 'change'}
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
-          safeAdministrator: [
-            {required:true, message: '不能为空', trigger: 'blur'}
-          ],
+//          safeAdministrator: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
           eqComCode: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           zipcode: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           eqUseAddr: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          staticPhone: [
-            {required:true, message: '不能为空', trigger: 'blur'}
-          ],
+//          staticPhone: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
           mobilePhone: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          propertyComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
-          ],
-          propertyComCode: [
-            {required:true, message: '不能为空', trigger: 'blur'}
-          ],
+//          propertyComName: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          propertyComCode: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
           propertyComPhone: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           testComName: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           testType: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           testDate: [
-            {required:true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
           testReportCode: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           testResult: [
-            {required:true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           nextTestDate: [
-            {required:true, message: '不能为空',  type: 'date',trigger: 'change'}
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
 
           comTablePerson: [
@@ -997,7 +996,7 @@
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           registKind: [
-            {required:true,message:'不能为空',trigger:'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
 
         },
@@ -1281,9 +1280,9 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-
-            // this.fileId = res.data.forms[1];
             this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+//            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1322,12 +1321,6 @@
         this.ruleForm.deviceCategory = this.deviceCategoryId;
         this.ruleForm.deviceClass = this.deviceClassId;
         this.ruleForm.deviceKind = this.deviceClassTypeId;
-        this.changeInputTime(this.ruleForm.eqUseDate);
-        this.ruleForm.eqUseDate = this.getInputTime;
-        this.changeInputTime(this.ruleForm.testDate);
-        this.ruleForm.testDate = this.getInputTime;
-        this.changeInputTime(this.ruleForm.nextTestDate);
-        this.ruleForm.nextTestDate = this.getInputTime;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
@@ -1355,8 +1348,7 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
+
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
@@ -1364,31 +1356,23 @@
             this.ruleForm.deviceCategory = this.deviceCategoryId;
             this.ruleForm.deviceClass = this.deviceClassId;
             this.ruleForm.deviceKind = this.deviceClassTypeId;
-            this.changeInputTime(this.ruleForm.eqUseDate);
-            this.ruleForm.eqUseDate = this.getInputTime;
-            this.changeInputTime(this.ruleForm.testDate);
-            this.ruleForm.testDate = this.getInputTime;
-            this.changeInputTime(this.ruleForm.nextTestDate);
-            this.ruleForm.nextTestDate = this.getInputTime;
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 1;
-            submitParam.id = this.$route.query.applyId;
+            submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
-
               if (res.status == 200) {
+                this.current++;
+                this.active++;
                 this.applyId = res.data.applyId;
-                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
-
             }).catch(error => {
               console.log(error);
-
             })
           } else {
             console.log('error submit!!');
@@ -1408,15 +1392,42 @@
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
           onOk: () => {
-            setAppService.submitSetInfo(submitParam).then(res => {
-              this.$Message.info('您已保存信息');
-              this.modalCertain = false;
-              if (res.status == true) {
-              }
-            }).catch(error => {
-              console.log(error);
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              let submitParam = {};
+              this.ruleForm.deviceCategory = this.deviceCategoryId;
+              this.ruleForm.deviceClass = this.deviceClassId;
+              this.ruleForm.deviceKind = this.deviceClassTypeId;
+//              this.changeInputTime(this.ruleForm.eqUseDate);
+//              this.ruleForm.eqUseDate = this.getInputTime;
+//              this.changeInputTime(this.ruleForm.testDate);
+//              this.ruleForm.testDate = this.getInputTime;
+//              this.changeInputTime(this.ruleForm.nextTestDate);
+//              this.ruleForm.nextTestDate = this.getInputTime;
+              submitParam.formList = [];
+              submitParam.formList.push(this.ruleForm);
+              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].formType = 1;
+              submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
+              setAppService.updateSetInfo(submitParam).then(res => {
+                if (res.status == 200) {
+                  this.$Message.info('您已保存信息');
+                  this.modalCertain = false;
+                }
+              }).catch(error => {
+                console.log(error);
+              })
+            } else {
+              setAppService.submitSetInfo(submitParam).then(res => {
+                this.$Message.info('您已保存信息');
+                this.modalCertain = false;
+                if (res.status == true) {
+                }
+              }).catch(error => {
+                console.log(error);
 
-            })
+              })
+            }
           },
           onCancel: () => {
             this.$Message.info('点击了取消');
@@ -1443,14 +1454,14 @@
       },
 
       confirmForm () {
-        if(this.acceptCom=='' ){
+        if (this.acceptCom == '') {
           this.$Notice.error({
             title: '这是通知标题',
             desc: '请选择登记机关'
           });
           return
         }
-        if(this.ruleForm.deviceClassCode=='' ){
+        if (this.ruleForm.deviceClassCode == '') {
           this.$Notice.error({
             title: '这是通知标题',
             desc: '请选择设备类别'
@@ -1459,7 +1470,6 @@
         }
         this.$refs["ruleForm"].validate((valid) => {
           if (valid) {
-
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
               this.$Modal.confirm({
                 title: '确认登记表信息',
@@ -1520,7 +1530,7 @@
             this.uploadList.splice(i, 1);
           }
         }
-        if(this.uploadList.length==''){
+        if (this.uploadList.length == '') {
           this.uploadList = [
             {"url": ''}
           ];

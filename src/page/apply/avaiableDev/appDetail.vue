@@ -225,6 +225,7 @@
             this.fileId = res.data.forms["特种设备使用登记表三"];
           }else if(res.data.forms["特种设备停用注销报废登记表"]){
             this.fileId = res.data.forms["特种设备停用注销报废登记表"];
+
           }
 
 //          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;

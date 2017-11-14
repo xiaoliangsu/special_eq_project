@@ -315,21 +315,21 @@
           comTablePerson: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          useComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          useComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           useComAddr: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          propertyComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          propertyComPhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          propertyComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          propertyComPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
         },
         //点击上一步的标志
         creatOrUpdate: false,
@@ -566,8 +566,6 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
@@ -591,6 +589,8 @@
 
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
+                this.current++;
+                this.active++;
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
                 this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;

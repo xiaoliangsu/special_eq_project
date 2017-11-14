@@ -40,6 +40,7 @@ const actions = {
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('addressCode', res.data.addressCode);
         localStorage.setItem('safeAdministrator', res.data.safeAdministrator);
+        localStorage.setItem('addressCode', res.data.addressCode);
       }else{
         localStorage.setItem('company', false);
         localStorage.setItem('name', res.data.name);
@@ -49,6 +50,8 @@ const actions = {
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('addressCode', res.data.addressCode);
         localStorage.setItem('useComAddr', res.data.useComAddr);
+        localStorage.setItem('addressCode', res.data.addressCode);
+
 
       }
 

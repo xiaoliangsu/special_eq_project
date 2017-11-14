@@ -57,8 +57,8 @@
                   <i-input v-model="ruleForm.deviceNum" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
-              <Form-item label="气瓶公称工作压力" prop="workPressureMPa">
-                <Input v-model="ruleForm.workPressureMPa"></Input>
+              <Form-item label="气瓶公称工作压力" prop="workPressure">
+                <Input v-model="ruleForm.workPressure"></Input>
               </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
@@ -74,8 +74,8 @@
                   <i-input v-model="ruleForm.deviceName" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
-              <Form-item label="充装介质" prop="fillMedium">
-                <Input v-model="ruleForm.fillMedium"></Input>
+              <Form-item label="充装介质" prop="fillMedia">
+                <Input v-model="ruleForm.fillMedia"></Input>
               </Form-item>
               <Form-item label="气瓶容积" prop="model">
                 <Input v-model="ruleForm.model"></Input>
@@ -589,8 +589,8 @@
           deviceKindCode: '',
           deviceName: '',
           deviceNum: '',
-          fillMedium: '',
-          workPressureMPa: '',
+          fillMedia: '',
+          workPressure: '',
           model: '',
 //          manufactureComName: '',
 //          eqCreateDate: '',
@@ -686,10 +686,10 @@
           deviceNum: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          fillMedium: [
+          fillMedia: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          workPressureMPa: [
+          workPressure: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           model: [
@@ -713,9 +713,9 @@
           superviseComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
-          useComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          useComName: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           useComAddr: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -734,12 +734,12 @@
           eqUseDate: [
             {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
-          staticPhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          safeAdministrator: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          staticPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          safeAdministrator: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
@@ -964,8 +964,8 @@
           deviceKindCode: '',
           deviceName: '',
           deviceNum: '',
-          fillMedium: '',
-          workPressureMPa: '',
+          fillMedia: '',
+          workPressure: '',
           model: '',
           constructComName: '',
           superviseComName: '',
@@ -1002,6 +1002,8 @@
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
             this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+//            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1015,14 +1017,13 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.deviceKind = this.deviceKindTypeId;
-        for(let i=0;i<this.formDynamicPres.items.length;i++){
-          this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
-          this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
-        }
-
+//        for(let i=0;i<this.formDynamicPres.items.length;i++){
+//          this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
+//          this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
+//        }
         this.ruleForm.subList = this.formDynamicPres.items;
-        this.changeInputTime(this.ruleForm.eqUseDate);
-        this.ruleForm.eqUseDate = this.getInputTime;
+//        this.changeInputTime(this.ruleForm.eqUseDate);
+//        this.ruleForm.eqUseDate = this.getInputTime;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
@@ -1070,33 +1071,37 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
+
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = {};
             this.ruleForm.deviceKind = this.deviceKindTypeId;
-            for(let i=0;i<this.formDynamicPres.items.length;i++){
-              this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
-              this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
-            }
-
+//            for(let i=0;i<this.formDynamicPres.items.length;i++){
+//              this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
+//              this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
+//            }
             this.ruleForm.subList = this.formDynamicPres.items;
-            this.changeInputTime(this.ruleForm.eqUseDate);
-            this.ruleForm.eqUseDate = this.getInputTime;
+//            console.log( this.ruleForm.subList )
+//            this.changeInputTime(this.ruleForm.eqUseDate);
+//            this.ruleForm.eqUseDate = this.getInputTime;
+            console.log(this.ruleForm.eqUseDate )
+            console.log(this.ruleForm)
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
             submitParam.formList[0].formType = 2;
-            submitParam.id = this.$route.query.applyId;
+            submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             // submitParam.deviceKind = this.deviceKindTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
-
               if (res.status == 200) {
+                this.current++;
+                this.active++;
                 this.applyId = res.data.applyId;
-                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+//                this.fileId = res.data.forms.split("=")[1].split("}")[0];
+//                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1122,16 +1127,48 @@
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
           onOk: () => {
-            setAppService.submitSetInfo(submitParam).then(res => {
-              this.$Message.info('您已保存信息');
-              this.modalCertain = false;
-              console.log(this.modalCertain);
-              if (res.status == true) {
-              }
-            }).catch(error => {
-              console.log(error);
 
-            })
+            if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
+              let submitParam = {};
+              this.ruleForm.deviceKind = this.deviceKindTypeId;
+//              for(let i=0;i<this.formDynamicPres.items.length;i++){
+//                this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
+//                this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;
+//              }
+
+              this.ruleForm.subList = this.formDynamicPres.items;
+//              this.changeInputTime(this.ruleForm.eqUseDate);
+//              this.ruleForm.eqUseDate = this.getInputTime;
+              submitParam.formList = [];
+              submitParam.formList.push(this.ruleForm);
+              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
+              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].formType = 2;
+              submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
+              // submitParam.deviceKind = this.deviceKindTypeId;
+              setAppService.updateSetInfo(submitParam).then(res => {
+                if (res.status == 200) {
+                  this.$Message.info('您已保存信息');
+                  this.modalCertain = false;
+                }
+
+              }).catch(error => {
+                console.log(error);
+
+              })
+            } else {
+              setAppService.submitSetInfo(submitParam).then(res => {
+                this.$Message.info('您已保存信息');
+                this.modalCertain = false;
+                console.log(this.modalCertain);
+                if (res.status == true) {
+                }
+              }).catch(error => {
+                console.log(error);
+
+              })
+
+            }
           },
           onCancel: () => {
             this.$Message.info('点击了取消');
