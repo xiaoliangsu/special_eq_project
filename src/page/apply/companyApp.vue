@@ -229,10 +229,10 @@
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
           <!--<ul class="detail_ul">-->
-            <!--<li v-for="(item,key,index) in this.pdfUrl" class="detail_li" style="width:800px;height:1000px;">{{item}}-->
-              <!--<a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>-->
-              <!--<embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
-            <!--</li>-->
+          <!--<li v-for="(item,key,index) in this.pdfUrl" class="detail_li" style="width:800px;height:1000px;">{{item}}-->
+          <!--<a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>-->
+          <!--<embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
+          <!--</li>-->
           <!--</ul>-->
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
@@ -378,7 +378,7 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead">首次提交气瓶基本信息</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-              <a v-bind:href="'                                                    static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+              <a v-bind:href="'static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
@@ -910,11 +910,7 @@
           }
         ],
         data5: [],
-<<<<<<< HEAD
-        pdfUrl: '/file/preview?fileId=101',
-=======
         pdfUrl: '',
->>>>>>> lt
         uploadList: [
           {"url": ''}
         ],
@@ -1146,13 +1142,9 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-<<<<<<< HEAD
             this.pdfUrl = '/file/preview?fileId=' + this.fileId;
-=======
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
 //            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
 
->>>>>>> lt
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1249,14 +1241,9 @@
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-<<<<<<< HEAD
-                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/file/preview?fileId=' + this.fileId;
-=======
 //                this.fileId = res.data.forms;
 //                this.pdfUrl = this.fileId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
->>>>>>> lt
+                this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1275,15 +1262,15 @@
 
       },
       handleGasFirstSuccess (res, file) {
-          this.gasfirstUploadList[0].url = res.data.thumbnail;
-          this.gasFirstPdfList.push(res.data.preview)
+        this.gasfirstUploadList[0].url = res.data.thumbnail;
+        this.gasFirstPdfList.push( res.data.preview)
       },
       handleGasFirstView(index){
         this.gasFirstvisible = true;
         this.gasFirstPdf = this.gasFirstPdfList[index];
       },
       handleGasAddSuccess (res, file) {
-        this.gasAddUploadList[0].url = res.data.thumbnail;
+        this.gasAddUploadList[0].url =res.data.thumbnail;
         this.gasAddPdfList.push(res.data.preview)
       },
       handleGasAddView(index){
@@ -1291,7 +1278,7 @@
         this.gasAddPdf = this.gasAddPdfList[index];
       },
       handlePipeFirstSuccess (res, file) {
-        this.pipeFirstUploadList[0].url =  res.data.thumbnail;
+        this.pipeFirstUploadList[0].url = res.data.thumbnail;
         this.pipeFirstPdfList.push(res.data.preview)
       },
       handlePipeFirstView(index){
@@ -1299,7 +1286,7 @@
         this.pipeFirstPdf = this.pipeFirstPdfList[index];
       },
       handlePipeAddSuccess (res, file) {
-        this.pipeAddUploadList[0].url = res.data.thumbnail;
+        this.pipeAddUploadList[0].url =res.data.thumbnail;
         this.pipeAddPdfList.push(res.data.preview)
       },
       handlePipeAddView(index){
@@ -1465,7 +1452,7 @@
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
           this.uploadList[0].url = res.data.thumbnail;
-          this.pdfList.push( res.data.preview)
+          this.pdfList.push(res.data.preview)
         } else {
           this.uploadList.push({"url": res.data.thumbnail});
           this.pdfList.push(res.data.preview)
