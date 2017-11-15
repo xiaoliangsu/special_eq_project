@@ -13,7 +13,7 @@
 
             <FormItem prop="username" label="用户名">
               <Poptip trigger="focus" placement="right">
-                <div slot="content" style="white-space: normal;font-size:2px;">
+                <div slot="content" style="white-space: normal;">
                   <p>登录账号，至少5个字符，要求大小写字母和数字</p>
                 </div>
                 <Input v-model="registInfo.username" placeholder="用户名"></Input>
@@ -29,7 +29,7 @@
 
             <FormItem prop="password" label="密码">
               <Poptip trigger="focus" placement="right">
-                <div slot="content" style="white-space: normal;font-size:2px;">
+                <div slot="content" style="white-space: normal;">
                   <p>登录密码，至少5个字符，要求大小写字母和数字</p>
                 </div>
                 <Input type="password" v-model="registInfo.password" placeholder="密码"></Input>
@@ -43,7 +43,7 @@
 
             <FormItem prop="password2" label="确认密码">
               <Poptip trigger="focus" placement="right">
-                <div slot="content" style="white-space: normal;font-size:2px;">
+                <div slot="content" style="white-space: normal;">
                   <p>确认两次密码填写相等</p>
                 </div>
                 <Input type="password" v-model="registInfo.password2" placeholder="确认密码"></Input>
