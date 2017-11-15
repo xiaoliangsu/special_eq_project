@@ -127,11 +127,9 @@
                 h('Button', {
                   props: {
                     type: 'primary',
-                    size: 'small'
                   },
                   style: {
                     marginRight: '5px',
-                    fontSize:'10px'
                   },
                   on: {
                     click: () => {
@@ -142,12 +140,10 @@
                 h('Button', {
                   props: {
                     type: 'error',
-                    size: 'small'
                   },
                   style: {
                     marginRight: '5px',
                     marginTop:'4px',
-                    fontSize:'10px'
                   },
                   on: {
                     click: () => {

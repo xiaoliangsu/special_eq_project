@@ -227,7 +227,6 @@
                   },
                   style: {
                     marginRight: '5px',
-                    fontSize: '5px',
                   },
                   on: {
                     click: () => {
