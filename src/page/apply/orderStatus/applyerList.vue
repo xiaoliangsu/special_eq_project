@@ -213,11 +213,9 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-                      size: 'small',
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -228,11 +226,9 @@
                   h('Button', {
                     props: {
                       type: 'error',
-                      size: 'small',
                     },
                     style: {
                       marginleft: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -243,11 +239,9 @@
                   h('Button', {
                     props: {
                       type: 'warning',
-                      size: 'small',
                     },
                     style: {
                       marginleft: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -266,7 +260,6 @@
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {

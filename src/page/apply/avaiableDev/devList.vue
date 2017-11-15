@@ -249,7 +249,6 @@
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -276,7 +275,6 @@
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -303,7 +301,6 @@
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
@@ -328,11 +325,9 @@
                   h('Button', {
                     props: {
                       type: 'primary',
-
                     },
                     style: {
                       marginRight: '5px',
-                      fontSize: '5px',
                     },
                     on: {
                       click: () => {
