@@ -31,7 +31,7 @@
         <div class="statusInfo" v-if="this.active==2" style="margin-bottom:20px;">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
-            <FormItem label="登记机关">
+            <FormItem label="登记机关" class="ivu-form-item-required">
               <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
@@ -51,7 +51,7 @@
               </Form-item>
               </Col>
               <Col span="11" offset="2">
-              <Form-item label="台数" prop="deviceNum">
+              <Form-item label="台数" prop="deviceNum" class="ivu-form-item-required">
                 <Input v-model="ruleForm.deviceNum" disabled></Input>
               </Form-item>
               </Col>
@@ -93,6 +93,7 @@
               <Row>
                 <Col span="11">
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'序号' + (index + 1)+'  '+'设备品种（名称）'"
                   :prop="'items.' + index + '.value'">
@@ -102,6 +103,7 @@
                 <Col span="11" offset="2">
 
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'使用登记证编号'"
                   :prop="'items.' + index + '.value'">
@@ -112,12 +114,14 @@
               <Row>
                 <Col span="11">
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'设备代码'"
                   :prop="'items.' + index + '.value'">
                   <Input type="text" v-model="item.eqCode" placeholder="请输入设备代码"></Input>
                 </FormItem>
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'产品编号'"
                   :prop="'items.' + index + '.value'">
@@ -126,12 +130,14 @@
                 </Col>
                 <Col span="11" offset="2">
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'设备使用地点'"
                   :prop="'items.' + index + '.value'">
                   <Input type="text" v-model="item.eqUseAddr" placeholder="请输入设备使用地点"></Input>
                 </FormItem>
                 <FormItem
+                  class="ivu-form-item-required"
                   :key="index"
                   :label="'停用注销报废原因'"
                   :prop="'items.' + index + '.value'">

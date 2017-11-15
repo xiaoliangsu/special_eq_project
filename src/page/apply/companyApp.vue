@@ -22,7 +22,7 @@
         <div class="statusInfo" v-if="this.active==1">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
-            <FormItem label="登记机关">
+            <FormItem label="登记机关" class="ivu-form-item-required">
               <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
@@ -249,6 +249,8 @@
             <Form-item label="社会信用代码证明" :label-width="200">
               <Upload
                 ref="upload1"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -272,6 +274,8 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
+                  :format="['pdf']"
+                  :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
@@ -288,6 +292,8 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
+                  :format="['pdf']"
+                  :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
@@ -310,6 +316,8 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
+                  :format="['pdf']"
+                  :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
@@ -326,6 +334,8 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
+                  :format="['pdf']"
+                  :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
                   :default-file-list="defaultPdfList1"
@@ -383,7 +393,13 @@
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
+<<<<<<< HEAD
                 :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
+=======
+                :format="['xlsx']"
+                :on-format-error="handleFormatError1"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+>>>>>>> lt
                 :on-success="handleGasFirstSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -423,7 +439,13 @@
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
                 ref="upload1"
+<<<<<<< HEAD
                 :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
+=======
+                :format="['xlsx']"
+                :on-format-error="handleFormatError1"
+                :action="'/admin/apply/uploadData?applyId='+(this.$route.query.applyId)"
+>>>>>>> lt
                 :on-success="handleGasAddSuccess"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -497,6 +519,8 @@
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
+                :format="['xlsx']"
+                :on-format-error="handleFormatError1"
                 :on-success="handlePipeFirstSuccess"
                 :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
@@ -534,6 +558,8 @@
               <h3 class="firstHead2">二、上传压力管道基本信息汇总表</h3>
               <Upload
                 ref="upload1"
+                :format="['xlsx']"
+                :on-format-error="handleFormatError1"
                 :on-success="handlePipeAddSuccess"
                 :action="'/apply/uploadData?applyId='+(this.$route.query.applyId)"
                 with-credentials>
@@ -1295,6 +1321,7 @@
       },
 
 
+
       //保存
       saveForm(formName){
 
@@ -1489,6 +1516,18 @@
       },
       handleBeforeUpload5 () {
         this.file5NameNum++;
+      },
+      handleFormatError (file) {
+        this.$Notice.warning({
+          title: '文件格式不对',
+          desc: '请上传pdf格式文件'
+        });
+      },
+      handleFormatError1(file) {
+        this.$Notice.warning({
+          title: '文件格式不对',
+          desc: '请上传xlsx格式文件'
+        });
       },
       handleView(index){
         console.log(index);
