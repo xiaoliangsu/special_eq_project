@@ -21,7 +21,7 @@
         <div class="statusInfo" v-if="this.active==1">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
-            <FormItem label="登记机关">
+            <FormItem label="登记机关" class="ivu-form-item-required">
               <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
                 <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </Select>
@@ -87,7 +87,7 @@
               </Col>
               <Col span="11" offset="2">
               <!--<label class="form_label_right">设备类别</label>-->
-              <Form-item label="设备类别" prop="deviceClass">
+              <Form-item label="设备类别" prop="deviceClass" class="ivu-form-item-required">
                 <!--<Input v-model="ruleForm.deviceClass"></Input>-->
                 <Select v-model="ruleForm.deviceClassCode" filterable @on-change="chosenDeviceClass"
                         :label-in-value=true clearable>
@@ -481,6 +481,8 @@
             <Form-item label="社会信用代码证明" :label-width="200" v-if="this.isCompany==true">
               <Upload
                 ref="upload1"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -497,6 +499,8 @@
             <Form-item label="个人身份证明" :label-width="200" v-if="this.isCompany==false">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -515,6 +519,8 @@
             <Form-item label="产品合格证" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -531,6 +537,8 @@
             <Form-item label="产品数据表" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -553,6 +561,8 @@
             <Form-item label="制造监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -569,6 +579,8 @@
             <Form-item label="安装监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -587,6 +599,8 @@
           <Form-item label="首次检验报告" :label-width="200">
             <Upload
               ref="upload2"
+              :format="['pdf']"
+              :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
@@ -604,6 +618,8 @@
             <Form-item label="机动车行驶证" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -620,6 +636,8 @@
             <Form-item label="机动车登记证书" :label-width="200">
               <Upload
                 ref="upload2"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
@@ -637,6 +655,8 @@
           <Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">
             <Upload
               ref="upload2"
+              :format="['pdf']"
+              :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList1"
@@ -1570,6 +1590,12 @@
         console.log(index);
         this.visible = true;
         this.pdf = this.pdfList[index];
+      },
+      handleFormatError (file) {
+        this.$Notice.warning({
+          title: '文件格式不对',
+          desc: '请上传pdf格式文件'
+        });
       },
 
       //打印按钮

@@ -384,8 +384,7 @@
           this.initData();
         }
       }
-    }
-    ,
+    },
 
     methods: {
       ...
