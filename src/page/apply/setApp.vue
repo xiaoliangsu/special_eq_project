@@ -65,7 +65,7 @@
               <Form-item label="设备代码" prop="eqCode">
                 <!--<Input v-model="ruleForm.eqCode" ></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记机关的行政区划代码(比制造单位代号多一位)。
                     </p>
@@ -76,7 +76,7 @@
               <Form-item label="设计使用年限" prop="designUseLimit">
                 <!--<Input v-model="ruleForm.designUseLimit"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照产品数据表提供的数据填写。技术资料中未提供的，划“—”。
                     </p>
@@ -98,7 +98,7 @@
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
                     </p>
@@ -109,7 +109,7 @@
               <Form-item label="型号（规格）" prop="model">
                 <!--<Input v-model="ruleForm.model"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照产品数据表或者相应的设计文件填写，有型号的填写型号，没有型号有规格的填写规格，没有型号、规格的，划“—”。
                     </p>
@@ -120,7 +120,7 @@
               <Form-item label="设计单位名称" prop="designComName">
                 <!--<Input v-model="ruleForm.designComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写产品的设计单位名称，其名称与产品合格证和产品铭牌(设计图纸)表述应当一致。
                     </p>
@@ -135,7 +135,7 @@
               <Form-item label="制造单位名称" prop="manufactureComName">
                 <!--<Input v-model="ruleForm.manufactureComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致.
                     </p>
@@ -146,7 +146,7 @@
               <Form-item label="监督检验机构名称" prop="superviseComName">
                 <!--<Input v-model="ruleForm.superviseComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写负责该设备制造、安装、改造、重大修理监督检验(以下简称监检)的特种设备检验机构名称，没有实施监检的设备，注明“不实施监检”，如该设备登记前进行了不同阶段的监检(如制造监检，安装、改造监检等)，则填写最近一次监检的特种设备检验机构名称，并且与设备检验情况要求相协调(除制造监检外，优先满足设备检验情况填写要求)。
                     </p>
@@ -161,7 +161,7 @@
               <Form-item label="施工单位名称" prop="constructComName">
                 <!--<Input v-model="ruleForm.constructComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写登记时最近一次从事安装或者改造、修理的施工单位的名称。
                     </p>
@@ -173,7 +173,7 @@
               <Form-item label="型式试验机构名称" prop="modelTestComName">
                 <!--<Input v-model="ruleForm.modelTestComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写型式试验机构的名称(全称)。安全技术规范未规定型式试验的，划“—”。
                     </p>
@@ -200,7 +200,7 @@
               <Form-item label="使用单位统一社会信用代码" prop="useComCode">
                 <!--<Input v-model="ruleForm.useComCode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
@@ -213,7 +213,7 @@
               <Form-item label="邮政编码" prop="zipcode">
                 <!--<Input v-model="ruleForm.zipcode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位所在地的邮政编码。
                     </p>
@@ -228,7 +228,7 @@
               <Form-item label="单位内编号" prop="eqComCode">
                 <!--<Input v-model="ruleForm.eqComCode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位对设备进行管理自行编制的设备内部编号。
                     </p>
@@ -241,7 +241,7 @@
               <Form-item label="设备使用地点" prop="eqUseAddr">
                 <!--<Input v-model="ruleForm.eqUseAddr"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写设备安装在单位内的固定地点，如某某车间、某某场地等。移动式(流动式) 特种设备，填写“移动”或者“流动”。设备使用地点不在使用单位内的，应当按照所在省(自治区)、市(地、州)、区(县)、街道(镇、乡)、小区(村)、门牌号等填写设备使用地的详细地址。
                     </p>
@@ -258,7 +258,7 @@
                 <!--<Input v-model="ruleForm.begin_use_date" ></Input>-->
                 <!--<DatePicker v-model="ruleForm.eqUseDate"></DatePicker> -->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写办理登记的设备正式投入使用的开始日期(包括年、月、日)。
                     </p>
@@ -269,7 +269,7 @@
               <Form-item label="安全管理员" prop="safeAdministrator">
                 <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
@@ -282,7 +282,7 @@
               <Form-item label="单位固定电话" prop="staticPhone">
                 <!--<Input v-model="ruleForm.staticPhone"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
@@ -294,7 +294,7 @@
               <Form-item label="移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
@@ -313,7 +313,7 @@
               <Form-item label="产权单位统一社会信用代码" prop="propertyComCode">
                 <!--<Input v-model="ruleForm.propertyComCode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写产权单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。如果和使用单位为同一单位，则在此栏中划“—”。
                     </p>
@@ -326,7 +326,7 @@
               <Form-item label="联系电话" prop="propertyComPhone">
                 <!--<Input v-model="ruleForm.propertyComPhone"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写产权单位特种设备安全管理机构或者主管特种设备机构的联系电话。如果和使用单位为同一单位，则在此栏中划“—”。
                     </p>
@@ -347,7 +347,7 @@
               <Form-item label="检验机构名称" prop="testComName">
                 <!--<Input v-model="ruleForm.testComName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写从事检验的检验机构名称。
                     </p>
@@ -360,7 +360,7 @@
               <Form-item label="检验类别" prop="testType">
                 <!--<Input v-model="ruleForm.testType"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       根据检验情况，填写使用登记时最后完成的检验类别，如安装监督检验、改造监督检验、重大修理监督检验、首次检验、定期检验、达到设计使用年限检验或者安全评估、基于风险检验、事故检验等。
                     </p>
@@ -375,7 +375,7 @@
               <Form-item label="检验报告编号" prop="testReportCode">
                 <!--<Input v-model="ruleForm.testReportCode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写检验机构出具的检验报告的编号或者安全评估机构出具的安全评估报告编号，没有要求出具检验报告的，只填写监检证书编号。
                     </p>
@@ -389,7 +389,7 @@
                 <!--wang-->
                 <!--<DatePicker v-model="ruleForm.testDate"></DatePicker>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写进行检验的日期，一般是检验完成的日期，即报告出具日期(年、月、日)。
                     </p>
@@ -408,7 +408,7 @@
                 <!--</Option>-->
                 <!--</Select>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照有关检验规则的要求填写，如符合要求、基本符合要求、不符合要求，合 格、复检合格、不合格等。
                     </p>
@@ -422,7 +422,7 @@
                 <!--wang-->
                 <!--<DatePicker v-model="ruleForm.nextTestDate"></DatePicker>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       首次定期检验日期由使用单位在首次登记时根据本规则和相关安全技术规范的规定填写，登记机关进行审核；对已经实施检验的，使用单位按照检验报告确定的下次检验日期填写；由于结构原因，设计文件规定无法实施定期检验的特种设备，使用单位填写“设计规定不实施定期检验”。
                     </p>
