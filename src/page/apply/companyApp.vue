@@ -67,7 +67,7 @@
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
                     </p>
@@ -80,7 +80,7 @@
               <Form-item label="设备数量" prop="deviceNum">
                 <!--<Input v-model="ruleForm.deviceNum"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       压力管道填写本次登记时的压力管道长度(单位为“米”)，气瓶填写本次登记时的数量(单位为“只”)。
                     </p>
@@ -106,7 +106,7 @@
               <Form-item label="设备使用地点" prop="eqUseAddr">
                 <!--<Input v-model="ruleForm.eqUseAddr"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写设备安装在单位内的固定地点，如某某车间、某某场地等。移动式(流动式) 特种设备，填写“移动”或者“流动”。设备使用地点不在使用单位内的，应当按照所在省(自治区)、市(地、州)、区(县)、街道(镇、乡)、小区(村)、门牌号等填写设备使用地的详细地址。
                     </p>
@@ -120,7 +120,7 @@
               <Form-item label="单位固定电话" prop="staticPhone">
                 <!--<Input v-model="ruleForm.staticPhone"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
@@ -136,7 +136,7 @@
               <Form-item label="使用单位统一社会信用代码" prop="useComCode">
                 <!--<Input v-model="ruleForm.useComCode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
@@ -150,7 +150,7 @@
               <Form-item label="邮政编码" prop="zipcode">
                 <!--<Input v-model="ruleForm.zipcode"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位所在地的邮政编码。
                     </p>
@@ -166,7 +166,7 @@
               <Form-item label="安全管理员" prop="safeAdministrator">
                 <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
@@ -180,7 +180,7 @@
               <Form-item label="移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone"></Input>-->
                 <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;font-size:2px;">
+                  <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
