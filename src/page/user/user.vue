@@ -85,7 +85,7 @@
           </Row>
 
           <Row>
-            <FormItem prop="verifyId" label="身份证号"  v-if="this.role==='0'">
+            <FormItem prop="verifyId" label="身份证号">
               <Input v-model="ruleForm.verifyId" placeholder="请填入安全管理员的公民身份证号码"></Input>
             </FormItem>
           </Row>
@@ -190,6 +190,23 @@
 
   export default {
     data() {
+      const verifyIdConfirm = (rule, val, callback) => {
+        let city = {11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"};
+        if (!/^\d{17}(\d|x)$/i.test(val)) {
+          callback(new Error('请输入正确身份证'));
+        } else if(city[val.substr(0,2)] === undefined){
+          callback(new Error('非法地区'));
+        }else{
+          callback();
+        }
+      };
+      const telephoneConfirm = (rule, val, callback) => {
+        if (!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(val)) {
+          callback(new Error('请输入正确电话号'));
+        }else{
+          callback();
+        }
+      };
       return {
         author_key:localStorage.getItem('author_key'),
         role:'',
@@ -221,13 +238,14 @@
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
           verifyId: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:verifyIdConfirm,required: true, trigger: 'blur'}
           ],
           email: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'},
+            {type:"email",message: '请输入正确的邮箱', trigger: 'blur'}
           ],
           mobilePhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:telephoneConfirm,required: true,  trigger: 'blur'}
           ],
 //          useComAddr: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
@@ -333,7 +351,7 @@
             this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
             this.ruleForm.email = localStorage.getItem('email');
             this.addressCode = localStorage.getItem('addressCode');
-
+            this.ruleForm.verifyId = localStorage.getItem('verifyId');
             if(localStorage.getItem('company')=='true'){
               this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
               this.ruleForm.useComCode = localStorage.getItem('useComCode');
@@ -341,8 +359,7 @@
               this.role="1"
             }else {
               this.ruleForm.safeAdministrator = localStorage.getItem('name');
-              this.ruleForm.verifyId = localStorage.getItem('verifyId');
-              console.log( this.ruleForm.useComCode )
+
               //个人
               this.role='0';
 
@@ -398,6 +415,7 @@
               "addressCode":addressCode,
               "safeAdministrator":this.ruleForm.safeAdministrator,
               "staticPhone":this.ruleForm.staticPhone,
+              "verifyId": this.ruleForm.verifyId,
             }
             params.userData = temp;
             setAppService.updateUser(params).then(res => {
