@@ -189,7 +189,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
+            key: 'comCode',
             width: 120,
 
           },
@@ -352,14 +352,6 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
-                this.changeBackTime(res.data.content[i].status.applyAcceptDate);
-                this.data5[i].applyAcceptDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.approvalDate);
-                this.data5[i].approvalDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.unApprovalDate);
-                this.data5[i].unApprovalDate = this.getBackTime;
               }
             } else {
               this.data5 = [];
@@ -389,21 +381,14 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           // this.applyState = '';
-          let waitAccparams = 'eqCode=' + this.eqCode;
+          let waitAccparams={
+            "eqCode":this.eqCode
+          }
           approvalService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
-                this.data5[0].state = res.data.status.states;
-                this.changeBackTime(res.data.content[i].status.applyAcceptDate);
-                this.data5[i].applyAcceptDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.approvalDate);
-                this.data5[i].approvalDate = this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.unApprovalDate);
-                this.data5[i].unApprovalDate = this.getBackTime;
-                this.num = res.data.length;
+                this.num = res.data.totalElements;
 
               }else if(res.status=== 401){
                 this.$Notice.error({

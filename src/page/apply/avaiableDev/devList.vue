@@ -179,7 +179,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
+            key: 'comCode',
             width: 120,
           },
           {
@@ -434,15 +434,6 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate = this.getBackTime;
-                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate = this.getBackTime;
-                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate = this.getBackTime;
-                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate = this.getBackTime;
-                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate = this.getBackTime;
               }
 
             } else {
@@ -464,24 +455,17 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           //  this.applyState = '';
-          let waitAccparams = 'deviceId=' + this.deviceCode;
+//          let waitAccparams = 'deviceId=' + this.deviceCode;
+          let waitAccparams={
+            "eqCode":this.eqCode
+          }
           avaivbleService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
                 this.data5 = [res.data];
                 // this.data5[0].state = res.data.status.states;
-                this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate = this.getBackTime;
-                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate = this.getBackTime;
-                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate = this.getBackTime;
-                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate = this.getBackTime;
-                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate = this.getBackTime;
 
-                this.num = res.data.length;
+                this.num = res.data.totalElements;
 
               } else if (res.status === 401) {
                 this.$Notice.error({

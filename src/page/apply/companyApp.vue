@@ -858,8 +858,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
-            sortable: true
+            key: 'comCode',
           },
           {
             title: '变更或者停用情况',

@@ -399,8 +399,8 @@
             let params = {
               applyId: this.applyId,
               pass: false,
-              comments: this.unAcceptedContent,
-              rejectReasons: this.unAcceptedReason[0] + this.unAcceptedReason[1],
+              detailReason: this.unAcceptedContent,
+              reason: this.unAcceptedReason[0] + this.unAcceptedReason[1],
             }
             appDetailService.AccRej(params).then(res => {
               console.log(res);
@@ -517,8 +517,8 @@
             let params = {
               applyId: this.applyId,
               pass: false,
-              comments: this.unApprovalContent,
-              rejectReasons: this.unApprovalReason[0] + this.unApprovalReason[1],
+              detailReason: this.unApprovalContent,
+              reason: this.unApprovalReason[0] + this.unApprovalReason[1],
             }
             appDetailService.ApprovalRej(params).then(res => {
               if (res.status === 200) {
