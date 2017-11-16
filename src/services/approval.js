@@ -15,5 +15,9 @@ export function GetApprovedOrders(param) {
 //   return fetch('/apply/get?'+params, params,'get')
 // }
 export function getDetailOrder(params) {
-  return fetch('/apply/getWorkFlow', params,'post')
+  return fetch('/admin/approvedApplies/get', params,'post')
+}
+
+export function getDetailUnOrder(params) {
+  return fetch('/admin/unapprovedApplies/get', params,'post')
 }

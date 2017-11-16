@@ -11,5 +11,8 @@ export function GetAcceptedOrders(param) {
 }
 
 export function getDetailOrder(params) {
-  return fetch('/apply/getWorkFlow', params,'post')
+  return fetch('/admin/acceptedApplies/get', params,'post')
+}
+export function getDetailUnOrder(param) {
+  return fetch('/admin/unacceptedApplies/get',param,'post')
 }

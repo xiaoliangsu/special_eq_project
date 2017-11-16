@@ -14,7 +14,7 @@ export function deleteApp(param) {
 }
 //精准搜索
 export function getDetailOrder(params) {
-  return fetch('/apply/get?'+params, params,'get')
+  return fetch('/apply/getWorkFlow', params,'post')
 }
 
 

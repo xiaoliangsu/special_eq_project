@@ -352,8 +352,9 @@
           }
           acceptService.getDetailOrder(waitAccparams).then(res => {
               if (res.status === 200) {
-                this.data5 = [res.data];
+                this.data5 = res.data.content;
                 this.num=res.data.totalElements;
+                alert(this.num);
               }else if(res.status=== 401){
                 this.$Notice.error({
                   title: '这是通知标题',
