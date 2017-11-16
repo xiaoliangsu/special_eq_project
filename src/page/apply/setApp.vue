@@ -1,6 +1,6 @@
 <template>
   <!--按套申请的使用登记表-->
-  <div class="setApp">
+  <div class="setApp" style="background-color:transparent">
     <div class="setApp_topbar">
       <!--<div class="bread">-->
       <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
@@ -458,7 +458,7 @@
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
-          <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
+          <iframe allowtransparency="true" id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
 
           <!--<input type="submit"  value="Print"-->
@@ -966,9 +966,9 @@
 //          propertyComCode: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
-          propertyComPhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+//          propertyComPhone: [
+//            {required: true, message: '不能为空', trigger: 'blur'}
+//          ],
           testComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],

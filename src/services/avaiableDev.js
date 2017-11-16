@@ -8,5 +8,5 @@ export function GetDevOrders(param) {
 
 //精准搜索
 export function getDetailOrder(params) {
-  return fetch('/apply/getWorkFlow', params,'post')
+  return fetch('/device/get?'+params, params,'get')
 }

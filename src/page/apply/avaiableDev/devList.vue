@@ -183,16 +183,6 @@
             width: 120,
           },
           {
-            title: '申请类别',
-            key: 'applyType',
-            width: 120,
-          },
-          {
-            title: '登记类别',
-            key: 'registKind',
-            width: 120,
-          },
-          {
             title: '停用开始日期',
             key: 'noUseDate',
             width: 125,
@@ -367,7 +357,7 @@
 
       }
     },
-    created()
+    mounted()
     {
       this.initData();
     },
@@ -455,10 +445,7 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           //  this.applyState = '';
-//          let waitAccparams = 'deviceId=' + this.deviceCode;
-          let waitAccparams={
-            "eqCode":this.eqCode
-          }
+          let waitAccparams = 'deviceId=' + this.deviceCode;
           avaivbleService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
