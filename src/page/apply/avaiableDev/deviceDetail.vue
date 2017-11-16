@@ -222,7 +222,7 @@
 
   .setTable {
     margin-bottom: 30px;
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .pdfdownload {
@@ -237,7 +237,7 @@
   .deviceContentHead {
     margin: 20px;
     color: #495060;
-    font-size: 19px;
+    font-size: 17px;
 
   }
 
@@ -305,7 +305,7 @@
   }
   .applyTypeContent{
     color: #1c2438;
-    font-size:19px;
+    font-size:17px;
 
   }
 
