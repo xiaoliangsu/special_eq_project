@@ -63,9 +63,8 @@ const WaitAccept = r => require.ensure([], () => r(require('../page/accept/waitA
 //import Regist_One from "../page/print/regist_one.vue"
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
-const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
-const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
-const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
+const  TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
+const  AreaChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaChange.vue')),'AreaChange');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
 const  NameChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/nameChange.vue')),'NameChange');
 const  YearsChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/yearsChange.vue')),'YearsChange');
@@ -160,9 +159,7 @@ const router = new VueRouter({
         {path: "/accepted", component: Accepted,
           meta: [ '已受理申请']},
         {path: "/transformChange", component: TransformChange},
-
-        {path: "/areaInChange", component: AreaInChange},
-        {path: "/areaAcrossChange", component: AreaAcrossChange},
+        {path: "/areaChange", component: AreaChange},
         {path: "/companyChange", component: CompanyChange},
         {path: "/nameChange", component: NameChange},
         {path: "/yearsChange", component: YearsChange},

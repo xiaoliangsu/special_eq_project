@@ -4,7 +4,7 @@
     <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="100" inline>
       <h2></h2>
       <div class="statusInfo" v-if="this.active==1">
-        <h2>单位变更</h2>
+        <h2>改造变更</h2>
         <h2>设备基本情况</h2>
         <Form-item label="设备种类" prop="eq_species">
           <Input v-model="ruleForm.eq_species" placeholder="请输入设备种类"></Input>
@@ -131,21 +131,21 @@
       <div class="pdfInfo" v-if="this.active==2">
         <h2>相关证明</h2>
 
-        <Form-item label="特种设备使用登记证变更证明" :label-width="300">
+        <Form-item label="原使用登记证" :label-width="300">
           <Upload action="//jsonplaceholder.typicode.com/posts/"
                   :on-success="handleSuccess"
                   with-credentials>
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
           </Upload>
         </Form-item>
-        <Form-item label="标有注销标记的原使用登记表" :label-width="300">
+        <Form-item label="改造质量证明资料" :label-width="300">
           <Upload action="//jsonplaceholder.typicode.com/posts/"
                   :on-success="handleSuccess"
                   with-credentials>
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
           </Upload>
         </Form-item>
-        <Form-item label="有效期内的定期检验报告" :label-width="300">
+        <Form-item label="改造监督检验证书" :label-width="300">
           <Upload action="//jsonplaceholder.typicode.com/posts/"
                   :on-success="handleSuccess"
                   with-credentials>
