@@ -47,10 +47,6 @@ const UnSubmitOrder = r => require.ensure([], () => r(require('../page/apply/ord
 
 //import DevList from "../page/apply/avaiableDev/devList.vue"
 const DevList = r => require.ensure([], () => r(require('../page/apply/avaiableDev/devList.vue')), 'DevList');
-
-//import ChangeReq from "../page/apply/avaiableDev/changeReq/changeReq.vue"
-const ChangeReq = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/changeReq.vue')), 'ChangeReq');
-
 //import AppDetail from "../page/apply/avaiableDev/appDetail.vue"
 const AppDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/appDetail.vue')), 'AppDetail');
 const DeviceDetail = r => require.ensure([], () => r(require('../page/apply/avaiableDev/deviceDetail.vue')), 'DeviceDetail');
@@ -64,10 +60,11 @@ const WaitAccept = r => require.ensure([], () => r(require('../page/accept/waitA
 
 //import TransformChange from "../page/apply/avaiableDev/changeReq/transformChange.vue"
 const  TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
-const  AreaChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaChange.vue')),'AreaChange');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
 const  NameChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/nameChange.vue')),'NameChange');
 const  YearsChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/yearsChange.vue')),'YearsChange');
+const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
+const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
 
 
 //import Accepted from "../page/accept/accepted.vue"
@@ -159,10 +156,11 @@ const router = new VueRouter({
         {path: "/accepted", component: Accepted,
           meta: [ '已受理申请']},
         {path: "/transformChange", component: TransformChange},
-        {path: "/areaChange", component: AreaChange},
         {path: "/companyChange", component: CompanyChange},
         {path: "/nameChange", component: NameChange},
         {path: "/yearsChange", component: YearsChange},
+        {path: "/areaAcrossChange", component: areaAcrossChange},
+        {path: "/areaInChange", component: areaInChange},
 
         {path: "/approvaled", component: Approvaled,
           meta: [ '已审查、发证申请']},
