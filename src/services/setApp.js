@@ -107,3 +107,8 @@ export function confrimApp(param) {
 export function getAccpeter(params) {
   return fetch('/map/organization?'+params, params,'get')
 }
+
+
+export function submitChangeInfo(params) {
+    return fetch('/apply/create', params,'post')
+}

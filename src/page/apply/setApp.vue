@@ -742,49 +742,7 @@
         pdf: '',
         addressCode: '',
         //设备种类
-        deviceCategoryList: [
-          {
-            value: "1000",
-            label: "锅炉"
-          },
-          {
-            value: "2000",
-            label: "压力容器"
-          },
-          {
-            value: "8000",
-            label: "压力管道"
-          },
-          {
-            value: "7000",
-            label: "压力管道元件"
-          },
-          {
-            value: "3000",
-            label: "电梯"
-          },
-
-          {
-            value: "4000",
-            label: "起重机械"
-          },
-          {
-            value: "9000",
-            label: "客运索道"
-          },
-          {
-            value: "6000",
-            label: "大型游乐设施"
-          },
-          {
-            value: "5000",
-            label: "场（厂）内专用机动车辆"
-          },
-          {
-            value: "F000",
-            label: "安全附件"
-          },
-        ],
+        ifDisabled:'',
         //设备类别
         deviceClassList: [],
         //设备品种列表
@@ -1393,7 +1351,7 @@
               }
             }).catch(error => {
               console.log(error);
-            })
+            })                                                                                                                                                                                                     
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
