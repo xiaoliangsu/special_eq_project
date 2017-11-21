@@ -55,12 +55,10 @@
             <Row>
               <Col span="11">
               <Form-item label="设备种类" prop="deviceCategory">
-                <i-input v-model="ruleForm.deviceCategory" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceCategory" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
                 <Poptip trigger="focus">
@@ -86,8 +84,7 @@
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备类别" prop="deviceClass">
-                <i-input v-model="ruleForm.deviceClass" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceClass" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
@@ -643,13 +640,13 @@
           {
             type: 'index',
             key: 'id',
-            // width: 60,
+            width: 60,
 
           },
           {
             title: '设备品种',
             key: 'deviceKind',
-            // width:120,
+            width:120,
           },
           {
             title: '使用登记证编号',

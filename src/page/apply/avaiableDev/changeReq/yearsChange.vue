@@ -55,12 +55,10 @@
             <Row>
               <Col span="11">
               <Form-item label="设备种类" prop="deviceCategory">
-                <i-input v-model="ruleForm.deviceCategory" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceCategory" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
                 <!--<Input v-model="ruleForm.eqCode" ></Input>-->
@@ -87,8 +85,7 @@
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备类别" prop="deviceClass">
-                <i-input v-model="ruleForm.deviceClass" style="width:107%"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceClass" style="width:107%"></i-input>
               </Form-item>
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
@@ -645,13 +642,13 @@
           {
             type: 'index',
             key: 'id',
-            // width: 60,
+            width: 60,
 
           },
           {
             title: '设备品种',
             key: 'deviceKind',
-            // width:120,
+            width:120,
           },
           {
             title: '使用登记证编号',
@@ -970,7 +967,7 @@
       },
 
       submit(submitParam){
-        setAppService.submitDisabledInfo(submitParam).then(res => {
+        setAppService.submitChangeInfo(submitParam).then(res => {
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
@@ -1009,20 +1006,17 @@
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-        submitParam.formList[0].formType = 5;
+        submitParam.formList[0].formType = 1;
 //        submitParam.deviceId=parseInt(this.deviceCode);
 //        submitParam.deviceType=parseInt(this.deviceType);
 //        submitParam.eqCodeList=[];
 //        for(let i=0;i<this.ruleForm.subList.length;i++){
 //          submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
 //        }
-        submitParam.deviceId = [];
-        for (let i = 0; i < this.ruleForm.subList.length; i++) {
-          submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
-        }
+        submitParam.deviceId = this.deviceId;
 
         //报废申请
-        submitParam.applyType = 4;
+        submitParam.applyType = "变更申请";
 //        //登记证编号
 //        submitParam.registCode =this.registCode;
         //提交设备类别等
@@ -1096,10 +1090,10 @@
 
       },
       next() {
-        if(this.ruleForm.subList.length==0){
-          this.$Message.info('请选择要变更的设备');
-          return
-        }
+        // if(this.ruleForm.subList.length==0){
+        //   this.$Message.info('请选择要变更的设备');
+        //   return
+        // }
         if (this.current == 5) {
           this.current = 0;
         } else {
@@ -1265,6 +1259,7 @@
         this.ruleForm.deviceClass=row.deviceClass;
         this.ruleForm.deviceKind=row.deviceKind;        
         this.ruleForm.eqCode=row.eqCode;
+        this.deviceId=row.id;
           // let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];

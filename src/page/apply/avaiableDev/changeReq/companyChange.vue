@@ -35,133 +35,74 @@
         <div class="statusInfo" v-if="this.active==2">
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记证变更证明</h2>
-            </br>
+            </br>  
+
             <Row>
-              <Col span="11">
-
+              <Col span='11'>
               <Form-item label="设备种类" prop="deviceCategory">
-                <i-input v-model="ruleForm.deviceCategory" style="width: 90%;"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceCategory"
+                            :disabled="true"></i-input>
               </Form-item>
-
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind" style="width: 90%;"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceKind"></i-input>
               </Form-item>
-
               <Form-item label="设备代码" prop="eqCode">
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记机关的行政区划代码(比制造单位代号多一位)。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.eqCode"></i-input>
-                </Poptip>
+                <i-input v-model="ruleForm.eqCode"></i-input>
               </Form-item>
-
               </Col>
 
-              <Col span="11" offset="2">
+
+              <Col span='11' offset="2">
               <Form-item label="设备类别" prop="deviceClass">
-                <i-input v-model="ruleForm.deviceClass" style="width: 90%;"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.deviceClass"
+                            :disabled="true"></i-input>
               </Form-item>
               <Form-item label="产品名称" prop="deviceName">
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      按照产品铭牌或者产品合格证、产品数据表的内容填写，也称设备名称。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.deviceName"></i-input>
-                </Poptip>
+                <i-input v-model="ruleForm.deviceName"></i-input>
               </Form-item>
               <Form-item label="原使用登记证编号" prop="registCode">
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      按照产品数据表或者相应的设计文件填写，有型号的填写型号，没有型号有规格的填写规格，没有型号、规格的，划“—”。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.registCode"
-                           :disabled="true"></i-input>
-                </Poptip>
+                <i-input v-model="ruleForm.registCode"></i-input>
               </Form-item>
-              </Col>              
-              <Form-item label="制造单位名称" prop="manufactureComName">
-                <!--<Input v-model="ruleForm.manufactureComName"></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致.
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.manufactureComName"></i-input>
-                </Poptip>
-              </Form-item>
+              </Col>
             </Row>
-            <Row><!--wang-->
+
+              
+              <Form-item label="制造单位名称" prop="manufatureComName">
+                <i-input v-model="ruleForm.manufatureComName"></i-input>
+              </Form-item>
+            <Row>
               <Col span='11'>
               <Form-item label="产品编号" prop="productCode">
-                
-                  <i-input v-model="ruleForm.productCode"></i-input>
-                
+                <i-input v-model="ruleForm.productCode"></i-input>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="制造日期" prop="eqCreateDate">
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写办理登记的设备正式投入使用的开始日期(包括年、月、日)。
-                    </p>
-                  </div>
-                  <DatePicker v-model="ruleForm.eqCreateDate"></DatePicker>
-                </Poptip>
+                <DatePicker v-model="ruleForm.eqCreateDate"></DatePicker>
               </Form-item>
-
               </Col>
+            </Row>
               <Form-item label="原使用单位名称" prop="origUseComName">
-                <!--<Input v-model="ruleForm.manufactureComName"></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致.
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.origUseComName"></i-input>
-                </Poptip>
+                <i-input v-model="ruleForm.origUseComName"></i-input>
               </Form-item>
             </Row>
             <Row>
               <Col span='11'>
               <Form-item label="原使用登记证签发日期" prop="registDate">
-                <!--<Input v-model="ruleForm.manufactureComName"></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写产品的制造单位名称，其名称与产品合格证和产品铭牌表述应当一致.
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.registDate"></i-input>
-                </Poptip>
+                <DatePicker v-model="ruleForm.registDate"></DatePicker>
               </Form-item>
               </Col>
 
               <Col span="11" offset="2">
-              <!--<label class="form_label_right">设备类别</label>-->
               <Form-item label="变更类别" prop="changedType">
-                <i-input v-model="ruleForm.changedType" style="width: 90%;"
-                         :disabled="true"></i-input>
+                <i-input v-model="ruleForm.changedType"
+                            :disabled="true"></i-input>
               </Form-item>
 
               </Col>
             </Row>
           </div>
-
         </div>
 
 
@@ -407,16 +348,48 @@
         current: 0,
         ruleForm: {
           registKind: '',
-          deviceNum: '',
+          deviceCategory: '',
+          deviceCategoryCode: '',
+          deviceClass: '',
+          deviceClassCode: '',
+          deviceKind: '',
+          deviceKindCode: '',
+          deviceName: '',
+          eqCode: '',
+          model: '',
+          designUseLimit: '',
+          designComName: '',
+          eqCreateDate: '',
+          manufatureComName: '',
+          constructComName: '',
+          superviseComName: '',
+          modelTestComName: '',
           useComName: '',
           useComAddr: '',
-          productCode:'',
+          useComCode: '',
+          zipcode: '',
+          registDate: '',
+          registCode: '',
+          origUseComName: '',
+          eqComCode: '',
+          eqUseAddr: '',
+          productCode: '',
+          eqUseDate: '',
+          staticPhone: '',
           safeAdministrator: '',
+          mobilePhone: '',
+          changedType: '',
+          propertyComName: '',
+          propertyComCode: '',
           propertyComPhone: '',
-          subList: [],
+          testComName: '',
+          testType: '',
+          testReportCode: '',
+          testDate: '',
+          testResult: '',
+          nextTestDate: '',
           comTablePerson: '',
-          mobilePhone:'',
-          eqCreateDate:'',
+          comPersonDate: '',
         },
 
         registKindList: [
@@ -715,20 +688,20 @@
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
         submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-        submitParam.formList[0].formType = 1;
+        submitParam.formList[0].formType = 4;
 //        submitParam.deviceId=parseInt(this.deviceCode);
 //        submitParam.deviceType=parseInt(this.deviceType);
 //        submitParam.eqCodeList=[];
 //        for(let i=0;i<this.ruleForm.subList.length;i++){
 //          submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
 //        }
-        submitParam.deviceId = [];
+        submitParam.deviceId = this.deviceId;
         for (let i = 0; i < this.ruleForm.subList.length; i++) {
           submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
         }
 
         //报废申请
-        submitParam.applyType = "单位申请";
+        submitParam.applyType = "单位变更申请";
 //        //登记证编号b
 //        submitParam.registCode =this.registCode;
         //提交设备类别等
@@ -802,10 +775,10 @@
 
       },
       next() {
-        if(this.ruleForm.subList.length==0){
-          this.$Message.info('请选择要变更的设备');
-          return
-        }
+        // if(this.ruleForm.subList.length==0){
+        //   this.$Message.info('请选择要变更的设备');
+        //   return
+        // }
         if (this.current == 5) {
           this.current = 0;
         } else {
@@ -972,6 +945,7 @@
         this.ruleForm.deviceClass=row.deviceClass;
         this.ruleForm.deviceKind=row.deviceKind;        
         this.ruleForm.eqCode=row.eqCode;
+        this.deviceId=row.id;
 
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
