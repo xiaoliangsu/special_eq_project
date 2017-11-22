@@ -35,11 +35,10 @@
         <div class="statusInfo" v-if="this.active==2">
           <div class="chooseAccept">
             <h3 class="header_one" style="margin-bottom:10px;">登记机关</h3>
-            <FormItem label="登记机关" class="ivu-form-item-required">
-              <Select v-model="acceptCom" filterable @on-change="chosenAccept" :label-in-value="true">
-                <Option v-for="item in acceptComList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
-            </FormItem>
+              <Form-item label="登记机关" prop="acceptorAgencyName">
+                <i-input v-model="ruleForm.acceptorAgencyName"
+                            :disabled="true"></i-input>
+              </Form-item>
           </div>
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记表</h2>
@@ -788,43 +787,43 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           designUseLimit: [
-            {required: false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'change'}
           ],
           manufactureComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           superviseComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           deviceClassCode: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           deviceName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           model: [
-            {required: false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'change'}
           ],
           designComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           constructComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           modelTestComName: [
-            {required: false, message: '', trigger: 'blur'}
+            {required: false, message: '', trigger: 'change'}
           ],
 //          useComName: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
           useComAddr: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           useComCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqUseDate: [
             {required: true, message: '不能为空', type: 'date', trigger: 'change'}
@@ -833,19 +832,19 @@
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
           eqComCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           zipcode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqUseAddr: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
 //          staticPhone: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
           mobilePhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
 //          propertyComName: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
@@ -857,53 +856,53 @@
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
           testComName: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           testType: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           testDate: [
             {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
           testReportCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           testResult: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           nextTestDate: [
             {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
 
           comTablePerson: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           comPersonDate: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           comSafePerson: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           safePersonDate: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           registPerson: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           registCode: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           registDate: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           comStampDate: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           registStampDate: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
           registKind: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
 
         },
@@ -1213,13 +1212,13 @@
         }
       },
       confirmForm () {
-        if(this.acceptCom=='' ){
-          this.$Notice.error({
-            title: '这是通知标题',
-            desc: '请选择登记机关'
-          });
-          return
-        }
+        // if(this.acceptCom=='' ){
+        //   this.$Notice.error({
+        //     title: '这是通知标题',
+        //     desc: '请选择登记机关'
+        //   });
+        //   return
+        // }
         this.$refs["ruleForm"].validate((valid) => {
           if (valid) {
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
@@ -1361,7 +1360,8 @@
         this.ruleForm.deviceCategory=row.deviceCategory;
         this.ruleForm.deviceClass=row.deviceClass;
         this.ruleForm.deviceKind=row.deviceKind;        
-        this.ruleForm.eqCode=row.eqCode;
+        this.ruleForm.eqCode=row.eqCode;      
+        this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.deviceId=row.id;
           let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
