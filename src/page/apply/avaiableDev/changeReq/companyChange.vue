@@ -451,33 +451,33 @@
         active: 1,
         pdfUrl: '',
         rules: {
-          registKind: [
+          deviceCategory: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceClass: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceKind: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceName: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
-//          deviceNum: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-          comTablePerson: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+          eqCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
-//          useComName: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-          useComAddr: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+          registCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
-          //  eqCreateDate: [
-          //   {required: true, message: '不能为空', trigger: 'blur'}
-          // ],
-          mobilePhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+          manufatureComName: [
+            {required: true, message: '不能为空', trigger: 'change'}
           ],
-//          propertyComName: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-//          propertyComPhone: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
+          productCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          origUseComName: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
         },
         //点击上一步的标志
         creatOrUpdate: false,

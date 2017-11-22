@@ -765,30 +765,131 @@
         active: 1,
         pdfUrl: '',
         rules: {
-          registKind: [
+          deviceCategoryCode: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
-//          deviceNum: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
-//          ],
-          comTablePerson: [
+          deviceKindCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          eqCode: [
+            {required: false, message: '', trigger: 'blur'}
+          ],
+          designUseLimit: [
+            {required: false, message: '', trigger: 'blur'}
+          ],
+          manufactureComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
+          superviseComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          deviceClassCode: [
+            {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          deviceName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          model: [
+            {required: false, message: '', trigger: 'blur'}
+          ],
+          designComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          constructComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          modelTestComName: [
+            {required: false, message: '', trigger: 'blur'}
+          ],
 //          useComName: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
+//            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
           useComAddr: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
+          useComCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqUseDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+//          safeAdministrator: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
+          eqComCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          zipcode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          eqUseAddr: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+//          staticPhone: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
           mobilePhone: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
 //          propertyComName: [
-//            {required: true, message: '不能为空', trigger: 'blur'}
+//            {required:true, message: '不能为空', trigger: 'blur'}
+//          ],
+//          propertyComCode: [
+//            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
 //          propertyComPhone: [
 //            {required: true, message: '不能为空', trigger: 'blur'}
 //          ],
+          testComName: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          testType: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          testDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+          testReportCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          testResult: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          nextTestDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+
+          comTablePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comPersonDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comSafePerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          safePersonDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registPerson: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registCode: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          comStampDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registStampDate: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+          registKind: [
+            {required: true, message: '不能为空', trigger: 'blur'}
+          ],
+
         },
         //点击上一步的标志
         creatOrUpdate: false,
