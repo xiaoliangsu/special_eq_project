@@ -786,7 +786,7 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqCode: [
-            {required: false, message: '', trigger: 'blur'}
+            {required: true, message: '不能为空', trigger: 'blur'}
           ],
           designUseLimit: [
             {required: false, message: '', trigger: 'blur'}
