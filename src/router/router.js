@@ -81,7 +81,7 @@ const Approvaled = r => require.ensure([], () => r(require('../page/approval/app
 const WaitApproval = r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')), 'WaitApproval');
 const AppRegistDetail = r => require.ensure([], () => r(require('../page/approval/appRegistDetail.vue')), 'AppRegistDetail');
 
-const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
+// const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
 const Message = r => require.ensure([], () => r(require('../page/message/message.vue')), 'Message');
 
 const UserPower = r => require.ensure([], () => r(require('../page/superAdmin/userPower.vue')), 'UserPower');
@@ -173,7 +173,7 @@ const router = new VueRouter({
           meta: [ '未审查、发证申请']},
         {path: "/appRegistDetail", component: AppRegistDetail,
           meta: [ '特种设备使用登记明细']},
-        {path: "/supervision", component: Supervision},
+        // {path: "/supervision", component: Supervision},
         {path: "/message", component: Message,
         meta:["消息提醒"]},
         {path: "/userPower", component: UserPower,
