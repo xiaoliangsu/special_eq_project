@@ -67,6 +67,8 @@ const TransformChange = r => require.ensure([], () => r(require('../page/apply/a
 const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
 const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
+const  CompanyChange2= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange2.vue')),'CompanyChange2');
+
 const  NameChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/nameChange.vue')),'NameChange');
 const  YearsChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/yearsChange.vue')),'YearsChange');
 
@@ -164,6 +166,7 @@ const router = new VueRouter({
         {path: "/areaInChange", component: AreaInChange},
         {path: "/areaAcrossChange", component: AreaAcrossChange},
         {path: "/companyChange", component: CompanyChange},
+        {path: "/companyChange2", component: CompanyChange2},
         {path: "/nameChange", component: NameChange},
         {path: "/yearsChange", component: YearsChange},
 

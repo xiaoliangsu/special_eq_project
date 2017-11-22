@@ -1,13 +1,12 @@
 <template>
   <!--按套申请的使用登记表-->
   <div class="setApp" style="background-color:transparent">
+
+
+
     <div class="setApp_topbar">
-      <!--<div class="bread">-->
-      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
-      <!--</div>-->
       <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <!--<Step title="步骤1" content="填写基本信息"></Step>-->
           <Step title="步骤1" content="填写特种设备使用登记表"></Step>
           <Step title="步骤2" content="预览特种设备使用登记表"></Step>
           <Step title="步骤3" content="提交相关证件"></Step>
@@ -15,6 +14,7 @@
         </Steps>
       </div>
     </div>
+
 
     <div class="setApp_content" style="position:absolute;top:85px;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
@@ -27,10 +27,6 @@
               </Select>
             </FormItem>
           </div>
-          <!--<h2>选择设备种类</h2>-->
-          <!--<Select v-model="deviceType" style="width:200px">-->
-          <!--<Option v-for="item in deviceList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-          <!--</Select>-->
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表</h2>
             <h2 class="header_two">设备基本情况</h2>

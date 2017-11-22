@@ -55,7 +55,8 @@
             <Row>
               <Col span="11">
               <Form-item label="设备种类" prop="deviceCategory">
-                <i-input v-model="ruleForm.deviceCategory" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceCategory" style="width:107%"
+                            :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
                 <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
@@ -84,7 +85,8 @@
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备类别" prop="deviceClass">
-                <i-input v-model="ruleForm.deviceClass" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceClass" style="width:107%"
+                            :disabled="true"></i-input>
               </Form-item>
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
@@ -1230,33 +1232,20 @@
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {
-            const title = '通知';
-            const content = '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>';
-            switch (type) {
-              case 'success':
-                this.$Modal.success({
-                  title: title,
-                  content: content
-                });
-                this.current++;
-                break;
-            }
-             this.$router.push({
-               path: 'devList',
-             });
+            this.$Modal.confirm({
+              title: '通知',
+              content: '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>',
+              onOk: () => {
+                this.$router.go(0);
+              },
+              onCancel: () => {
+                this.$Message.info('点击了取消');
+              }
+            });
+//            this.$router.push({
+//              path: 'devList',
+//            });
           }
-//           if (res) {
-//             this.$Modal.confirm({
-//               title: '通知',
-//               content: '<p>您已经成功提交申请</p><p>请耐心等待受理结果</p>',
-//               onOk: () => {
-//                 this.$router.go(0);
-//               }
-//             });
-//             this.$router.push({
-//               path: 'devList',
-//             });
-//           }
         }).catch(error => {
           console.log(error);
 

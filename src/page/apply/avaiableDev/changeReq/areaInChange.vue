@@ -55,7 +55,8 @@
             <Row>
               <Col span="11">
               <Form-item label="设备种类" prop="deviceCategory">
-                <i-input v-model="ruleForm.deviceCategory" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceCategory" style="width:107%"
+                            :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
                 <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
@@ -85,7 +86,8 @@
               </Col>
               <Col span="11" offset="2">
               <Form-item label="设备类别" prop="deviceClass">
-                <i-input v-model="ruleForm.deviceClass" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceClass" style="width:107%"
+                            :disabled="true"></i-input>
               </Form-item>
               <Form-item label="产品名称" prop="deviceName">
                 <!--<Input v-model="ruleForm.deviceName"></Input>-->
