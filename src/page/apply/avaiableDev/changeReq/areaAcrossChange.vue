@@ -3,22 +3,29 @@
   <div class="areaAcrossChange">
 
     <div class="setApp_topbar">
-      <!--<div class="bread">-->
-      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
-      <!--</div>-->
       <div class="step" style="width:85%; margin-top:20px;">
         <Steps :current="current">
-          <!--<Step title="步骤1" content="填写基本信息"></Step>-->
-          <Step title="步骤1" content="选择要变更的设备"></Step>
-          <Step title="步骤2" content="填写《特种设备使用登记证变更证明》"></Step>
-          <Step title="步骤3" content="预览《特种设备使用登记证变更证明》"></Step>
-          <Step title="步骤4" content="提交相关证件"></Step>
-          <Step title="步骤5" content="完成变更"></Step>
+          <Step title="步骤1" content="选择操作"></Step>
+          <Step title="步骤2" content="选择要变更的设备"></Step>
+          <Step title="步骤3" content="填写《特种设备使用登记证变更证明》"></Step>
+          <Step title="步骤4" content="预览《特种设备使用登记证变更证明》"></Step>
+          <Step title="步骤5" content="提交相关证件"></Step>
+          <Step title="步骤6" content="完成变更证明的提交"></Step>
         </Steps>
       </div>
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;">
-      <div v-if="this.active==1" class="statusInfo" style="margin-bottom:20px;">
+
+
+
+      <div class="setTable" v-if="this.active==1" style="width:900px;top:30px;position:absolute">
+        <Button type="primary" @click="next()" v-if="this.active==1">变更证明</Button>
+        <Button type="success" @click="jump()" v-if="this.active==1">登记表</Button>
+      </div>
+
+
+
+      <div v-if="this.active==2" class="statusInfo" style="margin-bottom:20px;">
         <div class="list-box">
           <h3 class="header_one" style="margin:10px;">选择要变更的设备</h3>
           <Table border ref="selection" :columns="columnsCanStopUse" :data="canStopUseDeviceList"
@@ -32,7 +39,7 @@
 
       </div>
       <Form ref="ruleForm" style="width: 135%;" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
-        <div class="statusInfo" v-if="this.active==2">
+        <div class="statusInfo" v-if="this.active==3">
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记证变更证明</h2>
             </br>  
@@ -106,7 +113,7 @@
         </div>
 
 
-        <div class="setTable" v-if="this.active==3" style="width:900px;top:30px;position:absolute">
+        <div class="setTable" v-if="this.active==4" style="width:900px;top:30px;position:absolute">
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
@@ -118,11 +125,11 @@
           <!--@click="printPDF(this.pdfUrl)" />-->
           <!--<a href="javascript: w=window.open('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');w.print(); w.close(); ">​​​​​​​​​​​​​​​​​打印pdf</a>-->
 
-          <Button type="primary" @click="before()" v-if="this.active==3">上一步</Button>
-          <Button type="success" @click="next()" v-if="this.active==3">下一步</Button>
+          <Button type="primary" @click="before()" v-if="this.active==4">上一步</Button>
+          <Button type="success" @click="next()" v-if="this.active==4">下一步</Button>
 
         </div>
-        <div class="pdfInfo" v-if="this.active==4">
+        <div class="pdfInfo" v-if="this.active==5">
           <h2>相关证明</h2>
           <!--这个接口是尝试过成功的-->
           <Row style="width:1000px;">
@@ -200,12 +207,9 @@
 
 
         <div class="setApp_button">
+          <Button type="primary" @click="confirmForm" v-if="this.active==3">下一步</Button>
 
-
-          <!--<Button type="primary" @click="next()" v-if="this.active==1">下一步</Button>-->
-          <Button type="primary" @click="confirmForm" v-if="this.active==2">下一步</Button>
-
-          <Button @click="instance('success')" v-if="this.active==4">确认提交</Button>
+          <Button @click="instance('success')" v-if="this.active==5">确认提交</Button>
 
         </div>
 
@@ -325,8 +329,8 @@
                   },
                   on: {
                     click: () => {
-                      this.current = 1;
-                      this.active = 2;
+                      this.current = 2;
+                      this.active = 3;
                       this.selectDevice(params.row);
                       // this.continueApp(params.index)
                     }
@@ -737,11 +741,14 @@
         }
 
       },
+
+
+      jump() {
+        this.$router.push('areaAcrossChange2');
+      },
+
+
       next() {
-        // if(this.ruleForm.subList.length==0){
-        //   this.$Message.info('请选择要变更的设备');
-        //   return
-        // }
         if (this.current == 5) {
           this.current = 0;
         } else {
@@ -909,6 +916,10 @@
         this.ruleForm.deviceKind=row.deviceKind;        
         this.ruleForm.eqCode=row.eqCode;
         this.deviceId=row.id;
+        this.ruleForm.deviceName=row.deviceName;
+        this.ruleForm.manufatureComName=row.manufatureComName;
+        this.ruleForm.productCode=row.productCode;
+        this.ruleForm.registDate=row.registDate;
 
 
         // this.ruleForm.deviceCategory=row.deviceCategory;

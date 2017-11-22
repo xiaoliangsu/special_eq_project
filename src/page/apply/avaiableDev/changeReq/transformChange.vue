@@ -59,7 +59,7 @@
                             :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceKind" style="width:107%":disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
                 <Poptip trigger="focus">
@@ -1242,9 +1242,6 @@
                 this.$Message.info('点击了取消');
               }
             });
-//            this.$router.push({
-//              path: 'devList',
-//            });
           }
         }).catch(error => {
           console.log(error);

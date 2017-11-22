@@ -59,7 +59,7 @@
                             :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind" style="width:107%"></i-input>
+                <i-input v-model="ruleForm.deviceKind" style="width:107%" :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
                 <!--<Input v-model="ruleForm.eqCode" ></Input>-->

@@ -942,6 +942,10 @@
         this.ruleForm.deviceClass=row.deviceClass;
         this.ruleForm.deviceKind=row.deviceKind;        
         this.ruleForm.eqCode=row.eqCode;
+        this.ruleForm.deviceName=row.deviceName;
+        this.ruleForm.manufatureComName=row.manufatureComName;
+        this.ruleForm.productCode=row.productCode;
+        this.ruleForm.registDate=row.registDate;
         this.deviceId=row.id;
 
 
