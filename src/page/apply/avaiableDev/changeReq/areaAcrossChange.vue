@@ -18,9 +18,18 @@
 
 
 
-      <div class="setTable" v-if="this.active==1" style="width:900px;top:30px;position:absolute">
-        <Button type="primary" @click="next()" v-if="this.active==1">变更证明</Button>
-        <Button type="success" @click="jump()" v-if="this.active==1">登记表</Button>
+      <div class="setTable" v-if="this.active==1" style="width:700px;top:150px;left:250px;position:absolute;">
+
+      <div style="width:300px;float:left;">
+        <p>原登记机关应当注销使用登记证，并且在原使用登记证和原使用登记表上作注销标记，向使用单位签发《特种设备使用登记证变更证明》。</p>
+        <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">填写变更证明</Button>
+      </div>
+       
+      <div style="margin-left:400px;">
+        <p>使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和移装后的检验报告(拆卸移装的)，向移装地登记机关重新申请使用登记。</p>
+        <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:40px;">填写使用登记表</Button>
+      </div>
+
       </div>
 
 

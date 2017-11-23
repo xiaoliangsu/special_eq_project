@@ -17,9 +17,18 @@
     <div class="setApp_content" style="position:absolute;top:85px;">
 
 
-      <div class="setTable" v-if="this.active==1" style="width:900px;top:30px;position:absolute">
-        <Button type="primary" @click="next()" v-if="this.active==1">原单位（变更证明）</Button>
-        <Button type="success" @click="jump()" v-if="this.active==1">新单位（登记表）</Button>
+      <div class="setTable" v-if="this.active==1" style="width:700px;top:150px;left:250px;position:absolute;">
+
+      <div style="width:300px;float:left;">
+        <p>原使用单位持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更；或者产权单位凭产权证明文件，持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更。</p>
+        <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">我是原单位（或产权单位）</Button>
+      </div>
+       
+      <div style="margin-left:400px;">
+        <p>新使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和有效期内的定期检验报告，重新办理使用登记。</p>
+        <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:65px;">我是新单位</Button>
+      </div>
+
       </div>
 
 
@@ -123,7 +132,7 @@
           <!--这个接口是尝试过成功的-->
           <Row style="width:1000px;">
             <Col span="10">
-            <Form-item label="《特种设备使用登记证变更证明》" :label-width="200">
+            <Form-item label="原使用登记证" :label-width="200">
               <Upload
                 ref="upload1"
                 :format="['pdf']"
@@ -132,7 +141,7 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'《特种设备使用登记证变更证明》'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -140,7 +149,7 @@
             </Form-item>
             </Col>
             <Col span="10">
-            <Form-item label="标有注销标记的原使用登记表" :label-width="200">
+            <Form-item label="使用登记表" :label-width="200">
               <Upload
                 ref="upload2"
                 :format="['pdf']"
@@ -149,7 +158,7 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'标有注销标记的原使用登记表'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -157,7 +166,7 @@
             </Form-item>
             </Col>
             <Col span="10">
-            <Form-item label="有效期内的定期检验报告" :label-width="200">
+            <Form-item label="定期检验报告" :label-width="200">
               <Upload
                 ref="upload3"
                 :format="['pdf']"
@@ -165,13 +174,30 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'有效期内的定期检验报告'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验报告'"
                 :before-upload="handleBeforeUpload"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
             </Form-item>
             </Col>
+            <Col span="10">
+            <Form-item label="产权证明文件（产权单位需要提交）" :label-width="200">
+              <Upload
+                ref="upload3"
+                :format="['pdf']"
+                :on-format-error="handleFormatError"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权证明文件'"
+                :before-upload="handleBeforeUpload"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+              </Upload>
+            </Form-item>
+            </Col>            
+            
           </Row>
 
           <h5>上传文件缩略图</h5>
@@ -626,7 +652,7 @@
       },
       clearRuleForm(){
         this.ruleForm = {
-          registKind: '移装',
+          registKind: '过户',
           deviceNum: '',
           useComName: '',
           useComAddr: '',

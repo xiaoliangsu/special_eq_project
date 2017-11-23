@@ -198,20 +198,19 @@
                       填写使用单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.useComCode" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.useComCode" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="邮政编码" prop="zipcode">
-                <!--<Input v-model="ruleForm.zipcode"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;">
                     <p>
                       填写使用单位所在地的邮政编码。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.zipcode" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.zipcode" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
