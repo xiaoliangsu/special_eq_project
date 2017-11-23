@@ -21,11 +21,17 @@
       <div class="setTable" v-if="this.active==1" style="width:700px;top:150px;left:250px;position:absolute;">
 
       <div style="width:300px;float:left;">
+        <p style="font-size:25px">
+          （未提交变更申请）
+        </p>
         <p>原登记机关应当注销使用登记证，并且在原使用登记证和原使用登记表上作注销标记，向使用单位签发《特种设备使用登记证变更证明》。</p>
         <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">填写变更证明</Button>
       </div>
        
       <div style="margin-left:400px;">
+        <p style="font-size:25px">
+          （变更证明已审批通过）
+        </p>
         <p>使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和移装后的检验报告(拆卸移装的)，向移装地登记机关重新申请使用登记。</p>
         <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:40px;">填写使用登记表</Button>
       </div>
@@ -697,20 +703,20 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 5;
+            submitParam.formList[0].formType = 4;
 //            submitParam.deviceId=parseInt(this.deviceCode);
 //            submitParam.deviceType=parseInt(this.deviceType);
 //            submitParam.eqCodeList=[];
 //            for(let i=0;i<this.ruleForm.subList.length;i++){
 //              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
 //            }
-            submitParam.deviceId = [];
+            submitParam.deviceId = this.deviceId;
             for (let i = 0; i < this.ruleForm.subList.length; i++) {
               submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
             }
 
             //报废申请
-            submitParam.applyType = 4;
+            submitParam.applyType = "跨区域变更申请";
             //登记证编号
 //            submitParam.registCode = this.registCode;
             setAppService.updateSetInfo(submitParam).then(res => {

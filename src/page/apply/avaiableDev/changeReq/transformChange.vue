@@ -1138,7 +1138,7 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 5;
+            submitParam.formList[0].formType = 1;
 //            submitParam.deviceId=parseInt(this.deviceCode);
 //            submitParam.deviceType=parseInt(this.deviceType);
 //            submitParam.eqCodeList=[];
@@ -1152,7 +1152,7 @@
             // }
 
             //报废申请
-            submitParam.applyType = 4;
+            submitParam.applyType = "变更申请";
             //登记证编号
 //            submitParam.registCode = this.registCode;
             setAppService.updateSetInfo(submitParam).then(res => {
