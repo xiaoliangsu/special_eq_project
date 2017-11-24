@@ -829,7 +829,7 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqUseDate: [
-            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
 //          safeAdministrator: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
@@ -865,7 +865,7 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           testDate: [
-            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
           testReportCode: [
             {required: true, message: '不能为空', trigger: 'change'}
@@ -874,7 +874,7 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           nextTestDate: [
-            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
 
           comTablePerson: [

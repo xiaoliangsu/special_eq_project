@@ -490,10 +490,10 @@
             {required: true, message: '不能为空', trigger: 'change'}
           ],
           eqCreateDate: [
-            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
           registDate: [
-            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+            {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
           eqCode: [
             {required: true, message: '不能为空', trigger: 'change'}
