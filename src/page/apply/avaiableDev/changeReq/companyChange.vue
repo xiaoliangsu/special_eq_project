@@ -737,7 +737,8 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let form5 = Object.assign({}, this.ruleForm);
+
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
             let submitParam = {};
@@ -745,37 +746,21 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 5;
-//            submitParam.deviceId=parseInt(this.deviceCode);
-//            submitParam.deviceType=parseInt(this.deviceType);
-//            submitParam.eqCodeList=[];
-//            for(let i=0;i<this.ruleForm.subList.length;i++){
-//              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
-//            }
-            submitParam.deviceId = [];
-            for (let i = 0; i < this.ruleForm.subList.length; i++) {
-              submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
-            }
-
-            //报废申请
-            submitParam.applyType = 4;
-            //登记证编号
-//            submitParam.registCode = this.registCode;
+            submitParam.formList[0].formType = 4;
+            submitParam.applyType = "单位变更申请";
+            submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
-
             }).catch(error => {
               console.log(error);
-
-            })
+            })                                                                                                                                                                                                     
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -819,7 +804,7 @@
       before() {
         this.current--;
         this.active--;
-        if(this.active==2){
+        if(this.active==3){
           this.creatOrUpdate = true;
         }
       },
