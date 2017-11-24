@@ -18,22 +18,22 @@
 
 
 
-      <div class="setTable" v-if="this.active==1" style="width:700px;top:150px;left:250px;position:absolute;">
+      <div class="setTable" v-if="this.active==1" style="width:700px;top:120px;left:250px;position:absolute;">
 
       <div style="width:300px;float:left;">
-        <p style="font-size:25px">
+        <p style="font-size:25px;margin-left:30px;">
           （未提交变更申请）
         </p>
         <p>原登记机关应当注销使用登记证，并且在原使用登记证和原使用登记表上作注销标记，向使用单位签发《特种设备使用登记证变更证明》。</p>
-        <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">填写变更证明</Button>
+        <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:70px;margin-top:40px;">填写变更证明</Button>
       </div>
        
       <div style="margin-left:400px;">
-        <p style="font-size:25px">
+        <p style="font-size:25px;margin-left:15px;">
           （变更证明已审批通过）
         </p>
         <p>使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和移装后的检验报告(拆卸移装的)，向移装地登记机关重新申请使用登记。</p>
-        <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:40px;">填写使用登记表</Button>
+        <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:80px;margin-top:40px;">填写使用登记表</Button>
       </div>
 
       </div>
@@ -453,6 +453,12 @@
           ],
           deviceName: [
             {required: true, message: '不能为空', trigger: 'change'}
+          ],
+          eqCreateDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+          registDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
           ],
           eqCode: [
             {required: true, message: '不能为空', trigger: 'change'}
@@ -942,7 +948,7 @@
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
         
-          let params = 'applyId=' + row.id;
+//          let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 

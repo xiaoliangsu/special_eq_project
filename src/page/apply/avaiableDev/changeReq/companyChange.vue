@@ -489,6 +489,12 @@
           deviceName: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
+          eqCreateDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
+          registDate: [
+            {required: true, message: '不能为空', type: 'date', trigger: 'change'}
+          ],
           eqCode: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
@@ -977,7 +983,7 @@
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
         
-           let params = 'applyId=' + row.id;
+           // let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 

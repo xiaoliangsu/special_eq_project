@@ -183,10 +183,10 @@
           <div class="base-box">
             <h2 class="header_two">设备使用情况</h2>
             <Form-item label="使用单位名称" prop="useComName">
-              <Input v-model="ruleForm.useComName" :disabled="true"></Input>
+              <Input v-model="ruleForm.useComName"></Input>
             </Form-item>
             <Form-item label="使用单位地址" prop="useComAddr">
-              <Input v-model="ruleForm.useComAddr" :disabled="true"></Input>
+              <Input v-model="ruleForm.useComAddr"></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -267,7 +267,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -280,7 +280,7 @@
                       填写使用单位特种设备安全管理机构或者主管特种设备机构的联系电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.staticPhone" style="width:118.11%"></i-input>
                 </Poptip>
 
               </Form-item>
@@ -292,14 +292,14 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
             </Row>
 
             <Form-item label="产权单位名称" prop="propertyComName">
-              <Input v-model="ruleForm.propertyComName" :disabled="true"></Input>
+              <Input v-model="ruleForm.propertyComName"></Input>
             </Form-item>
             <Row>
               <Col span="11">
@@ -311,7 +311,7 @@
                       填写产权单位的统一社会信用代码。如果属于公民个人，则填写个人身份证号。如果和使用单位为同一单位，则在此栏中划“—”。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%;" disabled></i-input>
+                  <i-input v-model="ruleForm.propertyComCode" style="width:118.11%;"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -1127,7 +1127,8 @@
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let form5 = Object.assign({}, this.ruleForm);
+
+            let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
             let submitParam = {};
@@ -1135,37 +1136,21 @@
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
             submitParam.formList[0].acceptorAgencyName = this.propertyComName;
-            submitParam.formList[0].formType = 5;
-//            submitParam.deviceId=parseInt(this.deviceCode);
-//            submitParam.deviceType=parseInt(this.deviceType);
-//            submitParam.eqCodeList=[];
-//            for(let i=0;i<this.ruleForm.subList.length;i++){
-//              submitParam.eqCodeList.push(this.ruleForm.subList[i].eqCode)
-//            }
-            submitParam.deviceId = [];
-            for (let i = 0; i < this.ruleForm.subList.length; i++) {
-              submitParam.deviceId.push(this.ruleForm.subList[i].deviceId)
-            }
-
-            //报废申请
-            submitParam.applyType = 4;
-            //登记证编号
-//            submitParam.registCode = this.registCode;
+            submitParam.formList[0].formType = 1;
+            submitParam.applyType = "变更申请";
+            submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
-
             }).catch(error => {
               console.log(error);
-
-            })
+            })                                                                                                                                                                                                     
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -1363,7 +1348,7 @@
         this.ruleForm.eqCode=row.eqCode;      
         this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.deviceId=row.id;
-          let params = 'applyId=' + row.id;
+//          let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 
