@@ -57,10 +57,10 @@
                             :disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备品种" prop="deviceKind">
-                <i-input v-model="ruleForm.deviceKind"></i-input>
+                <i-input v-model="ruleForm.deviceKind":disabled="true"></i-input>
               </Form-item>
               <Form-item label="设备代码" prop="eqCode">
-                <i-input v-model="ruleForm.eqCode"></i-input>
+                <i-input v-model="ruleForm.eqCode":disabled="true"></i-input>
               </Form-item>
               </Col>
 
@@ -477,15 +477,15 @@
         active: 1,
         pdfUrl: '',
         rules: {
-          deviceCategory: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          deviceClass: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
-          deviceKind: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+          // deviceCategory: [
+          //   {required: true, message: '不能为空', trigger: 'blur'}
+          // ],
+          // deviceClass: [
+          //   {required: true, message: '不能为空', trigger: 'blur'}
+          // ],
+          // deviceKind: [
+          //   {required: true, message: '不能为空', trigger: 'blur'}
+          // ],
           deviceName: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
@@ -495,9 +495,9 @@
           registDate: [
             {required: true, message: '请选择日期', type: 'date', trigger: 'change'}
           ],
-          eqCode: [
-            {required: true, message: '不能为空', trigger: 'change'}
-          ],
+          // eqCode: [
+          //   {required: true, message: '不能为空', trigger: 'change'}
+          // ],
           registCode: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],

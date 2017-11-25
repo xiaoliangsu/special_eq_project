@@ -72,7 +72,7 @@
                       按照产品数据表上的内容填写，该代码具有唯一性。如果该产品还没有编制设 备代码，则使用单位可以不填写，由登记机关按照设备代码的编制要求［见《固定式 压力容器安全技术监察规程》(TSG 21—2016)］填写，其中制造单位代号改为登记机关的行政区划代码(比制造单位代号多一位)。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.eqCode" style="width:118.11%"></i-input>
+                  <i-input v-model="ruleForm.eqCode" style="width:118.11%":disabled="true"></i-input>
                 </Poptip>
               </Form-item>
               <Form-item label="设计使用年限" prop="designUseLimit">
@@ -789,9 +789,9 @@
           deviceKindCode: [
             {required: true, message: '不能为空', trigger: 'change'}
           ],
-          eqCode: [
-            {required: true, message: '不能为空', trigger: 'change'}
-          ],
+          // eqCode: [
+          //   {required: true, message: '不能为空', trigger: 'change'}
+          // ],
           designUseLimit: [
             {required: false, message: '', trigger: 'change'}
           ],
