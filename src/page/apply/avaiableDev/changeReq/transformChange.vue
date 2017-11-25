@@ -1025,7 +1025,7 @@
         params = {
           size: 10,
           processing:false,
-          states:[0,1],
+          states:[0],
         }
         this.getCanStopUseDevice(params);
       },

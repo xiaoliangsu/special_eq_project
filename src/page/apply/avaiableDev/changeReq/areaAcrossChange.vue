@@ -592,7 +592,7 @@
         params = {
           size: 10,
           processing:false,
-          states:[0,1],
+          states:[0],
         }
         this.getCanStopUseDevice(params);
       },
@@ -718,7 +718,7 @@
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }

@@ -627,7 +627,7 @@
         params = {
           size: 10,
           processing:false,
-          states:[0,1],
+          states:[0],
         }
         this.getCanStopUseDevice(params);
       },
@@ -713,8 +713,8 @@
         let submitParam = {};
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.ruleForm.acceptorAgencyId;
+        submitParam.formList[0].acceptorAgencyName = this.ruleForm.acceptorAgencyName;
         submitParam.formList[0].formType = 4;
 //        submitParam.deviceId=parseInt(this.deviceCode);
 //        submitParam.deviceType=parseInt(this.deviceType);
@@ -744,17 +744,17 @@
             let submitParam = {};
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.ruleForm.acceptorAgencyId;
+            submitParam.formList[0].acceptorAgencyName = this.ruleForm.acceptorAgencyName;
             submitParam.formList[0].formType = 4;
-            submitParam.applyType = "单位变更申请";
+            // submitParam.applyType = "单位变更申请";
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -956,6 +956,8 @@
         // this.ruleForm.deviceNum=selection.length;
         this.ruleForm.registCode=row.registCode;
         this.ruleForm.deviceCategory=row.deviceCategory;
+        this.ruleForm.acceptorAgencyId=row.acceptorAgencyId;
+        this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.ruleForm.deviceClass=row.deviceClass;
         this.ruleForm.deviceKind=row.deviceKind;        
         this.ruleForm.eqCode=row.eqCode;
