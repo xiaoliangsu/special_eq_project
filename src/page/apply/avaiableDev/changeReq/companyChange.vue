@@ -140,7 +140,6 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -157,7 +156,6 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -175,7 +173,6 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验报告'"
-                :before-upload="handleBeforeUpload"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -184,14 +181,13 @@
             <Col span="10">
             <Form-item label="产权证明文件（产权单位需要提交）" :label-width="200">
               <Upload
-                ref="upload3"
+                ref="upload4"
                 :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权证明文件'"
-                :before-upload="handleBeforeUpload"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>

@@ -149,7 +149,7 @@
           <!--这个接口是尝试过成功的-->
           <Row style="width:1000px;">
             <Col span="10">
-            <Form-item label="《特种设备使用登记证变更证明》" :label-width="200">
+            <Form-item label="原使用登记证" :label-width="200">
               <Upload
                 ref="upload1"
                 :format="['pdf']"
@@ -157,8 +157,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'《特种设备使用登记证变更证明》'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -166,7 +165,7 @@
             </Form-item>
             </Col>
             <Col span="10">
-            <Form-item label="标有注销标记的原使用登记表" :label-width="200">
+            <Form-item label="原使用登记表" :label-width="200">
               <Upload
                 ref="upload2"
                 :format="['pdf']"
@@ -174,27 +173,10 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'标有注销标记的原使用登记表'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
-              </Upload>
-            </Form-item>
-            </Col>
-            <Col span="10">
-            <Form-item label="有效期内的定期检验报告" :label-width="200">
-              <Upload
-                ref="upload3"
-                :format="['pdf']"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'有效期内的定期检验报告'"
-                :before-upload="handleBeforeUpload"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
             </Form-item>
             </Col>

@@ -477,7 +477,6 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -494,43 +493,10 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'重新填写的使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
-              </Upload>
-            </Form-item>
-            </Col>
-            <Col span="10">
-            <Form-item label="改造质量证明资料" :label-width="200">
-              <Upload
-                ref="upload3"
-                :format="['pdf']"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'改造质量证明资料'"
-                :before-upload="handleBeforeUpload"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-              </Upload>
-            </Form-item>
-            </Col>
-            <Col span="10">
-            <Form-item label="改造监督检验证书" :label-width="200">
-              <Upload
-                ref="upload4"
-                :format="['pdf']"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'改造监督检验证书'"
-                :before-upload="handleBeforeUpload"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
             </Form-item>
             </Col>

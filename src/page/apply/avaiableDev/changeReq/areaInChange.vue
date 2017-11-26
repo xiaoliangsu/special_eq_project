@@ -476,7 +476,6 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -493,7 +492,6 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'重新填写的使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -511,7 +509,6 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'移装后的检验报告'"
-                :before-upload="handleBeforeUpload"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
