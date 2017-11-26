@@ -107,3 +107,11 @@ export function confrimApp(param) {
 export function getAccpeter(params) {
   return fetch('/map/organization?'+params, params,'get')
 }
+
+
+export function getCylinder(params) {
+  return fetch('/device/cylinder?'+params, params,'get')
+}
+export function getPipe(params) {
+  return fetch('/device/pipe?'+params, params,'get')
+}

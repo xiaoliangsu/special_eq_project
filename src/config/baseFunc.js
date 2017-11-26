@@ -3,10 +3,11 @@ exports.install = function (Vue, options) {
   Vue.prototype.modifyApp = function (value,device_type) {
     console.log("baseFunc");
     console.log(this.data5[value].deviceTypeId);
+    console.log(device_type)
     switch (this.data5[value].applyType) {
       case "首次申请":
         //按套首次申请
-        if(device_type<8 ||this.data5[value].deviceTypeId<8){
+        if(device_type<8){
           this.$router.push({
             path: 'setApp',
             query: {
@@ -17,12 +18,12 @@ exports.install = function (Vue, options) {
               //selectedNum:2
             }
           });
-        }else if(device_type>8||this.data5[value].deviceTypeId>8){
+        }else if(device_type>8){
           this.$router.push({
             path: 'companyApp',
             query: {
               applyId: this.data5[value].id,
-              device_type:this.data5[value].deviceTypeId,
+              device_type:device_type,
             //  dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,
