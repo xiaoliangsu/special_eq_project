@@ -1691,7 +1691,7 @@
 
   .base-box,
   .chooseAccept {
-    margin-left: 140px;
+    margin-left: 20%;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;

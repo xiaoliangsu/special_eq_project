@@ -26,3 +26,9 @@ export function getAccpeter(params) {
 export function GetInfo(params) {
   return fetch('/user/inform', params,'get')
 }
+
+
+//获取未读消息
+export function GetReminder(params) {
+  return fetch('/notice/getReminder', params,'get')
+}
