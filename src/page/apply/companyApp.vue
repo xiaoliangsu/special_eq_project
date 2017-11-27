@@ -432,7 +432,7 @@
                 </div>
               </div>
               <Modal title="查看图片" v-model="gasAddvisible">
-                <iframe id="iFramePdf" v-bind:src=this.gasAddpdf style="width:100%;height:1000px;" v-if="gasAddvisible"></iframe>
+                <iframe id="iFramePdf" v-bind:src=this.gasAddPdf style="width:100%;height:1000px;" v-if="gasAddvisible"></iframe>
               </Modal>
             </div>
             <Steps :current="2" direction="vertical">
@@ -453,13 +453,13 @@
             <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
-                <label>申请id精准搜索</label>
+                <label>产品编号精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="cylinderEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearch">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.xlsx"
+                <Button type="warning"><a v-bind:href=this.gasDownloadPdf download="标准气瓶基本信息汇总表"
                                           class="detail_a" style="color:white;">下载已提交气瓶基本信息表</a></Button>
 
                 </Col>
@@ -565,13 +565,13 @@
             <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
-                <label>申请id精准搜索</label>
+                <label>管道编号精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="pipeEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearchPipe">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.xlsx"
+                <Button type="warning"><a v-bind:href=this.pipeDownloadPdf download="标准压力管道基本信息汇总表"
                                           class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
@@ -801,6 +801,7 @@
         gasAddPdfList: [],
         gasAddPdf:'',
         gasAddvisible:false,
+        gasDownloadPdf:'',
 
         pipeFirstUploadList:[
           {"url": ''}
@@ -815,6 +816,7 @@
         pipeAddPdfList: [],
         pipeAddPdf:'',
         pipeAddvisible:false,
+        pipeDownloadPdf:'',
 
         modal1: false,
         author_key: '',
@@ -959,7 +961,8 @@
             title: '制造年月',
             align: 'center',
             key: 'eqCreateDate',
-            editable: true
+            editable: true,
+            width:150,
           },
           {
             title: '公称工作压力(MPa)',
@@ -1472,7 +1475,9 @@
       },
       handleGasFirstSuccess (res, file) {
           this.gasfirstUploadList[0].url = "/admin" + res.data.thumbnail;
-          this.gasFirstPdfList.push("/admin" + res.data.preview)
+          this.gasFirstPdfList.push("/admin" + res.data.preview);
+        this.gasDownloadPdf= "/admin" + res.data.download;
+
       },
       handleGasFirstView(index){
         this.gasFirstvisible = true;
@@ -1480,15 +1485,19 @@
       },
       handleGasAddSuccess (res, file) {
         this.gasAddUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.gasAddPdfList.push("/admin" + res.data.preview)
+        this.gasAddPdfList.push("/admin" + res.data.preview);
+        this.gasDownloadPdf= "/admin" + res.data.download;
       },
       handleGasAddView(index){
         this.gasAddvisible = true;
         this.gasAddPdf = this.gasAddPdfList[index];
+
       },
       handlePipeFirstSuccess (res, file) {
         this.pipeFirstUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.pipeFirstPdfList.push("/admin" + res.data.preview)
+        this.pipeFirstPdfList.push("/admin" + res.data.preview);
+        this.pipeDownloadPdf= "/admin" + res.data.download;
+
       },
       handlePipeFirstView(index){
         this.pipeFirstvisible = true;
@@ -1496,7 +1505,9 @@
       },
       handlePipeAddSuccess (res, file) {
         this.pipeAddUploadList[0].url = "/admin" + res.data.thumbnail;
-        this.pipeAddPdfList.push("/admin" + res.data.preview)
+        this.pipeAddPdfList.push("/admin" + res.data.preview);
+        this.pipeDownloadPdf= "/admin" + res.data.download;
+
       },
       handlePipeAddView(index){
         this.pipeAddvisible = true;
@@ -1895,11 +1906,12 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     //padding: 3px;
-    width: 100%;
+    width: 80%;
     padding-left: 100px;
     padding-right: 100px;
     box-sizing: border-box;
     background-color: white;
+    margin-left:10%;
 
   }
 

@@ -232,8 +232,11 @@
                 return h('Input', {
                   props: {
                     type: 'text',
-                    value: currentRow[item.key]
+                    value: currentRow[item.key],
                   },
+//                  style:{
+//
+//                  }
                   on: {
                     'on-change' (event) {
                       let key = param.column.key;
@@ -250,7 +253,7 @@
               if (item.handle.length === 2) {
                 return h('div', [
                   editButton(this, h, currentRowData, param.index),
-                  deleteButton(this, h, currentRowData, param.index)
+//                  deleteButton(this, h, currentRowData, param.index)
                 ]);
               } else if (item.handle.length === 1) {
                 if (item.handle[0] === 'edit') {
@@ -258,9 +261,9 @@
                     editButton(this, h, currentRowData, param.index)
                   ]);
                 } else {
-                  return h('div', [
-                    deleteButton(this, h, currentRowData, param.index)
-                  ]);
+//                  return h('div', [
+//                    deleteButton(this, h, currentRowData, param.index)
+//                  ]);
                 }
               }
             };
