@@ -554,6 +554,7 @@
                   localStorage.removeItem('verifyId');
                   localStorage.removeItem('safeAdministrator');
                   localStorage.removeItem('approveAgencyId');
+                  localStorage.removeItem('reminder');
                   this.setSignOut();
                   this.$router.push('login');
 

@@ -117,6 +117,13 @@ export function getPipe(params) {
   return fetch('/device/pipe?'+params, params,'get')
 }
 
+export function changeCylinder(params) {
+  return fetch('/device/cylinder', params,'post')
+}
+export function changePipe(params) {
+  return fetch('/device/pipe', params,'post')
+}
+
 export function submitChangeInfo(params) {
     return fetch('/apply/create', params,'post')
 }

@@ -103,8 +103,8 @@
           ),
           initData(){
               this.userName= localStorage.getItem('userInfo');
-              console.log(this.getDeviceTypeName);
-            let messageCount = 3;
+             // console.log(this.getDeviceTypeName);
+            let messageCount = localStorage.getItem('reminder');
             this.messageCount = messageCount.toString();
           },
           showMessage () {

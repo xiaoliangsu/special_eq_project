@@ -16,7 +16,7 @@
         </Steps>
       </div>
     </div>
-    <div style="position:absolute;top:85px;">
+    <div style="position:absolute;top:85px;width:100%;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <!--<h2>按单位申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
@@ -411,7 +411,7 @@
             <div style="width:150%;padding-left:100px;">
               <h2 class="firstHead" style="margin-left:45%;">新增气瓶基本信息(非首次)</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
-              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准压力管道基本信息汇总表.txt"
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
@@ -459,17 +459,16 @@
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="cylinderEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearch">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.xlsx"
                                           class="detail_a" style="color:white;">下载已提交气瓶基本信息表</a></Button>
 
                 </Col>
               </Row>
             </div>
             <div class="list-box" >
-              <!--<Table border :columns="columns5" :data="data5"></Table>-->
-              <!--<Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"-->
-                    <!--:page-size="10"></Page>-->
-              <can-edit-table refs="table2" v-model="editPipeData" :columns-list="editPipeColumns"  :saveEdit="saveEditInline" :deleteRow="deleteRowInline"></can-edit-table>
+              <div class="edittable-table-height-con">
+              <can-edit-table refs="table2" v-model="editCylinderData" :columns-list="editCylinderColumns"  :saveEdit="saveCylinderInline" ></can-edit-table>
+              </div>
 
             </div>
 
@@ -572,7 +571,7 @@
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="pipeEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearchPipe">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.xlsx"
                                           class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
@@ -582,7 +581,9 @@
               <!--<Table border :columns="columns5" :data="data5"></Table>-->
               <!--<Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"-->
                     <!--:page-size="10"></Page>-->
-              <can-edit-table refs="table2" v-model="editCylinderData" :columns-list="editCylinderColumns"  :saveEdit="saveEditInline" :deleteRow="deleteRowInline"></can-edit-table>
+              <div class="edittable-table-height-con">
+              <can-edit-table refs="table2" v-model="editPipeData" :columns-list="editPipeColumns"  :saveEdit="savePipeInline" ></can-edit-table>
+              </div>
 
 
             </div>
@@ -642,6 +643,7 @@
         //设备品种列表
         deviceTypeList: [],
         deviceClassTypeId: '',
+        gasAddpdf:'',
 
         ruleForm: {
           registKind: '新设备首次启用',
@@ -921,68 +923,84 @@
         pdf: '',
         cylinderEqCode:'',
         pipeEqCode:'',
-        editPipeData:[
-          {
-            name: 'Aresn',
-            sex: '男',
-            work: '前端开发'
-          },
-          {
-            name: 'Lison',
-            sex: '男',
-            work: '前端开发'
-          },
-          {
-            name: 'lisa',
-            sex: '女',
-            work: '程序员鼓励师'
-          }
-        ],
-        editCylinderData:[
-          {
-            name: 'Aresn',
-            sex: '男',
-            work: '前端开发'
-          },
-          {
-            name: 'Lison',
-            sex: '男',
-            work: '前端开发'
-          },
-          {
-            name: 'lisa',
-            sex: '女',
-            work: '程序员鼓励师'
-          }
-        ],
-        editPipeColumns:[
+        editCylinderData:[],
+        editPipeData:[],
+        editCylinderColumns:[
           {
             title: '序号',
             type: 'index',
             align: 'center'
           },
           {
-            title: '姓名',
+            title: '设备品种',
             align: 'center',
-            key: 'name',
+            key: 'deviceKind',
             editable: true
           },
           {
-            title: '性别',
+            title: '产品编号',
             align: 'center',
-            key: 'sex',
+            key: 'eqCode',
             editable: true
           },
           {
-            title: '岗位',
+            title: '充装介质',
             align: 'center',
-            key: 'work',
+            key: 'fillMedia',
             editable: true
           },
           {
-            title: '岗位',
+            title: '制造单位名称',
             align: 'center',
-            key: 'work',
+            key: 'manufactureComName',
+            editable: true
+          },
+          {
+            title: '制造年月',
+            align: 'center',
+            key: 'eqCreateDate',
+            editable: true
+          },
+          {
+            title: '公称工作压力(MPa)',
+            align: 'center',
+            key: 'workPressure',
+            editable: true
+          },
+          {
+            title: '容积(L)',
+            align: 'center',
+            key: 'volume',
+            editable: true
+          },
+          {
+            title: '最近一次检验日期',
+            align: 'center',
+            key: 'testDate',
+            editable: true
+          },
+          {
+            title: '下次检验日期',
+            align: 'center',
+            key: 'nextTestDate',
+            editable: true
+          },
+          {
+            title: '单位内编号',
+            align: 'center',
+            key: 'eqComCode',
+            editable: true
+          },
+          {
+            title: '变更或者停用情况',
+            align: 'center',
+            key: 'eqStatus',
+            editable: true
+          },
+          {
+            title: '信息化管理情况',
+            align: 'center',
+            key: 'infoMessage',
             editable: true
           },
           {
@@ -993,34 +1011,112 @@
           }
 
         ],
-        editCylinderColumns:[
+        editPipeColumns:[
           {
             title: '序号',
             type: 'index',
-            align: 'center'
+            align: 'center',
           },
           {
-            title: '姓名',
+            title: '管道名称(登记单元)',
             align: 'center',
-            key: 'name',
+            key: 'pipeName',
+            editable: true,
+          },
+          {
+            title: '管道编号',
+            align: 'center',
+            key: 'eqCode',
+            editable: true,
+          },
+          {
+            title: '管道级别',
+            align: 'center',
+            key: 'eqLevel',
+            editable: true,
+          },
+          {
+            title: '设计单位名称',
+            align: 'center',
+            key: 'designComName',
+            editable: true,
+          },
+          {
+            title: '安装单位名称',
+            align: 'center',
+            key: 'constructComName',
             editable: true
           },
           {
-            title: '性别',
+            title: '安装年月',
             align: 'center',
-            key: 'sex',
+            key: 'eqCreateDate',
             editable: true
           },
           {
-            title: '岗位',
+            title: '投用年月',
             align: 'center',
-            key: 'work',
+            key: 'eqUseDate',
             editable: true
           },
           {
-            title: '岗位',
+            title: '公称直径(mm)',
             align: 'center',
-            key: 'work',
+            key: 'diameter',
+            editable: true
+          },
+          {
+            title: '公称壁厚(mm)',
+            align: 'center',
+            key: 'thickness',
+            editable: true
+          },
+          {
+            title: '管道长度(m)',
+            align: 'center',
+            key: 'length',
+            editable: true
+          },
+          {
+            title: '压力(MPa)',
+            align: 'center',
+            key: 'workPressure',
+            editable: true
+          },
+          {
+            title: '温度(℃)',
+            align: 'center',
+            key: 'temperature',
+            editable: true
+          },
+          {
+            title: '介质',
+            align: 'center',
+            key: 'fillMedia',
+            editable: true
+          },
+          {
+            title: '检验结论',
+            align: 'center',
+            key: 'testResult',
+            editable: true
+          },
+          {
+            title: '检验机构名称',
+            align: 'center',
+            key: 'testComName',
+            editable: true
+          },
+          {
+            title: '下次检验日期',
+            align: 'center',
+            key: 'nextTestDate',
+            editable: true
+          },
+          {
+            title: '备注',
+            align: 'center',
+            key: 'remark',
             editable: true
           },
           {
@@ -1641,9 +1737,14 @@
           let params = 'eqCode=' + this.cylinderEqCode+'';
           setAppService.getCylinder(params).then(res => {
               if (res.status === 200) {
-                this.data5 = res.data.content;
-                this.num=res.data.totalElements;
-                alert(this.num);
+                  if(res.data){
+                    this.editCylinderData=[];
+                    this.editCylinderData.push(res.data);
+                  }else {
+                    this.editCylinderData=[];
+                    this.$Message.success('暂无该数据');
+                  }
+               // this.num=res.data.totalElements;
               }else if(res.status=== 401){
                 this.$Notice.error({
                   title: '这是通知标题',
@@ -1661,9 +1762,13 @@
           let params = 'eqCode=' + this.pipeEqCode+'';
           setAppService.getPipe(params).then(res => {
               if (res.status === 200) {
-                this.data5 = res.data.content;
-                this.num=res.data.totalElements;
-                alert(this.num);
+                if(res.data){
+                  this.editPipeData=[];
+                  this.editPipeData.push(res.data);
+                }else {
+                  this.editPipeData=[];
+                  this.$Message.success('暂无该数据');
+                }
               }else if(res.status=== 401){
                 this.$Notice.error({
                   title: '这是通知标题',
@@ -1676,40 +1781,44 @@
           })
         }
       },
-      saveEditInline (index, success, fail) {
+      saveCylinderInline (index, success, fail) {
           console.log(this.editCylinderData[index]);
-        let delay = 0;
-        if (this.lowNetSpeed) {
-          delay = 1000;
-        }
-        setTimeout(() => {
-          if (this.breakConnect) {
-            fail(() => {
-              this.$Message.error('服务器嫌弃你的网络，所以保存失败');
-            });
-          } else {
-            success(() => {
-              this.$Message.success('保存成功');
-            });
+        let params = {};
+        params=this.editCylinderData[index];
+        setAppService.changeCylinder(params).then(res => {
+            if (res.status === 200) {
+              success(() => {
+                this.$Message.success('保存成功');
+              });
+            }else{
+              fail(() => {
+                this.$Message.error('保存失败,请重试');
+              });
+            }
           }
-        }, delay);
+        ).catch(error => {
+          console.log(error);
+        })
+
       },
-      deleteRowInline (index, success, fail) {
-        let delay = 0;
-        if (this.lowNetSpeed) {
-          delay = 1000;
-        }
-        setTimeout(() => {
-          if (this.breakConnect) {
-            fail(() => {
-              this.$Message.error('服务器嫌弃你的网络，所以删除失败');
-            });
-          } else {
-            success(() => {
-              this.$Message.success('删除数据成功~');
-            });
+      savePipeInline (index, success, fail) {
+        console.log(this.editPipeData[index]);
+        let params = {};
+        params=this.editPipeData[index];
+        setAppService.changePipe(params).then(res => {
+            if (res.status === 200) {
+              success(() => {
+                this.$Message.success('保存成功');
+              });
+            }else{
+              fail(() => {
+                this.$Message.error('保存失败,请重试');
+              });
+            }
           }
-        }, delay);
+        ).catch(error => {
+          console.log(error);
+        })
       },
 
       //确认全部
@@ -1778,6 +1887,7 @@
   .base-box,
   .chooseAccept {
     /*margin-left: 140px;*/
+  //  margin:0;
     display: block;
     border: 1px solid #dddee1;
     border-top-left-radius: 0;
@@ -1841,7 +1951,7 @@
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    width:1000px;
+    width:100%;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -1856,28 +1966,6 @@
     // margin-left:300px;
   }
 
-  .second_upload {
-    float: right;
-    display: block;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    width: 100%;
-    border: 2px solid #dddee1;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-color: #dddee1;
-    margin-top: 10px;
-    box-sizing: border-box;
-    padding: 10px;
-    //background-color: red;
-    // margin-left:300px;
-  }
 
   .firstHead {
     margin: 10px;
@@ -1923,9 +2011,13 @@
     margin-top: 10px;
     box-sizing: border-box;
     padding: 10px;
-    width: 1000px;
+    width: 100%;
     margin-left: 0;
 
+  }
+  .edittable-table-height-con{
+    height: 190px;
+    wditH:100%;
   }
 
   .demo-upload-list {
@@ -1968,6 +2060,7 @@
     cursor: pointer;
     margin: 0 2px;
   }
+
 
 
 

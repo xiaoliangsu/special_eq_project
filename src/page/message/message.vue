@@ -5,14 +5,37 @@
 <template>
   <div class="message-main-con">
     <div class="message-mainlist-con">
-      <div>
-        <Button @click="setCurrentMesType('unread')"  long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'unread'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">未读消息</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="unreadCount"></Badge></Button>
+
+      <div v-if="this.author_key==1">
+        <Button @click="setCurrentMesType('unread')" long type="text">
+          <transition name="mes-current-type-btn">
+            <Icon v-show="currentMessageType === 'unread'" type="checkmark"></Icon>
+          </transition>
+          <span class="mes-type-btn-text">未读消息</span>
+          <Badge class="message-count-badge-outer" class-name="message-count-badge" :count="unreadCount"></Badge>
+        </Button>
+      </div>
+      <div v-if="this.author_key==1">
+        <Button @click="setCurrentMesType('hasread')" long type="text">
+          <transition name="mes-current-type-btn">
+            <Icon v-show="currentMessageType === 'hasread'" type="checkmark"></Icon>
+          </transition>
+          <span class="mes-type-btn-text">已读消息</span>
+          <Badge class="message-count-badge-outer" class-name="message-count-badge" :count="hasreadCount"></Badge>
+        </Button>
       </div>
       <div>
-        <Button @click="setCurrentMesType('hasread')"  long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'hasread'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">已读消息</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="hasreadCount"></Badge></Button>
+        <Button @click="setCurrentMesType('systemMsg')" long type="text">
+          <transition name="mes-current-type-btn">
+            <Icon v-show="currentMessageType === 'systemMsg'" type="checkmark"></Icon>
+          </transition>
+          <span class="mes-type-btn-text">系统消息</span>
+          <Badge class="message-count-badge-outer" class-name="message-count-badge" :count="systemMsgCount"></Badge>
+        </Button>
       </div>
+
       <!--<div>-->
-        <!--<Button @click="setCurrentMesType('recyclebin')" long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'recyclebin'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">回收站</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="recyclebinCount"></Badge></Button>-->
+      <!--<Button @click="setCurrentMesType('recyclebin')" long type="text"><transition name="mes-current-type-btn"><Icon v-show="currentMessageType === 'recyclebin'" type="checkmark"></Icon></transition><span class="mes-type-btn-text">回收站</span><Badge class="message-count-badge-outer" class-name="message-count-badge" :count="recyclebinCount"></Badge></Button>-->
       <!--</div>-->
     </div>
     <div class="message-content-con">
@@ -24,10 +47,13 @@
       <transition name="back-message-list">
         <div v-if="!showMesTitleList" class="message-view-content-con">
           <div class="message-content-top-bar">
-            <span class="mes-back-btn-con"><Button type="text" @click="backMesTitleList"><Icon type="chevron-left"></Icon>&nbsp;&nbsp;返回</Button></span>
+            <span class="mes-back-btn-con"><Button type="text" @click="backMesTitleList"><Icon
+              type="chevron-left"></Icon>&nbsp;&nbsp;返回</Button></span>
             <h3 class="mes-title">{{ mes.title }}</h3>
           </div>
-          <p class="mes-time-con"><Icon type="android-time"></Icon>&nbsp;{{ mes.time }}</p>
+          <p class="mes-time-con">
+            <Icon type="android-time"></Icon>&nbsp;{{ mes.time }}
+          </p>
           <div class="message-content-body">
             <p class="message-content">{{ mes.content }}</p>
           </div>
@@ -38,6 +64,8 @@
 </template>
 
 <script>
+  import * as messageService from '../../services/message';
+
   export default {
     name: 'message',
     data () {
@@ -49,6 +77,15 @@
           on: {
             click: () => {
               this.hasreadMesList.unshift(this.currentMesList.splice(params.index, 1)[0]);
+              // console.log(params);
+              let submitParams = [params.row.id];
+              messageService.noticeRead(submitParams).then(res => {
+                if (res.status == 200) {
+                  this.$Message.info('该条消息已阅读');
+                }
+              }).catch(error => {
+                console.log(error);
+              })
             }
           }
         }, '标为已读');
@@ -79,15 +116,18 @@
         }, '还原');
       };
       return {
+        author_key: '',
         currentMesList: [],
         unreadMesList: [],
         hasreadMesList: [],
         recyclebinList: [],
+        systemMsgList: [],
         currentMessageType: 'unread',
         showMesTitleList: true,
         unreadCount: 0,
         hasreadCount: 0,
         recyclebinCount: 0,
+        systemMsgCount: 0,
         noDataText: '暂无未读消息',
         mes: {
           title: '',
@@ -102,20 +142,42 @@
           // },
           {
             title: ' ',
-            key: 'title',
+            key: 'content',
             align: 'left',
             ellipsis: true,
             render: (h, params) => {
-              return h('a', {
-                on: {
-                  click: () => {
-                    this.showMesTitleList = false;
-                    this.mes.title = params.row.title;
-                    this.mes.time = this.formatDate(params.row.time);
-                    this.getContent(params.index);
+              if (this.currentMessageType === 'systemMsg') {
+                return h('span', {}, params.row.content);
+              }
+              if (this.currentMessageType === 'unread' || this.currentMessageType === 'hasread') {
+                return h('a', {
+                  on: {
+                    click: () => {
+//                    this.showMesTitleList = false;
+//                    this.mes.title = params.row.content;
+//                    this.mes.time = this.formatDate(params.row.createTime);
+//                    this.getContent(params.index);
+                      let submitParams = [params.row.id];
+                      messageService.noticeRead(submitParams).then(res => {
+                        if (res.status == 200) {
+                          this.$router.push({
+                            path: 'appDetail',
+                            query: {
+                              applyId: params.row.detailUrl,
+                            }
+                          });
+                          this.hasreadMesList.unshift(this.currentMesList.splice(params.index, 1)[0]);
+                          this.$Message.info('该条消息已阅读');
+
+                        }
+                      }).catch(error => {
+                        console.log(error);
+                      })
+                    }
                   }
-                }
-              }, params.row.title);
+                }, params.row.content);
+              }
+
             }
           },
           {
@@ -139,7 +201,7 @@
                     type: 'android-time',
                     size: 12
                   }
-                }, this.formatDate(params.row.time))
+                }, params.row.createTime)
               ]);
             }
           },
@@ -154,13 +216,13 @@
                   markAsreadBtn(h, params)
                 ]);
               } else if (this.currentMessageType === 'hasread') {
-                return h('div', [
-                  deleteMesBtn(h, params)
-                ]);
+//                return h('div', [
+//                  deleteMesBtn(h, params)
+//                ]);
               } else {
-                return h('div', [
-                  restoreBtn(h, params)
-                ]);
+//                return h('div', [
+//                  restoreBtn(h, params)
+//                ]);
               }
             }
           }
@@ -193,53 +255,58 @@
           this.noDataText = '暂无已读消息';
           this.currentMesList = this.hasreadMesList;
         } else {
-          this.noDataText = '回收站无消息';
-          this.currentMesList = this.recyclebinList;
+          this.noDataText = '无系统消息';
+          this.currentMesList = this.systemMsgList;
         }
       },
-      getContent (index) {
-        // you can write ajax request here to get message content
-        let mesContent = '';
-        switch (this.currentMessageType + index) {
-          case 'unread0': mesContent = '这是您点击的《欢迎登录iView-admin后台管理系统，来了解他的用途吧》的相关内容。'; break;
-          case 'unread1': mesContent = '这是您点击的《使用iView-admin和iView-ui组件库快速搭建你的后台系统吧》的相关内容。'; break;
-          case 'unread2': mesContent = '这是您点击的《喜欢iView-admin的话，欢迎到github主页给个star吧》的相关内容。'; break;
-          case 'hasread0': mesContent = '这是您点击的《这是一条您已经读过的消息》的相关内容。'; break;
-          default: mesContent = '这是您点击的《这是一条被删除的消息》的相关内容。'; break;
-        }
-        this.mes.content = mesContent;
-      }
+//      getContent (index) {
+//        // you can write ajax request here to get message content
+//        let mesContent = '';
+//        switch (this.currentMessageType + index) {
+//          case 'unread0': mesContent = '这是您点击的《欢迎登录iView-admin后台管理系统，来了解他的用途吧》的相关内容。'; break;
+//          case 'unread1': mesContent = '这是您点击的《使用iView-admin和iView-ui组件库快速搭建你的后台系统吧》的相关内容。'; break;
+//          case 'unread2': mesContent = '这是您点击的《喜欢iView-admin的话，欢迎到github主页给个star吧》的相关内容。'; break;
+//          case 'hasread0': mesContent = '这是您点击的《这是一条您已经读过的消息》的相关内容。'; break;
+//          default: mesContent = '这是您点击的《这是一条被删除的消息》的相关内容。'; break;
+//        }
+//        this.mes.content = mesContent;
+//      }
     },
     mounted () {
-      this.currentMesList = this.unreadMesList = [
-        {
-          title: '欢迎登录iView-admin后台管理系统，来了解他的用途吧',
-          time: 1507390106000
-        },
-        {
-          title: '使用iView-admin和iView-ui组件库快速搭建你的后台系统吧',
-          time: 1507390106000
-        },
-        {
-          title: '喜欢iView-admin的话，欢迎到github主页给个star吧',
-          time: 1507390106000
+      this.author_key = localStorage.getItem('author_key');
+      console.log(this.author_key == 1)
+      if (this.author_key == 1) {
+        this.currentMessageType = 'unread';
+      } else {
+        this.currentMessageType = 'systemMsg';
+      }
+      messageService.getReminder().then(res => {
+        // console.log(res.length)
+        // localStorage.setItem('reminder', res.length);
+        this.currentMesList = this.unreadMesList = res;
+
+      }).catch(error => {
+        console.log(error);
+      })
+      messageService.getReadReminder().then(res => {
+        this.hasreadMesList = res;
+
+      }).catch(error => {
+        console.log(error);
+      })
+      messageService.getSystemMsg().then(res => {
+
+        if (this.author_key == 1) {
+          this.systemMsgList = res;
+        } else {
+          this.currentMesList = this.systemMsgList = res;
         }
-      ];
-      this.hasreadMesList = [
-        {
-          title: '这是一条您已经读过的消息',
-          time: 1507330106000
-        }
-      ];
-      this.recyclebinList = [
-        {
-          title: '这是一条被删除的消息',
-          time: 1506390106000
-        }
-      ];
+      }).catch(error => {
+        console.log(error);
+      })
       this.unreadCount = this.unreadMesList.length;
       this.hasreadCount = this.hasreadMesList.length;
-      this.recyclebinCount = this.recyclebinList.length;
+      this.systemMsgCount = this.systemMsgList.length;
     },
     watch: {
       unreadMesList (arr) {
@@ -248,8 +315,8 @@
       hasreadMesList (arr) {
         this.hasreadCount = arr.length;
       },
-      recyclebinList (arr) {
-        this.recyclebinCount = arr.length;
+      systemMsgList (arr) {
+        this.systemMsgCount = arr.length;
       }
     }
   };

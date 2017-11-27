@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from "vue-router"
 import iView from 'iview';
+import * as messageService from '../services/message';
+
 Vue.use(iView);
+
 
 
 Vue.use(VueRouter);
@@ -197,6 +200,25 @@ const router = new VueRouter({
 
 })
 router.beforeEach((to, from, next) => {
+  if(localStorage.getItem('author_key')==1){
+    messageService.getReminder().then(res => {
+      // console.log(res.length)
+      localStorage.setItem('reminder', res.length);
+
+    }).catch(error => {
+      console.log(error);
+    })
+  }else{
+    messageService.getSystemMsg().then(res => {
+      localStorage.setItem('reminder', res.length);
+    }).catch(error => {
+      console.log(error);
+    })
+
+  }
+
+
+
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
     //console.log( localStorage.getItem('loginStatus'))
     if (localStorage.getItem('loginStatus')) {// 判断是否登录
