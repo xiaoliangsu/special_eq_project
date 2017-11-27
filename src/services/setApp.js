@@ -109,9 +109,15 @@ export function getAccpeter(params) {
 }
 
 
+
 export function getCylinder(params) {
   return fetch('/device/cylinder?'+params, params,'get')
 }
 export function getPipe(params) {
   return fetch('/device/pipe?'+params, params,'get')
 }
+
+export function submitChangeInfo(params) {
+    return fetch('/apply/create', params,'post')
+}
+
