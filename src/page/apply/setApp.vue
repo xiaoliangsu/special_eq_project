@@ -737,6 +737,49 @@
         //设备品种列表
         deviceTypeList: [],
         deviceType: '',
+        deviceCategoryList: [
+          {
+            value: "1000",
+            label: "锅炉"
+          },
+          {
+            value: "2000",
+            label: "压力容器"
+          },
+          {
+            value: "8000",
+            label: "压力管道"
+          },
+          {
+            value: "7000",
+            label: "压力管道元件"
+          },
+          {
+            value: "3000",
+            label: "电梯"
+          },
+
+          {
+            value: "4000",
+            label: "起重机械"
+          },
+          {
+            value: "9000",
+            label: "客运索道"
+          },
+          {
+            value: "6000",
+            label: "大型游乐设施"
+          },
+          {
+            value: "5000",
+            label: "场（厂）内专用机动车辆"
+          },
+          {
+            value: "F000",
+            label: "安全附件"
+          },
+        ],
         ruleForm: {
           registKind: '新设备首次启用',
           deviceCategory: '',
@@ -1339,7 +1382,7 @@
               }
             }).catch(error => {
               console.log(error);
-            })                                                                                                                                                                                                     
+            })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -1558,30 +1601,30 @@
 
       //这里参数要改
       instance (type) {
-          console.log(this.fileList);
-          if(this.device_type==1){
-            for(let i=0;i<this.fileList.length;i++){
-              if(this.fileList[i]<=1){
-                this.$Notice.warning({
-                  title: '通知',
-                  desc: '请上传全部pdf文件'
-                });
-                return
-              }
-            }
-
-          }else{
-            for(let i=0;i<this.fileList.length-1;i++){
-              if(this.fileList[i]<=1){
-                this.$Notice.warning({
-                  title: '通知',
-                  desc: '请上传全部pdf文件'
-                });
-                return
-              }
-            }
-
-          }
+          //console.log(this.fileList);
+//          if(this.device_type==1){
+//            for(let i=0;i<this.fileList.length;i++){
+//              if(this.fileList[i]<=1){
+//                this.$Notice.warning({
+//                  title: '通知',
+//                  desc: '请上传全部pdf文件'
+//                });
+//                return
+//              }
+//            }
+//
+//          }else{
+//            for(let i=0;i<this.fileList.length-1;i++){
+//              if(this.fileList[i]<=1){
+//                this.$Notice.warning({
+//                  title: '通知',
+//                  desc: '请上传全部pdf文件'
+//                });
+//                return
+//              }
+//            }
+//
+//          }
 
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {

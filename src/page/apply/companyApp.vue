@@ -459,7 +459,7 @@
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="cylinderEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearch">搜索</Button>
-                <Button type="warning"><a v-bind:href=this.gasDownloadPdf download="标准气瓶基本信息汇总表"
+                <Button type="warning"><a v-bind:href=this.gasDownloadPdf download="标准气瓶基本信息汇总表.pdf"
                                           class="detail_a" style="color:white;">下载已提交气瓶基本信息表</a></Button>
 
                 </Col>
@@ -571,7 +571,7 @@
                 <Input placeholder="请输入申请id" style="width: 180px" v-model="pipeEqCode"></Input>
 
                 <Button type="primary" class="query" @click="exactSearchPipe">搜索</Button>
-                <Button type="warning"><a v-bind:href=this.pipeDownloadPdf download="标准压力管道基本信息汇总表"
+                <Button type="warning"><a v-bind:href=this.pipeDownloadPdf download="标准压力管道基本信息汇总表.pdf"
                                           class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
@@ -1279,12 +1279,17 @@
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
           this.setUserDetailData();
+          this.gasDownloadPdf="/admin/file/download?fileId="+res.data.forms["气瓶基本信息汇总表"];
+          this.pipeDownloadPdf="/admin/file/download?fileId="+res.data.forms["压力管道基本信息汇总表"];
+          //alert(this.gasDownloadPdf)
           let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
             this.acceptComList = [];
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
+
+
           }).catch(error => {
             console.log(error);
           })

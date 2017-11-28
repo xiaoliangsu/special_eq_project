@@ -315,7 +315,7 @@
             if(res.data.role==1){
               this.getUserData();
               loginService.GetReminder().then(res => {
-                console.log(res)
+              //  console.log(res)
 
               }).catch(error => {
                 console.log(error)

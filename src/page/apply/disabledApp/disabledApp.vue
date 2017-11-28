@@ -212,8 +212,8 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'"
+                :before-upload="handleBeforeUpload1"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'+this.fileList[8]"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -229,8 +229,8 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'"
-                :before-upload="handleBeforeUpload"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'+this.fileList[1]"
+                :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -289,6 +289,7 @@
   export default {
     data() {
       return {
+        fileList:[1,1],
         canStopUseDeviceList: [],
         columnsCanStopUse: [
           {
@@ -478,6 +479,7 @@
 
       },
       initData(){
+        this.fileList=[1,1];
         this.active = 1;
         this.current = 0;
         this.creatOrUpdate = false;
@@ -768,14 +770,11 @@
         }
 
       },
-      handleBeforeUpload () {
-        const check = this.uploadList.length < 2;
-        if (!check) {
-          this.$Notice.warning({
-            title: '最多只能上传 2 张图片。'
-          });
-        }
-        return check;
+      handleBeforeUpload1 () {
+        this.fileList[0]++;
+      },
+      handleBeforeUpload2 () {
+        this.fileList[1]++;
       },
       handleView(index){
         console.log(index);
@@ -783,6 +782,15 @@
         this.pdf = this.pdfList[index];
       },
       instance (type) {
+        for(let i=0;i<this.fileList.length;i++){
+          if(this.fileList[i]<=1){
+            this.$Notice.warning({
+              title: '通知',
+              desc: '请上传全部pdf文件'
+            });
+            return
+          }
+        }
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {

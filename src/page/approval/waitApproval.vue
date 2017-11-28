@@ -60,6 +60,8 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as orderStatusService from '../../services/orderStatus'
   import * as approvalService from '../../services/approval'
+  import * as acceptService from '../../services/accept'
+
 
   export default {
     data() {
@@ -411,14 +413,23 @@
       },
 
       appDetail(value){
+        let params = 'applyId=' + this.data5[value].id;
+        acceptService.acceptPrepare(params).then(res => {
+          if (res) {
+            this.$router.push({
+              path: 'appDetail',
+              query: {
+                applyId: this.data5[value].id,
+                orderState: 'waitApproval'
+              }
+            });
+          }
+        }).catch(error => {
+          console.log(error);
 
-          this.$router.push({
-            path: 'appDetail',
-            query: {
-              applyId: this.data5[value].id,
-              orderState: 'waitApproval'
-            }
-          });
+        })
+
+
 
 
 //    switch (this.data5[value].changeApplyNum) {

@@ -510,23 +510,23 @@
             </Form-item>
             </Col>
           </Row>
-          <h5 v-if="this.device_type==1">锅炉能效证明文件</h5>
-          <Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">
-            <Upload
-              ref="upload2"
-              :format="['pdf']"
-              :on-format-error="handleFormatError"
-              :on-success="handleSuccess"
-              :on-remove="handleRemove"
-              :default-file-list="defaultPdfList1"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'锅炉能效证明文件'+this.fileList[9]"
-              :before-upload="handleBeforeUpload10"
-              with-credentials>
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+          <!--<h5 v-if="this.device_type==1">锅炉能效证明文件</h5>-->
+          <!--<Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">-->
+            <!--<Upload-->
+              <!--ref="upload2"-->
+              <!--:format="['pdf']"-->
+              <!--:on-format-error="handleFormatError"-->
+              <!--:on-success="handleSuccess"-->
+              <!--:on-remove="handleRemove"-->
+              <!--:default-file-list="defaultPdfList1"-->
+              <!--:action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'锅炉能效证明文件'+this.fileList[9]"-->
+              <!--:before-upload="handleBeforeUpload10"-->
+              <!--with-credentials>-->
+              <!--<Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>-->
 
-            </Upload>
+            <!--</Upload>-->
 
-          </Form-item>
+          <!--</Form-item>-->
 
 
           <h5>上传文件缩略图</h5>
@@ -580,7 +580,7 @@
   export default {
     data() {
       return {
-        fileList:[1,1,1,1,1,1,1,1,1],
+        fileList:[1,1,1,1,1,1,1,1],
         isCompany: false,
         pdfUrl: '',
         pdfList: [],
@@ -911,7 +911,7 @@
           {"url": ''}
         ];
         this.creatOrUpdate = false;
-        fileList:[1,1,1,1,1,1,1,1,1],
+        fileList:[1,1,1,1,1,1,1,1],
 
 
         //   this.selected = this.getSelectedOption;
@@ -1328,11 +1328,11 @@
         //   this.file10NameNum++;
         this.fileList[8]++;
       },
-      handleBeforeUpload11 () {
-        //   this.file10NameNum++;
-        this.fileList[9]++;
-
-      },
+//      handleBeforeUpload11 () {
+//        //   this.file10NameNum++;
+//        this.fileList[9]++;
+//
+//      },
       handleView(index){
         console.log(index);
         this.visible = true;
