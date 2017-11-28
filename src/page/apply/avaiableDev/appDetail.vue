@@ -122,6 +122,9 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as appDetailService from '../../../services/appDetailService'
+ // import getWs from '../../../config/ws.js'
+  //import Stomp from 'stomp-client';
+
 
   //import * as avaiableService from '../../../services/avaiableDev.js'
   import * as registService from '../../../services/registService'
@@ -211,6 +214,19 @@
         this.unApprovalReason = [];
         this.unApprovalContent = '';
         this.showPrintCard = false;
+       // var socket = new SockJS('http://10.103.91.48:8080/processing');
+
+        var socket = new SockJS('http://10.103.91.48:8080/processing');
+    //    var from = document.getElementById('from').value;
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+          setConnected(true);
+          alert(1);
+        });
+
+
+
+
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
 
@@ -319,6 +335,9 @@
             }
             appDetailService.AccPass(params).then(res => {
               if (res.status === 200) {
+                stompClient.onclose = function(){
+                  showMessageOutput2("close");
+                }
                 this.$router.push('waitAccept');
               } else {
                 this.$Message.info(res.msg);

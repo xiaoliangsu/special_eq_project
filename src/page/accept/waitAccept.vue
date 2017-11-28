@@ -401,14 +401,23 @@
       },
 
       appDetail(value){
+        let params = 'applyId=' + this.data5[value].id;
+        acceptService.acceptPrepare(params).then(res => {
+          if (res) {
+            this.$router.push({
+              path: 'appDetail',
+              query: {
+                applyId: this.data5[value].id,
+                orderState:'waitAccept'
+              }
+            });
+          }
+        }).catch(error => {
+          console.log(error);
 
-          this.$router.push({
-            path: 'appDetail',
-            query: {
-              applyId: this.data5[value].id,
-              orderState:'waitAccept'
-            }
-          });
+        })
+
+
 
 
 //    switch (this.data5[value].changeApplyNum) {

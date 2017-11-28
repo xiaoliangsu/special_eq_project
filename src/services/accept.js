@@ -16,3 +16,8 @@ export function getDetailOrder(params) {
 export function getDetailUnOrder(param) {
   return fetch('/admin/unacceptedApplies/get',param,'post')
 }
+
+//受理准备
+export function acceptPrepare(param) {
+  return fetch('/admin/apply/get?'+param,param,'get')
+}
