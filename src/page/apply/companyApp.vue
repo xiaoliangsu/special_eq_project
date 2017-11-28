@@ -272,7 +272,7 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
+                  :default-file-list="defaultPdfList2"
                   :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.fileList[1]"
                   :before-upload="handleBeforeUpload2"
                   with-credentials>
@@ -290,7 +290,7 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
+                  :default-file-list="defaultPdfList3"
                   :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.fileList[2]"
                   :before-upload="handleBeforeUpload3"
                   with-credentials>
@@ -314,7 +314,7 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
+                  :default-file-list="defaultPdfList2"
                   :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.fileList[1]"
                   :before-upload="handleBeforeUpload2"
                   with-credentials>
@@ -332,7 +332,7 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
-                  :default-file-list="defaultPdfList1"
+                  :default-file-list="defaultPdfList3"
                   :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.fileList[2]"
                   :before-upload="handleBeforeUpload3"
                   with-credentials>
@@ -828,6 +828,8 @@
 //          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
 //        },
         defaultPdfList1: [],
+        defaultPdfList2: [],
+        defaultPdfList3:[],
         value1: '',
         value2: '',
         value3: '',
@@ -1232,11 +1234,14 @@
         this.fileList=[1,1,1];
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
+        this.defaultPdfList1 = [];
+        this.defaultPdfList2 = [];
+        this.defaultPdfList3=[];
 
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
-          this.defaultPdfList1 = [];
+
           this.deviceTypeList = [];
           this.setUserDetailData();
 
@@ -1281,6 +1286,37 @@
           this.setUserDetailData();
           this.gasDownloadPdf="/admin/file/download?fileId="+res.data.forms["气瓶基本信息汇总表"];
           this.pipeDownloadPdf="/admin/file/download?fileId="+res.data.forms["压力管道基本信息汇总表"];
+          for(let valueName  in  res.data.files){
+            if(valueName.replace(/\d+/g,'')=="社会信用代码证明"){
+              this.defaultPdfList1=[{
+                'name':'社会信用代码证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              }];
+              this.fileList[0]++;
+              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+            }
+
+            if(valueName.replace(/\d+/g,'')=="监督检验证明"){
+              this.defaultPdfList2.push({
+                'name':'监督检验证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[1]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="定期检验证明"){
+              this.defaultPdfList3.push({
+                'name':'定期检验证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[2]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+
+          }
           //alert(this.gasDownloadPdf)
           let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
