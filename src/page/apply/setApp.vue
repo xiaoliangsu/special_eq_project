@@ -1055,6 +1055,8 @@
         isCompany: false,
         //确认提交是否禁用
         ifSureSubmit:true,
+        acceptorAgencyId:'',
+        acceptorAgencyName:'',
 
 
 
@@ -1288,15 +1290,13 @@
             }
 
           }
-
-
-
           let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
             this.acceptComList = [];
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
+            this.acceptorAgencyName = this.acceptComList[this.acceptCom].label;
           }).catch(error => {
             console.log(error);
           })
@@ -1350,8 +1350,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode = value.value;
-        this.propertyComName = value.label;
+        this.acceptorAgencyId = value.value;
+        this.acceptorAgencyName = value.label;
       },
 
       //清空表单
@@ -1445,8 +1445,8 @@
         this.ruleForm.deviceKind = this.deviceClassTypeId;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+        submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
         submitParam.formList[0].formType = 1;
         //设备类别
         if (this.device_type) {
@@ -1480,8 +1480,8 @@
             this.ruleForm.deviceKind = this.deviceClassTypeId;
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+            submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
             submitParam.formList[0].formType = 1;
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -1527,8 +1527,8 @@
 //              this.ruleForm.nextTestDate = this.getInputTime;
               submitParam.formList = [];
               submitParam.formList.push(this.ruleForm);
-              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+              submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
               submitParam.formList[0].formType = 1;
               submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
               setAppService.updateSetInfo(submitParam).then(res => {

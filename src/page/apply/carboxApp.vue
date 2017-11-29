@@ -832,6 +832,8 @@
         visible: false,
         applyId: '',
         creatOrUpdate: false,
+        acceptorAgencyId:'',
+        acceptorAgencyName:'',
 
       };
     },
@@ -1070,6 +1072,8 @@
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
+            this.acceptorAgencyName = this.acceptComList[this.acceptCom].label;
+
           }).catch(error => {
             console.log(error);
           })
@@ -1111,8 +1115,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode = value.value;
-        this.propertyComName = value.label;
+        this.acceptorAgencyId = value.value;
+        this.acceptorAgencyName = value.label;
       },
 
 
@@ -1147,8 +1151,8 @@
 //        this.ruleForm.eqUseDate = this.getInputTime;
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+        submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
         submitParam.formList[0].formType = 2;
 
         //设备类别
@@ -1209,8 +1213,8 @@
             console.log(this.ruleForm)
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+            submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
             submitParam.formList[0].formType = 2;
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             // submitParam.deviceKind = this.deviceKindTypeId;
@@ -1262,8 +1266,8 @@
 //              this.ruleForm.eqUseDate = this.getInputTime;
               submitParam.formList = [];
               submitParam.formList.push(this.ruleForm);
-              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+              submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
               submitParam.formList[0].formType = 2;
               submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
               // submitParam.deviceKind = this.deviceKindTypeId;
