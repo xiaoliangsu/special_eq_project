@@ -43,7 +43,7 @@
         </ul>
 
       </div>
-      <div id="echartContainer" style="width:500px; height:500px"></div>
+      <!--<div id="echartContainer" style="width:500px; height:500px"></div>-->
 
 
     </div>

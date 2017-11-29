@@ -186,6 +186,7 @@
         applyDate: '',
         acceptorAgencyName:'',
         stompClient:null,
+        target:0,
 
       }
     },
@@ -198,6 +199,21 @@
 //      // 如果路由有变化，会再次执行该方法
 //      '$route': 'initData'
 //    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route.query': function () {
+        if (this.$route.path !== '/appDetail') {
+          if(this.orderState=='waitApproval'||this.orderState=='waitAccept'){
+            this.stompClient.disconnect(function() {
+                console.log("长链接结束");
+              }
+            );
+          }
+
+        }
+
+      }
+    },
 
     activated() {
       const _this = this;
@@ -210,7 +226,9 @@
         this.stompClient = Stomp.over(socket);
         this.stompClient.connect({}, function(frame) {
           //  setConnected(true);
+          this.target=1;
           console.log(" long connected");
+          console.log(this.target)
         });
       }
 
