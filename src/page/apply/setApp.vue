@@ -1201,6 +1201,7 @@
                 'name':'社会信用代码证明',
                 'url':'/admin/file/upload?applyId='+res.data.files[valueName]
               }];
+              this.fileList[0]++;
               this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
               this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
             }
@@ -1209,6 +1210,7 @@
                 'name':'个人身份证明',
                 'url':'/admin/file/upload?applyId='+res.data.files[valueName]
               }]
+              this.fileList[0]++;
               this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
               this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
             }
@@ -1640,9 +1642,18 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
-            this.uploadList.splice(i, 1);
-          }
+            if(res.response){
+              if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+                this.uploadList.splice(i, 1);
+              }
+            }
+            if( res.url){
+              if (this.uploadList[i].url.split("=")[1] == res.url.split("=")[1]) {
+
+                this.uploadList.splice(i, 1);
+              }
+            }
+
         }
         if (this.uploadList.length == '') {
           this.uploadList = [
@@ -1712,7 +1723,7 @@
 
       //这里参数要改
       instance (type) {
-          //console.log(this.fileList);
+          console.log(this.fileList);
           if(this.device_type==1){
             for(let i=0;i<this.fileList.length;i++){
               if(this.fileList[i]<=1){

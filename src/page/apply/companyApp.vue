@@ -1724,9 +1724,18 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
-            this.uploadList.splice(i, 1);
+          if(res.response){
+            if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+              this.uploadList.splice(i, 1);
+            }
           }
+          if( res.url){
+            if (this.uploadList[i].url.split("=")[1] == res.url.split("=")[1]) {
+
+              this.uploadList.splice(i, 1);
+            }
+          }
+
         }
         if (this.uploadList.length == '') {
           this.uploadList = [
