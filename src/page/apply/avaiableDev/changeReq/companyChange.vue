@@ -23,7 +23,7 @@
         <p>原使用单位持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更；或者产权单位凭产权证明文件，持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更。</p>
         <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">我是原单位（或产权单位）</Button>
       </div>
-       
+
       <div style="margin-left:400px;">
         <p>新使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和有效期内的定期检验报告，重新办理使用登记。</p>
         <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:65px;">我是新单位</Button>
@@ -48,7 +48,7 @@
         <div class="statusInfo" v-if="this.active==3">
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记证变更证明</h2>
-            </br>  
+            </br>
 
             <Row>
               <Col span='11'>
@@ -79,7 +79,7 @@
               </Col>
             </Row>
 
-              
+
               <Form-item label="制造单位名称" prop="manufatureComName">
                 <i-input v-model="ruleForm.manufatureComName"></i-input>
               </Form-item>
@@ -140,7 +140,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -156,7 +156,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'使用登记表'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -172,7 +172,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验报告'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'定期检验报告'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -187,13 +187,13 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权证明文件'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产权证明文件'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
             </Form-item>
-            </Col>            
-            
+            </Col>
+
           </Row>
 
           <h5>上传文件缩略图</h5>
@@ -679,7 +679,7 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -750,13 +750,13 @@
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
+                this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
             }).catch(error => {
               console.log(error);
-            })                                                                                                                                                                                                     
+            })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -859,11 +859,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push(res.data.preview)
 
         }
 
@@ -876,7 +876,7 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
@@ -921,7 +921,7 @@
           })
         }
 
-      },      
+      },
       instance (type) {
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
@@ -955,7 +955,7 @@
         this.ruleForm.acceptorAgencyId=row.acceptorAgencyId;
         this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.ruleForm.deviceClass=row.deviceClass;
-        this.ruleForm.deviceKind=row.deviceKind;        
+        this.ruleForm.deviceKind=row.deviceKind;
         this.ruleForm.eqCode=row.eqCode;
         this.ruleForm.deviceName=row.deviceName;
         this.ruleForm.manufatureComName=row.manufatureComName;
@@ -965,12 +965,12 @@
 
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
-        
+
            // let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 
-        
+
 
         }).catch(error => {
           console.log(error)

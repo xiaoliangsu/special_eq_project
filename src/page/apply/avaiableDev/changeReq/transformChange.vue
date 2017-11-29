@@ -43,14 +43,14 @@
               <Form-item label="登记机关" prop="acceptorAgencyName">
                 <i-input v-model="ruleForm.acceptorAgencyName"
                             :disabled="true"></i-input>
-              </Form-item>            
+              </Form-item>
           </div>
           <div class="base-box">
             <h2 class="header_one">特种设备使用登记表</h2>
             <h2 class="header_two">设备基本情况</h2>
             <!--wang-->
             <Form-item label="登记类别" prop="registKind">
-              <Select v-model="ruleForm.registKind" 
+              <Select v-model="ruleForm.registKind"
                       :disabled="true">
                 <Option v-for="item in registKindList" :value="item.label" :key="item.value">{{ item.label }}</Option>
               </Select>
@@ -479,7 +479,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -495,7 +495,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'重新填写的使用登记表'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'重新填写的使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -511,7 +511,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'改造质量证明资料'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'改造质量证明资料'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -526,7 +526,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'改造监督检验证书'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'改造监督检验证书'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -1075,7 +1075,7 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -1146,13 +1146,13 @@
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
             }).catch(error => {
               console.log(error);
-            })                                                                                                                                                                                                     
+            })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -1253,11 +1253,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url =  res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push( res.data.preview)
 
         }
 
@@ -1270,7 +1270,7 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
@@ -1315,7 +1315,7 @@
           })
         }
 
-      },      
+      },
       instance (type) {
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
@@ -1338,15 +1338,15 @@
       },
       selectDevice(row){
         console.log(row)
-        
+
         // this.formDynamicPres.items=selection;
         // this.ruleForm.subList=selection;
         // this.ruleForm.deviceNum=selection.length;
         this.ruleForm.registCode=row.registCode;
         this.ruleForm.deviceCategory=row.deviceCategory;
         this.ruleForm.deviceClass=row.deviceClass;
-        this.ruleForm.deviceKind=row.deviceKind;        
-        this.ruleForm.eqCode=row.eqCode;       
+        this.ruleForm.deviceKind=row.deviceKind;
+        this.ruleForm.eqCode=row.eqCode;
         this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.deviceId=row.id;
         // console.log(this.deviceId);
@@ -1354,7 +1354,7 @@
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 
-        
+
 
         }).catch(error => {
           console.log(error)
