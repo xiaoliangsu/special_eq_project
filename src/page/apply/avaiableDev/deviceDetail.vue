@@ -43,6 +43,7 @@
         </ul>
 
       </div>
+      <div id="echartContainer" style="width:500px; height:500px"></div>
 
 
     </div>
@@ -53,7 +54,7 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as avaivbleService from '../../../services/avaiableDev.js'
-
+  var echarts = require('echarts/lib/echarts');
 
   export default {
     data() {
@@ -108,6 +109,21 @@
     activated() {
       const _this = this;
       _this.initData();
+      var myChart = echarts.init(document.getElementById('echartContainer'));
+// 绘制图表
+      myChart.setOption({
+        title: { text: 'ECharts 入门示例' },
+        tooltip: {},
+        xAxis: {
+          data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+          name: '销量',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+        }]
+      });
     },
     methods: {
       ...mapActions([ 'changeBackTime'],),
@@ -222,7 +238,7 @@
 
   .setTable {
     margin-bottom: 30px;
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .pdfdownload {
@@ -237,7 +253,7 @@
   .deviceContentHead {
     margin: 20px;
     color: #495060;
-    font-size: 19px;
+    font-size: 17px;
 
   }
 
@@ -305,7 +321,7 @@
   }
   .applyTypeContent{
     color: #1c2438;
-    font-size:19px;
+    font-size:17px;
 
   }
 

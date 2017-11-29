@@ -5,7 +5,7 @@ import fetch from '../fetch/http.js';
 //     return fetch('/api/getorders',param,'get')
 // }
 export function GetOrders(param) {
-  return fetch('/apply/get',param,'post')
+  return fetch('/apply/getWorkFlow',param,'post')
 }
 
 
@@ -14,7 +14,7 @@ export function deleteApp(param) {
 }
 //精准搜索
 export function getDetailOrder(params) {
-  return fetch('/apply/get?'+params, params,'get')
+  return fetch('/apply/getWorkFlow', params,'post')
 }
 
 

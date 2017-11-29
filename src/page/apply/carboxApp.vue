@@ -328,8 +328,8 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
-                :default-file-list="defaultPdfList1"
-                :before-upload="handleBeforeUpload"
+                :default-file-list="defaultPdfList2"
+                :before-upload="handleBeforeUpload2"
                 :show-upload-list="true"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
                 with-credentials>
@@ -346,9 +346,15 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
                 :before-upload="handleBeforeUpload"
+=======
+                :default-file-list="defaultPdfList2"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
+                :before-upload="handleBeforeUpload2"
+>>>>>>> lt
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
@@ -366,8 +372,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.file3NameNum"
+=======
+                :default-file-list="defaultPdfList3"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload3"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -384,8 +395,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.file4NameNum"
+=======
+                :default-file-list="defaultPdfList4"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload4"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -403,9 +419,15 @@
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
+<<<<<<< HEAD
               :default-file-list="defaultPdfList1"
               :action="'/file/upload?applyId='+this.applyId+'&fileName='+'安装合格证明'+this.file11NameNum"
               :before-upload="handleBeforeUpload11"
+=======
+              :default-file-list="defaultPdfList10"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'安装合格证明'+this.fileList[3]"
+              :before-upload="handleBeforeUpload10"
+>>>>>>> lt
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -424,8 +446,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.file5NameNum"
+=======
+                :default-file-list="defaultPdfList5"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.fileList[4]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload5"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -442,8 +469,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.file6NameNum"
+=======
+                :default-file-list="defaultPdfList6"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.fileList[5]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload6"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -462,8 +494,13 @@
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
+<<<<<<< HEAD
               :default-file-list="defaultPdfList1"
               :action="'/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.file7NameNum"
+=======
+              :default-file-list="defaultPdfList7"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.fileList[6]"
+>>>>>>> lt
               :before-upload="handleBeforeUpload7"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -481,8 +518,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.file8NameNum"
+=======
+                :default-file-list="defaultPdfList8"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.fileList[7]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload8"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -499,8 +541,13 @@
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
+<<<<<<< HEAD
                 :default-file-list="defaultPdfList1"
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.file9NameNum"
+=======
+                :default-file-list="defaultPdfList9"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.fileList[8]"
+>>>>>>> lt
                 :before-upload="handleBeforeUpload9"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -510,6 +557,7 @@
             </Form-item>
             </Col>
           </Row>
+<<<<<<< HEAD
           <h5 v-if="this.device_type==1">锅炉能效证明文件</h5>
           <Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">
             <Upload
@@ -523,10 +571,25 @@
               :before-upload="handleBeforeUpload10"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+=======
+          <!--<h5 v-if="this.device_type==1">锅炉能效证明文件</h5>-->
+          <!--<Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">-->
+            <!--<Upload-->
+              <!--ref="upload2"-->
+              <!--:format="['pdf']"-->
+              <!--:on-format-error="handleFormatError"-->
+              <!--:on-success="handleSuccess"-->
+              <!--:on-remove="handleRemove"-->
+              <!--:default-file-list="defaultPdfList1"-->
+              <!--:action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'锅炉能效证明文件'+this.fileList[9]"-->
+              <!--:before-upload="handleBeforeUpload10"-->
+              <!--with-credentials>-->
+              <!--<Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>-->
+>>>>>>> lt
 
-            </Upload>
+            <!--</Upload>-->
 
-          </Form-item>
+          <!--</Form-item>-->
 
 
           <h5>上传文件缩略图</h5>
@@ -580,15 +643,7 @@
   export default {
     data() {
       return {
-        file3NameNum: 1,
-        file4NameNum: 1,
-        file5NameNum: 1,
-        file6NameNum: 1,
-        file7NameNum: 1,
-        file8NameNum: 1,
-        file9NameNum: 1,
-        file10NameNum: 1,
-        file11NameNum: 1,
+        fileList:[1,1,1,1,1,1,1,1],
         isCompany: false,
         pdfUrl: '',
         pdfList: [],
@@ -607,6 +662,15 @@
           ]
         },
         pdfUrl: '',
+        defaultPdfList2: [],
+        defaultPdfList3:[],
+        defaultPdfList4: [],
+        defaultPdfList5:[],
+        defaultPdfList6: [],
+        defaultPdfList7:[],
+        defaultPdfList8: [],
+        defaultPdfList9:[],
+        defaultPdfList10: [],
 
         ruleForm: {
           subList: [],
@@ -919,15 +983,16 @@
           {"url": ''}
         ];
         this.creatOrUpdate = false;
-        this.file3NameNum = 1;
-        this.file4NameNum = 1;
-        this.file5NameNum = 1;
-        this.file6NameNum = 1;
-        this.file7NameNum = 1;
-        this.file8NameNum = 1;
-        this.file9NameNum = 1;
-        this.file10NameNum = 1;
-        this.file11NameNum = 1;
+        fileList:[1,1,1,1,1,1,1,1],
+          this.defaultPdfList2 = [];
+        this.defaultPdfList3=[];
+        this.defaultPdfList4 = [];
+        this.defaultPdfList5=[];
+        this.defaultPdfList6= [];
+        this.defaultPdfList7=[];
+        this.defaultPdfList8 = [];
+        this.defaultPdfList9=[];
+        this.defaultPdfList10=[];
 
 
         //   this.selected = this.getSelectedOption;
@@ -969,6 +1034,99 @@
           this.formDynamicPres.items = this.ruleForm.subList;
           this.acceptCom = res.data.acceptorAgencyId;
           this.setUserDetailData();
+          for(let valueName  in  res.data.files){
+            if(valueName.replace(/\d+/g,'')=="社会信用代码证明"){
+              this.defaultPdfList2=[{
+                'name':'社会信用代码证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              }];
+              this.fileList[0]++;
+              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="个人身份证明"){
+              this.defaultPdfList2=[{
+                'name':'个人身份证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              }]
+              this.fileList[0]++;
+              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="产品合格证"){
+              this.defaultPdfList3.push({
+                'name':'产品合格证',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[1]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="产品数据表"){
+              this.defaultPdfList4.push({
+                'name':'产品数据表',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[2]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="制造监督检验证书"){
+              this.defaultPdfList5.push({
+                'name':'制造监督检验证书',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[4]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="安装监督检验证书"){
+              this.defaultPdfList6.push({
+                'name':'安装监督检验证书',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[5]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="首次检验报告"){
+              this.defaultPdfList7.push({
+                'name':'首次检验报告',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[6]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="机动车行驶证"){
+              this.defaultPdfList8.push({
+                'name':'机动车行驶证',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[7]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="机动车登记证书"){
+              this.defaultPdfList9.push({
+                'name':'机动车登记证书',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[8]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="安装合格证明"){
+              this.defaultPdfList10.push({
+                'name':'安装合格证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[3]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+
+          }
           let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
             this.acceptComList = [];
@@ -1290,9 +1448,23 @@
 
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
+<<<<<<< HEAD
           if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
+=======
+          if(res.response){
+            if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+              this.uploadList.splice(i, 1);
+            }
+>>>>>>> lt
           }
+          if( res.url){
+            if (this.uploadList[i].url.split("=")[1] == res.url.split("=")[1]) {
+
+              this.uploadList.splice(i, 1);
+            }
+          }
+
         }
         if(this.uploadList.length==''){
           this.uploadList = [
@@ -1305,33 +1477,50 @@
       handleBeforeUpload () {
 
       },
+      handleBeforeUpload2 () {
+        //this.file3NameNum++;
+        this.fileList[0]++;
+      },
       handleBeforeUpload3 () {
-        this.file3NameNum++;
+        //this.file3NameNum++;
+        this.fileList[1]++;
       },
       handleBeforeUpload4 () {
-        this.file4NameNum++;
+        // this.file4NameNum++;
+        this.fileList[2]++;
       },
       handleBeforeUpload5 () {
-        this.file5NameNum++;
+        // this.file5NameNum++;
+        this.fileList[3]++;
       },
       handleBeforeUpload6 () {
-        this.file6NameNum++;
+        //this.file6NameNum++;
+        this.fileList[4]++;
       },
       handleBeforeUpload7 () {
-        this.file7NameNum++;
+        //this.file7NameNum++;
+        this.fileList[5]++;
       },
       handleBeforeUpload8 () {
-        this.file8NameNum++;
+        //
+        // this.file8NameNum++;
+        this.fileList[6]++;
+
       },
       handleBeforeUpload9 () {
-        this.file9NameNum++;
+        // this.file9NameNum++;
+        this.fileList[7]++;
+
       },
       handleBeforeUpload10 () {
-        this.file10NameNum++;
+        //   this.file10NameNum++;
+        this.fileList[8]++;
       },
-      handleBeforeUpload11 () {
-        this.file11NameNum++;
-      },
+//      handleBeforeUpload11 () {
+//        //   this.file10NameNum++;
+//        this.fileList[9]++;
+//
+//      },
       handleView(index){
         console.log(index);
         this.visible = true;
@@ -1344,6 +1533,16 @@
         });
       },
       instance (type) {
+          console.log(this.fileList);
+        for(let i=0;i<this.fileList.length;i++){
+          if(this.fileList[i]<=1){
+            this.$Notice.warning({
+              title: '通知',
+              desc: '请上传全部pdf文件'
+            });
+            return
+          }
+        }
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {
@@ -1401,7 +1600,7 @@
 
   .base-box,
   .chooseAccept {
-    margin-left: 140px;
+    margin-left: 20%;
     display: block;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;

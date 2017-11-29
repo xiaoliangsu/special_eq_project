@@ -16,7 +16,7 @@
         </Steps>
       </div>
     </div>
-    <div style="position:absolute;top:85px;">
+    <div style="position:absolute;top:85px;width:100%;">
       <Form ref="ruleForm" :model="ruleForm" :rules="rules" :label-width="110" label-position="left">
         <!--<h2>按单位申请</h2>-->
         <div class="statusInfo" v-if="this.active==1">
@@ -228,12 +228,15 @@
         <!--让用户确认信息的表格-->
         <div class="setTable" v-if="this.active==2" style="width:900px;top:30px;position:absolute">
           <iframe id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
+<<<<<<< HEAD
           <!--<ul class="detail_ul">-->
           <!--<li v-for="(item,key,index) in this.pdfUrl" class="detail_li" style="width:800px;height:1000px;">{{item}}-->
           <!--<a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>-->
           <!--<embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>-->
           <!--</li>-->
           <!--</ul>-->
+=======
+>>>>>>> lt
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
           <Button type="primary" @click="before()" v-if="this.active==2">上一步</Button>
           <Button type="success" @click="next()" v-if="this.active==2">下一步</Button>
@@ -255,7 +258,11 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload1"
+<<<<<<< HEAD
                 :action="'/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.file1NameNum"
+=======
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.fileList[0]"
+>>>>>>> lt
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -278,8 +285,13 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
+<<<<<<< HEAD
                   :default-file-list="defaultPdfList1"
                   :action="'/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file2NameNum"
+=======
+                  :default-file-list="defaultPdfList2"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.fileList[1]"
+>>>>>>> lt
                   :before-upload="handleBeforeUpload2"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -296,8 +308,13 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
+<<<<<<< HEAD
                   :default-file-list="defaultPdfList1"
                   :action="'/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file3NameNum"
+=======
+                  :default-file-list="defaultPdfList3"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.fileList[2]"
+>>>>>>> lt
                   :before-upload="handleBeforeUpload3"
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -320,9 +337,15 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
+<<<<<<< HEAD
                   :default-file-list="defaultPdfList1"
                   :action="'/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.file4NameNum"
                   :before-upload="handleBeforeUpload4"
+=======
+                  :default-file-list="defaultPdfList2"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'监督检验证明'+this.fileList[1]"
+                  :before-upload="handleBeforeUpload2"
+>>>>>>> lt
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -338,9 +361,15 @@
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
+<<<<<<< HEAD
                   :default-file-list="defaultPdfList1"
                   :action="'/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.file5NameNum"
                   :before-upload="handleBeforeUpload5"
+=======
+                  :default-file-list="defaultPdfList3"
+                  :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'定期检验证明'+this.fileList[2]"
+                  :before-upload="handleBeforeUpload3"
+>>>>>>> lt
                   with-credentials>
                   <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -371,14 +400,9 @@
           <!--<a href="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" download="1.txt">锅炉能效证明.pdf</a>-->
           <!--<v-detailPdf :pdfUrl="pdfUrl"></v-detailPdf>-->
         </div>
-        <!--<Button type="primary" @click="before()" v-if="this.active<6">上一步</Button>-->
         <Button type="primary" @click="confirmForm" v-if="this.active==1">下一步</Button>
-        <!--<Button type="primary" @click="beSure" v-if="this.active==2">确定</Button>-->
-        <!--<Button type="primary" @click="success(false)" v-if="this.active==5">确认提交</Button>-->
         <Button @click="instance('success')" v-if="this.active==4" type="success">确认提交</Button>
         <Button @click="save('success')"  v-if="this.active==4" type="primary">存入档案</Button>
-
-        <!--<Button type="ghost" @click="resetForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">重置</Button>-->
         <Button type="ghost" @click="saveForm('ruleForm')" style="margin-left: 8px" v-if="this.active==1">保存</Button>
 
       </Form>
@@ -408,29 +432,25 @@
                 </div>
 
               </div>
-              <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
-              <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
-
               <Modal title="查看图片" v-model="gasFirstvisible">
                 <iframe id="iFramePdf" v-bind:src=this.gasFirstPdf style="width:100%;height:1000px;" v-if="gasFirstvisible"></iframe>
-
               </Modal>
-
             </div>
             <Steps :current="2" direction="vertical">
               <Step title="步骤1" content="下载标准气瓶基本信息汇总表"></Step>
               <Step title="步骤2" content="上传气瓶基本信息汇总表"></Step>
               <Step title="步骤3" content="预览标准气瓶基本信息汇总表"></Step>
             </Steps>
-
           </div>
           <div class="first_upload">
             <div style="width:150%;padding-left:100px;">
-
-
               <h2 class="firstHead" style="margin-left:45%;">新增气瓶基本信息(非首次)</h2>
               <h3 class="firstHead2">一、下载标准气瓶基本信息汇总表</h3>
+<<<<<<< HEAD
               <a v-bind:href="'                                                    static/file/cylinder.xlsx'" download="标准压力管道基本信息汇总表.txt"
+=======
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+>>>>>>> lt
                  class="detail_a">标准气瓶基本信息汇总表</a>
               <h3 class="firstHead2">二、上传气瓶基本信息汇总表</h3>
               <Upload
@@ -449,16 +469,10 @@
                 <div class="demo-upload-list-cover">
                   <Icon type="ios-eye-outline" @click.native="handleGasAddView(index)"></Icon>
                 </div>
-
               </div>
-              <!--<img src="/admin/file/thumbnail?fileId=201" ref="verify"  style="width:300px;height:300px;float:right"-->
-              <!--alt="缩略图图片" v-on:click="reflushVerify"/>-->
-
               <Modal title="查看图片" v-model="gasAddvisible">
-                <iframe id="iFramePdf" v-bind:src=this.gasAddpdf style="width:100%;height:1000px;" v-if="gasAddvisible"></iframe>
-
+                <iframe id="iFramePdf" v-bind:src=this.gasAddPdf style="width:100%;height:1000px;" v-if="gasAddvisible"></iframe>
               </Modal>
-
             </div>
             <Steps :current="2" direction="vertical">
               <Step title="步骤1" content="下载标准气瓶基本信息汇总表(excel版)"></Step>
@@ -467,8 +481,7 @@
 
             </Steps>
           </div>
-          <div class="changeGas">
-
+          <div class="changeGas" >
             <Steps :current="current" style="margin-left:15%;">
               <Step title="步骤1" content="按id搜索气瓶信息"></Step>
               <Step title="步骤2" content="点击相应停用、注销、报废按钮对已有气瓶进行操作"></Step>
@@ -479,22 +492,22 @@
             <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
-                <label>申请id精准搜索</label>
+                <label>产品编号精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
-                <Input placeholder="请输入申请id" style="width: 180px"></Input>
+                <Input placeholder="请输入申请id" style="width: 180px" v-model="cylinderEqCode"></Input>
 
-                <Button type="primary" class="query">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准气瓶基本信息汇总表.txt"
+                <Button type="primary" class="query" @click="exactSearch">搜索</Button>
+                <Button type="warning"><a v-bind:href=this.gasDownloadPdf download="标准气瓶基本信息汇总表.pdf"
                                           class="detail_a" style="color:white;">下载已提交气瓶基本信息表</a></Button>
 
                 </Col>
               </Row>
             </div>
-            <div class="list-box">
-              <Table border :columns="columns5" :data="data5"></Table>
-              <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-                    :page-size="10"></Page>
+            <div class="list-box" >
+              <div class="edittable-table-height-con">
+              <can-edit-table refs="table2" v-model="editCylinderData" :columns-list="editCylinderColumns"  :saveEdit="saveCylinderInline" ></can-edit-table>
+              </div>
 
             </div>
 
@@ -591,22 +604,26 @@
             <div class="innerBox" style="margin-left:30%;">
               <Row>
                 <Col>
-                <label>申请id精准搜索</label>
+                <label>管道编号精准搜索</label>
                 <!--<Input v-model="applyId" placeholder="请输入申请id" style="width: 180px"></Input>-->
                 <!--<Button type="primary" class="query" @click="exactSearch">搜索</Button>-->
-                <Input placeholder="请输入申请id" style="width: 180px"></Input>
+                <Input placeholder="请输入申请id" style="width: 180px" v-model="pipeEqCode"></Input>
 
-                <Button type="primary" class="query">搜索</Button>
-                <Button type="warning"><a v-bind:href="'/file/download?fileId=7801'" download="标准压力管道基本信息汇总表.txt"
+                <Button type="primary" class="query" @click="exactSearchPipe">搜索</Button>
+                <Button type="warning"><a v-bind:href=this.pipeDownloadPdf download="标准压力管道基本信息汇总表.pdf"
                                           class="detail_a" style="color:white;">下载已提交压力管道基本信息表</a></Button>
 
                 </Col>
               </Row>
             </div>
             <div class="list-box">
-              <Table border :columns="columns5" :data="data5"></Table>
-              <Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"
-                    :page-size="10"></Page>
+              <!--<Table border :columns="columns5" :data="data5"></Table>-->
+              <!--<Page class="page" ref="pages" :total="this.num" size="small" show-elevator @on-change="initSize"-->
+                    <!--:page-size="10"></Page>-->
+              <div class="edittable-table-height-con">
+              <can-edit-table refs="table2" v-model="editPipeData" :columns-list="editPipeColumns"  :saveEdit="savePipeInline" ></can-edit-table>
+              </div>
+
 
             </div>
 
@@ -631,8 +648,12 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import * as setAppService from '../../services/setApp'
   import * as registService from '../../services/registService'
+  import canEditTable from '../../components/canEditTable/canEditTable.vue';
 
   export default {
+//    components: {
+//      canEditTable
+//    },
     data() {
       return {
         file1NameNum: 1,
@@ -640,6 +661,7 @@
         file3NameNum: 1,
         file4NameNum: 1,
         file5NameNum: 1,
+        fileList:[1,1,1],
 
         acceptCom: '',
         acceptComList: [],
@@ -660,6 +682,7 @@
         //设备品种列表
         deviceTypeList: [],
         deviceClassTypeId: '',
+        gasAddpdf:'',
 
         ruleForm: {
           registKind: '新设备首次启用',
@@ -817,6 +840,7 @@
         gasAddPdfList: [],
         gasAddPdf:'',
         gasAddvisible:false,
+        gasDownloadPdf:'',
 
         pipeFirstUploadList:[
           {"url": ''}
@@ -831,6 +855,7 @@
         pipeAddPdfList: [],
         pipeAddPdf:'',
         pipeAddvisible:false,
+        pipeDownloadPdf:'',
 
         modal1: false,
         author_key: '',
@@ -842,6 +867,8 @@
 //          水壶4: 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar',
 //        },
         defaultPdfList1: [],
+        defaultPdfList2: [],
+        defaultPdfList3:[],
         value1: '',
         value2: '',
         value3: '',
@@ -858,8 +885,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
-            sortable: true
+            key: 'comCode',
           },
           {
             title: '变更或者停用情况',
@@ -938,6 +964,213 @@
         pdfUrl: '',
         pdfList: [],
         pdf: '',
+        cylinderEqCode:'',
+        pipeEqCode:'',
+        editCylinderData:[],
+        editPipeData:[],
+        editCylinderColumns:[
+          {
+            title: '序号',
+            type: 'index',
+            align: 'center'
+          },
+          {
+            title: '设备品种',
+            align: 'center',
+            key: 'deviceKind',
+            editable: true
+          },
+          {
+            title: '产品编号',
+            align: 'center',
+            key: 'eqCode',
+            editable: true
+          },
+          {
+            title: '充装介质',
+            align: 'center',
+            key: 'fillMedia',
+            editable: true
+          },
+          {
+            title: '制造单位名称',
+            align: 'center',
+            key: 'manufactureComName',
+            editable: true
+          },
+          {
+            title: '制造年月',
+            align: 'center',
+            key: 'eqCreateDate',
+            editable: true,
+            width:150,
+          },
+          {
+            title: '公称工作压力(MPa)',
+            align: 'center',
+            key: 'workPressure',
+            editable: true
+          },
+          {
+            title: '容积(L)',
+            align: 'center',
+            key: 'volume',
+            editable: true
+          },
+          {
+            title: '最近一次检验日期',
+            align: 'center',
+            key: 'testDate',
+            editable: true
+          },
+          {
+            title: '下次检验日期',
+            align: 'center',
+            key: 'nextTestDate',
+            editable: true
+          },
+          {
+            title: '单位内编号',
+            align: 'center',
+            key: 'eqComCode',
+            editable: true
+          },
+          {
+            title: '变更或者停用情况',
+            align: 'center',
+            key: 'eqStatus',
+            editable: true
+          },
+          {
+            title: '信息化管理情况',
+            align: 'center',
+            key: 'infoMessage',
+            editable: true
+          },
+          {
+            title: '操作',
+            align: 'center',
+            key: 'handle',
+            handle: ['edit', 'delete']
+          }
+
+        ],
+        editPipeColumns:[
+          {
+            title: '序号',
+            type: 'index',
+            align: 'center',
+          },
+          {
+            title: '管道名称(登记单元)',
+            align: 'center',
+            key: 'pipeName',
+            editable: true,
+          },
+          {
+            title: '管道编号',
+            align: 'center',
+            key: 'eqCode',
+            editable: true,
+          },
+          {
+            title: '管道级别',
+            align: 'center',
+            key: 'eqLevel',
+            editable: true,
+          },
+          {
+            title: '设计单位名称',
+            align: 'center',
+            key: 'designComName',
+            editable: true,
+          },
+          {
+            title: '安装单位名称',
+            align: 'center',
+            key: 'constructComName',
+            editable: true
+          },
+          {
+            title: '安装年月',
+            align: 'center',
+            key: 'eqCreateDate',
+            editable: true
+          },
+          {
+            title: '投用年月',
+            align: 'center',
+            key: 'eqUseDate',
+            editable: true
+          },
+          {
+            title: '公称直径(mm)',
+            align: 'center',
+            key: 'diameter',
+            editable: true
+          },
+          {
+            title: '公称壁厚(mm)',
+            align: 'center',
+            key: 'thickness',
+            editable: true
+          },
+          {
+            title: '管道长度(m)',
+            align: 'center',
+            key: 'length',
+            editable: true
+          },
+          {
+            title: '压力(MPa)',
+            align: 'center',
+            key: 'workPressure',
+            editable: true
+          },
+          {
+            title: '温度(℃)',
+            align: 'center',
+            key: 'temperature',
+            editable: true
+          },
+          {
+            title: '介质',
+            align: 'center',
+            key: 'fillMedia',
+            editable: true
+          },
+          {
+            title: '检验结论',
+            align: 'center',
+            key: 'testResult',
+            editable: true
+          },
+          {
+            title: '检验机构名称',
+            align: 'center',
+            key: 'testComName',
+            editable: true
+          },
+          {
+            title: '下次检验日期',
+            align: 'center',
+            key: 'nextTestDate',
+            editable: true
+          },
+          {
+            title: '备注',
+            align: 'center',
+            key: 'remark',
+            editable: true
+          },
+          {
+            title: '操作',
+            align: 'center',
+            key: 'handle',
+            handle: ['edit', 'delete']
+          }
+        ],
+
 
       };
     },
@@ -946,6 +1179,7 @@
 //      'v-cylinders-form': cylinders_form,
 //      'v-pressure-form': pressure_form,
       //'v-detailPdf': detailPdf,
+      'canEditTable':canEditTable,
 
     },
     watch: {
@@ -1036,13 +1270,17 @@
         this.file3NameNum = 1;
         this.file4NameNum = 1;
         this.file5NameNum = 1;
+        this.fileList=[1,1,1];
         this.device_type = this.$route.query.device_type;
         this.ifold = this.$route.query.ifold;
+        this.defaultPdfList1 = [];
+        this.defaultPdfList2 = [];
+        this.defaultPdfList3=[];
 
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
           this.clearRuleForm();
-          this.defaultPdfList1 = [];
+
           this.deviceTypeList = [];
           this.setUserDetailData();
 
@@ -1085,12 +1323,48 @@
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
           this.setUserDetailData();
+          this.gasDownloadPdf="/admin/file/download?fileId="+res.data.forms["气瓶基本信息汇总表"];
+          this.pipeDownloadPdf="/admin/file/download?fileId="+res.data.forms["压力管道基本信息汇总表"];
+          for(let valueName  in  res.data.files){
+            if(valueName.replace(/\d+/g,'')=="社会信用代码证明"){
+              this.defaultPdfList1=[{
+                'name':'社会信用代码证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              }];
+              this.fileList[0]++;
+              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+            }
+
+            if(valueName.replace(/\d+/g,'')=="监督检验证明"){
+              this.defaultPdfList2.push({
+                'name':'监督检验证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[1]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+            if(valueName.replace(/\d+/g,'')=="定期检验证明"){
+              this.defaultPdfList3.push({
+                'name':'定期检验证明',
+                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+              });
+              this.fileList[2]++;
+              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+            }
+
+          }
+          //alert(this.gasDownloadPdf)
           let params = 'addressCode=' + this.addressCode;
           setAppService.getAccpeter(params).then(res => {
             this.acceptComList = [];
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
+
+
           }).catch(error => {
             console.log(error);
           })
@@ -1191,14 +1465,14 @@
           submitParam.deviceCategory = "压力容器";
           submitParam.deviceClass = "气瓶";
           submitParam.deviceKind = this.deviceClassTypeId;
-          this.ruleForm.deviceKind = "气瓶";
-          this.ruleForm.deviceClass = this.deviceClassTypeId;
+          this.ruleForm.deviceClass = "气瓶";
+          this.ruleForm.deviceKind = this.deviceClassTypeId;
         } else if (submitParam.deviceType === 10) {
           submitParam.deviceCategory = "压力管道";
           submitParam.deviceClass = "工业管道";
           submitParam.deviceKind = this.deviceClassTypeId;
-          this.ruleForm.deviceKind = "工业管道";
-          this.ruleForm.deviceClass = this.deviceClassTypeId;
+          this.ruleForm.deviceClass = "工业管道";
+          this.ruleForm.deviceKind = this.deviceClassTypeId;
         }
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
@@ -1241,12 +1515,12 @@
             let submitParam = {};
             if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
-              this.ruleForm.deviceKind = "气瓶";
-              this.ruleForm.deviceClass = this.deviceClassTypeId;
+              this.ruleForm.deviceClass = "气瓶";
+              this.ruleForm.deviceKind = this.deviceClassTypeId;
             } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
-              this.ruleForm.deviceKind = "工业管道";
-              this.ruleForm.deviceClass = this.deviceClassTypeId;
+              this.ruleForm.deviceClass = "工业管道";
+              this.ruleForm.deviceKind = this.deviceClassTypeId;
             }
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
@@ -1280,32 +1554,60 @@
 
       },
       handleGasFirstSuccess (res, file) {
+<<<<<<< HEAD
         this.gasfirstUploadList[0].url = res.data.thumbnail;
         this.gasFirstPdfList.push(res.data.preview)
+=======
+          this.gasfirstUploadList[0].url = "/admin" + res.data.thumbnail;
+          this.gasFirstPdfList.push("/admin" + res.data.preview);
+        this.gasDownloadPdf= "/admin" + res.data.download;
+
+>>>>>>> lt
       },
       handleGasFirstView(index){
         this.gasFirstvisible = true;
         this.gasFirstPdf = this.gasFirstPdfList[index];
       },
       handleGasAddSuccess (res, file) {
+<<<<<<< HEAD
         this.gasAddUploadList[0].url = res.data.thumbnail;
         this.gasAddPdfList.push(res.data.preview)
+=======
+        this.gasAddUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.gasAddPdfList.push("/admin" + res.data.preview);
+        this.gasDownloadPdf= "/admin" + res.data.download;
+>>>>>>> lt
       },
       handleGasAddView(index){
         this.gasAddvisible = true;
         this.gasAddPdf = this.gasAddPdfList[index];
+
       },
       handlePipeFirstSuccess (res, file) {
+<<<<<<< HEAD
         this.pipeFirstUploadList[0].url = res.data.thumbnail;
         this.pipeFirstPdfList.push(res.data.preview)
+=======
+        this.pipeFirstUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.pipeFirstPdfList.push("/admin" + res.data.preview);
+        this.pipeDownloadPdf= "/admin" + res.data.download;
+
+>>>>>>> lt
       },
       handlePipeFirstView(index){
         this.pipeFirstvisible = true;
         this.pipeFirstPdf = this.pipeFirstPdfList[index];
       },
       handlePipeAddSuccess (res, file) {
+<<<<<<< HEAD
         this.pipeAddUploadList[0].url = res.data.thumbnail;
         this.pipeAddPdfList.push(res.data.preview)
+=======
+        this.pipeAddUploadList[0].url = "/admin" + res.data.thumbnail;
+        this.pipeAddPdfList.push("/admin" + res.data.preview);
+        this.pipeDownloadPdf= "/admin" + res.data.download;
+
+>>>>>>> lt
       },
       handlePipeAddView(index){
         this.pipeAddvisible = true;
@@ -1328,12 +1630,12 @@
               let submitParam = {};
               if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
-                this.ruleForm.deviceKind = "气瓶";
-                this.ruleForm.deviceClass = this.deviceClassTypeId;
+                this.ruleForm.deviceClass = "气瓶";
+                this.ruleForm.deviceKind = this.deviceClassTypeId;
               } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
-                this.ruleForm.deviceKind = "工业管道";
-                this.ruleForm.deviceClass = this.deviceClassTypeId;
+                this.ruleForm.deviceClass = "工业管道";
+                this.ruleForm.deviceKind = this.deviceClassTypeId;
               }
               submitParam.formList = [];
               submitParam.formList.push(this.ruleForm);
@@ -1481,9 +1783,23 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
+<<<<<<< HEAD
           if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
+=======
+          if(res.response){
+            if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+              this.uploadList.splice(i, 1);
+            }
           }
+          if( res.url){
+            if (this.uploadList[i].url.split("=")[1] == res.url.split("=")[1]) {
+
+              this.uploadList.splice(i, 1);
+            }
+>>>>>>> lt
+          }
+
         }
         if (this.uploadList.length == '') {
           this.uploadList = [
@@ -1495,20 +1811,23 @@
 
       },
       handleBeforeUpload1 () {
-        this.file1NameNum++;
+     //   this.file1NameNum++;
+        this.fileList[0]++;
       },
       handleBeforeUpload2 () {
-        this.file2NameNum++;
+      //  this.file2NameNum++;
+        this.fileList[1]++;
       },
       handleBeforeUpload3 () {
-        this.file3NameNum++;
+       // this.file3NameNum++;
+        this.fileList[2]++;
       },
-      handleBeforeUpload4 () {
-        this.file4NameNum++;
-      },
-      handleBeforeUpload5 () {
-        this.file5NameNum++;
-      },
+//      handleBeforeUpload4 () {
+//        this.file4NameNum++;
+//      },
+//      handleBeforeUpload5 () {
+//        this.file5NameNum++;
+//      },
       handleFormatError (file) {
         this.$Notice.warning({
           title: '文件格式不对',
@@ -1538,10 +1857,106 @@
         this.$router.push('applyerList');
 
       },
+      exactSearch(){
+        if (this.cylinderEqCode) {
+          let params = 'eqCode=' + this.cylinderEqCode+'';
+          setAppService.getCylinder(params).then(res => {
+              if (res.status === 200) {
+                  if(res.data){
+                    this.editCylinderData=[];
+                    this.editCylinderData.push(res.data);
+                  }else {
+                    this.editCylinderData=[];
+                    this.$Message.success('暂无该数据');
+                  }
+               // this.num=res.data.totalElements;
+              }else if(res.status=== 401){
+                this.$Notice.error({
+                  title: '这是通知标题',
+                  desc: res.msg
+                });
+              }
+            }
+          ).catch(error => {
+            console.log(error);
+          })
+        }
+      },
+      exactSearchPipe(){
+        if (this.pipeEqCode) {
+          let params = 'eqCode=' + this.pipeEqCode+'';
+          setAppService.getPipe(params).then(res => {
+              if (res.status === 200) {
+                if(res.data){
+                  this.editPipeData=[];
+                  this.editPipeData.push(res.data);
+                }else {
+                  this.editPipeData=[];
+                  this.$Message.success('暂无该数据');
+                }
+              }else if(res.status=== 401){
+                this.$Notice.error({
+                  title: '这是通知标题',
+                  desc: res.msg
+                });
+              }
+            }
+          ).catch(error => {
+            console.log(error);
+          })
+        }
+      },
+      saveCylinderInline (index, success, fail) {
+          console.log(this.editCylinderData[index]);
+        let params = {};
+        params=this.editCylinderData[index];
+        setAppService.changeCylinder(params).then(res => {
+            if (res.status === 200) {
+              success(() => {
+                this.$Message.success('保存成功');
+              });
+            }else{
+              fail(() => {
+                this.$Message.error('保存失败,请重试');
+              });
+            }
+          }
+        ).catch(error => {
+          console.log(error);
+        })
 
+      },
+      savePipeInline (index, success, fail) {
+        console.log(this.editPipeData[index]);
+        let params = {};
+        params=this.editPipeData[index];
+        setAppService.changePipe(params).then(res => {
+            if (res.status === 200) {
+              success(() => {
+                this.$Message.success('保存成功');
+              });
+            }else{
+              fail(() => {
+                this.$Message.error('保存失败,请重试');
+              });
+            }
+          }
+        ).catch(error => {
+          console.log(error);
+        })
+      },
 
       //确认全部
       instance (type) {
+        for(let i=0;i<this.fileList.length;i++){
+          if(this.fileList[i]<=1){
+            this.$Notice.warning({
+              title: '通知',
+              desc: '请上传全部pdf文件'
+            });
+            return
+          }
+        }
         this.$Modal.confirm({
           title: 'Title',
           content: '<p>点击确认提交年检申请</p><p>如您还未到年检日期，请点击取消，并存入档案</p>',
@@ -1596,7 +2011,8 @@
 
   .base-box,
   .chooseAccept {
-    margin-left: 140px;
+    /*margin-left: 140px;*/
+  //  margin:0;
     display: block;
     border: 1px solid #dddee1;
     border-top-left-radius: 0;
@@ -1604,11 +2020,12 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     //padding: 3px;
-    width: 100%;
+    width: 80%;
     padding-left: 100px;
     padding-right: 100px;
     box-sizing: border-box;
     background-color: white;
+    margin-left:10%;
 
   }
 
@@ -1660,7 +2077,7 @@
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    width: 80%;
+    width:100%;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -1668,35 +2085,13 @@
     border-bottom-left-radius: 3px;
     border-color: #dddee1;
     margin-top: 10px;
-    margin-left: 10%;
+    margin-left: 0;
     box-sizing: border-box;
     padding: 10px;
     //background-color: red;
     // margin-left:300px;
   }
 
-  .second_upload {
-    float: right;
-    display: block;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    width: 100%;
-    border: 2px solid #dddee1;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-color: #dddee1;
-    margin-top: 10px;
-    box-sizing: border-box;
-    padding: 10px;
-    //background-color: red;
-    // margin-left:300px;
-  }
 
   .firstHead {
     margin: 10px;
@@ -1742,9 +2137,13 @@
     margin-top: 10px;
     box-sizing: border-box;
     padding: 10px;
-    width: 80%;
-    margin-left: 10%;
+    width: 100%;
+    margin-left: 0;
 
+  }
+  .edittable-table-height-con{
+    height: 190px;
+    wditH:100%;
   }
 
   .demo-upload-list {
@@ -1787,6 +2186,7 @@
     cursor: pointer;
     margin: 0 2px;
   }
+
 
 
 

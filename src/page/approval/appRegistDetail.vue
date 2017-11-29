@@ -343,15 +343,6 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
-                this.data5[i].noUseDate=this.getBackTime;
-                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate=this.getBackTime;
-                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate=this.getBackTime;
-                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate=this.getBackTime;
               }
             }else{
               this.data5=[];
@@ -381,22 +372,15 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           // this.applyState = '';
-          let waitAccparams = 'eqCode=' + this.eqCode;
+//          let waitAccparams = 'eqCode=' + this.eqCode;
+          let waitAccparams={
+            "eqCode":this.eqCode
+          }
           approvalService.getDetailOrder(waitAccparams).then(res => {
               console.log(res);
               if (res.status === 200) {
-                this.data5 = [res.data];
-                this.data5[0].state = res.data.status.states;
-                this.data5[i].noUseDate=this.getBackTime;
-                this.data5[i].noUseEndDate=this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate=this.getBackTime;
-                this.data5[i].disableDate=this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate=this.getBackTime;
-                this.data5[i].applyDate=this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.data5[i].issueDate=this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate=this.getBackTime;
-                this.num=res.data.length;
+                this.data5 = res.data.content;
+                this.num=res.data.totalElements;
 
               }else if(res.status=== 401){
                 this.$Notice.error({

@@ -46,13 +46,11 @@
               变更申请
             </template>
               <MenuItem name="transformChange">改造变更</MenuItem>
-            <MenuGroup title="移装变更">
-              <MenuItem name="areaInChange">登记机关行政区域内移装变更</MenuItem>
-              <MenuItem name="areaAcrossChange">跨登记机关行政区域移装变更</MenuItem>
-            </MenuGroup>
               <MenuItem name="companyChange">单位变更</MenuItem>
               <MenuItem name="nameChange">更名变更</MenuItem>
-              <MenuItem name="yearsChange">达到设计使用年限变更</MenuItem>
+              <MenuItem name="yearsChange">使用年限变更</MenuItem>
+              <MenuItem name="areaInChange">行政区域内移装变更</MenuItem>
+              <MenuItem name="areaAcrossChange">跨行政区域移装变更</MenuItem>
           </Submenu>
           <Menu-item name="stopUseApp">停用申请</Menu-item>
           <Menu-item name="devList-5">停用后启用申请</Menu-item>

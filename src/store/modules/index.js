@@ -8,6 +8,7 @@ import registOne from './regist'
 import deviceType from './device_type'
 import userData from './userData'
 import commonFunc from './commonFunc'
+import message from './message'
 
 export default {
     baseInfo,
@@ -20,6 +21,8 @@ export default {
   deviceType,
   userData,
   commonFunc,
+  message
+
 
 
 

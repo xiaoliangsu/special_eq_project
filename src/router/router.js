@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from "vue-router"
 import iView from 'iview';
+import * as messageService from '../services/message';
+
 Vue.use(iView);
+
 
 
 Vue.use(VueRouter);
@@ -66,7 +69,10 @@ const WaitAccept = r => require.ensure([], () => r(require('../page/accept/waitA
 const TransformChange = r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/transformChange.vue')), 'TransformChange');
 const  AreaInChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaInChange.vue')),'AreaInChange');
 const  AreaAcrossChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange.vue')),'AreaAcrossChange');
+const  AreaAcrossChange2= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/areaAcrossChange2.vue')),'AreaAcrossChange2');
 const  CompanyChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange.vue')),'CompanyChange');
+const  CompanyChange2= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/companyChange2.vue')),'CompanyChange2');
+
 const  NameChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/nameChange.vue')),'NameChange');
 const  YearsChange= r => require.ensure([], () => r(require('../page/apply/avaiableDev/changeReq/yearsChange.vue')),'YearsChange');
 
@@ -81,7 +87,7 @@ const Approvaled = r => require.ensure([], () => r(require('../page/approval/app
 const WaitApproval = r => require.ensure([], () => r(require('../page/approval/waitApproval.vue')), 'WaitApproval');
 const AppRegistDetail = r => require.ensure([], () => r(require('../page/approval/appRegistDetail.vue')), 'AppRegistDetail');
 
-const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
+// const Supervision = r => require.ensure([], () => r(require('../page/supervision/supervision.vue')), 'Supervision');
 const Message = r => require.ensure([], () => r(require('../page/message/message.vue')), 'Message');
 
 const UserPower = r => require.ensure([], () => r(require('../page/superAdmin/userPower.vue')), 'UserPower');
@@ -163,7 +169,9 @@ const router = new VueRouter({
 
         {path: "/areaInChange", component: AreaInChange},
         {path: "/areaAcrossChange", component: AreaAcrossChange},
+        {path: "/areaAcrossChange2", component: AreaAcrossChange2},
         {path: "/companyChange", component: CompanyChange},
+        {path: "/companyChange2", component: CompanyChange2},
         {path: "/nameChange", component: NameChange},
         {path: "/yearsChange", component: YearsChange},
 
@@ -173,7 +181,7 @@ const router = new VueRouter({
           meta: [ '未审查、发证申请']},
         {path: "/appRegistDetail", component: AppRegistDetail,
           meta: [ '特种设备使用登记明细']},
-        {path: "/supervision", component: Supervision},
+        // {path: "/supervision", component: Supervision},
         {path: "/message", component: Message,
         meta:["消息提醒"]},
         {path: "/userPower", component: UserPower,
@@ -192,6 +200,25 @@ const router = new VueRouter({
 
 })
 router.beforeEach((to, from, next) => {
+  if(localStorage.getItem('author_key')==1){
+    messageService.getReminder().then(res => {
+      // console.log(res.length)
+      localStorage.setItem('reminder', res.length);
+
+    }).catch(error => {
+      console.log(error);
+    })
+  }else{
+    messageService.getSystemMsg().then(res => {
+      localStorage.setItem('reminder', res.length);
+    }).catch(error => {
+      console.log(error);
+    })
+
+  }
+
+
+
   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
     //console.log( localStorage.getItem('loginStatus'))
     if (localStorage.getItem('loginStatus')) {// 判断是否登录

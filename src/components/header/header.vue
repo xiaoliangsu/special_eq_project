@@ -66,7 +66,9 @@
 <script>
   //  import axios from "axios"
     import {mapState, mapActions,mapGetters} from 'vuex'
-    export default {
+  import * as loginService from '../../services/login'
+
+  export default {
         data() {
             return {
               userName:'',
@@ -101,8 +103,8 @@
           ),
           initData(){
               this.userName= localStorage.getItem('userInfo');
-              console.log(this.getDeviceTypeName);
-            let messageCount = 3;
+             // console.log(this.getDeviceTypeName);
+            let messageCount = localStorage.getItem('reminder');
             this.messageCount = messageCount.toString();
           },
           showMessage () {

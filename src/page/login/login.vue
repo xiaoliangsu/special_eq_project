@@ -314,6 +314,12 @@
             //获取用户基本信息
             if(res.data.role==1){
               this.getUserData();
+              loginService.GetReminder().then(res => {
+              //  console.log(res)
+
+              }).catch(error => {
+                console.log(error)
+              })
             }else if(res.data.role==2||res.data.role==3){
               loginService.GetInfo().then(res => {
                 localStorage.setItem('name', res.data.name);

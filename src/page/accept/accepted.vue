@@ -181,7 +181,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
+            key: 'comCode',
           },
           {
             title: '申请类别',
@@ -323,12 +323,6 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.data5[i].state = res.data.content[i].status.states;
-                this.changeBackTime(res.data.content[i].status.applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate=this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.unAcceptTellDate);
-                this.data5[i].unAcceptTellDate=this.getBackTime;
 
               }
             } else {
@@ -341,16 +335,7 @@
           console.log(error);
         })
       },
-//      getInitOrders(page){
-//        let waitAccparams = {
-//          page: 0,
-//          size: 10,
-//        }
-//        if (this.applyState !== '') {
-//          waitAccparams.states = this.applyState;
-//        }
-//        this.getOrders(waitAccparams);
-//      },
+
       exactSearch(){
         if (this.eqCode) {
           this.time = ['', ''];
@@ -361,19 +346,14 @@
 //           this.applyState=parseInt(this.$route.query.apply_state);
 //       }
           // this.applyState = '';
-          let waitAccparams = 'eqCode=' + this.eqCode;
+//          let waitAccparams = 'eqCode=' + this.eqCode;
+          let waitAccparams={
+            "eqCode":this.eqCode
+          }
           acceptService.getDetailOrder(waitAccparams).then(res => {
               if (res.status === 200) {
-                this.data5 = [res.data];
-                this.data5[0].state = res.data.status.states;
-                this.data5[i].state = res.data.content[i].status.states;
-                this.changeBackTime(res.data.content[i].status.applyDate);
-                this.data5[i].applyDate=this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.acceptTellDate);
-                this.data5[i].acceptTellDate=this.getBackTime;
-                this.changeBackTime(res.data.content[i].status.unAcceptTellDate);
-                this.data5[i].unAcceptTellDate=this.getBackTime;
-                this.num=res.data.length;
+                this.data5 = res.data.content;
+                this.num=res.data.totalElements;
               }else if(res.status=== 401){
                 this.$Notice.error({
                   title: '这是通知标题',

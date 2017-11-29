@@ -179,17 +179,7 @@
           },
           {
             title: '单位内编号',
-            key: 'eqComCode',
-            width: 120,
-          },
-          {
-            title: '申请类别',
-            key: 'applyType',
-            width: 120,
-          },
-          {
-            title: '登记类别',
-            key: 'registKind',
+            key: 'comCode',
             width: 120,
           },
           {
@@ -367,7 +357,7 @@
 
       }
     },
-    created()
+    mounted()
     {
       this.initData();
     },
@@ -434,15 +424,6 @@
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
                 this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate = this.getBackTime;
-                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate = this.getBackTime;
-                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate = this.getBackTime;
-                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate = this.getBackTime;
-                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate = this.getBackTime;
               }
 
             } else {
@@ -470,18 +451,8 @@
               if (res.status === 200) {
                 this.data5 = [res.data];
                 // this.data5[0].state = res.data.status.states;
-                this.changeBackTime(res.data.content[i].noUseDate);
-                this.data5[i].noUseDate = this.getBackTime;
-                this.data5[i].noUseEndDate = this.changeBackTime(res.data.content[i].noUseEndDate);
-                this.data5[i].noUseEndDate = this.getBackTime;
-                this.data5[i].disableDate = this.changeBackTime(res.data.content[i].disableDate);
-                this.data5[i].disableDate = this.getBackTime;
-                this.data5[i].applyDate = this.changeBackTime(res.data.content[i].applyDate);
-                this.data5[i].applyDate = this.getBackTime;
-                this.data5[i].issueDate = this.changeBackTime(res.data.content[i].issueDate);
-                this.data5[i].issueDate = this.getBackTime;
 
-                this.num = res.data.length;
+                this.num = res.data.totalElements;
 
               } else if (res.status === 401) {
                 this.$Notice.error({

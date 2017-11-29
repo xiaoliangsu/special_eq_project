@@ -79,7 +79,9 @@
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'||this.accStatus!==''">
         <h2 class="detailHead">五、受理决定：</h2>
         <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
-        <span class="content" v-if="this.accStatus==false">{{this.accReason}}</span>
+        <span class="content" v-if="this.accStatus==false">受理驳回</br>原因：{{this.accReason}}</br>
+          详细：{{this.accDetailReason}}
+        </span>
       </div>
 
       <div class="approvalControl">
@@ -90,7 +92,8 @@
       <div class="acceptReason" v-if="orderState=='approvaled'||this.approvalStatus!==''">
         <h2 class="detailHead">五、登记发证决定：</h2>
         <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
-        <span class="content" v-if="this.approvalStatus==false">{{this.approvalReason}}</span>
+        <span class="content" v-if="this.approvalStatus==false">审批驳回</br>原因：{{this.approvalReason}}</br>
+          详细：{{this.approvalDetailReason}}</span>
       </div>
       <Button type="warning"  v-if="this.approvalStatus==true" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
 
@@ -122,6 +125,9 @@
   import {mapActions, mapState, mapGetters} from 'vuex'
   import detailPdf from '../../../components/detailpdf/detailPdf.vue'
   import * as appDetailService from '../../../services/appDetailService'
+ // import getWs from '../../../config/ws.js'
+  //import Stomp from 'stomp-client';
+
 
   //import * as avaiableService from '../../../services/avaiableDev.js'
   import * as registService from '../../../services/registService'
@@ -147,6 +153,8 @@
         pdfNum: 0,
         accStatus: '',
         accReason: '',
+        accDetailReason:'',
+        approvalDetailReason:'',
 
         approvalStatus: '',
         showPrintCard: false,
@@ -161,11 +169,11 @@
         current: 0,
         applyId: '',
         //受理驳回原因
-        unAcceptedReason: [],
+        unAcceptedReason: ["",""],
         //受理驳回详情
         unAcceptedContent: '',
         //受理驳回原因
-        unApprovalReason: [],
+        unApprovalReason: ["",""],
         //受理驳回详情
         unApprovalContent: '',
         //申请类别
@@ -177,6 +185,7 @@
         registKind: '',
         applyDate: '',
         acceptorAgencyName:'',
+        stompClient:null,
 
       }
     },
@@ -189,9 +198,21 @@
 //      // 如果路由有变化，会再次执行该方法
 //      '$route': 'initData'
 //    },
+
     activated() {
       const _this = this;
       _this.initData();
+      //建立长链接
+      if(this.orderState=='waitApproval'||this.orderState=='waitAccept'){
+        var socket = new SockJS('/admin/processing');
+        //    var from = document.getElementById('from').value;
+        this.stompClient = Stomp.over(socket);
+        this.stompClient.connect({}, function(frame) {
+          //  setConnected(true);
+          console.log(" long connected");
+        });
+      }
+
     },
     methods: {
       ...mapActions({}),
@@ -206,11 +227,13 @@
         this.current = 0;
         this.active = 0;
         this.approvalStatus = '';
-        this.unAcceptedReason = [];
+        this.unAcceptedReason = ["",""];
         this.unAcceptedContent = '';
-        this.unApprovalReason = [];
+        this.unApprovalReason = ["",""];
         this.unApprovalContent = '';
         this.showPrintCard = false;
+       // var socket = new SockJS('http://10.103.91.48:8080/processing');
+
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
 
@@ -238,7 +261,8 @@
             this.accReason = "已受理通过";
           } else if (res.data.status.states === "受理驳回") {
             this.accStatus = false;
-            this.accReason = res.data.status.acceptedComments || "受理驳回";
+            this.accReason = res.data.status.unAcceptedReason || "受理驳回";
+            this.accDetailReason=res.data.status.unAcceptedDetailReason||"无";
           }
           if (res.data.status.states === "已审批通过") {
             this.approvalStatus = true;
@@ -247,7 +271,8 @@
             this.accReason = "已受理通过";
           } else if (res.data.status.states === "审批驳回") {
             this.approvalStatus = false;
-            this.approvalReason = res.data.status.approveComments || "审批驳回";
+            this.approvalReason = res.data.status.unApprovalReason || "审批驳回";
+            this.approvalDetailReason=res.data.status.unApprovalDetailReason||"无";
             this.accStatus = true;
             this.accReason = "已受理通过";
           }
@@ -319,6 +344,13 @@
             }
             appDetailService.AccPass(params).then(res => {
               if (res.status === 200) {
+//                stompClient.onclose = function(){
+//                  showMessageOutput2("close");
+//                }
+                this.stompClient.disconnect(function() {
+                  console.log("长链接结束");
+                  }
+                );
                 this.$router.push('waitAccept');
               } else {
                 this.$Message.info(res.msg);
@@ -353,8 +385,13 @@
                   value: this.value,
                 },
                 on: {
-                  input: (val) => {
-                    this.unAcceptedReason.push('申请资料不齐');
+                  input: (event) => {
+                      console.log(event);
+                    if (event == true) {
+                      this.unAcceptedReason[0]="申请资料不齐";
+                    } else {
+                      this.unAcceptedReason[0] = "";
+                    }
                   }
                 },
               }, '申请资料不齐'),
@@ -363,8 +400,13 @@
                   value: this.value,
                 },
                 on: {
-                  input: (val) => {
-                    this.unAcceptedReason.push('不符合规定');
+                  input: (event) => {
+                    console.log(event);
+                    if (event == true) {
+                      this.unAcceptedReason[1]="不符合规定";
+                    } else {
+                      this.unAcceptedReason[1] = "";
+                    }
                   }
                 },
               }, '不符合规定'),
@@ -396,15 +438,21 @@
           },
           onOk: () => {
             this.$Message.info('点击了确定');
+
             let params = {
               applyId: this.applyId,
               pass: false,
-              comments: this.unAcceptedContent,
-              rejectReasons: this.unAcceptedReason[0] + this.unAcceptedReason[1],
+              detailReason: this.unAcceptedContent,
+              reason: this.unAcceptedReason[0] + '/'+this.unAcceptedReason[1],
             }
+
             appDetailService.AccRej(params).then(res => {
               console.log(res);
               if (res.status === 200) {
+                this.stompClient.disconnect(function() {
+                    console.log("长链接结束");
+                  }
+                );
                 this.$router.push('waitAccept');
               } else {
                 this.$Message.info(res.msg);
@@ -416,7 +464,7 @@
           },
           onCancel: () => {
             this.unAcceptedContent = '';
-            this.unAcceptedReason = [];
+            this.unAcceptedReason = ["",""];
             this.$Message.info('点击了取消');
           }
         })
@@ -433,6 +481,10 @@
             }
             appDetailService.ApprovalPass(params).then(res => {
               if (res.status === 200) {
+                this.stompClient.disconnect(function() {
+                    console.log("长链接结束");
+                  }
+                );
                 this.approvalStatus = true;
                 this.showPrintCard = true;
                 this.current++;
@@ -471,9 +523,16 @@
                   value: this.value,
                 },
                 on: {
-                  input: (val) => {
-                    this.unApprovalReason.push('不予登记');
+                  input: (event) => {
+                    if (event == true) {
+                      this.unApprovalReason[0]="不予登记";
+                    } else {
+                      this.unApprovalReason[0] = "";
+                    }
                   }
+//                  input: (val) => {
+//                    this.unApprovalReason.push('不予登记');
+//                  }
                 },
               }, '不予登记'),
               h('checkbox', {
@@ -481,9 +540,16 @@
                   value: this.value,
                 },
                 on: {
-                  input: (val) => {
-                    this.unApprovalReason.push('对申请资料有疑问，需要进行现场核查');
+                  input: (event) => {
+                    if (event == true) {
+                      this.unApprovalReason[1]="对申请资料有疑问，需要进行现场核查";
+                    } else {
+                      this.unApprovalReason[1] = "";
+                    }
                   }
+//                  input: (val) => {
+//                    this.unApprovalReason.push('对申请资料有疑问，需要进行现场核查');
+//                  }
                 },
               }, '对申请资料有疑问，需要进行现场核查'),
               h('h4', {
@@ -517,11 +583,15 @@
             let params = {
               applyId: this.applyId,
               pass: false,
-              comments: this.unApprovalContent,
-              rejectReasons: this.unApprovalReason[0] + this.unApprovalReason[1],
+              detailReason: this.unApprovalContent,
+              reason: this.unApprovalReason[0] + "/"+this.unApprovalReason[1],
             }
             appDetailService.ApprovalRej(params).then(res => {
               if (res.status === 200) {
+                this.stompClient.disconnect(function() {
+                    console.log("长链接结束");
+                  }
+                );
                 this.$router.push('waitApproval');
               } else {
                 this.$Message.info(res.msg);
@@ -532,7 +602,7 @@
           },
           onCancel: () => {
             this.unApprovalContent = '';
-            this.unApprovalReason = [];
+            this.unApprovalReason = ["",""];
             this.$Message.info('点击了取消');
           }
         })
