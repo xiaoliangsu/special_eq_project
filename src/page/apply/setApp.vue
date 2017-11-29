@@ -637,7 +637,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList9"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.fileList[7]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.fileList[7]"
                 :before-upload="handleBeforeUpload9"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -656,7 +656,7 @@
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList10"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'锅炉能效证明文件'+this.fileList[8]"
+              :action="'/file/upload?applyId='+this.applyId+'&fileName='+'锅炉能效证明文件'+this.fileList[8]"
               :before-upload="handleBeforeUpload10"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -1199,92 +1199,92 @@
             if(valueName.replace(/\d+/g,'')=="社会信用代码证明"){
               this.defaultPdfList2=[{
                 'name':'社会信用代码证明',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               }];
               this.fileList[0]++;
-              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
-              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+              this.uploadList[0].url = "/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/file/preview?fileId="+res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="个人身份证明"){
               this.defaultPdfList2=[{
                 'name':'个人身份证明',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               }]
               this.fileList[0]++;
-              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
-              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+              this.uploadList[0].url = "/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/file/preview?fileId="+res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="产品合格证"){
               this.defaultPdfList3.push({
                 'name':'产品合格证',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[1]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="产品数据表"){
               this.defaultPdfList4.push({
                 'name':'产品数据表',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[2]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="制造监督检验证书"){
               this.defaultPdfList5.push({
                 'name':'制造监督检验证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[3]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="安装监督检验证书"){
               this.defaultPdfList6.push({
                 'name':'安装监督检验证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[4]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="首次检验报告"){
               this.defaultPdfList7.push({
                 'name':'首次检验报告',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[5]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="机动车行驶证"){
               this.defaultPdfList8.push({
                 'name':'机动车行驶证',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[6]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="机动车登记证书"){
               this.defaultPdfList9.push({
                 'name':'机动车登记证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[7]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="锅炉能效证明文件"){
               this.defaultPdfList10.push({
                 'name':'锅炉能效证明文件',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[8]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
 
           }
