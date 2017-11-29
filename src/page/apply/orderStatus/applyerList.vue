@@ -405,6 +405,8 @@
         }
         if (applyState !== "") {
           params.states = [parseInt(applyState), parseInt(applyState)];
+        }else{
+          params.states =[1,2,3,4,5];
         }
         if (applyType !== "") {
           params.applyTypeId = parseInt(applyType);
@@ -422,7 +424,11 @@
       },
       initSize(value){
         let params = this.makeParams(value - 1, 10, this.time, this.applyState, this.applyType);
-        params.states = [1, 2,3,4,5];
+        if( this.applyState){
+          params.states=[ parseInt(this.applyState),parseInt(this.applyState)]
+        }else{
+          params.states = [1, 2,3,4,5];
+        }
         this.getOrders(params);
 
       },
