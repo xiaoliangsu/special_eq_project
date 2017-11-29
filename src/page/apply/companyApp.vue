@@ -644,6 +644,8 @@
         deviceTypeList: [],
         deviceClassTypeId: '',
         gasAddpdf:'',
+        acceptorAgencyId:'',
+        acceptorAgencyName:'',
 
         ruleForm: {
           registKind: '新设备首次启用',
@@ -1324,8 +1326,7 @@
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
-
-
+            this.acceptorAgencyName = this.acceptComList[this.acceptCom].label;
           }).catch(error => {
             console.log(error);
           })
@@ -1384,8 +1385,8 @@
       },
       //选择受理机关
       chosenAccept(value){
-        this.propertyComCode = value.value;
-        this.propertyComName = value.label;
+        this.acceptorAgencyId = value.value;
+        this.acceptorAgencyName = value.label;
       },
 
 
@@ -1437,8 +1438,8 @@
         }
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+        submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
         submitParam.formList[0].formType = 3;
 
         return submitParam;
@@ -1485,8 +1486,8 @@
             }
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+            submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
             submitParam.formList[0].formType = 3;
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
@@ -1580,8 +1581,8 @@
               }
               submitParam.formList = [];
               submitParam.formList.push(this.ruleForm);
-              submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-              submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+              submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+              submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
               submitParam.formList[0].formType = 3;
               submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
               setAppService.updateSetInfo(submitParam).then(res => {

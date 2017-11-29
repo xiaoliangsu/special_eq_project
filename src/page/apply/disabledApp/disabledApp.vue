@@ -407,6 +407,8 @@
         ],
         visible: false,
         applyId: '',
+        acceptorAgencyId:'',
+        acceptorAgencyName:'',
 
 
       }
@@ -458,8 +460,8 @@
         getMyFrame.contentWindow.print();
       },
       chosenAccept(value){
-        this.propertyComCode = value.value;
-        this.propertyComName = value.label;
+        this.acceptorAgencyId = value.value;
+        this.acceptorAgencyName = value.label;
       },
       setUserDetailData(){
         this.addressCode = localStorage.getItem('addressCode');
@@ -595,8 +597,8 @@
         let submitParam = {};
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
-        submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-        submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+        submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+        submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
         submitParam.formList[0].formType = 5;
 //        submitParam.deviceId=parseInt(this.deviceCode);
 //        submitParam.deviceType=parseInt(this.deviceType);
@@ -625,8 +627,8 @@
             let submitParam = {};
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
-            submitParam.formList[0].acceptorAgencyId = this.propertyComCode;
-            submitParam.formList[0].acceptorAgencyName = this.propertyComName;
+            submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
+            submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
             submitParam.formList[0].formType = 5;
 //            submitParam.deviceId=parseInt(this.deviceCode);
 //            submitParam.deviceType=parseInt(this.deviceType);
