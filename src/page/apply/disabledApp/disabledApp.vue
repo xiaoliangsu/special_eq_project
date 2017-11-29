@@ -213,7 +213,7 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'+this.fileList[8]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'+this.fileList[8]"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -229,7 +229,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'+this.fileList[1]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'+this.fileList[1]"
                 :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -565,7 +565,7 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
             this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
@@ -649,7 +649,7 @@
                 this.active++;
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+                this.pdfUrl = '/file/preview?fileId=' + this.fileId;
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -742,11 +742,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push(res.data.preview)
 
         }
 
@@ -759,7 +759,7 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }

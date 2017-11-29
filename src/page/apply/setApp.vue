@@ -484,7 +484,7 @@
                 :default-file-list="defaultPdfList2"
                 :before-upload="handleBeforeUpload2"
                 :show-upload-list="true"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -500,7 +500,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList2"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
                 :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -520,7 +520,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList3"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
                 :before-upload="handleBeforeUpload3"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -538,7 +538,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList4"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
                 :before-upload="handleBeforeUpload4"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -562,7 +562,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList5"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.fileList[3]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.fileList[3]"
                 :before-upload="handleBeforeUpload5"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -580,7 +580,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList6"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.fileList[4]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.fileList[4]"
                 :before-upload="handleBeforeUpload6"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -600,7 +600,7 @@
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList7"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.fileList[5]"
+              :action="'/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.fileList[5]"
               :before-upload="handleBeforeUpload7"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -619,7 +619,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList8"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.fileList[6]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.fileList[6]"
                 :before-upload="handleBeforeUpload8"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -1402,7 +1402,7 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            this.pdfUrl = '/file/preview?fileId=' + this.fileId;
 //            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
 
             this.$Message.info('您已提交信息，请预览结果');
@@ -1489,7 +1489,7 @@
                 this.current++;
                 this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
                 this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
               }
@@ -1633,17 +1633,17 @@
 
       handleSuccess (res, file) {
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url =  res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push( res.data.preview)
         }
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
           if(res.response){
-            if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+            if (this.uploadList[i].url == res.response.data.thumbnail) {
               this.uploadList.splice(i, 1);
             }
           }
