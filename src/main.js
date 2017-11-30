@@ -13,7 +13,7 @@ import router from "./router/router.js"
 import store from './store/'
 import base from './config/baseFunc.js'
 import echarts from 'echarts'
-
+// import SockJS from './src/config/sockjs.js'
 
 //Vue.use(ElementUI);
 Vue.use(iView);
@@ -22,6 +22,8 @@ Vue.use(base);
 
 
 require('./static/css/reset.css');
+require('../src/config/sockjs.js');
+require('../src/config/stomp.js');
 // const router = new VueRouter({
 //     routes
 // });
@@ -31,6 +33,7 @@ new Vue({
   router,
   echarts,
   store,
+ // SockJs,
   el: '#app',
   render: h => h(App)
 })
