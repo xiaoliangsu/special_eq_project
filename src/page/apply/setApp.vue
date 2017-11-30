@@ -1590,6 +1590,13 @@
           });
           return
         }
+        if (this.ruleForm.testDate >this.ruleForm.nextTestDate ) {
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '下次检验日期需在检验日期之后'
+          });
+          return
+        }
         this.$refs["ruleForm"].validate((valid) => {
           if (valid) {
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
