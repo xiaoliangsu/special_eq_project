@@ -221,7 +221,7 @@
       //建立长链接
       if(this.orderState=='waitApproval'||this.orderState=='waitAccept'){
        // var socket = new SockJS('/admin/processing');
-          var socket = new SockJS('http://10.103.91.48:8080/processing');
+          var socket = new SockJS('/processing');
         //    var from = document.getElementById('from').value;
         this.stompClient = Stomp.over(socket);
         this.stompClient.connect({}, function(frame) {
