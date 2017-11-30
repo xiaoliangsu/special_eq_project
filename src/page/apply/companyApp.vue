@@ -1865,6 +1865,13 @@
       },
       savePipeInline (index, success, fail) {
         console.log(this.editPipeData[index]);
+//        if (this.editPipeData[index].testDate >this.editPipeData[index].nextTestDate ) {
+//          this.$Notice.error({
+//            title: '这是通知标题',
+//            desc: '下次检验日期需在检验日期之后'
+//          });
+//          return
+//        }
         let params = {};
         params=this.editPipeData[index];
         setAppService.changePipe(params).then(res => {
