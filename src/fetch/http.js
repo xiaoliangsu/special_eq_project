@@ -44,6 +44,8 @@ axios.interceptors.response.use((res) => {
     localStorage.removeItem('mobilePhone');
     localStorage.removeItem('propertyComName');
     localStorage.removeItem('propertyComCode');
+    this.$router.push('login');
+
   }
   if (res.status !== 200) {
     return Promise.reject(res);

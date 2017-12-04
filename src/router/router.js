@@ -209,11 +209,14 @@ router.beforeEach((to, from, next) => {
       console.log(error);
     })
   }else{
-    messageService.getSystemMsg().then(res => {
-      localStorage.setItem('reminder', res.length);
-    }).catch(error => {
-      console.log(error);
-    })
+    if(localStorage.getItem('loginStatus')){
+      messageService.getSystemMsg().then(res => {
+        localStorage.setItem('reminder', res.length);
+      }).catch(error => {
+        console.log(error);
+      })
+    }
+
 
   }
 

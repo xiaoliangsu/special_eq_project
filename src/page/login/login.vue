@@ -272,6 +272,10 @@
 //          { setUserInfo: 'setUserInfo' }
           ['setUserInfo','getUserData']
           ),
+      enterPress(){
+         this._login();
+
+      },
       _login() {
         if (!this.loginForm.username || !this.loginForm.password) {
          // if (!this.loginForm.username || !this.loginForm.password ||!this.loginForm.verif) {
