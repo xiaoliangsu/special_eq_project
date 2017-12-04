@@ -67,6 +67,7 @@
   //  import axios from "axios"
     import {mapState, mapActions,mapGetters} from 'vuex'
   import * as loginService from '../../services/login'
+  import * as messageService from '../../services/message';
 
   export default {
         data() {
@@ -105,7 +106,22 @@
               this.userName= localStorage.getItem('userInfo');
              // console.log(this.getDeviceTypeName);
             let messageCount = localStorage.getItem('reminder');
-            this.messageCount = messageCount.toString();
+            if(messageCount==null){
+              messageService.getReminder().then(res => {
+                // console.log(res.length)
+                localStorage.setItem('reminder', res.length);
+                messageCount = localStorage.getItem('reminder');
+                this.messageCount = messageCount.toString();
+
+              }).catch(error => {
+                console.log(error);
+              })
+
+            }else{
+              this.messageCount = messageCount.toString();
+
+            }
+
           },
           showMessage () {
 //            util.openNewPage(this, 'message_index');
