@@ -107,6 +107,7 @@
     },
     mounted(){
       this.showLogin = true;
+      this.setSignOut();
       var canvas = document.querySelector('canvas'),
         ctx = canvas.getContext('2d')
       canvas.width = window.innerWidth;
@@ -260,6 +261,7 @@
        this.getAdminData()
        }*/
     },
+
     computed: {
       ...mapState(['userInfo']),
       ...mapGetters([
@@ -270,7 +272,7 @@
     methods: {
       ...mapActions(
 //          { setUserInfo: 'setUserInfo' }
-          ['setUserInfo','getUserData']
+          ['setUserInfo','getUserData','setSignOut']
           ),
       enterPress(){
          this._login();

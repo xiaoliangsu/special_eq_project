@@ -44,10 +44,25 @@ const actions = {
   setSignOut({commit}) {
     loginService.Logout().then(res => {
       console.log(res);
-      localStorage.removeItem('loginStatus')
-      localStorage.removeItem('userInfo')
     //  localStorage.removeItem('userData')
-      localStorage.removeItem('author_key')
+
+
+      localStorage.removeItem('loginStatus');
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('author_key');
+      localStorage.removeItem('useComName');
+      localStorage.removeItem('useComAddr');
+      localStorage.removeItem('useComCode');
+      localStorage.removeItem('zipcode');
+      localStorage.removeItem('staticPhone');
+      localStorage.removeItem('mobilePhone');
+      localStorage.removeItem('propertyComName');
+      localStorage.removeItem('propertyComCode');
+      localStorage.removeItem('name');
+      localStorage.removeItem('verifyId');
+      localStorage.removeItem('safeAdministrator');
+      localStorage.removeItem('approveAgencyId');
+      localStorage.removeItem('reminder');
 
       commit(SET_LOGIN_STATUS, false)
     //  commit(SET_USER_INFO, res.userData)

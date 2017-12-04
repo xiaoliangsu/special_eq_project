@@ -116,22 +116,22 @@
              // util.openNewPage(this, 'ownspace_index');
               this.$router.push("user");
             } else if (name === 'loginout') {
-              localStorage.removeItem('loginStatus');
-              localStorage.removeItem('userInfo');
-              localStorage.removeItem('author_key');
-              localStorage.removeItem('useComName');
-              localStorage.removeItem('useComAddr');
-              localStorage.removeItem('useComCode');
-              localStorage.removeItem('zipcode');
-              localStorage.removeItem('staticPhone');
-              localStorage.removeItem('mobilePhone');
-              localStorage.removeItem('propertyComName');
-              localStorage.removeItem('propertyComCode');
-              localStorage.removeItem('name');
-              localStorage.removeItem('verifyId');
-              localStorage.removeItem('safeAdministrator');
-
-              localStorage.removeItem('approveAgencyId');
+//              localStorage.removeItem('loginStatus');
+//              localStorage.removeItem('userInfo');
+//              localStorage.removeItem('author_key');
+//              localStorage.removeItem('useComName');
+//              localStorage.removeItem('useComAddr');
+//              localStorage.removeItem('useComCode');
+//              localStorage.removeItem('zipcode');
+//              localStorage.removeItem('staticPhone');
+//              localStorage.removeItem('mobilePhone');
+//              localStorage.removeItem('propertyComName');
+//              localStorage.removeItem('propertyComCode');
+//              localStorage.removeItem('name');
+//              localStorage.removeItem('verifyId');
+//              localStorage.removeItem('safeAdministrator');
+//
+//              localStorage.removeItem('approveAgencyId');
 
               this.setSignOut();
               this.$router.push('login');
