@@ -217,6 +217,12 @@
             width:125,
 
           },
+          {
+            title: '审批通过告知日期',
+            key: 'acceptTellDate',
+            width:125,
+
+          },
 
           {
             title: '操作',
@@ -235,7 +241,7 @@
                       this.appDetail(params.index)
                     }
                   }
-                }, '审批'),
+                }, '发证'),
 
               ]);
 
