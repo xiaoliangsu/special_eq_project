@@ -38,4 +38,9 @@ export function ApprovalRej(param) {
 export function getAppDetail(params) {
   return fetch('/apply/get?'+params, params,'get')
 }
+//打印登记证
+export function sendVerified(params) {
+  return fetch('/admin/apply/sendRegistration?'+params, params,'get')
+}
+
 

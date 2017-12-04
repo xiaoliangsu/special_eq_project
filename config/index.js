@@ -30,7 +30,7 @@ module.exports = {
     proxyTable: {
       // // 去掉这个注释
       //  '/admin': {
-      //    target: 'http://10.103.91.63:8080',
+      //    target: 'http://10.103.91.63',
       //    changeOrigin: true,
       //    pathRewrite: {
       //      '^/admin': ''

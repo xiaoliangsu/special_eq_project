@@ -9,13 +9,13 @@
     </div>
     <div class="appDetail_topbar">
       <h1 style="margin:10px;" v-if="this.showPrintCard==false">申请详情：</h1>
-      <div class="step" style="width:94%; margin-top:20px;" v-if="this.showPrintCard==true">
-        <Steps :current="current">
-          <Step title="步骤1" content="检查申请信息"></Step>
-          <Step title="步骤2" content="签发使用登记证"></Step>
-          <Step title="步骤3" content="完成"></Step>
-        </Steps>
-      </div>
+      <!--<div class="step" style="width:94%; margin-top:20px;" v-if="this.showPrintCard==true">-->
+        <!--<Steps :current="current">-->
+          <!--<Step title="步骤1" content="检查申请信息"></Step>-->
+          <!--<Step title="步骤2" content="签发使用登记证"></Step>-->
+          <!--<Step title="步骤3" content="完成"></Step>-->
+        <!--</Steps>-->
+      <!--</div>-->
     </div>
     <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.showPrintCard==false">
       <div class="comp_name">
@@ -95,29 +95,29 @@
         <span class="content" v-if="this.approvalStatus==false">审批驳回</br>原因：{{this.approvalReason}}</br>
           详细：{{this.approvalDetailReason}}</span>
       </div>
-      <Button type="warning"  v-if="this.approvalStatus==true" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
+      <Button type="warning"  v-if="this.approvalStatus==true" @click="printVerified()">打印使用登记证</Button>
 
 
 
     </div>
-    <div class="appro_form" v-if="this.showPrintCard==true" style="position:absolute;top:85px;">
-      <div class="print_page">
-        <h2>签发使用登记证</h2>
+    <!--<div class="appro_form" v-if="this.showPrintCard==true" style="position:absolute;top:85px;">-->
+      <!--<div class="print_page">-->
+        <!--<h2>签发使用登记证</h2>-->
 
-        <!--<iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>-->
+        <!--&lt;!&ndash;<iframe id="iFramePdf" v-bind:src="this.registPdfUrl" style="width:800px;height:1000px;"></iframe>&ndash;&gt;-->
 
-        <!--</li>-->
-        <!--</ul>-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
 
-        </br>
-        <Button type="warning" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
-        <Button @click="instance('success')" v-if="this.active==0">打印完成</Button>
-
-
-      </div>
+        <!--</br>-->
+        <!--<Button type="warning" @click="printTrigger('iFramePdf');">打印使用登记证</Button>-->
+        <!--<Button @click="instance('success')" v-if="this.active==0">打印完成</Button>-->
 
 
-    </div>
+      <!--</div>-->
+
+
+    <!--</div>-->
   </div>
 </template>
 <script>
@@ -506,7 +506,7 @@
                 );
                 this.approvalStatus = true;
                 this.showPrintCard = true;
-                this.current++;
+                this.$router.push('waitApproval');
 
                // this.$router.push('waitApproval');
               } else {
@@ -625,6 +625,20 @@
             this.$Message.info('点击了取消');
           }
         })
+      },
+      printVerified(){
+        let params = 'applyId=' + this.$route.query.applyId;
+        appDetailService.sendVerified(params).then(res => {
+          if (res.status === 200) {
+            this.$Message.info('发证成功');
+            this.$router.push('waitVerified');
+          } else {
+            this.$Message.info(res.msg);
+          }
+        }).catch(error => {
+          console.log(error);
+        })
+
       },
 
       instance (type) {

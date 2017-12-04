@@ -12,11 +12,11 @@
           <Row>
 
             <FormItem prop="username" label="用户名">
-              <Poptip trigger="focus" placement="right">
-                <div slot="content" style="white-space: normal;">
+              <Poptip trigger="focus" placement="right" >
+                <div slot="content" style="white-space: normal;" >
                   <p>登录账号，至少5个字符，要求大小写字母和数字</p>
                 </div>
-                <Input v-model="registInfo.username" placeholder="用户名"></Input>
+                <Input v-model="registInfo.username" placeholder="用户名" class="ivu-input-special"></Input>
               </Poptip>
 
             </FormItem>
@@ -32,7 +32,7 @@
                 <div slot="content" style="white-space: normal;">
                   <p>登录密码，至少5个字符，要求大小写字母和数字</p>
                 </div>
-                <Input type="password" v-model="registInfo.password" placeholder="密码"></Input>
+                <Input type="password" v-model="registInfo.password" placeholder="密码"  class="ivu-input-special"></Input>
               </Poptip>
 
             </FormItem>
@@ -46,7 +46,7 @@
                 <div slot="content" style="white-space: normal;">
                   <p>确认两次密码填写相等</p>
                 </div>
-                <Input type="password" v-model="registInfo.password2" placeholder="确认密码"></Input>
+                <Input type="password" v-model="registInfo.password2" placeholder="确认密码"  class="ivu-input-special"></Input>
               </Poptip>
 
             </FormItem>
@@ -57,7 +57,13 @@
           <h2>基本信息</h2></br>
           <Row>
             <FormItem prop="useComName" label="使用单位名称" v-if="this.companyVisiable">
-              <Input v-model="registInfo.useComName" placeholder="应当与工商营业执照或者其他法人证书的名称完全一致"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>应当与工商营业执照或者其他法人证书的名称完全一致</p>
+                </div>
+                <Input v-model="registInfo.useComName"  class="ivu-input-special"></Input>
+
+              </Poptip>
             </FormItem>
           </Row>
 
@@ -124,52 +130,106 @@
 
           <Row>
             <FormItem prop="useComCode" label="使用单位统一社会信用代码" v-if="this.companyVisiable">
-              <Input v-model="registInfo.useComCode" placeholder="应当与工商营业执照或者其他法人证书上的一致"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>应当与工商营业执照或者其他法人证书上的一致</p>
+                </div>
+                <Input v-model="registInfo.useComCode" class="ivu-input-special" ></Input>
+              </Poptip>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="safeAdministrator" label="使用单位安全管理员" v-if="this.companyVisiable">
-              <Input v-model="registInfo.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请填写负责该设备专职持证的或者兼职安全管理员姓名</p>
+                </div>
+                <Input v-model="registInfo.safeAdministrator"  class="ivu-input-special"></Input>
+              </Poptip>
             </FormItem>
           </Row>
           <Row>
             <FormItem prop="name" label="个人姓名" v-if="this.personVisiable">
-              <Input v-model="registInfo.name" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请填写负责该设备专职持证的或者兼职安全管理员姓名</p>
+                </div>
+                <Input v-model="registInfo.name"  class="ivu-input-special"></Input>
+              </Poptip>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="verifyId" label="身份证号">
-              <Input v-model="registInfo.verifyId" placeholder="请填入安全管理员的公民身份证号码"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请填入安全管理员的公民身份证号码</p>
+                </div>
+                <Input v-model="registInfo.verifyId" class="ivu-input-special" ></Input>
+
+              </Poptip>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="email" label="电子信箱">
-              <Input v-model="registInfo.email" placeholder="请填入安全管理员的电子邮箱"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请填入安全管理员的电子邮箱</p>
+                </div>
+                <Input v-model="registInfo.email" class="ivu-input-special" ></Input>
+              </Poptip>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="mobilePhone" label="移动电话号码">
-              <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请填入安全管理员的移动电话号码</p>
+                </div>
+                <Input v-model="registInfo.mobilePhone"  class="ivu-input-special"></Input>
+              </Poptip>
             </FormItem>
           </Row>
           <Row>
             <FormItem label="邮政编码" prop="zipcode">
-              <Input v-model="registInfo.zipcode" placeholder="请输入邮政编码"></Input>
+              <Poptip trigger="focus" placement="right">
+                <div slot="content" style="white-space: normal;">
+                  <p>请输入邮政编码</p>
+                </div>
+                <Input v-model="registInfo.zipcode"  class="ivu-input-special"></Input>
+
+              </Poptip>
             </FormItem>
           </Row>
 
           <FormItem label="单位固定电话" prop="staticPhone" v-if="this.companyVisiable">
-            <Input v-model="registInfo.staticPhone" placeholder="请输入单位固定电话"></Input>
+            <Poptip trigger="focus" placement="right">
+              <div slot="content" style="white-space: normal;">
+                <p>请输入单位固定电话</p>
+              </div>
+              <Input v-model="registInfo.staticPhone"  class="ivu-input-special"></Input>
+
+            </Poptip>
           </FormItem>
           <FormItem label="产权单位名称" prop="propertyComName" v-if="this.companyVisiable">
-            <Input v-model="registInfo.propertyComName" placeholder="请输入产权单位名称"></Input>
+            <Poptip trigger="focus" placement="right">
+              <div slot="content" style="white-space: normal;">
+                <p>请输入产权单位名称</p>
+              </div>
+              <Input v-model="registInfo.propertyComName"  class="ivu-input-special"></Input>
+            </Poptip>
           </FormItem>
           <FormItem label="产权单位统一社会信用代码" prop="propertyComCode" v-if="this.companyVisiable">
-            <Input v-model="registInfo.propertyComCode" placeholder="请输入产权单位统一社会信用代码"></Input>
+            <Poptip trigger="focus" placement="right">
+              <div slot="content" style="white-space: normal;">
+                <p>请输入产权单位统一社会信用代码</p>
+              </div>
+              <Input v-model="registInfo.propertyComCode"  class="ivu-input-special"></Input>
+
+            </Poptip>
           </FormItem>
           <Button type="primary" @click="regist" long style="font-size:16px;font-weight:bold;">立即注册</Button>
           <!--<Button type="ghost" @click="handleReset('registInfo')" style="margin-left: 8px">Reset</Button>-->
@@ -721,6 +781,10 @@
     padding: 10px 12px 10px 0;
     box-sizing: border-box;
   }
+  .ivu-input-special{
+    width:300px !important;
+  }
+
 
 
 </style>

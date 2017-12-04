@@ -1,5 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
+import router from "../router/router.js"
+
 //两处axios一处，返回状态一处
 import * as _ from '../util/tool'
 
@@ -33,6 +35,8 @@ axios.interceptors.response.use((res) => {
   //去掉这个注释
 
   if (res.data.status == 401) {
+
+
     localStorage.removeItem('loginStatus');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('author_key')
@@ -44,6 +48,13 @@ axios.interceptors.response.use((res) => {
     localStorage.removeItem('mobilePhone');
     localStorage.removeItem('propertyComName');
     localStorage.removeItem('propertyComCode');
+    router.replace({
+      path: 'login',
+     // query: {redirect: router.currentRoute.fullPath}
+    })
+    _.toast("尚未登陆，请重新登陆", 'fail');
+
+
   }
   if (res.status !== 200) {
     return Promise.reject(res);
