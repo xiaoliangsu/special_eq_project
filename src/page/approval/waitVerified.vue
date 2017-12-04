@@ -321,7 +321,7 @@
       //获取申请列表信息
 
       getOrders(waitAccparams){
-        approvalService.GetUnApprovaledOrders(waitAccparams).then(res => {
+        approvalService.GetWaitVerifiedOrders(waitAccparams).then(res => {
             if(res.status===200){
               //this.data5.device = res.data.content[0].id;
               this.data5 = res.data.content;
@@ -426,7 +426,7 @@
               path: 'appDetail',
               query: {
                 applyId: this.data5[value].id,
-                orderState: 'waitApproval'
+                orderState: 'waitVerified'
               }
             });
           }

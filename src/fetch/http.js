@@ -52,6 +52,7 @@ axios.interceptors.response.use((res) => {
       path: 'login',
      // query: {redirect: router.currentRoute.fullPath}
     })
+    _.toast("尚未登陆，请重新登陆", 'fail');
 
 
   }

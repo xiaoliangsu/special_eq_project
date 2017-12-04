@@ -95,7 +95,7 @@
         <span class="content" v-if="this.approvalStatus==false">审批驳回</br>原因：{{this.approvalReason}}</br>
           详细：{{this.approvalDetailReason}}</span>
       </div>
-      <Button type="warning"  v-if="this.approvalStatus==true" @click="printTrigger('iFramePdf');">打印使用登记证</Button>
+      <Button type="warning"  v-if="this.approvalStatus==true" @click="printVerified()">打印使用登记证</Button>
 
 
 
@@ -624,6 +624,20 @@
             this.$Message.info('点击了取消');
           }
         })
+      },
+      printVerified(){
+        let params = 'applyId=' + this.$route.query.applyId;
+        appDetailService.sendVerified(params).then(res => {
+          if (res.status === 200) {
+            this.$Message.info('发证成功');
+            this.$router.push('waitVerified');
+          } else {
+            this.$Message.info(res.msg);
+          }
+        }).catch(error => {
+          console.log(error);
+        })
+
       },
 
       instance (type) {

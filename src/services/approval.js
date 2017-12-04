@@ -10,6 +10,11 @@ export function GetApprovedOrders(param) {
   return fetch('/admin/approvedApplies/get',param,'post')
 }
 
+//获取未发证
+export function GetWaitVerifiedOrders(param) {
+  return fetch('/admin/approvedApplies/get',param,'post')
+}
+
 
 // export function getDetailOrder(params) {
 //   return fetch('/apply/get?'+params, params,'get')
