@@ -275,15 +275,15 @@
 //    watch: {
 //      '$route': 'initData'
 //    },
-//    watch: {
-//      // 如果路由有变化，会再次执行该方法
-//      '$route.query':function(){
-//       // console.log(this.$route.path);
-//        if(this.$route.path=='/applyerList'){
-//          this.initData();
-//        }
-//      }
-//    },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route.query':function(){
+       // console.log(this.$route.path);
+        if(this.$route.path=='/waitAccept'){
+          this.$router.go(0);
+        }
+      }
+    },
     activated() {
       const _this = this;
       _this.initData();
@@ -317,9 +317,9 @@
               this.data5 = res.data.content;
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
-              for (var i = 0; i < res.data.content.length; i++) {
-                this.data5[i].state = res.data.content[i].status.states;
-              }
+//              for (var i = 0; i < res.data.content.length; i++) {
+//                this.data5[i].state = res.data.content[i].status.states;
+//              }
             } else {
               this.data5 = [];
             }

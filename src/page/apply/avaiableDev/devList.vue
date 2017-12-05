@@ -215,7 +215,7 @@
           },
           {
             title: '发证日期',
-            key: 'issueDate',
+            key: 'sendRegistDate',
             width: 125,
           },
 

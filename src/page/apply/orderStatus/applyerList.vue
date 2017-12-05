@@ -176,7 +176,7 @@
 
           {
             title: '登记发证日期',
-            key: 'approvalDate',
+            key: 'sendRegistDate',
             width: 125,
           },
           {

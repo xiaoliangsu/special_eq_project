@@ -219,7 +219,7 @@
           },
           {
             title: '审批通过告知日期',
-            key: 'acceptTellDate',
+            key: 'approvalDate',
             width:125,
 
           },
@@ -327,11 +327,11 @@
               this.data5 = res.data.content;
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
-              for (var i = 0; i < res.data.content.length; i++) {
-                this.data5[i].state = res.data.content[i].status.states;
+//              for (var i = 0; i < res.data.content.length; i++) {
+//                this.data5[i].state = res.data.content[i].status.states;
+////
 //
-
-              }
+//              }
             }else{
               this.data5=[];
             }
