@@ -78,9 +78,11 @@
 
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'||this.accStatus!==''">
         <h2 class="detailHead">五、受理决定：</h2>
-        <span class="content" v-if="this.accStatus==true">{{this.accReason}}</span>
+        <span class="content" v-if="this.accStatus==true">{{this.accReason}}
+          </br>时间：{{this.acceptTellDate}}</span>
         <span class="content" v-if="this.accStatus==false">受理驳回</br>原因：{{this.accReason}}</br>
           详细：{{this.accDetailReason}}
+          </br>时间：{{this.unAcceptTellDate}}
         </span>
       </div>
 
@@ -90,12 +92,21 @@
         <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false" type="success">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'||this.approvalStatus!==''">
-        <h2 class="detailHead">五、登记发证决定：</h2>
-        <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}</span>
+        <h2 class="detailHead">六、审批决定：</h2>
+        <span class="content" v-if="this.approvalStatus==true">{{this.approvalReason}}
+          </br>时间：{{this.approvalDate}}</span>
         <span class="content" v-if="this.approvalStatus==false">审批驳回</br>原因：{{this.approvalReason}}</br>
-          详细：{{this.approvalDetailReason}}</span>
+          详细：{{this.approvalDetailReason}}
+          </br>时间：{{this.unApprovalDate}}
+        </span>
+        <h2 class="detailHead">七、发证状态：</h2>
+        <span class="content" v-if="this.approvalStatus==true && this.sendRegist==false">使用登记证尚未领取</span>
+        <span class="content" v-if="this.approvalStatus==true && this.sendRegist==true">使用登记证已领取
+          </br>领取时间：{{this.sendRegistDate}}</span>
+
+
       </div>
-      <Button type="warning"  v-if="this.approvalStatus==true" @click="printVerified()">打印使用登记证</Button>
+      <Button type="warning"  v-if="this.approvalStatus==true && this.author_key!=='1'" @click="printVerified()">打印使用登记证</Button>
 
 
 
@@ -187,6 +198,13 @@
         acceptorAgencyName:'',
         stompClient:null,
         target:0,
+        author_key:'',
+        sendRegist:false,
+        sendRegistDate:null,
+        acceptTellDate:null,
+        unAcceptTellDate:null,
+        approvalDate:null,
+        unApprovalDate:null,
 
       }
     },
@@ -239,6 +257,13 @@
         getMyFrame.focus();
         getMyFrame.contentWindow.print();
       },
+      changeTime(time){
+        let newDate = new Date(time);
+        let Y = newDate.getFullYear() + '-';
+        let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+        let D = newDate.getDate() + ' ';
+       return   Y + M + D;
+      },
 
       initData(){
         this.transparam();
@@ -250,7 +275,9 @@
         this.unApprovalReason = ["",""];
         this.unApprovalContent = '';
         this.showPrintCard = false;
-       // var socket = new SockJS('http://10.103.91.48:8080/processing');
+        this.author_key = localStorage.getItem('author_key');
+
+        // var socket = new SockJS('http://10.103.91.48:8080/processing');
 
         let params = 'applyId=' + this.$route.query.applyId;
         appDetailService.getAppDetail(params).then(res => {
@@ -268,6 +295,13 @@
             this.fileId = res.data.forms["特种设备停用注销报废登记表"];
 
           }
+          this.sendRegist=res.data.status.sendRegist;
+          this.sendRegistDate=this.changeTime(res.data.status.sendRegistDate);
+          this.acceptTellDate=this.changeTime(res.data.status.acceptTellDate);
+          this.unAcceptTellDate=this.changeTime(res.data.status.unAcceptTellDate);
+          this.approvalDate=this.changeTime(res.data.status.approvalDate);
+          this.unApprovalDate=this.changeTime(res.data.status.unApprovalDate);
+
 
 //          this.registPdfUrl = '/admin/file/preview?fileId=' + this.fileId;
           this.registPdfUrl=res.data.forms;

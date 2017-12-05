@@ -95,8 +95,8 @@
 
           <Menu-item name="waitApproval">未审批申请</Menu-item>
 
-          <Menu-item name="waitVerified">未发证申请</Menu-item>
-          <Menu-item name="approvaled">已审批、发证申请</Menu-item>
+          <Menu-item name="waitVerified">已审批、未发证申请</Menu-item>
+          <!--<Menu-item name="approvaled">已审批、已发证申请</Menu-item>-->
           <Menu-item name="appRegistDetail">特种设备使用登记明细表</Menu-item>
         </Menu-group>
 

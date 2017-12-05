@@ -5,14 +5,14 @@ export function GetUnApprovaledOrders(param) {
   return fetch('/admin/unapprovedApplies/get',param,'post')
 }
 
-//获取已经受理订单
+//获取审批列表
 export function GetApprovedOrders(param) {
   return fetch('/admin/approvedApplies/get',param,'post')
 }
 
 //获取未发证
 export function GetWaitVerifiedOrders(param) {
-  return fetch('/admin/approvedApplies/get',param,'post')
+  return fetch('/admin/unRegistedApplies/get',param,'post')
 }
 
 

@@ -344,7 +344,6 @@
       },
       getOrders(waitAccparams){
         approvalService.GetApprovedOrders(waitAccparams).then(res => {
-            console.log("getorders");
             //this.data5.device = res.data.content[0].id;
             if (res.status === 200) {
               this.data5 = res.data.content;
