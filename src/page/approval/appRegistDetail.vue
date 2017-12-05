@@ -428,9 +428,13 @@
 
       appDetail(value){
         this.$router.push({
-          path: 'deviceDetail',
+          path: 'appDetail',
+//          query: {
+//            deviceId: this.data5[value].id,
+//          }
           query: {
-            deviceCode: this.data5[value].id,
+            applyId: this.data5[value].id,
+           // orderState: 'waitVerified'
           }
         });
 

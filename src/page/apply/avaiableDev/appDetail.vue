@@ -2,22 +2,9 @@
   <!--从后端去数据，然后填到相应的位置，还需要改一下页面的格式-->
   <div class="appDetail">
     <div class="appDetail_topbar">
-      <!--<div class="bread">-->
-      <!--<v-bread-crumb :bread_choose="bread_choose"></v-bread-crumb>-->
-      <!--</div>-->
-
-    </div>
-    <div class="appDetail_topbar">
       <h1 style="margin:10px;" v-if="this.showPrintCard==false">申请详情：</h1>
-      <!--<div class="step" style="width:94%; margin-top:20px;" v-if="this.showPrintCard==true">-->
-        <!--<Steps :current="current">-->
-          <!--<Step title="步骤1" content="检查申请信息"></Step>-->
-          <!--<Step title="步骤2" content="签发使用登记证"></Step>-->
-          <!--<Step title="步骤3" content="完成"></Step>-->
-        <!--</Steps>-->
-      <!--</div>-->
     </div>
-    <div class="setApp_content" style="position:absolute;top:85px;" v-if="this.showPrintCard==false">
+    <div class="setApp_content demo-spin-article" style="position:absolute;top:85px;" v-if="this.showPrintCard==false">
       <div class="comp_name">
         <h2 class="detailHeadTop">一、基本信息：</h2>
         <!--<span class="content"> {{this.dev_id}}</span>-->
@@ -72,8 +59,8 @@
         <v-detailPdf :pdfUrl="pdfUrl" :pdfNum="pdfNum"></v-detailPdf>
       </div>
       <div class="accpeterControl">
-        <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'">受理通过</Button>
-        <Button @click="accRej" v-if="orderState=='waitAccept'" type="success" >受理驳回</Button>
+        <Button type="primary" @click="accPass" v-if="orderState=='waitAccept'" :disabled="ifConnected">受理通过</Button>
+        <Button @click="accRej" v-if="orderState=='waitAccept'" type="success" :disabled="ifConnected">受理驳回</Button>
       </div>
 
       <div class="acceptReason" v-if="orderState=='waitApproval'||orderState=='approvaled'||orderState=='accepted'||this.accStatus!==''">
@@ -87,9 +74,9 @@
       </div>
 
       <div class="approvalControl">
-        <Button type="primary" @click="approvalPass" v-if="orderState=='waitApproval'&& approvalStatus==false">审批通过
+        <Button type="primary" @click="approvalPass" :disabled="ifConnected"  v-if="orderState=='waitApproval'&& approvalStatus==false">审批通过
         </Button>
-        <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false" type="success">审批驳回</Button>
+        <Button @click="approvalRej" v-if="orderState=='waitApproval'&& approvalStatus==false"  :disabled="ifConnected" type="success">审批驳回</Button>
       </div>
       <div class="acceptReason" v-if="orderState=='approvaled'||this.approvalStatus!==''">
         <h2 class="detailHead">六、审批决定：</h2>
@@ -99,7 +86,7 @@
           详细：{{this.approvalDetailReason}}
           </br>时间：{{this.unApprovalDate}}
         </span>
-        <h2 class="detailHead">七、发证状态：</h2>
+        <h2 class="detailHead"  v-if="this.approvalStatus==true">七、发证状态：</h2>
         <span class="content" v-if="this.approvalStatus==true && this.sendRegist==false">使用登记证尚未领取</span>
         <span class="content" v-if="this.approvalStatus==true && this.sendRegist==true">使用登记证已领取
           </br>领取时间：{{this.sendRegistDate}}</span>
@@ -107,6 +94,7 @@
 
       </div>
       <Button type="warning"  v-if="this.approvalStatus==true && this.author_key!=='1'" @click="printVerified()">打印使用登记证</Button>
+
 
 
 
@@ -129,7 +117,9 @@
 
 
     <!--</div>-->
+    <!--<Spin size="large" fix v-if="spinShow"></Spin>-->
   </div>
+
 </template>
 <script>
 
@@ -148,6 +138,7 @@
   export default {
     data() {
       return {
+     //   spinShow: true,
         ruleForm: [],
         dev_id: '',
         dev_name: '',
@@ -205,6 +196,7 @@
         unAcceptTellDate:null,
         approvalDate:null,
         unApprovalDate:null,
+        ifConnected:true,
 
       }
     },
@@ -222,32 +214,38 @@
       '$route.query': function () {
         if (this.$route.path !== '/appDetail') {
           if(this.orderState=='waitApproval'||this.orderState=='waitAccept'){
-            this.stompClient.disconnect(function() {
-                console.log("长链接结束");
-              }
-            );
+            if(this.stompClient != null) {
+//              this.stompClient.disconnect(function() {
+//                  console.log("长链接结束");
+//                }
+//              );
+              this.stompClient.disconnect();
+              console.log("Disconnected");
+
+            }
+
           }
 
         }
 
       }
     },
-
     activated() {
       const _this = this;
       _this.initData();
       //建立长链接
-      if(this.orderState=='waitApproval'||this.orderState=='waitAccept'){
-        var socket = new SockJS('/admin/processing');
+      if(_this.orderState=='waitApproval'||_this.orderState=='waitAccept'){
+        let socket = new SockJS('/admin/processing');
         //    var from = document.getElementById('from').value;
-        this.stompClient = Stomp.over(socket);
-        this.stompClient.connect({}, function(frame) {
-          //  setConnected(true);
-          this.target=1;
+        _this.stompClient = Stomp.over(socket);
+        _this.stompClient.connect({}, function(frame) {
           console.log(" long connected");
-          console.log(this.target)
+          _this.ifConnected=false;
+
         });
+
       }
+
 
     },
     methods: {
@@ -266,6 +264,8 @@
       },
 
       initData(){
+       // this.spinShow=true;
+        this.ifConnected=true;
         this.transparam();
         this.current = 0;
         this.active = 0;
@@ -780,5 +780,16 @@
     z-index: 10;
     background-color: white;
   }
+  .demo-spin-container{
+    display: inline-block;
+    width: auto;
+    height:auto;
+    position: relative;
+    border: 1px solid #eee;
+  }
+  /*.demo-spin-article{*/
+    /*width:800px;*/
+    /*height:600px;*/
+  /*}*/
 
 </style>
