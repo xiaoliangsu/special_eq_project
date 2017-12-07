@@ -33,9 +33,13 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use((res) => {
   //if (!res.data.success) {
   //去掉这个注释
+  if (res.status !== 200) {
+    return Promise.reject(res);
+  }
+  return res;
+}, (error) => {
 
-  if (res.data.status == 401) {
-
+  if(error.response.status==401){
 
     localStorage.removeItem('loginStatus');
     localStorage.removeItem('userInfo');
@@ -50,21 +54,11 @@ axios.interceptors.response.use((res) => {
     localStorage.removeItem('propertyComCode');
     router.replace({
       path: 'login',
-     // query: {redirect: router.currentRoute.fullPath}
+      // query: {redirect: router.currentRoute.fullPath}
     })
-    _.toast("尚未登陆，请重新登陆", 'fail');
-
 
   }
-  if (res.status !== 200) {
-    return Promise.reject(res);
-  }
-  return res;
-}, (error) => {
-  _.toast("网络异常", 'fail');
-  // this.$Notice.error({
-  //     title: '网络异常',
-  // });
+
   return Promise.reject(error);
 });
 
