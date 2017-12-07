@@ -1478,11 +1478,15 @@
             if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceClass = "气瓶";
-              this.ruleForm.deviceKind = this.deviceClassTypeId;
+              if(this.deviceClassTypeId!==''){
+                this.ruleForm.deviceKind = this.deviceClassTypeId;
+              }
             } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceClass = "工业管道";
-              this.ruleForm.deviceKind = this.deviceClassTypeId;
+              if(this.deviceClassTypeId!==''){
+                this.ruleForm.deviceKind = this.deviceClassTypeId;
+              }
             }
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
