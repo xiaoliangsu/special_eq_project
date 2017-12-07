@@ -1200,7 +1200,9 @@
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = {};
-            this.ruleForm.deviceKind = this.deviceKindTypeId;
+            if(this.deviceKindTypeId!==''){
+              this.ruleForm.deviceKind = this.deviceKindTypeId;
+            }
 //            for(let i=0;i<this.formDynamicPres.items.length;i++){
 //              this.changeInputTime(this.formDynamicPres.items[i].eqCreateDate);
 //              this.formDynamicPres.items[i].eqCreateDate=this.getInputTime;

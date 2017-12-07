@@ -1475,9 +1475,15 @@
             //把选择的哪一项带进去
             // let submitParam=this.makeParams();
             let submitParam = {};
-            this.ruleForm.deviceCategory = this.deviceCategoryId;
-            this.ruleForm.deviceClass = this.deviceClassId;
-            this.ruleForm.deviceKind = this.deviceClassTypeId;
+            if(this.deviceCategoryId!==""){
+              this.ruleForm.deviceCategory = this.deviceCategoryId;
+            }
+            if(this.deviceClassId!==""){
+              this.ruleForm.deviceClass = this.deviceClassId;
+            }
+            if(this.deviceClassTypeId!==""){
+              this.ruleForm.deviceKind = this.deviceClassTypeId;
+            }
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
