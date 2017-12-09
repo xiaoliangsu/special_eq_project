@@ -932,6 +932,7 @@
         this.defaultPdfList8 = [];
         this.defaultPdfList9=[];
         this.defaultPdfList10=[];
+        this.applyId='';
 
 
         //   this.selected = this.getSelectedOption;

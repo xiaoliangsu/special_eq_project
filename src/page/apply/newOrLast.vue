@@ -231,13 +231,13 @@
 
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
-                this.data5[i].state = res.data.content[i].status.states;
+//                this.data5[i].state = res.data.content[i].status.states;
                 //this.data5[i].state = res.data.content[i].status.states;
-                let newDate = new Date(res.data.content[i].createTime);
-                let Y = newDate.getFullYear() + '-';
-                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
-                let D = newDate.getDate() + ' ';
-                this.data5[i].createTime = Y + M + D;
+//                let newDate = new Date(res.data.content[i].createTime);
+//                let Y = newDate.getFullYear() + '-';
+//                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '-';
+//                let D = newDate.getDate() + ' ';
+//                this.data5[i].createTime = Y + M + D;
               }
             } else {
               this.data5 = '';
