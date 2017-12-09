@@ -1144,6 +1144,7 @@
         this.defaultPdfList8 = [];
         this.defaultPdfList9=[];
         this.defaultPdfList10=[];
+        this.applyId='';
 
         //如果是第一次填写
         if (!(this.$route.query.ifold)) {
