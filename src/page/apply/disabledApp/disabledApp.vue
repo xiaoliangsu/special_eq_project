@@ -69,12 +69,12 @@
             <Row><!--wang-->
               <Col span="11">
               <Form-item label="安全管理员" prop="safeAdministrator">
-                <Input v-model="ruleForm.safeAdministrator" disabled></Input>
+                <Input v-model="ruleForm.safeAdministrator" ></Input>
               </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="安全管理员联系电话" prop="mobilePhone">
-                <Input v-model="ruleForm.mobilePhone" disabled></Input>
+                <Input v-model="ruleForm.mobilePhone" ></Input>
               </Form-item>
               </Col>
             </Row>
@@ -207,7 +207,6 @@
             <Form-item label="产权单位的书面委托" :label-width="200">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -224,7 +223,6 @@
             <Form-item label="产权单位的授权文件" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -467,15 +465,15 @@
         this.addressCode = localStorage.getItem('addressCode');
         this.ruleForm.useComName = localStorage.getItem('useComName');
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+//        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
 
         if (localStorage.getItem('company') == 'true') {
-          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.isCompany = true;
-          console.log( this.ruleForm.safeAdministrator)
+//          console.log( this.ruleForm.safeAdministrator)
         } else {
-          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.isCompany = false;
         }
 

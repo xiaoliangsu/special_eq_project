@@ -41,7 +41,7 @@
           <Col>
           <label>设备代码精准搜索</label>
           <Input v-model="eqCode" placeholder="请输入设备代码" style="width: 180px"></Input>
-          <Button type="primary" class="query" @click="exactSearch">搜索</Button>
+          <Button type="primary"  @click="exactSearch">搜索</Button>
 
           </Col>
         </Row>
@@ -178,12 +178,10 @@
             title: '设备种类',
             key: 'deviceCategory',
           },
-          {
-            title: '设备类别',
-            key: 'deviceClass',
-
-
-          },
+//          {
+//            title: '设备类别',
+//            key: 'deviceClass',
+//          },
           {
             title: '设备品种',
             key: 'deviceKind',

@@ -171,7 +171,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" disabled></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -185,7 +185,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" disabled></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -217,7 +217,7 @@
               <Col span="11" offset="2">
               <Form-item label="电子邮箱" prop="email">
                 <!--wang-->
-                <Input v-model="ruleForm.email" disabled></Input>
+                <Input v-model="ruleForm.email" ></Input>
               </Form-item>
               </Col>
             </Row>
@@ -243,7 +243,6 @@
             <Form-item label="社会信用代码证明" :label-width="200">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -268,7 +267,6 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -286,7 +284,6 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -310,7 +307,6 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -328,7 +324,6 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -1203,14 +1198,14 @@
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
-        this.ruleForm.email = localStorage.getItem('email');
+//        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+//        this.ruleForm.email = localStorage.getItem('email');
 
         if (localStorage.getItem('company') == 'true') {
-          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
         } else {
-          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
 
         }

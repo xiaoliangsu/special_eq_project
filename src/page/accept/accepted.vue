@@ -40,7 +40,7 @@
           <Col>
           <label>设备代码精准搜索</label>
           <Input v-model="eqCode" placeholder="请输入设备代码" style="width: 180px"></Input>
-          <Button type="primary" class="query" @click="exactSearch">搜索</Button>
+          <Button type="primary" @click="exactSearch">搜索</Button>
 
           </Col>
         </Row>
@@ -183,11 +183,11 @@
             title: '单位内编号',
             key: 'comCode',
           },
-          {
-            title: '申请类别',
-            key: 'applyType',
-            width: 120,
-          },
+//          {
+//            title: '申请类别',
+//            key: 'applyType',
+//            width: 120,
+//          },
           {
             title: '登记类别',
             key: 'registKind',

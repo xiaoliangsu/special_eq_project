@@ -259,7 +259,7 @@
                       填写办理登记的设备正式投入使用的开始日期(包括年、月、日)。
                     </p>
                   </div>
-                  <DatePicker v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
+                  <DatePicker type="date"  format="yyyy年MM月dd日" v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
               <Form-item label="安全管理员" prop="safeAdministrator">
@@ -270,7 +270,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -295,7 +295,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -390,7 +390,7 @@
                       填写进行检验的日期，一般是检验完成的日期，即报告出具日期(年、月、日)。
                     </p>
                   </div>
-                  <DatePicker v-model="ruleForm.testDate" style="width:118.11%"></DatePicker>
+                  <DatePicker   type="date"  format="yyyy年MM月dd日" v-model="ruleForm.testDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
               </Col>
@@ -423,7 +423,7 @@
                       首次定期检验日期由使用单位在首次登记时根据本规则和相关安全技术规范的规定填写，登记机关进行审核；对已经实施检验的，使用单位按照检验报告确定的下次检验日期填写；由于结构原因，设计文件规定无法实施定期检验的特种设备，使用单位填写“设计规定不实施定期检验”。
                     </p>
                   </div>
-                  <DatePicker v-model="ruleForm.nextTestDate" style="width:118.11%"></DatePicker>
+                  <DatePicker  type="month"  format="yyyy年MM月" v-model="ruleForm.nextTestDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
               </Col>
@@ -477,7 +477,6 @@
             <Form-item label="社会信用代码证明" :label-width="200" v-if="this.isCompany==true">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -495,7 +494,6 @@
             <Form-item label="个人身份证明" :label-width="200" v-if="this.isCompany==false">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -508,47 +506,7 @@
             </Form-item>
             </Col>
           </Row>
-          <h5>特种设备产品合格证</h5>
-          <Row>
-            <Col span="10">
 
-            <Form-item label="产品合格证" :label-width="200">
-              <Upload
-                ref="upload2"
-                :format="['pdf']"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList3"
-                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
-                :before-upload="handleBeforeUpload3"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-              </Upload>
-
-            </Form-item>
-            </Col>
-            <Col span="10" offset="4">
-            <Form-item label="产品数据表" :label-width="200">
-              <Upload
-                ref="upload2"
-                :format="['pdf']"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList4"
-                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
-                :before-upload="handleBeforeUpload4"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-              </Upload>
-
-            </Form-item>
-            </Col>
-
-          </Row>
           <h5>特种设备监督检验证明</h5>
 
           <Row>
@@ -557,7 +515,6 @@
             <Form-item label="制造监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -575,7 +532,6 @@
             <Form-item label="安装监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -595,7 +551,6 @@
           <Form-item label="首次检验报告" :label-width="200">
             <Upload
               ref="upload2"
-              :format="['pdf']"
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
@@ -614,7 +569,6 @@
             <Form-item label="机动车行驶证" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -632,7 +586,6 @@
             <Form-item label="机动车登记证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -651,7 +604,6 @@
           <Form-item label="锅炉能效证明文件" :label-width="200" v-if="this.device_type==1">
             <Upload
               ref="upload2"
-              :format="['pdf']"
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
@@ -664,6 +616,50 @@
             </Upload>
 
           </Form-item>
+          <h5>特种设备产品合格证</h5>
+          <Row>
+            <Col span="10">
+
+            <Form-item label="产品合格证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-format-error="handleFormatError"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList3"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
+                :before-upload="handleBeforeUpload3"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="产品数据表" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-format-error="handleFormatError"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList4"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
+                :before-upload="handleBeforeUpload4"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+              <h5 style="color:red">注意⚠：如果没有产品数据表，可以下载下列标准模版，填写后上传。</h5>
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+                 class="detail_a">标准锅炉数据表</a></br>
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+                 class="detail_a">标准压力管道数据表</a>
+
+            </Form-item>
+            </Col>
+
+          </Row>
 
 
           <h5>上传文件缩略图</h5>
@@ -1104,16 +1100,16 @@
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+//        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
         this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
 
         if (localStorage.getItem('company') == 'true') {
-          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
           this.isCompany = true;
         } else {
-          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
           this.isCompany = false;
 
