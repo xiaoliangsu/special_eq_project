@@ -217,7 +217,7 @@
               <Col span="11" offset="2">
               <Form-item label="电子邮箱" prop="email">
                 <!--wang-->
-                <Input v-model="ruleForm.email" disabled></Input>
+                <Input v-model="ruleForm.email" ></Input>
               </Form-item>
               </Col>
             </Row>
@@ -1199,7 +1199,7 @@
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
 //        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
-        this.ruleForm.email = localStorage.getItem('email');
+//        this.ruleForm.email = localStorage.getItem('email');
 
         if (localStorage.getItem('company') == 'true') {
 //          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
