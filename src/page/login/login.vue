@@ -30,8 +30,8 @@
 
           <Form-item prop="verif">
             <Input v-model="loginForm.verif" style="width:100px;height:10px;float:left" placeholder="验证码" size="large"></Input>
-            <img src="/admin/static/captchaimage" ref="verifyImg" style="width:100px;height:35px;float:right"
-                 alt="验证码图片" v-on:click="reflushVerify"/>
+            <img src="" ref="verifyImg" style="width:100px;height:40px;float:right;"
+                 alt="获取验证码" v-on:click="reflushVerify"/>
           </Form-item>
           <!--这里加注释-->
           <!--<Form-item prop="author_key">-->
@@ -108,6 +108,7 @@
     mounted(){
       this.showLogin = true;
       this.setSignOut();
+      this.reflushVerify();
       var canvas = document.querySelector('canvas'),
         ctx = canvas.getContext('2d')
       canvas.width = window.innerWidth;
@@ -262,6 +263,7 @@
        }*/
     },
 
+
     computed: {
       ...mapState(['userInfo']),
       ...mapGetters([
@@ -364,6 +366,12 @@
                 break;
               ////等等
             }
+          }else if(res.status==400){
+            this.$Notice.error({
+              title: '这是通知标题',
+              desc: '用户名不存在，请检查',
+            });
+
           }else {
             this.$Notice.error({
               title: '这是通知标题',

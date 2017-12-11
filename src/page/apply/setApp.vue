@@ -506,45 +506,7 @@
             </Form-item>
             </Col>
           </Row>
-          <h5>特种设备产品合格证</h5>
-          <Row>
-            <Col span="10">
 
-            <Form-item label="产品合格证" :label-width="200">
-              <Upload
-                ref="upload2"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList3"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
-                :before-upload="handleBeforeUpload3"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-              </Upload>
-
-            </Form-item>
-            </Col>
-            <Col span="10" offset="4">
-            <Form-item label="产品数据表" :label-width="200">
-              <Upload
-                ref="upload2"
-                :on-format-error="handleFormatError"
-                :on-success="handleSuccess"
-                :on-remove="handleRemove"
-                :default-file-list="defaultPdfList4"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
-                :before-upload="handleBeforeUpload4"
-                with-credentials>
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-
-              </Upload>
-
-            </Form-item>
-            </Col>
-
-          </Row>
           <h5>特种设备监督检验证明</h5>
 
           <Row>
@@ -654,6 +616,50 @@
             </Upload>
 
           </Form-item>
+          <h5>特种设备产品合格证</h5>
+          <Row>
+            <Col span="10">
+
+            <Form-item label="产品合格证" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-format-error="handleFormatError"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList3"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
+                :before-upload="handleBeforeUpload3"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+
+            </Form-item>
+            </Col>
+            <Col span="10" offset="4">
+            <Form-item label="产品数据表" :label-width="200">
+              <Upload
+                ref="upload2"
+                :on-format-error="handleFormatError"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :default-file-list="defaultPdfList4"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
+                :before-upload="handleBeforeUpload4"
+                with-credentials>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+
+              </Upload>
+              <h5 style="color:red">注意⚠：如果没有产品数据表，可以下载下列标准模版，填写后上传。</h5>
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+                 class="detail_a">标准锅炉数据表</a></br>
+              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+                 class="detail_a">标准压力管道数据表</a>
+
+            </Form-item>
+            </Col>
+
+          </Row>
 
 
           <h5>上传文件缩略图</h5>
