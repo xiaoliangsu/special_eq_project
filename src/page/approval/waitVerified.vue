@@ -178,12 +178,10 @@
             title: '设备种类',
             key: 'deviceCategory',
           },
-          {
-            title: '设备类别',
-            key: 'deviceClass',
-
-
-          },
+//          {
+//            title: '设备类别',
+//            key: 'deviceClass',
+//          },
           {
             title: '设备品种',
             key: 'deviceKind',

@@ -111,7 +111,7 @@
                   :label="'制造日期'"
                   :prop="'items.' + index + '.value'">
                   <!--<Input type="text" v-model="item.eqCreateDate"></Input>-->
-                  <DatePicker v-model="item.eqCreateDate" style="width:122%"></DatePicker>
+                  <DatePicker   type="date"  format="yyyy年MM月dd日" v-model="item.eqCreateDate" style="width:122%"></DatePicker>
                 </FormItem>
                 </Col>
               </Row>
@@ -236,7 +236,7 @@
                       填写办理登记的设备正式投入使用的开始日期(包括年、月、日)。
                     </p>
                   </div>
-                  <DatePicker v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
+                  <DatePicker  type="date"  format="yyyy年MM月dd日" v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
               <Form-item label="安全管理员" prop="safeAdministrator">
@@ -324,7 +324,6 @@
             <Form-item label="社会信用代码证明" :label-width="200" v-if="this.isCompany==true">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -342,7 +341,6 @@
             <Form-item label="个人身份证明" :label-width="200" v-if="this.isCompany==false">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -362,7 +360,6 @@
             <Form-item label="产品合格证" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -380,7 +377,6 @@
             <Form-item label="产品数据表" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -399,7 +395,6 @@
           <Form-item label="安装合格证明" :label-width="200">
             <Upload
               ref="upload2"
-              :format="['pdf']"
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
@@ -420,7 +415,6 @@
             <Form-item label="制造监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -438,7 +432,6 @@
             <Form-item label="安装监督检验证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -458,7 +451,6 @@
           <Form-item label="首次检验报告" :label-width="200">
             <Upload
               ref="upload2"
-              :format="['pdf']"
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
@@ -477,7 +469,6 @@
             <Form-item label="机动车行驶证" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -495,7 +486,6 @@
             <Form-item label="机动车登记证书" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
