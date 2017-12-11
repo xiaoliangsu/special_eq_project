@@ -364,7 +364,13 @@
                 break;
               ////等等
             }
-          }else {
+          }else if(res.status==400){
+            this.$Notice.error({
+              title: '这是通知标题',
+              desc: "用户名错误，请检查",
+            });
+
+          }else{
             this.$Notice.error({
               title: '这是通知标题',
               desc: res.msg,

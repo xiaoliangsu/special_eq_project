@@ -96,11 +96,11 @@
             key: 'deviceKind',
 
           },
-          {
-            title: '申请类别',
-            key: 'applyType',
-
-          },
+          // {
+          //   title: '申请类别',
+          //   key: 'applyType',
+          //
+          // },
 
           {
             title: '登记机关',
