@@ -243,7 +243,6 @@
             <Form-item label="社会信用代码证明" :label-width="200">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -268,7 +267,6 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -286,7 +284,6 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -310,7 +307,6 @@
               <Form-item label="监督检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"
@@ -328,7 +324,6 @@
               <Form-item label="定期检验证明" :label-width="200">
                 <Upload
                   ref="upload2"
-                  :format="['pdf']"
                   :on-format-error="handleFormatError"
                   :on-success="handleSuccess"
                   :on-remove="handleRemove"

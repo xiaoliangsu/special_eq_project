@@ -207,7 +207,6 @@
             <Form-item label="产权单位的书面委托" :label-width="200">
               <Upload
                 ref="upload1"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
@@ -224,7 +223,6 @@
             <Form-item label="产权单位的授权文件" :label-width="200">
               <Upload
                 ref="upload2"
-                :format="['pdf']"
                 :on-format-error="handleFormatError"
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
