@@ -270,7 +270,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -295,7 +295,7 @@
                       填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" ></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -1100,16 +1100,16 @@
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+//        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
         this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
 
         if (localStorage.getItem('company') == 'true') {
-          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
           this.isCompany = true;
         } else {
-          this.ruleForm.safeAdministrator = localStorage.getItem('name');
+//          this.ruleForm.safeAdministrator = localStorage.getItem('name');
           this.ruleForm.useComCode = localStorage.getItem('verifyId');
           this.isCompany = false;
 
