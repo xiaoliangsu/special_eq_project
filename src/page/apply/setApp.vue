@@ -262,15 +262,15 @@
                   <DatePicker v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
-              <Form-item label="安全管理员" prop="safeAdministrator">
+              <Form-item label="安全管理负责人" prop="safeAdministrator">
                 <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;">
                     <p>
-                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理负责人姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -287,15 +287,15 @@
                 </Poptip>
 
               </Form-item>
-              <Form-item label="移动电话" prop="mobilePhone">
+              <Form-item label="安全管理负责人移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone"></Input>-->
                 <Poptip trigger="focus">
                   <div slot="content" style="white-space: normal;">
                     <p>
-                      填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理员的移动电话。
+                      填写使用单位负责该台特种设备的专职或者兼职、聘用的安全管理负责人的移动电话。
                     </p>
                   </div>
-                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%" :disabled="true"></i-input>
+                  <i-input v-model="ruleForm.mobilePhone" style="width:118.11%"></i-input>
                 </Poptip>
               </Form-item>
               </Col>
@@ -904,9 +904,9 @@
 //          staticPhone: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
-          mobilePhone: [
-            {required: true, message: '不能为空', trigger: 'blur'}
-          ],
+          // mobilePhone: [
+          //   {required: true, message: '不能为空', trigger: 'blur'}
+          // ],
 //          propertyComName: [
 //            {required:true, message: '不能为空', trigger: 'blur'}
 //          ],
@@ -1051,12 +1051,12 @@
         this.ruleForm.useComAddr = localStorage.getItem('useComAddr');
         this.ruleForm.zipcode = localStorage.getItem('zipcode');
         this.ruleForm.staticPhone = localStorage.getItem('staticPhone');
-        this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
+        // this.ruleForm.mobilePhone = localStorage.getItem('mobilePhone');
         this.ruleForm.propertyComName = localStorage.getItem('propertyComName');
         this.ruleForm.propertyComCode = localStorage.getItem('propertyComCode');
 
         if (localStorage.getItem('company') == 'true') {
-          this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
+          // this.ruleForm.safeAdministrator = localStorage.getItem('safeAdministrator');
           this.ruleForm.useComCode = localStorage.getItem('useComCode');
           this.isCompany = true;
         } else {

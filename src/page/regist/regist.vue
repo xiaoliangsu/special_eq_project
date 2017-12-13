@@ -14,9 +14,9 @@
             <FormItem prop="username" label="用户名">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>登录账号，至少5个字符，要求大小写字母和数字</p>
+                  <p>至少5个字符，不允许中文，只允许英文和数字，不要求和单位名字一致</p>
                 </div>
-                <Input v-model="registInfo.username" placeholder="用户名"></Input>
+                <Input v-model="registInfo.username" placeholder="请设置用户名" onkeyup="this.registInfo.username=this.registInfo.username.replace(/[^/w/.//]/ig,'')"></Input>
               </Poptip>
 
             </FormItem>
@@ -30,9 +30,9 @@
             <FormItem prop="password" label="密码">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>登录密码，至少5个字符，要求大小写字母和数字</p>
+                  <p>至少5个字符，只允许英文和数字</p>
                 </div>
-                <Input type="password" v-model="registInfo.password" placeholder="密码"></Input>
+                <Input type="password" v-model="registInfo.password" placeholder="请设置登陆密码"></Input>
               </Poptip>
 
             </FormItem>
@@ -207,6 +207,27 @@
           callback();
         }
       };
+      const password2Confirm = (rule, val, callback) => {
+        if (this.registInfo.password !== this.registInfo.password2) {
+          callback(new Error('两次密码填写不相同'));
+        }else{
+          callback();
+        }
+      };
+      const nameConfirm = (rule, val, callback) => {
+        if (this.registInfo.username.length < 5) {
+          callback(new Error('请输入至少5个字符'));
+        }else{
+          callback();
+        }
+      };
+      const passwordConfirm = (rule, val, callback) => {
+        if (this.registInfo.password.length < 5) {
+          callback(new Error('请输入至少5个字符'));
+        }else{
+          callback();
+        }
+      };
       return {
         choose: 'company',
 
@@ -267,13 +288,13 @@
 
         rules: {
           username: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:nameConfirm, required: true, trigger: 'blur'}
           ],
           password: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:passwordConfirm, required: true, trigger: 'blur'}
           ],
           password2: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator: password2Confirm, required: true, trigger: 'blur'}
           ],
           useComName: [
             {required: true, message: '不能为空', trigger: 'blur'}
