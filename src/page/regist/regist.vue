@@ -129,31 +129,31 @@
           </Row>
 
           <Row>
-            <FormItem prop="safeAdministrator" label="使用单位安全管理员" v-if="this.companyVisiable">
-              <Input v-model="registInfo.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+            <FormItem prop="safeAdministrator" label="使用单位安全管理负责人" v-if="this.companyVisiable">
+              <Input v-model="registInfo.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理负责人姓名"></Input>
             </FormItem>
           </Row>
           <Row>
             <FormItem prop="name" label="个人姓名" v-if="this.personVisiable">
-              <Input v-model="registInfo.name" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+              <Input v-model="registInfo.name" placeholder="请填写负责该设备专职持证的或者兼职安全管理负责人姓名"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="verifyId" label="身份证号">
-              <Input v-model="registInfo.verifyId" placeholder="请填入安全管理员的公民身份证号码"></Input>
+              <Input v-model="registInfo.verifyId" placeholder="请填入安全管理负责人的公民身份证号码"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="email" label="电子信箱">
-              <Input v-model="registInfo.email" placeholder="请填入安全管理员的电子邮箱"></Input>
+              <Input v-model="registInfo.email" placeholder="请填入安全管理负责人的电子邮箱"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="mobilePhone" label="移动电话号码">
-              <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+              <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理负责人的移动电话号码"></Input>
             </FormItem>
           </Row>
           <Row>
@@ -704,6 +704,8 @@
   .regist {
     width: 60%;
     margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     padding-bottom: 10px;
     height: auto;
     border: 2px solid #dddee1;
@@ -730,6 +732,7 @@
   .body {
     width: 50%;
     margin: 0 auto;
+    padding: 20px 20px 20px 20px;
   }
 
   .label {

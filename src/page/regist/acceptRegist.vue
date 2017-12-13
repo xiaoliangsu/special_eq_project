@@ -38,7 +38,7 @@
         </FormItem>
 
         <Row>
-          <h2>请选择角色</h2></br>
+          <h2>选择角色</h2></br>
       <RadioGroup v-model="choose" @on-change="chooseRole" style="margin-left:100px;margin-bottom:10px;">
         <Radio label="acceptor">受理人</Radio>
         <Radio label="approver">审批人</Radio>
@@ -112,7 +112,7 @@
 
         <FormItem prop="mobilePhone" label="移动电话号码">
           <Row>
-            <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+            <Input v-model="registInfo.mobilePhone" placeholder="请填入安全管理负责人的移动电话号码"></Input>
           </Row>
         </FormItem>
 
@@ -435,8 +435,9 @@
     width: 60%;
     margin: 0 auto;
     margin-top: 50px;
+    margin-bottom: 50px;
     padding-bottom: 10px;
-    height: 80%;
+    height: auto;
     border: 2px solid #dddee1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -455,6 +456,7 @@
     font-weight: bold;
     font: #464c5b;
     font-size: 30px;
+    margin: 10px;
   }
 
   .body {
