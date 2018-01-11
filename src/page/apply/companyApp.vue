@@ -265,6 +265,7 @@
               <Col span="10">
 
               <Form-item label="监督检验证明" :label-width="200">
+                <h5>注意⚠：新投入使用需要提供</h5>
                 <Upload
                   ref="upload2"
                   :on-format-error="handleFormatError"
@@ -282,6 +283,7 @@
               </Col>
               <Col span="10" offset="4">
               <Form-item label="定期检验证明" :label-width="200">
+                <h5>注意⚠：进行定期检验需要提供</h5>
                 <Upload
                   ref="upload2"
                   :on-format-error="handleFormatError"
@@ -322,6 +324,7 @@
               </Col>
               <Col span="10" offset="4">
               <Form-item label="定期检验证明" :label-width="200">
+                <h5>注意⚠：达到检验周期需要提供</h5>
                 <Upload
                   ref="upload2"
                   :on-format-error="handleFormatError"
@@ -1892,15 +1895,6 @@
 
       //确认全部
       instance (type) {
-        for(let i=0;i<this.fileList.length;i++){
-          if(this.fileList[i]<=1){
-            this.$Notice.warning({
-              title: '通知',
-              desc: '请上传全部pdf文件'
-            });
-            return
-          }
-        }
         this.$Modal.confirm({
           title: 'Title',
           content: '<p>点击确认提交年检申请</p><p>如您还未到年检日期，请点击取消，并存入档案</p>',

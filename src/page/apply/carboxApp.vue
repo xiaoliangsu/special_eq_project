@@ -354,14 +354,14 @@
             </Col>
           </Row>
 
-          <Form-item label="安装合格证明" :label-width="200">
+          <Form-item label="气瓶安装合格证明" :label-width="200">
             <Upload
               ref="upload2"
               :on-format-error="handleFormatError"
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList10"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'安装合格证明'+this.fileList[3]"
+              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'气瓶安装合格证明'+this.fileList[3]"
               :before-upload="handleBeforeUpload10"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -1051,9 +1051,9 @@
               this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
               this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
             }
-            if(valueName.replace(/\d+/g,'')=="安装合格证明"){
+            if(valueName.replace(/\d+/g,'')=="气瓶安装合格证明"){
               this.defaultPdfList10.push({
-                'name':'安装合格证明',
+                'name':'气瓶安装合格证明',
                 'url':'/admin/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[3]++;
@@ -1467,16 +1467,6 @@
         });
       },
       instance (type) {
-          console.log(this.fileList);
-        for(let i=0;i<this.fileList.length;i++){
-          if(this.fileList[i]<=1){
-            this.$Notice.warning({
-              title: '通知',
-              desc: '请上传全部pdf文件'
-            });
-            return
-          }
-        }
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {

@@ -483,7 +483,7 @@
                 :default-file-list="defaultPdfList2"
                 :before-upload="handleBeforeUpload2"
                 :show-upload-list="true"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'+this.fileList[0]"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -498,7 +498,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList2"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
+                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'+this.fileList[0]"
                 :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -1733,30 +1733,30 @@
 
       //这里参数要改
       instance (type) {
-          console.log(this.fileList);
-          if(this.device_type==1){
-            for(let i=0;i<this.fileList.length;i++){
-              if(this.fileList[i]<=1){
-                this.$Notice.warning({
-                  title: '通知',
-                  desc: '请上传全部pdf文件'
-                });
-                return
-              }
-            }
-
-          }else{
-            for(let i=0;i<this.fileList.length-1;i++){
-              if(this.fileList[i]<=1){
-                this.$Notice.warning({
-                  title: '通知',
-                  desc: '请上传全部pdf文件'
-                });
-                return
-              }
-            }
-
-          }
+//          console.log(this.fileList);
+//          if(this.device_type==1){
+//            for(let i=0;i<this.fileList.length;i++){
+//              if(this.fileList[i]<=1){
+//                this.$Notice.warning({
+//                  title: '通知',
+//                  desc: '请上传全部pdf文件'
+//                });
+//                return
+//              }
+//            }
+//
+//          }else{
+//            for(let i=0;i<this.fileList.length-1;i++){
+//              if(this.fileList[i]<=1){
+//                this.$Notice.warning({
+//                  title: '通知',
+//                  desc: '请上传全部pdf文件'
+//                });
+//                return
+//              }
+//            }
+//
+//          }
 
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
