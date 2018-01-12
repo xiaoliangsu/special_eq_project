@@ -148,7 +148,7 @@ const router = new VueRouter({
         // {path: "/waitCheckList", component: WaitCheckList},
 
         {path: "/applyerList", component: ApplyerList,
-          meta: [ '受理申请发证情况', '受理中申请']},
+          meta: [ '已提交申请办理情况']},
         {path: "/unSubmitOrder", component: UnSubmitOrder,
           meta: ['受理申请发证情况',  '未提交申请']},
 

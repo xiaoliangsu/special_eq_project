@@ -1733,31 +1733,6 @@
 
       //这里参数要改
       instance (type) {
-//          console.log(this.fileList);
-//          if(this.device_type==1){
-//            for(let i=0;i<this.fileList.length;i++){
-//              if(this.fileList[i]<=1){
-//                this.$Notice.warning({
-//                  title: '通知',
-//                  desc: '请上传全部pdf文件'
-//                });
-//                return
-//              }
-//            }
-//
-//          }else{
-//            for(let i=0;i<this.fileList.length-1;i++){
-//              if(this.fileList[i]<=1){
-//                this.$Notice.warning({
-//                  title: '通知',
-//                  desc: '请上传全部pdf文件'
-//                });
-//                return
-//              }
-//            }
-//
-//          }
-
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
           if (res) {
