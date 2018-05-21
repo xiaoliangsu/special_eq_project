@@ -2,11 +2,11 @@
   <div class="AcceptRegist">
     <div class="head">登记机关注册使用账号</div>
     <div class="body">
-      <RadioGroup v-model="choose" @on-change="chooseRole" style="margin-left:100px;margin-bottom:10px;">
-        <Radio label="acceptor">受理机关</Radio>
-        <Radio label="approver">审批机关</Radio>
+     <!-- <RadioGroup v-model="choose" @on-change="chooseRole" style="margin-left:100px;margin-bottom:10px;">
+        <Radio label="acceptor">受理人</Radio>
+        <Radio label="approver">审批人</Radio>
 
-      </RadioGroup>
+      </RadioGroup>-->
       <Form :model="registInfo" :label-width="120" :rules="rules" ref="registInfo">
         <Row>
 
@@ -86,8 +86,13 @@
           </Row>
         </FormItem>
 
+        <RadioGroup v-model="choose" @on-change="chooseRole" style="margin-left:100px;margin-bottom:10px;">
+          <Radio label="acceptor">受理人</Radio>
+          <Radio label="approver">审批人</Radio>
+
+        </RadioGroup>
         <Row>
-          <FormItem prop="name" label="登记人员">
+          <FormItem prop="name" label="登记人员" v-if="this.approverVisiable">
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;">
                 <p>填写负责登记工作的人员姓名</p>
@@ -101,7 +106,7 @@
 
 
         <Row>
-          <FormItem prop="verifyId" label="身份证号">
+          <FormItem prop="verifyId" label="身份证号" v-if="this.approverVisiable">
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;">
                 <p>请填入登记人员的公民身份证号码</p>
@@ -113,11 +118,11 @@
         </Row>
 
 
-        <FormItem prop="mobilePhone" label="移动电话号码">
+        <FormItem prop="mobilePhone" label="移动电话号码" v-if="this.approverVisiable">
           <Row>
             <Poptip trigger="focus" placement="right">
               <div slot="content" style="white-space: normal;">
-                <p>请填入安全管理员的移动电话号码</p>
+                <p>请填入登记人员的移动电话号码</p>
               </div>
               <Input v-model="registInfo.mobilePhone" class="ivu-input-special"></Input>
 
@@ -165,6 +170,27 @@
           callback();
         }
       };
+      const usernameConfirm = (rule, val, callback) => {
+        if (!/^(?=.*\d)(?=.*[a-zA-Z]).{5,}$/.test(val)) {
+          callback(new Error('请输入正确格式的用户名'));
+        }else{
+          callback();
+        }
+      };
+      const passwordConfirm = (rule, val, callback) => {
+        if (!/^(?=.*\d)(?=.*[a-zA-Z]).{5,}$/.test(val)) {
+          callback(new Error('请输入正确格式的密码'));
+        }else{
+          callback();
+        }
+      };
+      const password2Confirm = (rule, val, callback) => {
+        if (val!=this.registInfo.password) {
+          callback(new Error('两次密码输入不同'));
+        }else{
+          callback();
+        }
+      };
       return {
         choose: "acceptor",
         role: 'acceptor',
@@ -182,6 +208,8 @@
           mobilePhone: '',
         },
         acceptComList: [],
+        acceptorVisiable: true,
+        approverVisiable: false,
 
 
         province: '',
@@ -214,13 +242,16 @@
             {validator:telephoneConfirm,required: true,  trigger: 'blur'}
           ],
           password: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+//            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:passwordConfirm,required: true,  trigger: 'blur'}
           ],
           password2: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+//            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:password2Confirm,required: true,  trigger: 'blur'}
           ],
           username: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+//            {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:usernameConfirm,required: true,  trigger: 'blur'}
           ],
 
         },
@@ -255,15 +286,21 @@
     methods: {
       chooseRole(value){
         console.log(value)
-        if (value == '') {
+        if (value == 'acceptor') {
           this.role = 'acceptor        ';
+          this.acceptorVisiable=true;
+          this.approverVisiable=false;
         } else {
           this.role = 'approver        ';
+          this.acceptorVisiable=false;
+          this.approverVisiable=true;
 
         }
 
       },
       initData(){
+        this.acceptorVisiable=true;
+        this.approverVisiable=false;
         setAppService.getProvinces().then(res => {
           for (let i = 0, len = res.length; i < len; i++) {
             this.provinceList.push({value: res[i].code, label: res[i].name});

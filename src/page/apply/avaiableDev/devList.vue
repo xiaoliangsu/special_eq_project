@@ -31,7 +31,7 @@
           <label>设备代码精准搜索</label>
           <Input v-model="deviceCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary"  @click="exactSearch">搜索</Button>
-          <Button type="warning"class="query" ><a v-bind:href=this.gasDownloadPdf download="标准气瓶基本信息汇总表.pdf"
+          <Button type="warning"class="query" ><a v-bind:href="'/admin/device/getExcel'" download="设备汇总表.xls"
                                                   class="detail_a" style="color:white;">下载设备列表</a></Button>
 
           </Col>
