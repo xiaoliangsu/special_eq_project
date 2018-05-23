@@ -239,17 +239,6 @@
                   <DatePicker  type="date"  format="yyyy年MM月dd日" v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
-              <Form-item label="安全管理员" prop="safeAdministrator">
-                <!--<Input v-model="ruleForm.safeAdministrator" ></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
-                </Poptip>
-              </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
               <Col span="11" offset="2">
@@ -267,6 +256,23 @@
                   <i-input v-model="ruleForm.staticPhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11">
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <!--<Input v-model="ruleForm.safeAdministrator" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
+                </Poptip>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
               <Form-item label="移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone" ></Input>-->
                 <Poptip trigger="focus">
@@ -330,7 +336,7 @@
                 :default-file-list="defaultPdfList2"
                 :before-upload="handleBeforeUpload2"
                 :show-upload-list="true"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'社会信用代码证明'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -345,7 +351,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList2"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'个人身份证明'"
                 :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -361,7 +367,7 @@
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList10"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'气瓶安装合格证明'+this.fileList[3]"
+              :action="'/file/upload?applyId='+this.applyId+'&fileName='+'气瓶安装合格证明'+this.fileList[3]"
               :before-upload="handleBeforeUpload10"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -381,7 +387,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList5"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.fileList[4]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'制造监督检验证书'+this.fileList[4]"
                 :before-upload="handleBeforeUpload5"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -398,7 +404,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList6"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.fileList[5]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'安装监督检验证书'+this.fileList[5]"
                 :before-upload="handleBeforeUpload6"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -417,7 +423,7 @@
               :on-success="handleSuccess"
               :on-remove="handleRemove"
               :default-file-list="defaultPdfList7"
-              :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.fileList[6]"
+              :action="'/file/upload?applyId='+this.applyId+'&fileName='+'首次检验报告'+this.fileList[6]"
               :before-upload="handleBeforeUpload7"
               with-credentials>
               <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -435,7 +441,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList8"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.fileList[7]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车行驶证'+this.fileList[7]"
                 :before-upload="handleBeforeUpload8"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -452,7 +458,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList9"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.fileList[8]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'机动车登记证书'+this.fileList[8]"
                 :before-upload="handleBeforeUpload9"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -473,7 +479,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList3"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品合格证'+this.fileList[1]"
                 :before-upload="handleBeforeUpload3"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -490,16 +496,16 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList4"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产品数据表'+this.fileList[2]"
                 :before-upload="handleBeforeUpload4"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
               </Upload>
               <h5 style="color:red">注意⚠：如果没有产品数据表，可以下载下列标准模版，填写后上传。</h5>
-              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+              <a v-bind:href="'/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准锅炉数据表</a></br>
-              <a v-bind:href="'                                                    admin/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
+              <a v-bind:href="'/static/file/cylinder.xlsx'" download="标准气瓶基本信息汇总表.xlsx"
                  class="detail_a">标准压力管道数据表</a>
             </Form-item>
             </Col>
@@ -973,92 +979,92 @@
             if(valueName.replace(/\d+/g,'')=="社会信用代码证明"){
               this.defaultPdfList2=[{
                 'name':'社会信用代码证明',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               }];
               this.fileList[0]++;
-              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
-              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+              this.uploadList[0].url = "/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/file/preview?fileId="+res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="个人身份证明"){
               this.defaultPdfList2=[{
                 'name':'个人身份证明',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               }]
               this.fileList[0]++;
-              this.uploadList[0].url = "/admin/file/thumbnail?fileId="+res.data.files[valueName];
-              this.pdfList.push("/admin/file/preview?fileId="+res.data.files[valueName])
+              this.uploadList[0].url = "/file/thumbnail?fileId="+res.data.files[valueName];
+              this.pdfList.push("/file/preview?fileId="+res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="产品合格证"){
               this.defaultPdfList3.push({
                 'name':'产品合格证',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[1]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="产品数据表"){
               this.defaultPdfList4.push({
                 'name':'产品数据表',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[2]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="制造监督检验证书"){
               this.defaultPdfList5.push({
                 'name':'制造监督检验证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[4]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="安装监督检验证书"){
               this.defaultPdfList6.push({
                 'name':'安装监督检验证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[5]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="首次检验报告"){
               this.defaultPdfList7.push({
                 'name':'首次检验报告',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[6]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="机动车行驶证"){
               this.defaultPdfList8.push({
                 'name':'机动车行驶证',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[7]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="机动车登记证书"){
               this.defaultPdfList9.push({
                 'name':'机动车登记证书',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[8]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
             if(valueName.replace(/\d+/g,'')=="气瓶安装合格证明"){
               this.defaultPdfList10.push({
                 'name':'气瓶安装合格证明',
-                'url':'/admin/file/upload?applyId='+res.data.files[valueName]
+                'url':'/file/upload?applyId='+res.data.files[valueName]
               });
               this.fileList[3]++;
-              this.uploadList.push({"url": "/admin/file/thumbnail?fileId=" + res.data.files[valueName]});
-              this.pdfList.push("/admin/file/preview?fileId=" + res.data.files[valueName])
+              this.uploadList.push({"url": "/file/thumbnail?fileId=" + res.data.files[valueName]});
+              this.pdfList.push("/file/preview?fileId=" + res.data.files[valueName])
             }
 
           }
@@ -1115,22 +1121,32 @@
         this.acceptorAgencyName = value.label;
       },
 
-
       submit(submitParam){
         setAppService.submitSetInfo(submitParam).then(res => {
 
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-//            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
-
-            this.$Message.info('您已提交信息，请预览结果');
+            //this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+//            this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
@@ -1175,8 +1191,6 @@
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -1218,19 +1232,28 @@
             // submitParam.deviceKind = this.deviceKindTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
 //                this.fileId = res.data.forms.split("=")[1].split("}")[0];
-//                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
-
-                this.$Message.info('您已提交信息，请预览结果');
+//                this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+                //this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+                if(res.data.forms['特种设备使用登记表二']==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
                 this.modalCertain = false;
               }
 
             }).catch(error => {
               console.log(error);
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
 
             })
           } else {
@@ -1332,6 +1355,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
@@ -1346,6 +1370,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
@@ -1375,11 +1400,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push( res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push( res.data.preview)
 
         }
 
@@ -1388,7 +1413,7 @@
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
           if(res.response){
-            if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+            if (this.uploadList[i].url == res.response.data.thumbnail) {
               this.uploadList.splice(i, 1);
             }
           }

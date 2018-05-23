@@ -48,8 +48,8 @@
         <!--<iframe id="iFramePdf" v-bind:src=this.registPdfUrl style="width:800px;height:1000px;"></iframe>-->
         <ul class="detail_ul">
           <li v-for="(item,key,index) in this.registPdfUrl" class="detail_li" style="width:800px;height:1000px;">
-            <a v-bind:href="'/admin/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
-            <embed  v-bind:src="'/admin/file/preview?fileId='+item" width="100%" height="1000px"/>
+            <a v-bind:href="'/file/download?fileId='+item" download="key" class="detail_a">{{key}}.pdf</a>
+            <embed  v-bind:src="'/file/preview?fileId='+item" width="100%" height="1000px"/>
           </li>
         </ul>
 
@@ -235,7 +235,7 @@
       _this.initData();
       //建立长链接
       if(_this.orderState=='waitApproval'||_this.orderState=='waitAccept'){
-        let socket = new SockJS('/admin/processing');
+        let socket = new SockJS('/processing');
         //    var from = document.getElementById('from').value;
         _this.stompClient = Stomp.over(socket);
         _this.stompClient.connect({}, function(frame) {

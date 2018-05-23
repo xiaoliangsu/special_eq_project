@@ -396,7 +396,7 @@
       },
       //刷新验证码
       reflushVerify() {
-        this.$refs.verifyImg.src="/admin/static/captchaimage?"+Math.random();
+        this.$refs.verifyImg.src="/static/captchaimage?"+Math.random();
       },
       selectAuthorKey(value){
         this.author_key=value;

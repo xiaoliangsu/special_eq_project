@@ -27,7 +27,7 @@
         <p>原登记机关应当注销使用登记证，并且在原使用登记证和原使用登记表上作注销标记，向使用单位签发《特种设备使用登记证变更证明》。</p>
         <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:70px;margin-top:40px;">填写变更证明</Button>
       </div>
-       
+
       <div style="margin-left:400px;">
         <p style="font-size:25px;margin-left:15px;">
           （变更证明已审批通过）
@@ -57,7 +57,7 @@
         <div class="statusInfo" v-if="this.active==3">
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记证变更证明</h2>
-            </br>  
+            </br>
 
             <Row>
               <Col span='11'>
@@ -88,7 +88,7 @@
               </Col>
             </Row>
 
-              
+
               <Form-item label="制造单位名称" prop="manufatureComName">
                 <i-input v-model="ruleForm.manufatureComName"></i-input>
               </Form-item>
@@ -157,7 +157,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记证'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -173,7 +173,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记表'"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'原使用登记表'"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -336,7 +336,7 @@
               ]);
             }
 
-          }          
+          }
 
         ],
         pdfUrl: '',
@@ -629,21 +629,32 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-            this.$Message.info('您已提交信息，请预览结果');
+            //this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
+
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let form5 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -697,16 +708,26 @@
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
-                this.$Message.info('您已提交信息，请预览结果');
                 this.modalCertain = false;
+                if(res.data.forms['特种设备使用登记证变更证明']==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
               }
             }).catch(error => {
               console.log(error);
-            })                                                                                                                                                                                                     
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
+            })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -769,6 +790,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
@@ -783,6 +805,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
@@ -810,11 +833,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push( res.data.preview)
 
         }
 
@@ -827,7 +850,7 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
@@ -872,7 +895,7 @@
           })
         }
 
-      },      
+      },
       instance (type) {
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
@@ -904,7 +927,7 @@
         this.ruleForm.registCode=row.registCode;
         this.ruleForm.deviceCategory=row.deviceCategory;
         this.ruleForm.deviceClass=row.deviceClass;
-        this.ruleForm.deviceKind=row.deviceKind;        
+        this.ruleForm.deviceKind=row.deviceKind;
         this.ruleForm.eqCode=row.eqCode;
         this.deviceId=row.id;
         this.ruleForm.deviceName=row.deviceName;
@@ -914,12 +937,12 @@
 
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
-        
+
 //          let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 
-        
+
 
         }).catch(error => {
           console.log(error)

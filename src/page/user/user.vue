@@ -79,26 +79,26 @@
           </Row>
 
           <Row>
-            <FormItem prop="safeAdministrator" label="安全管理员">
-              <Input v-model="ruleForm.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理员姓名"></Input>
+            <FormItem prop="safeAdministrator" label="安全管理负责人">
+              <Input v-model="ruleForm.safeAdministrator" placeholder="请填写负责该设备专职持证的或者兼职安全管理负责人姓名"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="verifyId" label="身份证号">
-              <Input v-model="ruleForm.verifyId" placeholder="请填入安全管理员的公民身份证号码"></Input>
+              <Input v-model="ruleForm.verifyId" placeholder="请填入安全管理负责人的公民身份证号码"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="email" label="电子信箱">
-              <Input v-model="ruleForm.email" placeholder="请填入安全管理员的电子邮箱"></Input>
+              <Input v-model="ruleForm.email" placeholder="请填入安全管理负责人的电子邮箱"></Input>
             </FormItem>
           </Row>
 
           <Row>
             <FormItem prop="mobilePhone" label="移动电话号码">
-              <Input v-model="ruleForm.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
+              <Input v-model="ruleForm.mobilePhone" placeholder="请填入安全管理负责人的移动电话号码"></Input>
             </FormItem>
           </Row>
           <Row>
@@ -121,7 +121,7 @@
         </Form>
     </div>
     <!--受理审批-->
-    <div class="admin_set" v-if="this.author_key==2||this.author_key==3">
+    <div class="admin_set" v-if="this.author_key==2 || this.author_key==3">
       <Form :model="ruleForm" :label-width="120" :rules="registRules" ref="registInfo">
         <Row>
 
@@ -157,20 +157,20 @@
         </Row>
 
         <Row>
-          <FormItem prop="name" label="登记人员" >
+          <FormItem prop="name" label="登记人员" v-if="this.author_key==3">
 
             <Input v-model="ruleForm.name" placeholder="填写负责登记工作的人员姓名"></Input>
 
           </FormItem>
         </Row>
         <Row>
-          <FormItem prop="verifyId" label="身份证号">
+          <FormItem prop="verifyId" label="身份证号" v-if="this.author_key==3">
 
             <Input v-model="ruleForm.verifyId" placeholder="请填入登记人员的公民身份证号码"></Input>
 
           </FormItem>
         </Row>
-        <FormItem prop="mobilePhone" label="移动电话号码">
+        <FormItem prop="mobilePhone" label="移动电话号码" v-if="this.author_key==3">
           <Row>
             <Input v-model="ruleForm.mobilePhone" placeholder="请填入安全管理员的移动电话号码"></Input>
           </Row>
@@ -178,7 +178,7 @@
 
       </Form>
     </div>
-    <Button type="primary" @click="saveRuleForm()" style="font-size:16px;font-weight:bold;margin-left:600px;">保存</Button>
+    <Button type="primary" @click="saveRuleForm()" style="font-size:16px;font-weight:bold;margin-left:600px;" v-if="this.author_key==1 || this.author_key==3">保存</Button>
 
 
   </div>
@@ -366,7 +366,11 @@
             }
 
           }
-        if(this.author_key==2||this.author_key==3){
+        if(this.author_key==2){
+          this.ruleForm.acceptorAgencyId = localStorage.getItem('acceptorAgencyId');
+          this.ruleForm.acceptorAgencyName = localStorage.getItem('acceptorAgencyName');
+        }
+        if(this.author_key==3){
           this.ruleForm.acceptorAgencyId = localStorage.getItem('acceptorAgencyId');
           this.ruleForm.acceptorAgencyName = localStorage.getItem('acceptorAgencyName');
           this.ruleForm.name = localStorage.getItem('name');
@@ -671,7 +675,7 @@
   .admin_set {
     width: 60%;
     background-color: #F9FAFC;
-    min-height: 400px;
+    min-height: 220px;
     margin: 20px auto 0;
     border-radius: 10px;
     ul > li {

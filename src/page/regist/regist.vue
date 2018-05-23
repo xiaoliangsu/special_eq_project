@@ -140,10 +140,10 @@
           </Row>
 
           <Row>
-            <FormItem prop="safeAdministrator" label="使用单位安全管理员" v-if="this.companyVisiable">
+            <FormItem prop="safeAdministrator" label="使用单位安全管理负责人" v-if="this.companyVisiable">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>请填写负责该设备专职持证的或者兼职安全管理员姓名</p>
+                  <p>请填写负责该设备专职持证的或者兼职安全管理负责人姓名</p>
                 </div>
                 <Input v-model="registInfo.safeAdministrator"  class="ivu-input-special"></Input>
               </Poptip>
@@ -153,7 +153,7 @@
             <FormItem prop="name" label="个人姓名" v-if="this.personVisiable">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>请填写负责该设备专职持证的或者兼职安全管理员姓名</p>
+                  <p>请填写负责该设备专职持证的或者兼职安全管理负责人姓名</p>
                 </div>
                 <Input v-model="registInfo.name"  class="ivu-input-special"></Input>
               </Poptip>
@@ -164,7 +164,7 @@
             <FormItem prop="verifyId" label="身份证号">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>请填入安全管理员的公民身份证号码</p>
+                  <p>请填入安全管理负责人的公民身份证号码</p>
                 </div>
                 <Input v-model="registInfo.verifyId" class="ivu-input-special" ></Input>
 
@@ -176,7 +176,7 @@
             <FormItem prop="email" label="电子信箱">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>请填入安全管理员的电子邮箱</p>
+                  <p>请填入安全管理负责人的电子邮箱</p>
                 </div>
                 <Input v-model="registInfo.email" class="ivu-input-special" ></Input>
               </Poptip>
@@ -187,7 +187,7 @@
             <FormItem prop="mobilePhone" label="移动电话号码">
               <Poptip trigger="focus" placement="right">
                 <div slot="content" style="white-space: normal;">
-                  <p>请填入安全管理员的移动电话号码</p>
+                  <p>请填入安全管理负责人的移动电话号码</p>
                 </div>
                 <Input v-model="registInfo.mobilePhone"  class="ivu-input-special"></Input>
               </Poptip>
@@ -267,6 +267,27 @@
           callback();
         }
       };
+      const usernameConfirm = (rule, val, callback) => {
+        if (!/^(?=.*\d)(?=.*[a-zA-Z]).{5,}$/.test(val)) {
+          callback(new Error('请输入正确格式的用户名'));
+        }else{
+          callback();
+        }
+      };
+      const passwordConfirm = (rule, val, callback) => {
+        if (!/^(?=.*\d)(?=.*[a-zA-Z]).{5,}$/.test(val)) {
+          callback(new Error('请输入正确格式的密码'));
+        }else{
+          callback();
+        }
+      };
+      const password2Confirm = (rule, val, callback) => {
+        if (val!=this.registInfo.password) {
+          callback(new Error('两次密码输入不同'));
+        }else{
+          callback();
+        }
+      };
       return {
         choose: 'company',
 
@@ -327,13 +348,16 @@
 
         rules: {
           username: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+           // {required: true, message: '不能为空', trigger: 'blur'}
+            {validator:usernameConfirm,required: true,  trigger: 'blur'}
           ],
           password: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            //{required: true, message: '不能为空', trigger: 'blur'}
+            {validator:passwordConfirm,required: true,  trigger: 'blur'}
           ],
           password2: [
-            {required: true, message: '不能为空', trigger: 'blur'}
+            //{required: true, message: '不能为空', trigger: 'blur'}
+            {validator:password2Confirm,required: true,  trigger: 'blur'}
           ],
           useComName: [
             {required: true, message: '不能为空', trigger: 'blur'}

@@ -212,7 +212,7 @@
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
                 :before-upload="handleBeforeUpload1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'+this.fileList[8]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的书面委托'+this.fileList[8]"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
 
@@ -227,7 +227,7 @@
                 :on-success="handleSuccess"
                 :on-remove="handleRemove"
                 :default-file-list="defaultPdfList1"
-                :action="'/admin/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'+this.fileList[1]"
+                :action="'/file/upload?applyId='+this.applyId+'&fileName='+'产权单位的授权文件'+this.fileList[1]"
                 :before-upload="handleBeforeUpload2"
                 with-credentials>
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
@@ -565,21 +565,31 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-            this.$Message.info('您已提交信息，请预览结果');
+            //this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let form5 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -645,17 +655,28 @@
 //            submitParam.registCode = this.registCode;
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
                 this.fileId = res.data.forms.split("=")[1].split("}")[0];
-                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-                this.$Message.info('您已提交信息，请预览结果');
+                //this.pdfUrl = '/file/preview?fileId=' + this.fileId;
+                if(this.fileId==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/file/preview?fileId='+ this.fileId;
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
                 this.modalCertain = false;
               }
 
             }).catch(error => {
               console.log(error);
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
 
             })
           } else {
@@ -701,6 +722,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
@@ -715,6 +737,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
@@ -742,11 +765,11 @@
         // this.uploadList = this.$refs.upload.fileList;
         //this.uploadList[0].name="缩略图";
         if (this.uploadList[0].url === '') {
-          this.uploadList[0].url = "/admin" + res.data.thumbnail;
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList[0].url = res.data.thumbnail;
+          this.pdfList.push(res.data.preview)
         } else {
-          this.uploadList.push({"url": "/admin" + res.data.thumbnail});
-          this.pdfList.push("/admin" + res.data.preview)
+          this.uploadList.push({"url": res.data.thumbnail});
+          this.pdfList.push(res.data.preview)
 
         }
 
@@ -759,7 +782,7 @@
       },
       handleRemove(res, file) {
         for (let i = 0; i < this.uploadList.length; i++) {
-          if (this.uploadList[i].url == "/admin" + res.response.data.thumbnail) {
+          if (this.uploadList[i].url == res.response.data.thumbnail) {
             this.uploadList.splice(i, 1);
           }
         }
