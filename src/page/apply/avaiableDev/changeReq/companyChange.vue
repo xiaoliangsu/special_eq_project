@@ -23,7 +23,7 @@
         <p>原使用单位持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更；或者产权单位凭产权证明文件，持原使用登记证、使用登记表和有效期内的定期检验报告到登记机关办理变更。</p>
         <Button type="primary" @click="next()" v-if="this.active==1" style="margin-left:50px;margin-top:40px;">我是原单位（或产权单位）</Button>
       </div>
-       
+
       <div style="margin-left:400px;">
         <p>新使用单位持《特种设备使用登记证变更证明》、标有注销标记的原使用登记表和有效期内的定期检验报告，重新办理使用登记。</p>
         <Button type="success" @click="jump()" v-if="this.active==1" style="margin-left:90px;margin-top:65px;">我是新单位</Button>
@@ -48,7 +48,7 @@
         <div class="statusInfo" v-if="this.active==3">
             <div class="base-box">
             <h2 class="header_one">特种设备使用登记证变更证明</h2>
-            </br>  
+            </br>
 
             <Row>
               <Col span='11'>
@@ -79,7 +79,7 @@
               </Col>
             </Row>
 
-              
+
               <Form-item label="制造单位名称" prop="manufatureComName">
                 <i-input v-model="ruleForm.manufatureComName"></i-input>
               </Form-item>
@@ -192,8 +192,8 @@
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
               </Upload>
             </Form-item>
-            </Col>            
-            
+            </Col>
+
           </Row>
 
           <h5>上传文件缩略图</h5>
@@ -679,21 +679,31 @@
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
 
             // this.fileId = res.data.forms[1];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-            this.$Message.info('您已提交信息，请预览结果');
+            //this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
             let form5 = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -747,16 +757,27 @@
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
-                this.$Message.info('您已提交信息，请预览结果');
+                //this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
+                if(res.data.forms['特种设备使用登记证变更证明']==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记证变更证明'];
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
                 this.modalCertain = false;
               }
             }).catch(error => {
               console.log(error);
-            })                                                                                                                                                                                                     
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
+            })
           } else {
             console.log('error submit!!');
             this.$Message.info('尚有信息不符合要求，请检查');
@@ -818,6 +839,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
@@ -832,6 +854,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
@@ -921,7 +944,7 @@
           })
         }
 
-      },      
+      },
       instance (type) {
         let params = 'applyId=' + this.applyId;
         setAppService.confrimApp(params).then(res => {
@@ -955,7 +978,7 @@
         this.ruleForm.acceptorAgencyId=row.acceptorAgencyId;
         this.ruleForm.acceptorAgencyName=row.acceptorAgencyName;
         this.ruleForm.deviceClass=row.deviceClass;
-        this.ruleForm.deviceKind=row.deviceKind;        
+        this.ruleForm.deviceKind=row.deviceKind;
         this.ruleForm.eqCode=row.eqCode;
         this.ruleForm.deviceName=row.deviceName;
         this.ruleForm.manufatureComName=row.manufatureComName;
@@ -965,12 +988,12 @@
 
 
         // this.ruleForm.deviceCategory=row.deviceCategory;
-        
+
            // let params = 'applyId=' + row.id;
         appDetailService.getAppDetail(params).then(res => {
           this.ruleForm=res.data.formList[0];
 
-        
+
 
         }).catch(error => {
           console.log(error)

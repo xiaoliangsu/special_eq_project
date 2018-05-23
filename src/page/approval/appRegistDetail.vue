@@ -40,7 +40,7 @@
           <label>设备代码精准搜索</label>
           <Input v-model="eqCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary" @click="exactSearch">搜索</Button>
-          <Button type="warning"class="query" ><a v-bind:href="'/admin/admin/approvedApplies/getExcel'" download="设备使用登记明细汇总表.xls"
+          <Button type="warning"class="query" ><a v-bind:href="'/admin/admin/approvedApplies/getExcel'" download="设备使用登记明细汇总表.xlsx"
                                                   class="detail_a" style="color:white;">下载设备使用登记明细表</a></Button>
 
 
@@ -344,7 +344,8 @@
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
               for (var i = 0; i < res.data.content.length; i++) {
-                this.data5[i].state = res.data.content[i].status.states;
+                this.data5[i].registPerson=res.data.content[i].acceptorAgencyName+'/'+res.data.content[i].acceptorName;
+                //this.data5[i].state = res.data.content[i].status.states;//status.states;
               }
             }else{
               this.data5=[];

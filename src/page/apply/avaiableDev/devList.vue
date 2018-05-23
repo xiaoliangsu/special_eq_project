@@ -31,7 +31,7 @@
           <label>设备代码精准搜索</label>
           <Input v-model="deviceCode" placeholder="请输入设备代码" style="width: 180px"></Input>
           <Button type="primary"  @click="exactSearch">搜索</Button>
-          <Button type="warning"class="query" ><a v-bind:href="'/admin/device/getExcel'" download="设备汇总表.xls"
+          <Button type="warning"class="query" ><a v-bind:href="'/admin/device/getExcel'" download="总设备列表.xlsx"
                                                   class="detail_a" style="color:white;">下载设备列表</a></Button>
 
           </Col>
@@ -424,8 +424,14 @@
               this.data5 = res.data.content;
               this.num = res.data.totalElements;
               //  this.data5.state=res.data.content.status.state;
+              //console.log(this.data5);
               for (var i = 0; i < res.data.content.length; i++) {
                 this.changeBackTime(res.data.content[i].noUseDate);
+                let newDate = new Date(res.data.content[i].createTime);
+                let Y = newDate.getFullYear() + '年';
+                let M = (newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1) + '月';
+                let D = newDate.getDate() + '日';
+                this.data5[i].applyDate=Y + M + D;
               }
 
             } else {

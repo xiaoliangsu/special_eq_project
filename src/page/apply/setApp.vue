@@ -262,17 +262,6 @@
                   <DatePicker type="date"  format="yyyy年MM月dd日" v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
-              <Form-item label="安全管理员" prop="safeAdministrator">
-                <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
-                </Poptip>
-              </Form-item>
               </Col>
               <Col span="11" offset="2">
               <Form-item label="单位固定电话" prop="staticPhone">
@@ -287,6 +276,23 @@
                 </Poptip>
 
               </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11">
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <!--<Input v-model="ruleForm.safeAdministrator"></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
+                </Poptip>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
               <Form-item label="移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone"></Input>-->
                 <Poptip trigger="focus">
@@ -454,7 +460,7 @@
           <!--<embed  v-bind:src=this.pdfUrl width="100%" height="700px" id="iFramePdf" />-->
           <!--要这两行-->
 
-          <iframe allowtransparency="true" id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"></iframe>
+          <iframe allowtransparency="true" id="iFramePdf" v-bind:src=this.pdfUrl style="width:100%;height:1000px;"><!--预览超时，请直接<a href=this.pdfUrl>下载</a>预览--></iframe>
           <Button type="warning" @click="printTrigger('iFramePdf');">打印</Button>
 
           <!--<input type="submit"  value="Print"-->
@@ -1399,15 +1405,29 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            console.log(this.fileId);
+            //this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
 //            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
 
-            this.$Message.info('您已提交信息，请预览结果');
+            //this.$Message.info('您已提交信息，请预览结果');
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
@@ -1416,8 +1436,8 @@
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
+            //this.current++;
+            //this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -1466,6 +1486,7 @@
       //更新表单
       updateContent(formName) {
         this.$refs[formName].validate((valid) => {
+
           if (valid) {
 
             let formList = Object.assign({}, this.ruleForm);
@@ -1489,15 +1510,27 @@
             submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
-                this.$Message.info('您已提交信息，请预览结果');
+                //this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                //console.log(res.data.forms['特种设备使用登记表一']);
                 this.modalCertain = false;
+                if(res.data.forms['特种设备使用登记表一']==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
               }
             }).catch(error => {
               console.log(error);
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
             })
           } else {
             console.log('error submit!!');
@@ -1606,9 +1639,11 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
+
 
                 },
                 onCancel: () => {
@@ -1620,6 +1655,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading:true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');

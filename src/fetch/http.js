@@ -6,7 +6,7 @@ import router from "../router/router.js"
 import * as _ from '../util/tool'
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 15000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 //去掉这个注释
 axios.defaults.baseURL = '/admin';

@@ -239,17 +239,6 @@
                   <DatePicker  type="date"  format="yyyy年MM月dd日" v-model="ruleForm.eqUseDate" style="width:118.11%"></DatePicker>
                 </Poptip>
               </Form-item>
-              <Form-item label="安全管理员" prop="safeAdministrator">
-                <!--<Input v-model="ruleForm.safeAdministrator" ></Input>-->
-                <Poptip trigger="focus">
-                  <div slot="content" style="white-space: normal;">
-                    <p>
-                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
-                    </p>
-                  </div>
-                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
-                </Poptip>
-              </Form-item>
               </Col>   <!--qiu-->
               <!--qiu-->
               <Col span="11" offset="2">
@@ -267,6 +256,23 @@
                   <i-input v-model="ruleForm.staticPhone" style="width:118.11%" disabled></i-input>
                 </Poptip>
               </Form-item>
+              </Col>
+            </Row>
+            <Row>
+              <Col span="11">
+              <Form-item label="安全管理员" prop="safeAdministrator">
+                <!--<Input v-model="ruleForm.safeAdministrator" ></Input>-->
+                <Poptip trigger="focus">
+                  <div slot="content" style="white-space: normal;">
+                    <p>
+                      填写使用单位负责该台特种设备的专职或者兼职的安全管理员姓名。如果聘用专业技术服务机构的人员负责安全管理，则填写该人员的姓名。
+                    </p>
+                  </div>
+                  <i-input v-model="ruleForm.safeAdministrator" style="width:118.11%" ></i-input>
+                </Poptip>
+              </Form-item>
+              </Col>
+              <Col span="11" offset="2">
               <Form-item label="移动电话" prop="mobilePhone">
                 <!--<Input v-model="ruleForm.mobilePhone" ></Input>-->
                 <Poptip trigger="focus">
@@ -1122,15 +1128,26 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+            //this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
 //            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
-
-            this.$Message.info('您已提交信息，请预览结果');
+            if(this.fileId==0) {
+              this.$Modal.remove();
+              this.$Message.info('表单已保存，但无法预览，请稍后再试');
+            }
+            else {
+              this.current++;
+              this.active++;
+              this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
+              this.$Modal.remove();
+              this.$Message.info('您已提交信息，请预览结果');
+            }
             this.modalCertain = false;
           }
 
         }).catch(error => {
           console.log(error);
+          this.$Modal.remove();
+          this.$Message.info('提交超时，请稍后再试');
 
         })
       },
@@ -1218,19 +1235,28 @@
             // submitParam.deviceKind = this.deviceKindTypeId;
             setAppService.updateSetInfo(submitParam).then(res => {
               if (res.status == 200) {
-                this.current++;
-                this.active++;
                 this.applyId = res.data.applyId;
 //                this.fileId = res.data.forms.split("=")[1].split("}")[0];
 //                this.pdfUrl = '/admin/file/preview?fileId=' + this.fileId;
-                this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
-
-                this.$Message.info('您已提交信息，请预览结果');
+                //this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+                if(res.data.forms['特种设备使用登记表二']==0) {
+                  this.$Modal.remove();
+                  this.$Message.info('表单已保存，但无法预览，请稍后再试');
+                }
+                else {
+                  this.current++;
+                  this.active++;
+                  this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表二'];
+                  this.$Modal.remove();
+                  this.$Message.info('您已提交信息，请预览结果');
+                }
                 this.modalCertain = false;
               }
 
             }).catch(error => {
               console.log(error);
+              this.$Modal.remove();
+              this.$Message.info('提交超时，请稍后再试');
 
             })
           } else {
@@ -1332,6 +1358,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading:true,
                 onOk: () => {
 
                   this.updateContent('ruleForm');
@@ -1346,6 +1373,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading:true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
