@@ -12,13 +12,19 @@ export function submitStopUseInfo(params) {
 export function submitDisabledInfo(params) {
   return fetch('/apply/disable', params,'post')
 }
-
+//保存接口
+export function saveInfo(params) {
+  return fetch('/apply/save', params,'post')
+}
+//首次保存接口
+export function saveFirstInfo(params) {
+  return fetch('/apply/saveFirst', params,'post')
+}
 
 //修改用户信息
 export function updateUser(params) {
   return fetch('/user/update', params,'post')
 }
-
 
 
 export function updateSetInfo(params) {

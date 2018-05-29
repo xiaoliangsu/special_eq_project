@@ -12,6 +12,7 @@ exports.install = function (Vue, options) {
             path: 'setApp',
             query: {
               applyId: this.data5[value].id,
+              device_type:device_type,
              // dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,
@@ -36,6 +37,7 @@ exports.install = function (Vue, options) {
             path: 'carboxApp',
             query: {
               applyId: this.data5[value].id,
+              device_type:device_type,
             //  dev_name: this.data5[value].device,
               //是保存之后的
               ifold: 1,
