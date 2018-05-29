@@ -1325,7 +1325,7 @@
             for (let i = 0, len = res.length; i < len; i++) {
               this.acceptComList.push({value: res[i].id, label: res[i].name});
             }
-            this.acceptorAgencyName = this.acceptComList[this.acceptCom].label;
+            this.acceptorAgencyName = this.acceptComList[this.acceptCom-1].label;
           }).catch(error => {
             console.log(error);
           })
@@ -1399,6 +1399,12 @@
 //            this.pdfUrl = '/admin/file/preview?fileId='+ res.data.forms['特种设备使用登记表三'];
             if(this.fileId==0) {
               this.$Modal.remove();
+              this.$router.push({
+                path: "newOrLast",
+                query: {
+                  device_type: this.device_type,
+                }
+              });
               this.$Message.info('表单已保存，但无法预览，请稍后再试');
             }
             else {
@@ -1414,6 +1420,12 @@
         }).catch(error => {
           console.log(error);
           this.$Modal.remove();
+          this.$router.push({
+            path: "newOrLast",
+            query: {
+              device_type: this.device_type,
+            }
+          });
           this.$Message.info('提交超时，请稍后再试');
 
         })
@@ -1511,6 +1523,12 @@
                 this.modalCertain = false;
                 if(res.data.forms['特种设备使用登记表三']==0) {
                   this.$Modal.remove();
+                  this.$router.push({
+                    path: "newOrLast",
+                    query: {
+                      device_type: this.device_type,
+                    }
+                  });
                   this.$Message.info('表单已保存，但无法预览，请稍后再试');
                 }
                 else {
@@ -1525,6 +1543,12 @@
             }).catch(error => {
               console.log(error);
               this.$Modal.remove();
+              this.$router.push({
+                path: "newOrLast",
+                query: {
+                  device_type: this.device_type,
+                }
+              });
               this.$Message.info('提交超时，请稍后再试');
 
             })
@@ -1589,6 +1613,7 @@
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
+          loding: true,
           onOk: () => {
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
               let submitParam = {};
@@ -1607,23 +1632,40 @@
               submitParam.formList[0].acceptorAgencyName = this.acceptorAgencyName;
               submitParam.formList[0].formType = 3;
               submitParam.id = parseInt(this.applyId)||parseInt(this.$route.query.applyId);
-              setAppService.updateSetInfo(submitParam).then(res => {
+              setAppService.saveInfo(submitParam).then(res => {
                 if (res.status == 200) {
+                  this.$Modal.remove();
+                  this.$router.push({
+                    path: "newOrLast",
+                    query: {
+                      device_type: this.device_type,
+                    }
+                  });
                   this.$Message.info('您已保存信息');
                   this.modalCertain = false;
                 }
               }).catch(error => {
                 console.log(error);
+                this.$Modal.remove();
+                this.$Message.info('保存失败，请稍后再试');
               })
             } else {
-              setAppService.submitSetInfo(submitParam).then(res => {
-                this.$Message.info('您已保存信息');
-                this.modalCertain = false;
+              setAppService.saveFirstInfo(submitParam).then(res => {
                 console.log(this.modalCertain);
-                if (res.status == true) {
+                if (res.status == 200) {
+                  this.$Modal.remove();
+                  this.$router.push({
+                    path: "newOrLast",
+                    query: {
+                      device_type: this.device_type,
+                    }
+                  });this.$Message.info('您已保存信息');
+                  this.modalCertain = false;
                 }
               }).catch(error => {
                 console.log(error);
+                this.$Modal.remove();
+                this.$Message.info('保存失败，请稍后再试');
               })
             }
 
@@ -1685,6 +1727,7 @@
               this.$Modal.confirm({
                 title: '确认登记表信息',
                 content: '<p>请确认全部填写信息</p>',
+                loading: true,
                 onOk: () => {
 
                   this.submitContent('ruleForm');
