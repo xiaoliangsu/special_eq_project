@@ -1204,8 +1204,8 @@
       submitContent(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.current++;
-            this.active++;
+            //this.current++;
+            //this.active++;
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
@@ -1236,8 +1236,6 @@
 //            console.log( this.ruleForm.subList )
 //            this.changeInputTime(this.ruleForm.eqUseDate);
 //            this.ruleForm.eqUseDate = this.getInputTime;
-            console.log(this.ruleForm.eqUseDate )
-            console.log(this.ruleForm)
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;

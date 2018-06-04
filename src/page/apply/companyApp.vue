@@ -1284,6 +1284,7 @@
           this.clearRuleForm();
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
+          localStorage.setItem("deviceClassTypeId",this.ruleForm.deviceKind);
           this.setUserDetailData();
           this.gasDownloadPdf="/admin/file/download?fileId="+res.data.forms["气瓶基本信息汇总表"];
           this.pipeDownloadPdf="/admin/file/download?fileId="+res.data.forms["压力管道基本信息汇总表"];
@@ -1450,13 +1451,13 @@
           submitParam.deviceClass = "气瓶";
           submitParam.deviceKind = this.deviceClassTypeId;
           this.ruleForm.deviceClass = "气瓶";
-          this.ruleForm.deviceKind = this.deviceClassTypeId;
+          this.ruleForm.deviceKind = localStorage.getItem("deviceClassTypeId");
         } else if (submitParam.deviceType === 10) {
           submitParam.deviceCategory = "压力管道";
           submitParam.deviceClass = "工业管道";
           submitParam.deviceKind = this.deviceClassTypeId;
           this.ruleForm.deviceClass = "工业管道";
-          this.ruleForm.deviceKind = this.deviceClassTypeId;
+          this.ruleForm.deviceKind = localStorage.getItem("deviceClassTypeId");
         }
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
@@ -1475,6 +1476,7 @@
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
+            submitParam.formList[0].deviceKind = this.deviceClassTypeId;
 
             //submitParam.deivceCode = this.ruleForm.eqCode;
             this.submit(submitParam);
@@ -1498,15 +1500,12 @@
             if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceClass = "气瓶";
-              if(this.deviceClassTypeId!==''){
-                this.ruleForm.deviceKind = this.deviceClassTypeId;
-              }
             } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
               this.ruleForm.deviceClass = "工业管道";
-              if(this.deviceClassTypeId!==''){
-                this.ruleForm.deviceKind = this.deviceClassTypeId;
-              }
+            }
+            if(this.deviceClassTypeId !== ""  || this.ruleForm.deviceKindCode ==="") {
+              this.ruleForm.deviceKind = this.deviceClassTypeId;
             }
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
@@ -1613,17 +1612,18 @@
         this.$Modal.confirm({
           title: '保存登记表信息',
           content: '<p>确认保存已经填写信息？</p>',
-          loding: true,
+          loading: true,
           onOk: () => {
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
               let submitParam = {};
               if (submitParam.deviceType === 9) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
                 this.ruleForm.deviceClass = "气瓶";
-                this.ruleForm.deviceKind = this.deviceClassTypeId;
               } else if (submitParam.deviceType === 10) {
 //              submitParam.deviceKind = this.deviceClassTypeId;
                 this.ruleForm.deviceClass = "工业管道";
+              }
+              if(this.deviceClassTypeId !== ""  || this.ruleForm.deviceKindCode ==="") {
                 this.ruleForm.deviceKind = this.deviceClassTypeId;
               }
               submitParam.formList = [];
@@ -1650,6 +1650,7 @@
                 this.$Message.info('保存失败，请稍后再试');
               })
             } else {
+              submitParam.formList[0].deviceKind = this.deviceClassTypeId;
               setAppService.saveFirstInfo(submitParam).then(res => {
                 console.log(this.modalCertain);
                 if (res.status == 200) {
