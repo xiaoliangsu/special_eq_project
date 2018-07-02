@@ -1195,6 +1195,8 @@
 //          this.setUserDetailData();
           this.ruleForm = res.data.formList[0];
           this.acceptCom = res.data.acceptorAgencyId;
+          localStorage.setItem("deviceClassTypeId",this.ruleForm.deviceKind);
+          localStorage.setItem("deviceClassId",this.ruleForm.deviceClass);
           if(res.data.deviceType=='锅炉'){
             this.device_type=1;
           }
@@ -1405,7 +1407,6 @@
           if (res.status == 200) {
             this.applyId = res.data.applyId;
             this.fileId = res.data.forms.split("=")[1].split("}")[0];
-            console.log(this.fileId);
             //this.pdfUrl = '/file/preview?fileId=' + this.fileId;
 //            this.pdfUrl = '/file/preview?fileId='+ res.data.forms['特种设备使用登记表一'];
             if(this.fileId==0) {
@@ -1451,6 +1452,8 @@
             let formList = Object.assign({}, this.ruleForm);
             //把选择的哪一项带进去
             let submitParam = this.makeParams();
+            submitParam.formList[0].deviceClass = this.deviceClassId;
+            submitParam.formList[0].deviceKind = this.deviceClassTypeId;
             this.submit(submitParam);
           } else {
             console.log('error submit!!');
@@ -1468,8 +1471,8 @@
         let submitParam = {};
         //提交表单1
         this.ruleForm.deviceCategory = this.deviceCategoryId;
-        this.ruleForm.deviceClass = this.deviceClassId;
-        this.ruleForm.deviceKind = this.deviceClassTypeId;
+        this.ruleForm.deviceClass = localStorage.getItem("deviceClassId");
+        this.ruleForm.deviceKind = localStorage.getItem("deviceClassTypeId");
         submitParam.formList = [];
         submitParam.formList.push(this.ruleForm);
         submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
@@ -1508,7 +1511,7 @@
             if(this.deviceClassId!==""){
               this.ruleForm.deviceClass = this.deviceClassId;
             }
-            if(this.deviceClassTypeId!==""){
+            if(this.deviceClassTypeId!==""  || this.ruleForm.deviceKindCode ==="") {
               this.ruleForm.deviceKind = this.deviceClassTypeId;
             }
             submitParam.formList = [];
@@ -1563,7 +1566,13 @@
 
       },
       saveForm(formName){
-
+        if (this.ruleForm.testDate >this.ruleForm.nextTestDate && this.ruleForm.nextTestDate !=="" && this.ruleForm.testDate!=="") {
+          this.$Notice.error({
+            title: '这是通知标题',
+            desc: '下次检验日期需在检验日期之后'
+          });
+          return
+        }
         let formList = Object.assign({}, this.ruleForm);
         //把选择的哪一项带进去
         let submitParam = this.makeParams();
@@ -1575,8 +1584,12 @@
             if (this.$route.query.ifold == 1 || (this.creatOrUpdate === true)) {
               let submitParam = {};
               this.ruleForm.deviceCategory = this.deviceCategoryId;
-              this.ruleForm.deviceClass = this.deviceClassId;
-              this.ruleForm.deviceKind = this.deviceClassTypeId;
+              if(this.deviceClassId!=="") {
+                this.ruleForm.deviceClass = this.deviceClassId;
+              }
+              if(this.deviceClassTypeId !== "" || this.ruleForm.deviceKindCode ==="") {
+                this.ruleForm.deviceKind = this.deviceClassTypeId;
+              }
 //              this.changeInputTime(this.ruleForm.eqUseDate);
 //              this.ruleForm.eqUseDate = this.getInputTime;
 //              this.changeInputTime(this.ruleForm.testDate);
@@ -1607,6 +1620,8 @@
                 this.$Message.info('保存失败，请稍后再试');
               })
             } else {
+              submitParam.formList[0].deviceClass = this.deviceClassId;
+              submitParam.formList[0].deviceKind = this.deviceClassTypeId;
               setAppService.saveFirstInfo(submitParam).then(res => {
                 if (res.status == 200) {
                   this.$Modal.remove();

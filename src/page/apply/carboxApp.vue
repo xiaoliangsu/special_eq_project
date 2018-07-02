@@ -1233,8 +1233,6 @@
 //            console.log( this.ruleForm.subList )
 //            this.changeInputTime(this.ruleForm.eqUseDate);
 //            this.ruleForm.eqUseDate = this.getInputTime;
-            console.log(this.ruleForm.eqUseDate )
-            console.log(this.ruleForm)
             submitParam.formList = [];
             submitParam.formList.push(this.ruleForm);
             submitParam.formList[0].acceptorAgencyId = this.acceptorAgencyId;
