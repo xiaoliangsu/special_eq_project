@@ -235,7 +235,7 @@
       _this.initData();
       //建立长链接
       if(_this.orderState=='waitApproval'||_this.orderState=='waitAccept'){
-        let socket = new SockJS('/admin/processing');
+        let socket = new SockJS('http://45.121.52.213:8081/processing');
         //    var from = document.getElementById('from').value;
         _this.stompClient = Stomp.over(socket);
         _this.stompClient.connect({}, function(frame) {
@@ -665,6 +665,7 @@
           if (res.status === 200) {
             this.$Message.info('发证成功');
             this.$router.push('waitVerified');
+            //window.open("http://www.baidu.com",'_blank');
           } else {
             this.$Message.info(res.msg);
           }
